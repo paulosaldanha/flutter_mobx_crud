@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
+      //gera as rotas para navegação
       onGenerateRoute: rotas(),
+      //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
       initialRoute: HomeViewRoute,
       //home: MyHomePage(title: appTitle),
     );
@@ -23,7 +25,7 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   MyHomePage({Key key, this.title}) : super(key: key);
-
+  // cria pagina principal com menu drawer
   @override
   Widget build(BuildContext context) {
     return Scaffold(
