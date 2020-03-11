@@ -32,7 +32,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mobx_codegen: ^0.4.0+1
+  mobx_codegen: ^0.4.0+1 #gerador de código para mobx, elimina boilerplate, faz o nome_classe.g.dart
   build_runner: ^1.7.3
 
 
