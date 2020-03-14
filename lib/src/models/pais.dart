@@ -1,9 +1,9 @@
 import 'package:mobx/mobx.dart';
-
+//define a parte do codigo que sera gerado
 part 'pais.g.dart';
-
+// cria a classe baseado no base e no que foi gerado. _$NomeDaClasse é a forma como é gerado por padrão
 class Pais = _PaisBase with _$Pais;
-
+//Store sinaliza que a classe esta apta a geração de codigo automatica do mobx
 abstract class _PaisBase with Store {
   int id;
   @observable

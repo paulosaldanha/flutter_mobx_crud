@@ -1,6 +1,5 @@
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/routes/router.dart';
 
 void main() => runApp(MyApp());

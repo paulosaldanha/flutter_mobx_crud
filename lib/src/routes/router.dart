@@ -1,5 +1,4 @@
 import 'package:estruturabasica/main.dart';
-import 'package:estruturabasica/src/models/pais.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';

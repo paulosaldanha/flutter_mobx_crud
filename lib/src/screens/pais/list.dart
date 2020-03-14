@@ -2,7 +2,6 @@ import 'package:estruturabasica/src/components/alert_confirm.dart';
 import 'package:estruturabasica/src/components/pais_lista_widget.dart';
 import 'package:estruturabasica/src/controllers/pais_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/screens/pais/pais_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
