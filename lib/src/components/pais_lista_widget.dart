@@ -1,12 +1,12 @@
 import 'package:estruturabasica/src/models/pais.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
+//widget para a listagem de pais
 class PaisListaWidget extends StatelessWidget {
   final Pais pais;
   final Function removeClicked;
   final Function updateClicked;
-
+  // recebe um pais, uma ação para quando clicar em remover e atualizar
   const PaisListaWidget({Key key, this.pais,this.removeClicked,this.updateClicked}) : super(key:key);
 
   @override

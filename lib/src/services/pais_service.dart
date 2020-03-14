@@ -10,13 +10,17 @@ class PaisService {
 
   }
 
-  String saveOrUpdate(Pais pais){
-    if(pais.id != null && pais.id > 0){
-      _repository.update(pais);
+  Future<Pais> saveOrUpdate(Pais pais) async {
+    Pais paisretorno;
+    if(pais.id == null || pais.id == 0){
+      pais.status = 'A';
+      paisretorno = await _repository.add(pais);
     }else{
-       _repository.add(pais);
+      int idpais = await _repository.update(pais);
+      paisretorno = pais;
+      paisretorno.id = idpais;
     }
-    return "Salvo com sucesso";
+    return paisretorno;
   }
 
   String delete(int id){

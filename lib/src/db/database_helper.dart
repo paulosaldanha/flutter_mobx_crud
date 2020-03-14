@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
-
+//Definicao e criacao do bd sqlite
 class DatabaseHelper {
   static final _databaseName = "escolinha.db";
   static final _databaseVersion = 1;

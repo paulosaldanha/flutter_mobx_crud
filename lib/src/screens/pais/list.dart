@@ -26,6 +26,7 @@ class _ListPageState extends State<ListPage> {
       ),
       body: Observer(
         builder: (_) {
+          //retorna lista de pais se for diferente de null
           return paisController.listFiltered != null ? ListView.builder(
             itemCount: paisController.listFiltered.length,
             itemBuilder: (_,index){
@@ -52,9 +53,6 @@ class _ListPageState extends State<ListPage> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            /*Navigator.of(context).push(
-               MaterialPageRoute(builder: (context) => PaisForm()),
-            );*/
             Navigator.of(context).pushNamed(CadPaisViewRoute);
           },
         ),

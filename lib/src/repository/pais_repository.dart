@@ -1,5 +1,4 @@
 import 'package:estruturabasica/src/models/pais.dart';
-import 'package:estruturabasica/src/repository/repository.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
