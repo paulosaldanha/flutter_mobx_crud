@@ -33,6 +33,10 @@ class PaisService {
     return await _repository.getListaPais();
   }
 
+  Future<Pais> getById(int id) async {  
+    return await _repository.getById(id);
+  }
+
   void close(){
     _repository.close();
   }

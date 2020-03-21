@@ -28,6 +28,7 @@ dependencies:
   mobx: ^0.4.0+1 #Biblioteca para gerenciamento de estado reativo
   flutter_mobx: ^0.3.6 #Integração do flutter com mobx. Automaticamente atualiza o observable quando muda
   flushbar: ^1.9.1 #SnackBar personalizada
+  flutter_typeahead: ^1.8.0
 
 dev_dependencies:
   flutter_test:

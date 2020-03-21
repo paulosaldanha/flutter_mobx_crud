@@ -60,12 +60,10 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Estado'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.of(context).pushNamed(ListEstadoViewRoute);
               },
             ),
           ],

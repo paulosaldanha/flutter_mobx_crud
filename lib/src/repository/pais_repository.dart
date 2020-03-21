@@ -1,11 +1,12 @@
 import 'package:estruturabasica/src/models/pais.dart';
+import 'package:estruturabasica/src/repository/repostory.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-class PaisRepository {
-
+class PaisRepository extends Repository {
+ /*
  static final _databaseName = "ExemploDB.db";
  static final _databaseVersion = 1;
  
@@ -32,7 +33,7 @@ class PaisRepository {
   Future _onCreate(Database db, int version) async {
     await db.execute('CREATE TABLE IF NOT EXISTS pais (id INTEGER PRIMARY KEY, nome TEXT, ddi TEXT, sigla TEXT,status TEXT, status_sync TEXT)');
   }  
-
+*/
 
   // Insere uma linha no banco de dados onde cada chave 
   // no Map é um nome de coluna e o valor é o valor da coluna. 
@@ -40,7 +41,6 @@ class PaisRepository {
   Future<Pais> add(Pais pais) async { 
   var dbClient = await database;  
    pais.id = await dbClient.insert('pais', pais.toMap());    
-   print(pais);
    return pais;    
   }    
   
@@ -52,7 +52,6 @@ class PaisRepository {
    List<Pais> listaPais = [];    
    if(maps.length > 0){
      for(int i = 0; i < maps.length; i++){
-       print(maps[i]);
        listaPais.add(Pais.fromMap(maps[i]));
      }
    }
@@ -69,8 +68,6 @@ class PaisRepository {
  }    
      
  Future<int> update(Pais pais) async {     
-   print(pais.nome);
-   print(pais.status);
    var dbClient = await database;  
    return await dbClient.update(    
      'pais',    
@@ -80,6 +77,18 @@ class PaisRepository {
    );    
  }    
      
+Future<Pais> getById(int id) async {    
+   var dbClient = await database;
+   List<Map> maps = await dbClient.rawQuery('select id,nome,ddi,sigla,status,status_sync from pais where id=?',[id]);    
+   Pais pais;    
+   if(maps.length > 0){
+     for(int i = 0; i < maps.length; i++){
+       pais = Pais.fromMap(maps[i]);
+     }
+   }
+   return pais;
+ }    
+
  Future close() async {    
    var dbClient = await database;  
    dbClient.close();    

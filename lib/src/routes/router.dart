@@ -2,6 +2,8 @@ import 'package:estruturabasica/main.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';
+import 'package:estruturabasica/src/screens/estado/estado_form.dart';
+import 'package:estruturabasica/src/screens/estado/estado_list.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);
@@ -22,6 +24,12 @@ RouteFactory rotas(){
           break;
         case CadPaisViewRoute:
           screen = PaisForm(pais: obj);
+          break;
+        case ListEstadoViewRoute:
+          screen = EstadoListPage();
+          break;
+        case CadEstadoViewRoute:
+          screen = EstadoForm(estado:obj);
           break;
         default:
           screen = MyHomePage(title: "Escolinha");
