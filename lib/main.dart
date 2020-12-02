@@ -48,15 +48,7 @@ class MyHomePage extends StatelessWidget {
               title: Text('Pais'),
               onTap: () {
                 Navigator.of(context).pop();
-                /*Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ListPage()),
-                );*/
                 Navigator.of(context).pushNamed(ListPaisViewRoute);
-
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                //Navigator.pop(context);
               },
             ),
             ListTile(
@@ -64,6 +56,13 @@ class MyHomePage extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(ListEstadoViewRoute);
+              },
+            ),
+            ListTile(
+              title: Text('Transação MPOS'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(TransactionCartaoMpos);
               },
             ),
           ],
