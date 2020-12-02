@@ -29,14 +29,14 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
   final _$paymentMethodAtom = Atom(name: '_TransactionMposBase.paymentMethod');
 
   @override
-  String get paymentMethod {
+  PaymentMethod get paymentMethod {
     _$paymentMethodAtom.context.enforceReadPolicy(_$paymentMethodAtom);
     _$paymentMethodAtom.reportObserved();
     return super.paymentMethod;
   }
 
   @override
-  set paymentMethod(String value) {
+  set paymentMethod(PaymentMethod value) {
     _$paymentMethodAtom.context.conditionallyRunInAction(() {
       super.paymentMethod = value;
       _$paymentMethodAtom.reportChanged();

@@ -96,8 +96,8 @@ class DeviceService {
 
       if (data['method'] == 'onReceiveFinishTransaction') {
         setTransactionStatus('onReceiveFinishTransaction');
-        mpos.displayText("TRANSAÇÃO CONCLUÍDA");
-        mpos.close("TRANSAÇÃO CONCLUÍDA - RETIRE O CARTAO");
+        mpos.displayText("TRANSACAO CONCLUIDA");
+        mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
       }
     }
   }
@@ -140,8 +140,7 @@ class DeviceService {
           transaction['card_emv_response']);
     } else {
       mpos.displayText("Pagamento Aprovado");
-      mpos.close("TRANSAÇÃO APROVADA - RETIRE O CARTAO");
-      print('Success. Payment accepted.');
+      mpos.close("TRANSACAO APROVADA - RETIRE O CARTAO");
     }
   }
 
@@ -150,8 +149,7 @@ class DeviceService {
       mpos.finishTransaction(false, 0, null);
     } else {
       mpos.displayText('Pagamento Recusado');
-      mpos.close("TRANSAÇÃO RECUSADA - RETIRE O CARTAO");
-      print('Failure. Payment refused.');
+      mpos.close("TRANSACAO RECUSADA - RETIRE O CARTAO");
     }
 
     setTransactionStatus(null);
