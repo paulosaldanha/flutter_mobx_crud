@@ -9,8 +9,18 @@ abstract class _TransactionMposController with Store {
 
   @observable
   int status = 0;
+  @observable
+  String titleStatus = 'Carregando...' ;
+  @observable
+  String imgStatus;
 
   @action
-  setDeviceName(int value) => status = value;
+  setStatus(int value) => status = value;
+
+  @action
+  setTitleStatus(String value) => titleStatus = value;
+
+  @action
+  setImgStatus(String value) => imgStatus = value;
 
 }

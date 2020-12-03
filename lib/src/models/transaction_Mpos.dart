@@ -1,6 +1,6 @@
+import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
 import 'package:estruturabasica/src/util/device_service.dart';
 import 'package:estruturabasica/src/util/taxa_method_payment_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 
@@ -29,7 +29,7 @@ abstract class _TransactionMposBase with Store {
   setDeviceName(String value) => deviceName = value;
 
   @action
-  setPaymentMethod(String value) {
+  setPaymentMethod(String value, TransactionMposController transactionController) {
     if(value == 'credito'){
       paymentMethod = PaymentMethod.CreditCard;
       amount = TaxaMethodPaymentService.convertCurrentValueAndAmount(currentValues, 'credito');
@@ -38,7 +38,7 @@ abstract class _TransactionMposBase with Store {
       paymentMethod = PaymentMethod.DebitCard;
       installments = 1;
       amount = TaxaMethodPaymentService.convertCurrentValueAndAmount(currentValues, 'debito');
-      initPlatformState();
+      initPlatformState(transactionController);
     }
   }
 
@@ -63,14 +63,17 @@ abstract class _TransactionMposBase with Store {
       return currentValues = TaxaMethodPaymentService.convertToString(currentValuesList);
   }
 
-
-  Future<void> initPlatformState() async {
+  Future<void> initPlatformState(TransactionMposController transactionMposController) async {
+    transactionMposController.setImgStatus('images/pay.png');
+    transactionMposController.setStatus(1);
     DeviceService device = new DeviceService(
-        deviceName: 'PAX-7L840180',
+        deviceName: deviceName,
         amount: amount,
         installments: installments,
         paymentMethod: paymentMethod,
-        mpos: mpos);
+        mpos: mpos,
+        status: transactionMposController,
+    );
   }
 
 //Constructors

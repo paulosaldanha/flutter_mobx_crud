@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
+import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -7,6 +8,7 @@ class TransactionPaymentMethod extends StatelessWidget {
   final transactionMpos;
 
   TransactionPaymentMethod(this.transactionMpos);
+  TransactionMposController transactionController = new TransactionMposController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class TransactionPaymentMethod extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      transactionMpos.setPaymentMethod('credito');
+                      transactionMpos.setPaymentMethod('credito', transactionController);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
@@ -74,7 +76,7 @@ class TransactionPaymentMethod extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      transactionMpos.setPaymentMethod('debito');
+                      transactionMpos.setPaymentMethod('debito', transactionController);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
@@ -101,30 +103,32 @@ class TransactionPaymentMethod extends StatelessWidget {
               ),
             ),
             Container(
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Container(
-              //       height: 200.0,
-              //       width: 250.0,
-              //       decoration: BoxDecoration(
-              //         borderRadius:
-              //             const BorderRadius.all(const Radius.circular(8)),
-              //       ),
-              //       margin: const EdgeInsets.all(1),
-              //       child:Observer(
-              //         builder: (_){
-              //           return transactionMpos.status == 1 ?
-              //           StatlessModal() :
-              //           Column(
-              //             children: [
-              //             ],
-              //           );
-              //         },
-              //       )
-              //     ),
-              //   ],
-              // ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 200.0,
+                    width: 250.0,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(const Radius.circular(8)),
+                    ),
+                    margin: const EdgeInsets.all(1),
+                    child:Observer(
+                      builder: (_){
+                        if (transactionController.status == 1) {
+                          return StatlessModal(transactionController);
+                        } else {
+                          return Column(
+                          children: [
+                          ],
+                        );
+                        }
+                      },
+                    )
+                  ),
+                ],
+              ),
             ),
           ],
         ),

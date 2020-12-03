@@ -56,6 +56,9 @@ flutter:
 
   assets:
     - images/card.png
+    - images/approve.png
+    - images/splash.png
+    - images/pay.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

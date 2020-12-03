@@ -1,12 +1,17 @@
 import 'package:estruturabasica/src/components/build_Key_Item_widget.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
+import 'package:estruturabasica/src/util/bluetooth_device_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TransactionMposForm extends StatelessWidget {
   final transactionMpos = TransactionMpos();
+
+  TransactionMposForm() {
+    BluetoothDeviceService(transactionMpos);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +23,13 @@ class TransactionMposForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(top: 40.0, bottom: 20.0),
+              padding: EdgeInsets.only(top: 30.0, bottom: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "R\$ ",
-                    style: TextStyle(fontSize: 70.0, color: Colors.blue[800]),
+                    style: TextStyle(fontSize: 55.0, color: Colors.blue[800]),
                   ),
                   Observer(
                     builder: (_) {
@@ -86,7 +91,7 @@ class TransactionMposForm extends StatelessWidget {
                   color: Colors.blueAccent[400],
                   textColor: Colors.white,
                   padding: EdgeInsets.all(10.0),
-                  onPressed: transactionMpos.currentValues != "0,00"
+                  onPressed: transactionMpos.currentValues != "0,00" && transactionMpos.deviceName != null
                       ? () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>

@@ -126,10 +126,11 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
   }
 
   @override
-  dynamic setPaymentMethod(String value) {
+  dynamic setPaymentMethod(
+      String value, TransactionMposController transactionController) {
     final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
     try {
-      return super.setPaymentMethod(value);
+      return super.setPaymentMethod(value, transactionController);
     } finally {
       _$_TransactionMposBaseActionController.endAction(_$actionInfo);
     }
