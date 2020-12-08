@@ -1,4 +1,7 @@
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:estruturabasica/src/components/bluetooth_modal_widget.dart';
 import 'package:estruturabasica/src/components/build_Key_Item_widget.dart';
+import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
 import 'package:estruturabasica/src/util/bluetooth_device_service.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TransactionMposForm extends StatelessWidget {
   final transactionMpos = TransactionMpos();
+  TransactionMposController transactionMposController =
+      TransactionMposController();
 
   TransactionMposForm() {
     BluetoothDeviceService(transactionMpos);
@@ -17,33 +22,59 @@ class TransactionMposForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text('Transação MPOS - D150'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(top: 30.0, bottom: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "R\$ ",
-                    style: TextStyle(fontSize: 55.0, color: Colors.blue[800]),
-                  ),
-                  Observer(
-                    builder: (_) {
-                      return Text(
-                        '${transactionMpos.currentValues}',
-                        style: TextStyle(
+            padding: EdgeInsets.only(top: 25.0, bottom: 15.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "R\$ ",
+                      style: TextStyle(
                           fontSize: 55.0,
-                          color: Colors.blue[800],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              )),
+                          color: Color.fromRGBO(55, 53, 116, 1)),
+                    ),
+                    Observer(
+                      builder: (_) {
+                        return Text(
+                          '${transactionMpos.currentValues}',
+                          style: TextStyle(
+                            fontSize: 55.0,
+                            color: Color.fromRGBO(55, 53, 116, 1),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Observer(
+                      builder: (_) {
+                        return transactionMpos.deviceName == null
+                            ? Text(
+                                'SEM CONEXÃO COM MAQUININHA',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.red[800],
+                                ),
+                              )
+                            : Text('');
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: GridView.count(
               primary: false,
@@ -67,7 +98,7 @@ class TransactionMposForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Colors.lightBlue,
+                  color: Color.fromRGBO(55, 53, 116, 1),
                   onPressed: () {
                     transactionMpos.setCurrentValues("clear");
                   },
@@ -88,10 +119,11 @@ class TransactionMposForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Colors.blueAccent[400],
+                  color: Color.fromRGBO(55, 53, 116, 1),
                   textColor: Colors.white,
                   padding: EdgeInsets.all(10.0),
-                  onPressed: transactionMpos.currentValues != "0,00" && transactionMpos.deviceName != null
+                  onPressed: transactionMpos.currentValues != "0,00" &&
+                          transactionMpos.deviceName != null
                       ? () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -108,6 +140,11 @@ class TransactionMposForm extends StatelessWidget {
               },
             ),
           ),
+          Observer(builder: (_) {
+            return transactionMpos.deviceName == null
+                ? BluetoothModal(transactionMposController)
+                : Text('');
+          }),
         ],
       ),
     );

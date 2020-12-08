@@ -14,7 +14,7 @@ class BuildKeyItemWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      color: Colors.lightBlue,
+      color: Color.fromRGBO(55, 53, 116, 1),
       onPressed: () {
         transactionMpos.setCurrentValues(val);
       },

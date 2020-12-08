@@ -112,8 +112,56 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
     }, _$currentValuesListAtom, name: '${_$currentValuesListAtom.name}_set');
   }
 
+  final _$amountValuesCreditCardListAtom =
+      Atom(name: '_TransactionMposBase.amountValuesCreditCardList');
+
+  @override
+  List<Taxa> get amountValuesCreditCardList {
+    _$amountValuesCreditCardListAtom.context
+        .enforceReadPolicy(_$amountValuesCreditCardListAtom);
+    _$amountValuesCreditCardListAtom.reportObserved();
+    return super.amountValuesCreditCardList;
+  }
+
+  @override
+  set amountValuesCreditCardList(List<Taxa> value) {
+    _$amountValuesCreditCardListAtom.context.conditionallyRunInAction(() {
+      super.amountValuesCreditCardList = value;
+      _$amountValuesCreditCardListAtom.reportChanged();
+    }, _$amountValuesCreditCardListAtom,
+        name: '${_$amountValuesCreditCardListAtom.name}_set');
+  }
+
+  final _$selectedStringAtom =
+      Atom(name: '_TransactionMposBase.selectedString');
+
+  @override
+  String get selectedString {
+    _$selectedStringAtom.context.enforceReadPolicy(_$selectedStringAtom);
+    _$selectedStringAtom.reportObserved();
+    return super.selectedString;
+  }
+
+  @override
+  set selectedString(String value) {
+    _$selectedStringAtom.context.conditionallyRunInAction(() {
+      super.selectedString = value;
+      _$selectedStringAtom.reportChanged();
+    }, _$selectedStringAtom, name: '${_$selectedStringAtom.name}_set');
+  }
+
   final _$_TransactionMposBaseActionController =
       ActionController(name: '_TransactionMposBase');
+
+  @override
+  dynamic selectedState(Taxa value) {
+    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
+    try {
+      return super.selectedState(value);
+    } finally {
+      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setDeviceName(String value) {

@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
+import 'package:estruturabasica/src/models/taxa.dart';
 import 'package:estruturabasica/src/util/device_service.dart';
 import 'package:estruturabasica/src/util/taxa_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
@@ -7,11 +8,10 @@ import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 part 'transaction_Mpos.g.dart';
 
 class TransactionMpos = _TransactionMposBase with _$TransactionMpos;
-abstract class _TransactionMposBase with Store {
 
+abstract class _TransactionMposBase with Store {
   PagarmeMpos mpos = new PagarmeMpos();
 
-  int id;
   @observable
   String deviceName;
   @observable
@@ -24,20 +24,37 @@ abstract class _TransactionMposBase with Store {
   String currentValues = "0,00";
   @observable
   List currentValuesList = List();
+  @observable
+  List<Taxa> amountValuesCreditCardList = List();
+  @observable
+  String selectedString;
+
+  @action
+  selectedState(Taxa value) {
+    selectedString = value.descriptionValue;
+    amount = (value.amount * 100).toInt();
+    installments = value.installments;
+  }
 
   @action
   setDeviceName(String value) => deviceName = value;
 
   @action
-  setPaymentMethod(String value, TransactionMposController transactionController) {
-    if(value == 'credito'){
+  setPaymentMethod(
+      String value, TransactionMposController transactionController){
+    if (value == 'credito') {
       paymentMethod = PaymentMethod.CreditCard;
-      amount = TaxaMethodPaymentService.convertCurrentValueAndAmount(currentValues, 'credito');
+       TaxaMethodPaymentService
+           .convertCurrentValueAndAmountCredit(currentValues).then((v) {
+         var listTaxa = new List<double>.from(v);
+         for (var i = 0; i < listTaxa.length; i++) {
+            amountValuesCreditCardList.add( Taxa(listTaxa[i],'${i+1} x de R\$ ${listTaxa[i]}',i+1));
+         }
+       });
     }
-    if(value == 'debito'){
+    if (value == 'debito') {
       paymentMethod = PaymentMethod.DebitCard;
       installments = 1;
-      amount = TaxaMethodPaymentService.convertCurrentValueAndAmount(currentValues, 'debito');
       initPlatformState(transactionController);
     }
   }
@@ -50,54 +67,37 @@ abstract class _TransactionMposBase with Store {
 
   @action
   setCurrentValues(String value) {
-    if(value == "clear"){
-      if(currentValuesList.length == 0){
+    if (value == "clear") {
+      if (currentValuesList.length == 0) {
         return currentValues = "0,00";
       }
       currentValuesList.removeLast();
-      return currentValues = TaxaMethodPaymentService.convertToString(currentValuesList);
+      return currentValues =
+          TaxaMethodPaymentService.convertToString(currentValuesList);
     }
-    if(!(currentValuesList.length == 7)){
+    if (!(currentValuesList.length == 7)) {
       currentValuesList.add(value);
     }
-      return currentValues = TaxaMethodPaymentService.convertToString(currentValuesList);
+    return currentValues =
+        TaxaMethodPaymentService.convertToString(currentValuesList);
   }
 
-  Future<void> initPlatformState(TransactionMposController transactionMposController) async {
+  Future<void> initPlatformState(
+      TransactionMposController transactionMposController) async {
     transactionMposController.setImgStatus('images/pay.png');
     transactionMposController.setStatus(1);
     DeviceService device = new DeviceService(
-        deviceName: deviceName,
-        amount: amount,
-        installments: installments,
-        paymentMethod: paymentMethod,
-        mpos: mpos,
-        status: transactionMposController,
+      deviceName: deviceName,
+      amount: amount,
+      installments: installments,
+      paymentMethod: paymentMethod,
+      mpos: mpos,
+      status: transactionMposController,
     );
   }
 
-//Constructors
-  _TransactionMposBase.construtorParametro (this.deviceName, this.paymentMethod, this.installments, this.amount);
+  _TransactionMposBase.construtorParametro(
+      this.deviceName, this.paymentMethod, this.installments, this.amount);
 
-  _TransactionMposBase ();
-
-//List Functions
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
-      'id': id,
-      'deviceName': deviceName,
-      'paymentMethod': paymentMethod,
-      'installments': installments,
-      'amount': amount,
-    };
-    return map;
-  }
-
-  _TransactionMposBase.fromMap(Map<String,dynamic> map){
-    id = map['id'];
-    deviceName = map['deviceName'];
-    paymentMethod = map['paymentMethod'];
-    installments = map['installments'];
-    amount = map['amount'];
-  }
+  _TransactionMposBase();
 }

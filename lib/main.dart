@@ -28,7 +28,10 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.black,
+      ),
       body: Center(child: Text('My Page!')),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -38,10 +41,38 @@ class MyHomePage extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
+            Divider(),
             DrawerHeader(
               child: Text('Drawer Header'),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(55, 53, 116, 1),
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )),
+            ), Container(
+              height: 60.0,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.list,
+                    size: 32.0,
+                    color: Colors.blueGrey[700],
+                  ),
+                  SizedBox(
+                    width: 32.0,
+                  ),
+                  Text(
+                    'text',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.blueGrey[700],
+                    ),
+                  )
+                ],
               ),
             ),
             ListTile(

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class StatlessModal extends StatelessWidget {
-
   final TransactionMposController transactionMposController;
+
   StatlessModal(this.transactionMposController);
 
   @override
@@ -23,12 +23,15 @@ class StatlessModal extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Observer(builder: (_){
-                    return Text(
+                  Observer(builder: (_) {
+                    return Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
                         '${transactionMposController.titleStatus}',
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.blue[500],
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          color: Color.fromRGBO(55, 53, 116, 1),
+                        ),
                       ),
                     );
                   }),
@@ -37,14 +40,14 @@ class StatlessModal extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      height: 250,
-                      width: 350,
-                      child:Observer(
-                        builder: (_){
-                          return  Image.asset(transactionMposController.imgStatus);
-                        },
-                      )
-                    ),
+                        height: 250,
+                        width: 350,
+                        child: Observer(
+                          builder: (_) {
+                            return Image.asset(
+                                transactionMposController.imgStatus);
+                          },
+                        )),
                   ),
                 ],
               ),
