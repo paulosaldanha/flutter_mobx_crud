@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/routes/router.dart';
 
@@ -30,9 +31,10 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(0,74,173, 1),
       ),
-      body: Center(child: Text('My Page!')),
+      body: Home(),
+
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -41,39 +43,17 @@ class MyHomePage extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            Divider(),
             DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Image.asset('images/splash.png'),
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Color.fromRGBO(55, 53, 116, 1),
+                      Color.fromRGBO(0,74,173, 1),
                       Colors.white,
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   )),
-            ), Container(
-              height: 60.0,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.list,
-                    size: 32.0,
-                    color: Colors.blueGrey[700],
-                  ),
-                  SizedBox(
-                    width: 32.0,
-                  ),
-                  Text(
-                    'text',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.blueGrey[700],
-                    ),
-                  )
-                ],
-              ),
             ),
             ListTile(
               title: Text('Pais'),

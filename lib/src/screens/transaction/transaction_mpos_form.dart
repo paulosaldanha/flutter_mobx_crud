@@ -22,7 +22,7 @@ class TransactionMposForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor:Color.fromRGBO(0,74,173, 1),
         title: Text('Transação MPOS - D150'),
       ),
       body: Column(
@@ -39,7 +39,7 @@ class TransactionMposForm extends StatelessWidget {
                       "R\$ ",
                       style: TextStyle(
                           fontSize: 55.0,
-                          color: Color.fromRGBO(55, 53, 116, 1)),
+                          color: Color.fromRGBO(0,74,173, 1)),
                     ),
                     Observer(
                       builder: (_) {
@@ -47,7 +47,7 @@ class TransactionMposForm extends StatelessWidget {
                           '${transactionMpos.currentValues}',
                           style: TextStyle(
                             fontSize: 55.0,
-                            color: Color.fromRGBO(55, 53, 116, 1),
+                            color: Color.fromRGBO(0,74,173, 1),
                           ),
                         );
                       },
@@ -96,9 +96,9 @@ class TransactionMposForm extends StatelessWidget {
                 BuildKeyItemWidget("00", transactionMpos),
                 RaisedButton(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(5.0),
                   ),
-                  color: Color.fromRGBO(55, 53, 116, 1),
+                  color: Color.fromRGBO(0,74,173, 1),
                   onPressed: () {
                     transactionMpos.setCurrentValues("clear");
                   },
@@ -119,7 +119,7 @@ class TransactionMposForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Color.fromRGBO(55, 53, 116, 1),
+                  color: Color.fromRGBO(0,74,173, 1),
                   textColor: Colors.white,
                   padding: EdgeInsets.all(10.0),
                   onPressed: transactionMpos.currentValues != "0,00" &&

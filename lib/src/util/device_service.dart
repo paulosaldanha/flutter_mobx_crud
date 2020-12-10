@@ -115,11 +115,12 @@ class DeviceService {
   void createTransaction(String jsonResult) async {
     dynamic result = json.decode(jsonResult);
     Map<String, Object> metadata = Map();
-    metadata["nome"] = "Luiz";
-    metadata["valor"] = 12.0;
-    metadata["id_empresa"] = 29199;
-    metadata["id_usuario"] = 37539;
-    metadata["documento"] ="09976688903";
+    metadata["nome_cliente"] = "Luiz";
+    metadata["documento"] = 37539;
+    metadata["valor_pago_cliente"] ="09976688903";
+    metadata["valor_pago_empresa"] ="09976688903";
+    metadata["usuario_id"] ="09976688903";
+    metadata["estabelecimento_id"] ="09976688903";
 
     try {
       dynamic mposTransaction = await transaction.createTransaction({

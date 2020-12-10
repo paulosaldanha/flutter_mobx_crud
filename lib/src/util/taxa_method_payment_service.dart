@@ -15,6 +15,7 @@ class TaxaMethodPaymentService {
     try {
       return await transaction.getTaxa(current.replaceAll(',', '.'));
     } catch (error) {
+
       print(error);
     }
   }

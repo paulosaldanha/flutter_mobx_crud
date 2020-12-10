@@ -12,9 +12,9 @@ class BuildKeyItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  RaisedButton(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
-      color: Color.fromRGBO(55, 53, 116, 1),
+      color: Color.fromRGBO(0,74,173, 1),
       onPressed: () {
         transactionMpos.setCurrentValues(val);
       },

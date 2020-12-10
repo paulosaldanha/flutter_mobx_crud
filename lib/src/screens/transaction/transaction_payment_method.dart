@@ -20,7 +20,7 @@ class TransactionPaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(0,74,173, 1),
         title: Text('Selecione metodo de pagamento'),
       ),
       body: Container(
@@ -40,13 +40,13 @@ class TransactionPaymentMethod extends StatelessWidget {
                         'Total a receber lojista:',
                         style: TextStyle(
                             fontSize: 25.0,
-                            color: Color.fromRGBO(55, 53, 116, 1)),
+                            color: Color.fromRGBO(0,74,173, 1)),
                       ),
                       Text(
                         'R\$ ${transactionMpos.currentValues}',
                         style: TextStyle(
                           fontSize: 50.0,
-                          color: Color.fromRGBO(55, 53, 116, 1),
+                          color: Color.fromRGBO(0,74,173, 1),
                         ),
                       ),
                     ],
