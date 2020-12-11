@@ -5,7 +5,7 @@ import 'package:estruturabasica/src/screens/transaction/transaction_payment_meth
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
- Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionMpos transaction ) async {
+ Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionMpos transaction, String method ) async {
 
    Widget cancelaButton = FlatButton(
     child: Text("Cancelar"),
@@ -32,7 +32,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
                     ? transaction.selectedString
                     : "SELECIONE UM PARCELA")),
             getList: () =>
-            transaction.amountValuesCreditCardList,
+            method == 'credito'?transaction.amountValuesCreditCardList:transaction.amountValuesDebitCardList,
             itemBuilder: (_, parameters, item) {
               return ListTile(
                 title: Text(item.descriptionValue),

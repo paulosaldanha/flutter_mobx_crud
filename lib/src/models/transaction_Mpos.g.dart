@@ -132,6 +132,26 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
         name: '${_$amountValuesCreditCardListAtom.name}_set');
   }
 
+  final _$amountValuesDebitCardListAtom =
+      Atom(name: '_TransactionMposBase.amountValuesDebitCardList');
+
+  @override
+  List<Taxa> get amountValuesDebitCardList {
+    _$amountValuesDebitCardListAtom.context
+        .enforceReadPolicy(_$amountValuesDebitCardListAtom);
+    _$amountValuesDebitCardListAtom.reportObserved();
+    return super.amountValuesDebitCardList;
+  }
+
+  @override
+  set amountValuesDebitCardList(List<Taxa> value) {
+    _$amountValuesDebitCardListAtom.context.conditionallyRunInAction(() {
+      super.amountValuesDebitCardList = value;
+      _$amountValuesDebitCardListAtom.reportChanged();
+    }, _$amountValuesDebitCardListAtom,
+        name: '${_$amountValuesDebitCardListAtom.name}_set');
+  }
+
   final _$selectedStringAtom =
       Atom(name: '_TransactionMposBase.selectedString');
 
@@ -179,6 +199,26 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
     final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
     try {
       return super.setPaymentMethod(value, transactionController);
+    } finally {
+      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getTaxasCredit() {
+    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
+    try {
+      return super.getTaxasCredit();
+    } finally {
+      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getTaxasDebit() {
+    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
+    try {
+      return super.getTaxasDebit();
     } finally {
       _$_TransactionMposBaseActionController.endAction(_$actionInfo);
     }

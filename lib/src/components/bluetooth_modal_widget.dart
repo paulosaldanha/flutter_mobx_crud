@@ -6,10 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BluetoothModal extends StatelessWidget {
-  final TransactionMposController transactionMposController;
-
-  BluetoothModal(this.transactionMposController);
-
   @override
   Widget build(BuildContext context) {
     Timer.run(() {

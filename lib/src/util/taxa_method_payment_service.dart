@@ -13,19 +13,15 @@ class TaxaMethodPaymentService {
 
   static Future<List> convertCurrentValueAndAmountCredit(String current) async {
     try {
-      return await transaction.getTaxa(current.replaceAll(',', '.'));
+      return await transaction.getTaxa(current.replaceAll(',', '.'), 3);
     } catch (error) {
-
       print(error);
     }
   }
 
-  static Future<int> convertCurrentValueAndAmountDebit(String current) async {
+  static  Future<List> convertCurrentValueAndAmountDebit(String current) async {
     try {
-      dynamic taxaTransaction =
-          await transaction.getTaxa(current.replaceAll(',', '.'));
-      int currentInt = (taxaTransaction[0] * 100).toInt();
-      return currentInt;
+      return await transaction.getTaxa(current.replaceAll(',', '.'), 2);
     } catch (error) {
       print(error);
     }

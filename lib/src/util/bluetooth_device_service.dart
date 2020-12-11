@@ -5,9 +5,9 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothDeviceService {
   final TransactionMpos transactionMpos;
-  TransactionMposController transactionController = TransactionMposController();
+  final transactionMposController;
 
-  BluetoothDeviceService(this.transactionMpos) {
+  BluetoothDeviceService(this.transactionMpos, this.transactionMposController) {
     bluetoothConnectionState();
   }
 
@@ -15,16 +15,19 @@ class BluetoothDeviceService {
 
   Future<void> bluetoothConnectionState() async {
     List<BluetoothDevice> devices = [];
+    transactionMpos.setDeviceName(null);
 
     try {
       devices = await bluetooth.getBondedDevices();
     } on PlatformException {
       print("Error");
     }
+    transactionMposController.setStatus(0);
     for (BluetoothDevice paxDevice in devices) {
       if (paxDevice.name.contains('PAX')) {
         transactionMpos.setDeviceName(paxDevice.name);
       }
     }
+    transactionMposController.setStatus(1);
   }
 }

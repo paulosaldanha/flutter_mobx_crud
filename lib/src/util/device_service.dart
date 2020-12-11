@@ -1,31 +1,36 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
+import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import '../services/transaction_service.dart' as transaction;
+import 'package:flutter/material.dart';
 
 class DeviceService {
 
   //TESTE
   String apiKey = 'ak_test_ED7pkGAn73iTqzsEUAQxNK5J5GfFg6';
   String encryptionKey = 'ek_test_b7DwzjOUXMWGXZq2A3qqBGd0vQxjDt';
-  //PROD
+  //PROD.
   // String apiKey = 'ak_live_ziZ8rx6kvDtbeedxRAJtA9Yyc5sAZk';
   // String encryptionKey = 'ek_live_MVoijflgvJcm7Nz2RHiyoCwuvogLqo';
 
-  PagarmeMpos mpos;
+  PagarmeMpos mpos = new PagarmeMpos();
   String transactionStatus;
   int amount;
   int installments;
   PaymentMethod paymentMethod;
   String deviceName;
   TransactionMposController status;
+  var context;
 
-  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.mpos, this.status}) {
+
+  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.status, this.context}) {
     enableListeners();
-    mpos.createMpos(this.deviceName, this.encryptionKey);
-    mpos.events.listen((data) => {print(data)});
-    mpos.openConnection(true);
+    this.mpos.createMpos(this.deviceName, this.encryptionKey);
+    this.mpos.events.listen((data) => {print(data)});
+    this.mpos.openConnection(true);
   }
 
   void enableListeners() {
@@ -42,11 +47,20 @@ class DeviceService {
       }
 
       if (data['method'] == 'onBluetoothDisconnected') {
+        status.setImgStatus('images/fail.png');
+        status.setTitleStatus('Conexão com bluetooth perdida!');
         setTransactionStatus('Lost bluetooth connection...');
         return ;
       }
 
       if (data['method'] == 'onBluetoothErrored') {
+        status.setImgStatus('images/fail.png');
+        status.setTitleStatus( 'Ocorreu algum erro feche a janela é tente novamente!');
+        Timer(Duration(seconds: 2), () {
+          status.setTitleStatus( 'Carregando...');
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed(TransactionCartaoMpos);
+        });
         setTransactionStatus('An error ocurred ${data['value']}');
         return;
       }
@@ -83,7 +97,13 @@ class DeviceService {
 
       if (data['method'] == 'onReceiveError') {
         setTransactionStatus(null);
-        print('ERROR: An error ocurred: ' + data['value']);
+        status.setImgStatus('images/fail.png');
+        status.setTitleStatus('Ocorreu algum erro feche a janela é tente novamente!');
+        Timer(Duration(seconds: 2), () {
+          status.setTitleStatus( 'Carregando...');
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed(TransactionCartaoMpos);
+        });
         mpos.close('ERROR - ' + data['value']);
       }
 
@@ -108,6 +128,10 @@ class DeviceService {
         status.setTitleStatus('Pagamento Aprovado');
         mpos.displayText("TRANSACAO CONCLUIDA");
         mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
+        Timer(Duration(seconds: 4), () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed(HomeViewRoute);
+        });
       }
     }
   }
@@ -154,6 +178,10 @@ class DeviceService {
       status.setTitleStatus('Pagamento Aprovado');
       mpos.displayText("Pagamento Aprovado");
       mpos.close("TRANSACAO APROVADA - RETIRE O CARTAO");
+      Timer(Duration(seconds: 4), () {
+        Navigator.pop(context);
+        Navigator.of(context).pushNamed(HomeViewRoute);
+      });
     }
   }
 
@@ -161,9 +189,14 @@ class DeviceService {
     if (shouldFinishTransaction) {
       mpos.finishTransaction(false, 0, null);
     } else {
+      status.setImgStatus('images/fail.png');
       status.setTitleStatus('Pagamento Recusado');
       mpos.displayText('Pagamento Recusado');
       mpos.close("TRANSACAO RECUSADA - RETIRE O CARTAO");
+      Timer(Duration(seconds: 4), () {
+        Navigator.pop(context);
+        Navigator.of(context).pushNamed(HomeViewRoute);
+      });
     }
 
     setTransactionStatus(null);

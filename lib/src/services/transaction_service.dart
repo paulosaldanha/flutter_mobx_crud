@@ -23,15 +23,21 @@ dynamic createTransaction(Map<String,String> payload) async {
   } 
   
 }
-dynamic getTaxa(String current) async {
+dynamic getTaxa(String current, int method) async {
   var client = http.Client();
 
+  Map<String, Object> payload = Map();
+  payload["valor"] = double.parse(current);
+  payload["metodo"] = method;
+  payload["token"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RvcnQiOiJ7XCJVc3VhcmlvSWRcIjoxLFwiTm9tZVVzdWFyaW9cIjpcIkx1aXogVmxhZGltaXJcIixcIkVtYWlsVXN1YXJpb1wiOlwibHVpekBjbG91ZGNybS50ZWNoXCIsXCJFc3RhYmVsZWNpbWVudG9JZFwiOjEsXCJOb21lRXN0YWJlbGVjaW1lbnRvXCI6bnVsbCxcIlJhemFvU29jaWFsRXN0YWJlbGVjaW1lbnRvXCI6XCJDTE9VRENSTSBTSVNURU1BU1wiLFwiUmVwYXNzZVRheGFDbGllbnRlXCI6dHJ1ZSxcIk5pdmVsQWNlc3NvXCI6XCJTQURNSU5cIn0iLCJ1bmlxdWVfbmFtZSI6Ikx1aXogVmxhZGltaXIiLCJlbWFpbCI6Imx1aXpAY2xvdWRjcm0udGVjaCIsInJvbGUiOiJTQURNSU4iLCJuYmYiOjE2MDc2ODc4OTUsImV4cCI6MTYwNzcxNjY5NSwiaWF0IjoxNjA3Njg3ODk1LCJpc3MiOiJFY29tbWVyY2VCYW5rIn0.QQk3ss_ZWZ6ATBvmuTJ_S3irLfEVNAu_5gG3EkgYSmA";
   try {
-    var response = await client.get(
-        'http://ecommercebank.tk/ecommerce/api/Transacao/calculocartao/${current}',
+    var response = await client.post(
+        'http://ecommercebank.tk/ecommerce/api/Transacao/calculo',
         headers: {
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RvcnQiOiJ7XCJVc3VhcmlvSWRcIjoxLFwiTm9tZVVzdWFyaW9cIjpcInJuYWxkbyBkYSBzaWx2YVwiLFwiRW1haWxVc3VhcmlvXCI6XCJkZXNlbnZvbHZpbWVudG9AY2xvdWRjcm0udGVjaFwiLFwiRXN0YWJlbGVjaW1lbnRvSWRcIjoxLFwiTm9tZUVzdGFiZWxlY2ltZW50b1wiOm51bGwsXCJSYXphb1NvY2lhbEVzdGFiZWxlY2ltZW50b1wiOlwiQkFSIEUgTUVSQ0VBUklBIE1JTkhPQ0FPIExUREFcIixcIlJlcGFzc2VUYXhhQ2xpZW50ZVwiOnRydWUsXCJOaXZlbEFjZXNzb1wiOlwiU0FETUlOXCJ9IiwidW5pcXVlX25hbWUiOiJybmFsZG8gZGEgc2lsdmEiLCJlbWFpbCI6ImRlc2Vudm9sdmltZW50b0BjbG91ZGNybS50ZWNoIiwicm9sZSI6IlNBRE1JTiIsIm5iZiI6MTYwNzUyMzk5NiwiZXhwIjoxNjA3NTUyNzk2LCJpYXQiOjE2MDc1MjM5OTYsImlzcyI6IkVjb21tZXJjZUJhbmsifQ.bLfYddXi1eQltx9cQAJvUTAs56ju3NYELG8EJikCL_4'
-        }
+          HttpHeaders.acceptHeader: 'application/json',
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
+        body: jsonEncode(payload)
     );
 
     return jsonDecode(response.body);

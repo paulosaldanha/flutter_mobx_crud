@@ -96,4 +96,15 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
       _$_TransactionMposControllerActionController.endAction(_$actionInfo);
     }
   }
+
+  @override
+  dynamic endModal(dynamic context) {
+    final _$actionInfo =
+        _$_TransactionMposControllerActionController.startAction();
+    try {
+      return super.endModal(context);
+    } finally {
+      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
+    }
+  }
 }

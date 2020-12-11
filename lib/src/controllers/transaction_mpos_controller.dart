@@ -1,4 +1,8 @@
+import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../main.dart';
 part 'transaction_mpos_controller.g.dart';
 
 class TransactionMposController = _TransactionMposController with _$TransactionMposController;
@@ -14,6 +18,7 @@ abstract class _TransactionMposController with Store {
   @observable
   String imgStatus;
 
+
   @action
   setStatus(int value) => status = value;
 
@@ -22,5 +27,11 @@ abstract class _TransactionMposController with Store {
 
   @action
   setImgStatus(String value) => imgStatus = value;
+
+  @action
+  endModal(context){
+    Navigator.pop(context);
+    Navigator.of(context).pushNamed(HomeViewRoute);
+  }
 
 }

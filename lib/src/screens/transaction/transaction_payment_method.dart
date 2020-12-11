@@ -7,11 +7,15 @@ import 'package:estruturabasica/src/models/taxa.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 class TransactionPaymentMethod extends StatelessWidget {
   final transactionMpos;
 
-  TransactionPaymentMethod(this.transactionMpos);
+  TransactionPaymentMethod(this.transactionMpos){
+    transactionMpos.getTaxasCredit();
+    transactionMpos.getTaxasDebit();
+  }
 
   TransactionMposController transactionController =
       new TransactionMposController();
@@ -66,9 +70,9 @@ class TransactionPaymentMethod extends StatelessWidget {
                       var retorno = await showAlertConfirmListCombo(
                           context,
                           "Selecione uma parcela",
-                          transactionMpos);
+                          transactionMpos, 'credito');
                       if (retorno == 1) {
-                        transactionMpos.initPlatformState(transactionController);
+                        transactionMpos.initPlatformState(transactionController, context);
                       }
                     },
                     child: Container(
@@ -79,23 +83,21 @@ class TransactionPaymentMethod extends StatelessWidget {
                           Icon(Icons.credit_card_outlined,
                               color: Colors.deepPurpleAccent),
                           Text('Cartão de crédito'),
-                          Row(
-                            children: [
-                              Text('R\$ '),
-                              Observer(builder: (_) {
-                                return Text(
-                                    '${transactionMpos.amount == null ? '-' : transactionMpos.amount}');
-                              }),
-                            ],
-                          ),
                         ],
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       transactionMpos.setPaymentMethod(
                           'debito', transactionController);
+                      var retorno = await showAlertConfirmListCombo(
+                          context,
+                          "Selecione uma parcela",
+                          transactionMpos, 'debito');
+                      if (retorno == 1) {
+                        transactionMpos.initPlatformState(transactionController, context);
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
@@ -105,15 +107,6 @@ class TransactionPaymentMethod extends StatelessWidget {
                           Icon(Icons.credit_card_outlined,
                               color: Colors.tealAccent[700]),
                           Text('Cartão de Débito'),
-                          Row(
-                            children: [
-                              Text('R\$ '),
-                              Observer(builder: (_) {
-                                return Text(
-                                    '${transactionMpos.amount == null ? '-' : transactionMpos.amount}');
-                              }),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -136,7 +129,7 @@ class TransactionPaymentMethod extends StatelessWidget {
                         builder: (_) {
                           if (transactionController.status == 1) {
                             return StatlessModal(transactionController);
-                          } else {
+                          }else {
                             return Text('');
                           }
                         },

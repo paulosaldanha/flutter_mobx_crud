@@ -15,7 +15,7 @@ class TransactionMposForm extends StatelessWidget {
       TransactionMposController();
 
   TransactionMposForm() {
-    BluetoothDeviceService(transactionMpos);
+    BluetoothDeviceService(transactionMpos, transactionMposController);
   }
 
   @override
@@ -141,8 +141,8 @@ class TransactionMposForm extends StatelessWidget {
             ),
           ),
           Observer(builder: (_) {
-            return transactionMpos.deviceName == null
-                ? BluetoothModal(transactionMposController)
+            return transactionMpos.deviceName == null && transactionMposController.status == 1
+                ? BluetoothModal()
                 : Text('');
           }),
         ],

@@ -25,16 +25,16 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   MyHomePage({Key key, this.title}) : super(key: key);
+
   // cria pagina principal com menu drawer
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Color.fromRGBO(0,74,173, 1),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       ),
       body: Home(),
-
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -47,13 +47,13 @@ class MyHomePage extends StatelessWidget {
               child: Image.asset('images/splash.png'),
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(0,74,173, 1),
-                      Colors.white,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  )),
+                colors: [
+                  Color.fromRGBO(0, 74, 173, 1),
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
             ),
             ListTile(
               title: Text('Pais'),
