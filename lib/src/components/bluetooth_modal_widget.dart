@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BluetoothModal extends StatelessWidget {

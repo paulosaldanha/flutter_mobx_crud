@@ -1,11 +1,12 @@
 import 'package:combos/combos.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/models/taxa.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
- Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionMpos transaction, String method ) async {
+ Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionListComboController transaction, String method ) async {
 
    Widget cancelaButton = FlatButton(
     child: Text("Cancelar"),

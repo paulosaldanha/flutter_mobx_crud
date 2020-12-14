@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import '../services/transaction_service.dart' as transaction;
@@ -22,7 +22,7 @@ class DeviceService {
   int installments;
   PaymentMethod paymentMethod;
   String deviceName;
-  TransactionMposController status;
+  TransactionModalController status;
   var context;
 
 

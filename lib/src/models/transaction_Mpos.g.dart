@@ -77,111 +77,8 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
     }, _$amountAtom, name: '${_$amountAtom.name}_set');
   }
 
-  final _$currentValuesAtom = Atom(name: '_TransactionMposBase.currentValues');
-
-  @override
-  String get currentValues {
-    _$currentValuesAtom.context.enforceReadPolicy(_$currentValuesAtom);
-    _$currentValuesAtom.reportObserved();
-    return super.currentValues;
-  }
-
-  @override
-  set currentValues(String value) {
-    _$currentValuesAtom.context.conditionallyRunInAction(() {
-      super.currentValues = value;
-      _$currentValuesAtom.reportChanged();
-    }, _$currentValuesAtom, name: '${_$currentValuesAtom.name}_set');
-  }
-
-  final _$currentValuesListAtom =
-      Atom(name: '_TransactionMposBase.currentValuesList');
-
-  @override
-  List<dynamic> get currentValuesList {
-    _$currentValuesListAtom.context.enforceReadPolicy(_$currentValuesListAtom);
-    _$currentValuesListAtom.reportObserved();
-    return super.currentValuesList;
-  }
-
-  @override
-  set currentValuesList(List<dynamic> value) {
-    _$currentValuesListAtom.context.conditionallyRunInAction(() {
-      super.currentValuesList = value;
-      _$currentValuesListAtom.reportChanged();
-    }, _$currentValuesListAtom, name: '${_$currentValuesListAtom.name}_set');
-  }
-
-  final _$amountValuesCreditCardListAtom =
-      Atom(name: '_TransactionMposBase.amountValuesCreditCardList');
-
-  @override
-  List<Taxa> get amountValuesCreditCardList {
-    _$amountValuesCreditCardListAtom.context
-        .enforceReadPolicy(_$amountValuesCreditCardListAtom);
-    _$amountValuesCreditCardListAtom.reportObserved();
-    return super.amountValuesCreditCardList;
-  }
-
-  @override
-  set amountValuesCreditCardList(List<Taxa> value) {
-    _$amountValuesCreditCardListAtom.context.conditionallyRunInAction(() {
-      super.amountValuesCreditCardList = value;
-      _$amountValuesCreditCardListAtom.reportChanged();
-    }, _$amountValuesCreditCardListAtom,
-        name: '${_$amountValuesCreditCardListAtom.name}_set');
-  }
-
-  final _$amountValuesDebitCardListAtom =
-      Atom(name: '_TransactionMposBase.amountValuesDebitCardList');
-
-  @override
-  List<Taxa> get amountValuesDebitCardList {
-    _$amountValuesDebitCardListAtom.context
-        .enforceReadPolicy(_$amountValuesDebitCardListAtom);
-    _$amountValuesDebitCardListAtom.reportObserved();
-    return super.amountValuesDebitCardList;
-  }
-
-  @override
-  set amountValuesDebitCardList(List<Taxa> value) {
-    _$amountValuesDebitCardListAtom.context.conditionallyRunInAction(() {
-      super.amountValuesDebitCardList = value;
-      _$amountValuesDebitCardListAtom.reportChanged();
-    }, _$amountValuesDebitCardListAtom,
-        name: '${_$amountValuesDebitCardListAtom.name}_set');
-  }
-
-  final _$selectedStringAtom =
-      Atom(name: '_TransactionMposBase.selectedString');
-
-  @override
-  String get selectedString {
-    _$selectedStringAtom.context.enforceReadPolicy(_$selectedStringAtom);
-    _$selectedStringAtom.reportObserved();
-    return super.selectedString;
-  }
-
-  @override
-  set selectedString(String value) {
-    _$selectedStringAtom.context.conditionallyRunInAction(() {
-      super.selectedString = value;
-      _$selectedStringAtom.reportChanged();
-    }, _$selectedStringAtom, name: '${_$selectedStringAtom.name}_set');
-  }
-
   final _$_TransactionMposBaseActionController =
       ActionController(name: '_TransactionMposBase');
-
-  @override
-  dynamic selectedState(Taxa value) {
-    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
-    try {
-      return super.selectedState(value);
-    } finally {
-      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic setDeviceName(String value) {
@@ -194,31 +91,10 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
   }
 
   @override
-  dynamic setPaymentMethod(
-      String value, TransactionMposController transactionController) {
+  dynamic setPaymentMethod(PaymentMethod value) {
     final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
     try {
-      return super.setPaymentMethod(value, transactionController);
-    } finally {
-      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getTaxasCredit() {
-    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
-    try {
-      return super.getTaxasCredit();
-    } finally {
-      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getTaxasDebit() {
-    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
-    try {
-      return super.getTaxasDebit();
+      return super.setPaymentMethod(value);
     } finally {
       _$_TransactionMposBaseActionController.endAction(_$actionInfo);
     }
@@ -239,16 +115,6 @@ mixin _$TransactionMpos on _TransactionMposBase, Store {
     final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
     try {
       return super.setAmount(value);
-    } finally {
-      _$_TransactionMposBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCurrentValues(String value) {
-    final _$actionInfo = _$_TransactionMposBaseActionController.startAction();
-    try {
-      return super.setCurrentValues(value);
     } finally {
       _$_TransactionMposBaseActionController.endAction(_$actionInfo);
     }

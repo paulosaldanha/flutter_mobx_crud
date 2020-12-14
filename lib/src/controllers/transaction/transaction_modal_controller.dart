@@ -1,15 +1,13 @@
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+part 'transaction_modal_controller.g.dart';
 
-import '../../main.dart';
-part 'transaction_mpos_controller.g.dart';
+class TransactionModalController = _TransactionModalController with _$TransactionModalController;
 
-class TransactionMposController = _TransactionMposController with _$TransactionMposController;
+abstract class _TransactionModalController with Store {
 
-abstract class _TransactionMposController with Store {
-
-  _TransactionMposController();
+  _TransactionModalController();
 
   @observable
   int status = 0;
@@ -17,7 +15,6 @@ abstract class _TransactionMposController with Store {
   String titleStatus = 'Carregando...' ;
   @observable
   String imgStatus;
-
 
   @action
   setStatus(int value) => status = value;
@@ -27,11 +24,4 @@ abstract class _TransactionMposController with Store {
 
   @action
   setImgStatus(String value) => imgStatus = value;
-
-  @action
-  endModal(context){
-    Navigator.pop(context);
-    Navigator.of(context).pushNamed(HomeViewRoute);
-  }
-
 }

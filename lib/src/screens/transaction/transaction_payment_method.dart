@@ -2,7 +2,8 @@ import 'package:combos/combos.dart';
 import 'package:estruturabasica/src/components/alert_confirm.dart';
 import 'package:estruturabasica/src/components/alert_listCombo.dart';
 import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
-import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
 import 'package:estruturabasica/src/models/taxa.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +11,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
 class TransactionPaymentMethod extends StatelessWidget {
-  final transactionMpos;
+  final transactionMposController;
+  TransactionModalController transactionModal = new TransactionModalController();
+  TransactionListComboController listComboController =  new TransactionListComboController();
 
-  TransactionPaymentMethod(this.transactionMpos){
-    transactionMpos.getTaxasCredit();
-    transactionMpos.getTaxasDebit();
+  TransactionPaymentMethod(this.transactionMposController){
+    listComboController.getTaxasCredit(transactionMposController.currentValues);
+    listComboController.getTaxasDebit(transactionMposController.currentValues);
   }
-
-  TransactionMposController transactionController =
-      new TransactionMposController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TransactionPaymentMethod extends StatelessWidget {
                             color: Color.fromRGBO(0,74,173, 1)),
                       ),
                       Text(
-                        'R\$ ${transactionMpos.currentValues}',
+                        'R\$ ${transactionMposController.currentValues}',
                         style: TextStyle(
                           fontSize: 50.0,
                           color: Color.fromRGBO(0,74,173, 1),
@@ -65,14 +65,16 @@ class TransactionPaymentMethod extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      transactionMpos.setPaymentMethod(
-                          'credito', transactionController);
+                      transactionMposController.setPaymentMethod(
+                          'credito');
                       var retorno = await showAlertConfirmListCombo(
                           context,
                           "Selecione uma parcela",
-                          transactionMpos, 'credito');
+                          listComboController, 'credito');
                       if (retorno == 1) {
-                        transactionMpos.initPlatformState(transactionController, context);
+                        transactionMposController.setInstallments(listComboController.installmentsComboList);
+                        transactionMposController.setAmount(listComboController.amountComboList);
+                        transactionMposController.initPlatformState(transactionModal, context);
                       }
                     },
                     child: Container(
@@ -89,14 +91,14 @@ class TransactionPaymentMethod extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () async {
-                      transactionMpos.setPaymentMethod(
-                          'debito', transactionController);
+                      transactionMposController.setPaymentMethod(
+                          'debito');
                       var retorno = await showAlertConfirmListCombo(
                           context,
                           "Selecione uma parcela",
-                          transactionMpos, 'debito');
+                          listComboController, 'debito');
                       if (retorno == 1) {
-                        transactionMpos.initPlatformState(transactionController, context);
+                        transactionMposController.initPlatformState(transactionModal, context);
                       }
                     },
                     child: Container(
@@ -127,8 +129,8 @@ class TransactionPaymentMethod extends StatelessWidget {
                       width: 250.0,
                       child: Observer(
                         builder: (_) {
-                          if (transactionController.status == 1) {
-                            return StatlessModal(transactionController);
+                          if (transactionModal.status == 1) {
+                            return StatlessModal(transactionModal);
                           }else {
                             return Text('');
                           }
