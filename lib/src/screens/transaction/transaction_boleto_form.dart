@@ -17,7 +17,7 @@ class TransactionBoletoForm extends StatelessWidget {
   double taxa;
   DateTime _dateTime;
   @observable
-  double valorComTaxa;
+  double valueWithTax;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class TransactionBoletoForm extends StatelessWidget {
                   return _textField(
                       labelText: "Nome",
                       onChanged: boletoController.boleto.setNome,
-                      errorText: boletoController.validateNome);
+                      errorText: boletoController.validateName);
                 },
               ),
               SizedBox(
@@ -57,8 +57,8 @@ class TransactionBoletoForm extends StatelessWidget {
                 builder: (_) {
                   return _textField(
                       labelText: "Documento",
-                      onChanged: boletoController.boleto.setDocumento,
-                      errorText: boletoController.validateDocumento);
+                      onChanged: boletoController.boleto.setDocument,
+                      errorText: boletoController.validateDocument);
                 },
               ),
               SizedBox(
@@ -87,8 +87,8 @@ class TransactionBoletoForm extends StatelessWidget {
                       builder: (_) {
                         return _numberField(
                             labelText: "Telefone",
-                            onChanged: boletoController.boleto.setTelefone,
-                            errorText: boletoController.validateTelefone);
+                            onChanged: boletoController.boleto.setTelephone,
+                            errorText: boletoController.validateTelephone);
                       },
                     ),
                   ),
@@ -106,8 +106,8 @@ class TransactionBoletoForm extends StatelessWidget {
                       builder: (_) {
                         return _numberField(
                             labelText: "Valor",
-                            onChanged: boletoController.boleto.setValor,
-                            errorText: boletoController.validateValor,
+                            onChanged: boletoController.boleto.setValue,
+                            errorText: boletoController.validateValue,
                             prefix: "R\$ ");
                       },
                     )),
@@ -121,6 +121,7 @@ class TransactionBoletoForm extends StatelessWidget {
                       builder: (_) {
                         return _numberField(
                             labelText: "Valor com taxa",
+                            onChanged: valueWithTax,
                             prefix: "R\$ ",
                             enable: false);
                       },
@@ -145,7 +146,7 @@ class TransactionBoletoForm extends StatelessWidget {
                 builder: (_) {
                   return _textField(
                       labelText: "Observação",
-                      onChanged: boletoController.boleto.setMensagem);
+                      onChanged: boletoController.boleto.setMessage);
                 },
               ),
               SizedBox(
@@ -218,7 +219,7 @@ _numberField(
 
 _dateButton(context, String label, date, controller) {
   final date = DateTime.now();
-  controller.boleto.setVencimento(date);
+  controller.boleto.setDateExpiration(date);
 
   return RaisedButton.icon(
       padding: const EdgeInsets.all(10.0),
@@ -232,12 +233,12 @@ _dateButton(context, String label, date, controller) {
             initialDate: DateTime.now(),
             firstDate: DateTime(2020),
             lastDate: DateTime(2050));
-        controller.boleto.setVencimento(value);
+        controller.boleto.setdateExpiration(value);
       },
       icon: Icon(Icons.calendar_today, color: Colors.white),
       label: Observer(builder: (_) {
         return Text(
-            "${controller.boleto.vencimento.day.toString()}/${controller.boleto.vencimento.month.toString()}/${controller.boleto.vencimento.year.toString()}",
+            "${controller.boleto.dateExpiration.day.toString()}/${controller.boleto.dateExpiration.month.toString()}/${controller.boleto.dateExpiration.year.toString()}",
             style: TextStyle(color: Colors.white));
       }));
 }

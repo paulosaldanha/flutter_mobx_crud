@@ -8,37 +8,37 @@ class Boleto = _BoletoBase with _$Boleto;
 //Store sinaliza que a classe esta apta a geração de codigo automatica do mobx
 abstract class _BoletoBase with Store {
   @observable
-  String nome;
+  String name;
   @observable
   String email;
   @observable
-  String documento;
+  String document;
   @observable
   String ddd;
   @observable
-  String telefone;
+  String telephone;
   @observable
-  double valor;
+  double value;
   @observable
-  DateTime vencimento;
+  DateTime dateExpiration;
 
-  String mensagem;
+  String message;
 
 //getter and setter
   @action
-  setNome(String value) => nome = value;
+  setNome(String value) => name = value;
   @action
   setEmail(String value) => email = value;
   @action
-  setDocumento(String value) => documento = value;
+  setDocument(String value) => document = value;
   @action
   setDdd(String value) => ddd = value;
   @action
-  setTelefone(String value) => telefone = value;
+  setTelephone(String value) => telephone = value;
   @action
-  setValor(String value) => valor = double.parse(value);
+  setValue(String valueBillet) => value = double.parse(valueBillet);
   @action
-  setVencimento(DateTime value) => vencimento = value;
+  setDateExpiration(DateTime value) => dateExpiration = value;
   @action
-  setMensagem(String value) => mensagem = value;
+  setMessage(String value) => message = value;
 }

@@ -9,21 +9,21 @@ part of 'boleto.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$Boleto on _BoletoBase, Store {
-  final _$nomeAtom = Atom(name: '_BoletoBase.nome');
+  final _$nameAtom = Atom(name: '_BoletoBase.name');
 
   @override
-  String get nome {
-    _$nomeAtom.context.enforceReadPolicy(_$nomeAtom);
-    _$nomeAtom.reportObserved();
-    return super.nome;
+  String get name {
+    _$nameAtom.context.enforceReadPolicy(_$nameAtom);
+    _$nameAtom.reportObserved();
+    return super.name;
   }
 
   @override
-  set nome(String value) {
-    _$nomeAtom.context.conditionallyRunInAction(() {
-      super.nome = value;
-      _$nomeAtom.reportChanged();
-    }, _$nomeAtom, name: '${_$nomeAtom.name}_set');
+  set name(String value) {
+    _$nameAtom.context.conditionallyRunInAction(() {
+      super.name = value;
+      _$nameAtom.reportChanged();
+    }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
   final _$emailAtom = Atom(name: '_BoletoBase.email');
@@ -43,21 +43,21 @@ mixin _$Boleto on _BoletoBase, Store {
     }, _$emailAtom, name: '${_$emailAtom.name}_set');
   }
 
-  final _$documentoAtom = Atom(name: '_BoletoBase.documento');
+  final _$documentAtom = Atom(name: '_BoletoBase.document');
 
   @override
-  String get documento {
-    _$documentoAtom.context.enforceReadPolicy(_$documentoAtom);
-    _$documentoAtom.reportObserved();
-    return super.documento;
+  String get document {
+    _$documentAtom.context.enforceReadPolicy(_$documentAtom);
+    _$documentAtom.reportObserved();
+    return super.document;
   }
 
   @override
-  set documento(String value) {
-    _$documentoAtom.context.conditionallyRunInAction(() {
-      super.documento = value;
-      _$documentoAtom.reportChanged();
-    }, _$documentoAtom, name: '${_$documentoAtom.name}_set');
+  set document(String value) {
+    _$documentAtom.context.conditionallyRunInAction(() {
+      super.document = value;
+      _$documentAtom.reportChanged();
+    }, _$documentAtom, name: '${_$documentAtom.name}_set');
   }
 
   final _$dddAtom = Atom(name: '_BoletoBase.ddd');
@@ -77,55 +77,55 @@ mixin _$Boleto on _BoletoBase, Store {
     }, _$dddAtom, name: '${_$dddAtom.name}_set');
   }
 
-  final _$telefoneAtom = Atom(name: '_BoletoBase.telefone');
+  final _$telephoneAtom = Atom(name: '_BoletoBase.telephone');
 
   @override
-  String get telefone {
-    _$telefoneAtom.context.enforceReadPolicy(_$telefoneAtom);
-    _$telefoneAtom.reportObserved();
-    return super.telefone;
+  String get telephone {
+    _$telephoneAtom.context.enforceReadPolicy(_$telephoneAtom);
+    _$telephoneAtom.reportObserved();
+    return super.telephone;
   }
 
   @override
-  set telefone(String value) {
-    _$telefoneAtom.context.conditionallyRunInAction(() {
-      super.telefone = value;
-      _$telefoneAtom.reportChanged();
-    }, _$telefoneAtom, name: '${_$telefoneAtom.name}_set');
+  set telephone(String value) {
+    _$telephoneAtom.context.conditionallyRunInAction(() {
+      super.telephone = value;
+      _$telephoneAtom.reportChanged();
+    }, _$telephoneAtom, name: '${_$telephoneAtom.name}_set');
   }
 
-  final _$valorAtom = Atom(name: '_BoletoBase.valor');
+  final _$valueAtom = Atom(name: '_BoletoBase.value');
 
   @override
-  double get valor {
-    _$valorAtom.context.enforceReadPolicy(_$valorAtom);
-    _$valorAtom.reportObserved();
-    return super.valor;
-  }
-
-  @override
-  set valor(double value) {
-    _$valorAtom.context.conditionallyRunInAction(() {
-      super.valor = value;
-      _$valorAtom.reportChanged();
-    }, _$valorAtom, name: '${_$valorAtom.name}_set');
-  }
-
-  final _$vencimentoAtom = Atom(name: '_BoletoBase.vencimento');
-
-  @override
-  DateTime get vencimento {
-    _$vencimentoAtom.context.enforceReadPolicy(_$vencimentoAtom);
-    _$vencimentoAtom.reportObserved();
-    return super.vencimento;
+  double get value {
+    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
+    _$valueAtom.reportObserved();
+    return super.value;
   }
 
   @override
-  set vencimento(DateTime value) {
-    _$vencimentoAtom.context.conditionallyRunInAction(() {
-      super.vencimento = value;
-      _$vencimentoAtom.reportChanged();
-    }, _$vencimentoAtom, name: '${_$vencimentoAtom.name}_set');
+  set value(double value) {
+    _$valueAtom.context.conditionallyRunInAction(() {
+      super.value = value;
+      _$valueAtom.reportChanged();
+    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  }
+
+  final _$dateExpirationAtom = Atom(name: '_BoletoBase.dateExpiration');
+
+  @override
+  DateTime get dateExpiration {
+    _$dateExpirationAtom.context.enforceReadPolicy(_$dateExpirationAtom);
+    _$dateExpirationAtom.reportObserved();
+    return super.dateExpiration;
+  }
+
+  @override
+  set dateExpiration(DateTime value) {
+    _$dateExpirationAtom.context.conditionallyRunInAction(() {
+      super.dateExpiration = value;
+      _$dateExpirationAtom.reportChanged();
+    }, _$dateExpirationAtom, name: '${_$dateExpirationAtom.name}_set');
   }
 
   final _$_BoletoBaseActionController = ActionController(name: '_BoletoBase');
@@ -151,10 +151,10 @@ mixin _$Boleto on _BoletoBase, Store {
   }
 
   @override
-  dynamic setDocumento(String value) {
+  dynamic setDocument(String value) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
-      return super.setDocumento(value);
+      return super.setDocument(value);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }
@@ -171,40 +171,40 @@ mixin _$Boleto on _BoletoBase, Store {
   }
 
   @override
-  dynamic setTelefone(String value) {
+  dynamic setTelephone(String value) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
-      return super.setTelefone(value);
+      return super.setTelephone(value);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setValor(String value) {
+  dynamic setValue(String valueBillet) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
-      return super.setValor(value);
+      return super.setValue(valueBillet);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setVencimento(DateTime value) {
+  dynamic setDateExpiration(DateTime value) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
-      return super.setVencimento(value);
+      return super.setDateExpiration(value);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setMensagem(String value) {
+  dynamic setMessage(String value) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
-      return super.setMensagem(value);
+      return super.setMessage(value);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }

@@ -22,8 +22,8 @@ abstract class _BoletoController with Store {
   setPattern(String value) => pattern = value;
 
   //validador de nome
-  String validateNome() {
-    if (boleto.nome == null || boleto.nome.isEmpty || boleto.nome.length < 3) {
+  String validateName() {
+    if (boleto.name == null || boleto.name.isEmpty || boleto.name.length < 3) {
       return "Nome obrigatório";
     }
     return null;
@@ -42,12 +42,12 @@ abstract class _BoletoController with Store {
     return null;
   }
 
-  //validador de documento
-  String validateDocumento() {
-    if (boleto.documento == null || boleto.documento.isEmpty) {
+  //validador de document
+  String validateDocument() {
+    if (boleto.document == null || boleto.document.isEmpty) {
       return "Documento obrigatório";
     }
-    if (CPF.isValid(boleto.documento) || CNPJ.isValid(boleto.documento)) {
+    if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
       return null;
     } else {
       return "Documento Inválido";
@@ -62,30 +62,30 @@ abstract class _BoletoController with Store {
     return null;
   }
 
-  //validador de Telefone
-  String validateTelefone() {
-    if (boleto.telefone == null ||
-        boleto.telefone.isEmpty ||
-        boleto.telefone.length < 8) {
+  //validador de Telephone
+  String validateTelephone() {
+    if (boleto.telephone == null ||
+        boleto.telephone.isEmpty ||
+        boleto.telephone.length < 8) {
       return "Telefone obrigatório";
     }
     return null;
   }
 
-  //validador de Valor
-  String validateValor() {
-    if (boleto.valor == null || boleto.valor < 10) {
+  //validador de Value
+  String validateValue() {
+    if (boleto.value == null || boleto.value < 10) {
       return "O valor minimo é R\$ 10,00";
     }
     return null;
   }
 
   //validador de Vencimento
-  String validateVencimento() {
-    if (boleto.vencimento == null) {
+  String validateDateExpiration() {
+    if (boleto.dateExpiration == null) {
       return "Vencimento obrigatório";
     }
-    if (boleto.vencimento.isBefore(DateTime.now())) {
+    if (boleto.dateExpiration.isBefore(DateTime.now())) {
       return "Data de vencimento inválida";
     }
     return null;
@@ -94,13 +94,13 @@ abstract class _BoletoController with Store {
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
-    return validateNome() == null &&
+    return validateName() == null &&
         validateEmail() == null &&
-        validateDocumento() == null &&
+        validateDocument() == null &&
         validateDdd() == null &&
-        validateTelefone() == null &&
-        validateValor() == null &&
-        validateVencimento() == null;
+        validateTelephone() == null &&
+        validateValue() == null &&
+        validateDateExpiration() == null;
   }
 
   dynamic createTransctionBoleto() async {

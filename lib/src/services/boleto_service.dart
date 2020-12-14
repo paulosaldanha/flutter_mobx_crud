@@ -9,13 +9,13 @@ class BoletoService {
     var client = http.Client();
 
     Map<String, Object> payload = Map();
-    payload["nome"] = boleto.nome;
+    payload["nome"] = boleto.name;
     payload["email"] = boleto.email;
-    payload["documento"] = boleto.documento;
+    payload["documento"] = boleto.document;
     payload["ddd"] = boleto.ddd;
-    payload["telefone"] = boleto.telefone;
-    payload["mensagem"] = boleto.mensagem;
-    payload["vencimento"] = boleto.vencimento;
+    payload["telefone"] = boleto.telephone;
+    payload["mensagem"] = boleto.message;
+    payload["vencimento"] = boleto.dateExpiration;
     payload["token"] =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RvcnQiOiJ7XCJVc3VhcmlvSWRcIjoxLFwiTm9tZVVzdWFyaW9cIjpcIkx1aXogVmxhZGltaXJcIixcIkVtYWlsVXN1YXJpb1wiOlwibHVpekBjbG91ZGNybS50ZWNoXCIsXCJFc3RhYmVsZWNpbWVudG9JZFwiOjEsXCJOb21lRXN0YWJlbGVjaW1lbnRvXCI6bnVsbCxcIlJhemFvU29jaWFsRXN0YWJlbGVjaW1lbnRvXCI6XCJDTE9VRENSTSBTSVNURU1BU1wiLFwiUmVwYXNzZVRheGFDbGllbnRlXCI6dHJ1ZSxcIk5pdmVsQWNlc3NvXCI6XCJTQURNSU5cIn0iLCJ1bmlxdWVfbmFtZSI6Ikx1aXogVmxhZGltaXIiLCJlbWFpbCI6Imx1aXpAY2xvdWRjcm0udGVjaCIsInJvbGUiOiJTQURNSU4iLCJuYmYiOjE2MDc2MDcwODcsImV4cCI6MTYwNzYzNTg4NywiaWF0IjoxNjA3NjA3MDg3LCJpc3MiOiJFY29tbWVyY2VCYW5rIn0.fQWFUunH775AGHig7u8eC4rGL3MP3KVBQ7kPATAfHSA";
 

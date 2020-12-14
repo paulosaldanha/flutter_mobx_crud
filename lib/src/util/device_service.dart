@@ -5,7 +5,6 @@ import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import '../services/transaction_service.dart' as transaction;
 
 class DeviceService {
-
   //TESTE
   String apiKey = 'ak_test_ED7pkGAn73iTqzsEUAQxNK5J5GfFg6';
   String encryptionKey = 'ek_test_b7DwzjOUXMWGXZq2A3qqBGd0vQxjDt';
@@ -21,7 +20,13 @@ class DeviceService {
   String deviceName;
   TransactionMposController status;
 
-  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.mpos, this.status}) {
+  DeviceService(
+      {this.deviceName,
+      this.amount,
+      this.installments,
+      this.paymentMethod,
+      this.mpos,
+      this.status}) {
     enableListeners();
     mpos.createMpos(this.deviceName, this.encryptionKey);
     mpos.events.listen((data) => {print(data)});
@@ -43,7 +48,7 @@ class DeviceService {
 
       if (data['method'] == 'onBluetoothDisconnected') {
         setTransactionStatus('Lost bluetooth connection...');
-        return ;
+        return;
       }
 
       if (data['method'] == 'onBluetoothErrored') {
@@ -116,11 +121,11 @@ class DeviceService {
     dynamic result = json.decode(jsonResult);
     Map<String, Object> metadata = Map();
     metadata["nome_cliente"] = "Luiz";
-    metadata["documento"] = 37539;
-    metadata["valor_pago_cliente"] ="09976688903";
-    metadata["valor_pago_empresa"] ="09976688903";
-    metadata["usuario_id"] ="09976688903";
-    metadata["estabelecimento_id"] ="09976688903";
+    metadata["document"] = 37539;
+    metadata["value_pago_cliente"] = "09976688903";
+    metadata["value_pago_empresa"] = "09976688903";
+    metadata["usuario_id"] = "09976688903";
+    metadata["estabelecimento_id"] = "09976688903";
 
     try {
       dynamic mposTransaction = await transaction.createTransaction({
@@ -128,7 +133,7 @@ class DeviceService {
         'installments': installments.toString(),
         'api_key': this.apiKey,
         'card_hash': result['cardHash'],
-        'metadata':json.encode(metadata),
+        'metadata': json.encode(metadata),
       });
       onTransactionSuccess(
           mposTransaction, result['shouldFinishTransaction'] == 'true');
