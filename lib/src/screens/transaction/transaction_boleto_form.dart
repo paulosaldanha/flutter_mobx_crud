@@ -1,10 +1,12 @@
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/controllers/boleto_controller.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 class TransactionBoletoForm extends StatelessWidget {
   final boleto = Boleto();
@@ -12,7 +14,10 @@ class TransactionBoletoForm extends StatelessWidget {
 
   TransactionBoletoForm();
 
+  double taxa;
   DateTime _dateTime;
+  @observable
+  double valorComTaxa;
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +71,10 @@ class TransactionBoletoForm extends StatelessWidget {
                     flex: 3,
                     child: Container(child: Observer(
                       builder: (_) {
-                        return Observer(
-                          builder: (_) {
-                            return _numberField(
-                                labelText: "DDD",
-                                onChanged: boletoController.boleto.setDdd,
-                                errorText: boletoController.validateDdd);
-                          },
-                        );
+                        return _numberField(
+                            labelText: "DDD",
+                            onChanged: boletoController.boleto.setDdd,
+                            errorText: boletoController.validateDdd);
                       },
                     )),
                   ),
@@ -96,14 +97,36 @@ class TransactionBoletoForm extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Observer(
-                builder: (_) {
-                  return _numberField(
-                      labelText: "Valor",
-                      onChanged: boletoController.boleto.setValor,
-                      errorText: boletoController.validateValor,
-                      prefix: "R\$ ");
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    flex: 5,
+                    child: Container(child: Observer(
+                      builder: (_) {
+                        return _numberField(
+                            labelText: "Valor",
+                            onChanged: boletoController.boleto.setValor,
+                            errorText: boletoController.validateValor,
+                            prefix: "R\$ ");
+                      },
+                    )),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Observer(
+                      builder: (_) {
+                        return _numberField(
+                            labelText: "Valor com taxa",
+                            prefix: "R\$ ",
+                            enable: false);
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 10,
@@ -176,10 +199,15 @@ _textField({String labelText, onChanged, String Function() errorText}) {
 }
 
 _numberField(
-    {String labelText, onChanged, String Function() errorText, String prefix}) {
+    {String labelText,
+    onChanged,
+    String Function() errorText,
+    String prefix,
+    bool enable}) {
   return TextFormField(
     keyboardType: TextInputType.number,
     onChanged: onChanged,
+    enabled: enable,
     decoration: InputDecoration(
         border: OutlineInputBorder(),
         labelText: labelText,

@@ -31,8 +31,10 @@ abstract class _BoletoController with Store {
 
   //validador de email
   String validateEmail() {
-    if (boleto.email == null ||
-        boleto.email.length < 4 ||
+    if (boleto.email == null || boleto.email.isEmpty) {
+      return "Email obrigatório";
+    }
+    if (boleto.email.length < 4 ||
         !boleto.email.contains("@") ||
         !boleto.email.contains(".")) {
       return "Email inválido";
