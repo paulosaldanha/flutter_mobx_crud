@@ -8,3 +8,5 @@ const String ListEstadoViewRoute = 'listestado';
 const String CadEstadoViewRoute = 'cadestado';
 //Mpos
 const String TransactionCartaoMpos = 'transactionMpos';
+//Boleto
+const String TransactionBoleto = 'transactionBoleto';
