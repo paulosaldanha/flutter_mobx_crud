@@ -1,11 +1,13 @@
+import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-part 'transaction_mpos_controller.g.dart';
+part 'transaction_modal_controller.g.dart';
 
-class TransactionMposController = _TransactionMposController with _$TransactionMposController;
+class TransactionModalController = _TransactionModalController with _$TransactionModalController;
 
-abstract class _TransactionMposController with Store {
+abstract class _TransactionModalController with Store {
 
-  _TransactionMposController();
+  _TransactionModalController();
 
   @observable
   int status = 0;
@@ -22,5 +24,4 @@ abstract class _TransactionMposController with Store {
 
   @action
   setImgStatus(String value) => imgStatus = value;
-
 }

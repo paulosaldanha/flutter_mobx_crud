@@ -2,19 +2,23 @@ import 'package:combos/combos.dart';
 import 'package:estruturabasica/src/components/alert_confirm.dart';
 import 'package:estruturabasica/src/components/alert_listCombo.dart';
 import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
-import 'package:estruturabasica/src/controllers/transaction_mpos_controller.dart';
-import 'package:estruturabasica/src/models/taxa.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
+import 'package:estruturabasica/src/models/tax.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 class TransactionPaymentMethod extends StatelessWidget {
-  final transactionMpos;
+  final transactionMposController;
+  TransactionModalController transactionModal = new TransactionModalController();
+  TransactionListComboController listComboController =  new TransactionListComboController();
 
-  TransactionPaymentMethod(this.transactionMpos);
-
-  TransactionMposController transactionController =
-      new TransactionMposController();
+  TransactionPaymentMethod(this.transactionMposController){
+    listComboController.getTaxCredit(transactionMposController.currentValues);
+    listComboController.getTaxDebit(transactionMposController.currentValues);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,7 @@ class TransactionPaymentMethod extends StatelessWidget {
                             color: Color.fromRGBO(0,74,173, 1)),
                       ),
                       Text(
-                        'R\$ ${transactionMpos.currentValues}',
+                        'R\$ ${transactionMposController.currentValues}',
                         style: TextStyle(
                           fontSize: 50.0,
                           color: Color.fromRGBO(0,74,173, 1),
@@ -61,14 +65,16 @@ class TransactionPaymentMethod extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      transactionMpos.setPaymentMethod(
-                          'credito', transactionController);
+                      transactionMposController.setPaymentMethod(
+                          'credito');
                       var retorno = await showAlertConfirmListCombo(
                           context,
                           "Selecione uma parcela",
-                          transactionMpos);
+                          listComboController, 'credito');
                       if (retorno == 1) {
-                        transactionMpos.initPlatformState(transactionController);
+                        transactionMposController.setInstallments(listComboController.installmentsComboList);
+                        transactionMposController.setAmount(listComboController.amountComboList);
+                        transactionMposController.initPlatformState(transactionModal, context);
                       }
                     },
                     child: Container(
@@ -79,23 +85,21 @@ class TransactionPaymentMethod extends StatelessWidget {
                           Icon(Icons.credit_card_outlined,
                               color: Colors.deepPurpleAccent),
                           Text('Cartão de crédito'),
-                          Row(
-                            children: [
-                              Text('R\$ '),
-                              Observer(builder: (_) {
-                                return Text(
-                                    '${transactionMpos.amount == null ? '-' : transactionMpos.amount}');
-                              }),
-                            ],
-                          ),
                         ],
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      transactionMpos.setPaymentMethod(
-                          'debito', transactionController);
+                    onTap: () async {
+                      transactionMposController.setPaymentMethod(
+                          'debito');
+                      var retorno = await showAlertConfirmListCombo(
+                          context,
+                          "Selecione uma parcela",
+                          listComboController, 'debito');
+                      if (retorno == 1) {
+                        transactionMposController.initPlatformState(transactionModal, context);
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
@@ -105,15 +109,6 @@ class TransactionPaymentMethod extends StatelessWidget {
                           Icon(Icons.credit_card_outlined,
                               color: Colors.tealAccent[700]),
                           Text('Cartão de Débito'),
-                          Row(
-                            children: [
-                              Text('R\$ '),
-                              Observer(builder: (_) {
-                                return Text(
-                                    '${transactionMpos.amount == null ? '-' : transactionMpos.amount}');
-                              }),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -134,9 +129,9 @@ class TransactionPaymentMethod extends StatelessWidget {
                       width: 250.0,
                       child: Observer(
                         builder: (_) {
-                          if (transactionController.status == 1) {
-                            return StatlessModal(transactionController);
-                          } else {
+                          if (transactionModal.status == 1) {
+                            return StatlessModal(transactionModal);
+                          }else {
                             return Text('');
                           }
                         },

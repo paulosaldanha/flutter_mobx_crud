@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'transaction_mpos_controller.dart';
+part of 'transaction_modal_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'transaction_mpos_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$TransactionMposController on _TransactionMposController, Store {
-  final _$statusAtom = Atom(name: '_TransactionMposController.status');
+mixin _$TransactionModalController on _TransactionModalController, Store {
+  final _$statusAtom = Atom(name: '_TransactionModalController.status');
 
   @override
   int get status {
@@ -27,7 +27,7 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
   }
 
   final _$titleStatusAtom =
-      Atom(name: '_TransactionMposController.titleStatus');
+      Atom(name: '_TransactionModalController.titleStatus');
 
   @override
   String get titleStatus {
@@ -44,7 +44,7 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
     }, _$titleStatusAtom, name: '${_$titleStatusAtom.name}_set');
   }
 
-  final _$imgStatusAtom = Atom(name: '_TransactionMposController.imgStatus');
+  final _$imgStatusAtom = Atom(name: '_TransactionModalController.imgStatus');
 
   @override
   String get imgStatus {
@@ -61,39 +61,39 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
     }, _$imgStatusAtom, name: '${_$imgStatusAtom.name}_set');
   }
 
-  final _$_TransactionMposControllerActionController =
-      ActionController(name: '_TransactionMposController');
+  final _$_TransactionModalControllerActionController =
+      ActionController(name: '_TransactionModalController');
 
   @override
   dynamic setStatus(int value) {
     final _$actionInfo =
-        _$_TransactionMposControllerActionController.startAction();
+        _$_TransactionModalControllerActionController.startAction();
     try {
       return super.setStatus(value);
     } finally {
-      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
+      _$_TransactionModalControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setTitleStatus(String value) {
     final _$actionInfo =
-        _$_TransactionMposControllerActionController.startAction();
+        _$_TransactionModalControllerActionController.startAction();
     try {
       return super.setTitleStatus(value);
     } finally {
-      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
+      _$_TransactionModalControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setImgStatus(String value) {
     final _$actionInfo =
-        _$_TransactionMposControllerActionController.startAction();
+        _$_TransactionModalControllerActionController.startAction();
     try {
       return super.setImgStatus(value);
     } finally {
-      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
+      _$_TransactionModalControllerActionController.endAction(_$actionInfo);
     }
   }
 }

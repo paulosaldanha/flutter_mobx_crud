@@ -58,6 +58,7 @@ flutter:
   assets:
     - images/card.png
     - images/approve.png
+    - images/fail.png
     - images/splash.png
     - images/pay.png
     - images/modal1.png

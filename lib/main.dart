@@ -25,6 +25,7 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   MyHomePage({Key key, this.title}) : super(key: key);
+
   // cria pagina principal com menu drawer
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class MyHomePage extends StatelessWidget {
               title: Text('Transação MPOS'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed(TransactionCartaoMpos);
+                Navigator.of(context).pushNamed(TransactionCardMpos);
               },
             ),
           ],

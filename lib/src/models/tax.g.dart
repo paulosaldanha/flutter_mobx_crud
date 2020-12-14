@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'taxa.dart';
+part of 'tax.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'taxa.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$Taxa on _TaxaBase, Store {
-  final _$amountAtom = Atom(name: '_TaxaBase.amount');
+mixin _$Tax on _TaxBase, Store {
+  final _$amountAtom = Atom(name: '_TaxBase.amount');
 
   @override
   double get amount {
@@ -26,7 +26,7 @@ mixin _$Taxa on _TaxaBase, Store {
     }, _$amountAtom, name: '${_$amountAtom.name}_set');
   }
 
-  final _$installmentsAtom = Atom(name: '_TaxaBase.installments');
+  final _$installmentsAtom = Atom(name: '_TaxBase.installments');
 
   @override
   int get installments {
@@ -43,7 +43,7 @@ mixin _$Taxa on _TaxaBase, Store {
     }, _$installmentsAtom, name: '${_$installmentsAtom.name}_set');
   }
 
-  final _$descriptionValueAtom = Atom(name: '_TaxaBase.descriptionValue');
+  final _$descriptionValueAtom = Atom(name: '_TaxBase.descriptionValue');
 
   @override
   String get descriptionValue {
@@ -60,35 +60,35 @@ mixin _$Taxa on _TaxaBase, Store {
     }, _$descriptionValueAtom, name: '${_$descriptionValueAtom.name}_set');
   }
 
-  final _$_TaxaBaseActionController = ActionController(name: '_TaxaBase');
+  final _$_TaxBaseActionController = ActionController(name: '_TaxBase');
 
   @override
   dynamic setAmount(String value) {
-    final _$actionInfo = _$_TaxaBaseActionController.startAction();
+    final _$actionInfo = _$_TaxBaseActionController.startAction();
     try {
       return super.setAmount(value);
     } finally {
-      _$_TaxaBaseActionController.endAction(_$actionInfo);
+      _$_TaxBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setInstallments(String value) {
-    final _$actionInfo = _$_TaxaBaseActionController.startAction();
+    final _$actionInfo = _$_TaxBaseActionController.startAction();
     try {
       return super.setInstallments(value);
     } finally {
-      _$_TaxaBaseActionController.endAction(_$actionInfo);
+      _$_TaxBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setDescriptionValue(String value) {
-    final _$actionInfo = _$_TaxaBaseActionController.startAction();
+    final _$actionInfo = _$_TaxBaseActionController.startAction();
     try {
       return super.setDescriptionValue(value);
     } finally {
-      _$_TaxaBaseActionController.endAction(_$actionInfo);
+      _$_TaxBaseActionController.endAction(_$actionInfo);
     }
   }
 }
