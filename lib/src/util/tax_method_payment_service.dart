@@ -1,6 +1,6 @@
 import '../services/transaction_service.dart' as transaction;
 
-class TaxaMethodPaymentService {
+class TaxMethodPaymentService {
 
   static String convertToString(List values) {
     String val = '';
@@ -13,7 +13,7 @@ class TaxaMethodPaymentService {
 
   static Future<List> convertCurrentValueAndAmountCredit(String current) async {
     try {
-      return await transaction.getTaxa(current.replaceAll(',', '.'), 3);
+      return await transaction.getTax(current.replaceAll(',', '.'), 3);
     } catch (error) {
       print(error);
     }
@@ -21,7 +21,7 @@ class TaxaMethodPaymentService {
 
   static  Future<List> convertCurrentValueAndAmountDebit(String current) async {
     try {
-      return await transaction.getTaxa(current.replaceAll(',', '.'), 2);
+      return await transaction.getTax(current.replaceAll(',', '.'), 2);
     } catch (error) {
       print(error);
     }

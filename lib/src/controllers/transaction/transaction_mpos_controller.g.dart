@@ -45,24 +45,24 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
     }, _$currentValuesListAtom, name: '${_$currentValuesListAtom.name}_set');
   }
 
-  final _$visibilityModalbluethAtom =
-      Atom(name: '_TransactionMposController.visibilityModalblueth');
+  final _$visibilityModalBluetoothAtom =
+      Atom(name: '_TransactionMposController.visibilityModalBluetooth');
 
   @override
-  bool get visibilityModalblueth {
-    _$visibilityModalbluethAtom.context
-        .enforceReadPolicy(_$visibilityModalbluethAtom);
-    _$visibilityModalbluethAtom.reportObserved();
-    return super.visibilityModalblueth;
+  bool get visibilityModalBluetooth {
+    _$visibilityModalBluetoothAtom.context
+        .enforceReadPolicy(_$visibilityModalBluetoothAtom);
+    _$visibilityModalBluetoothAtom.reportObserved();
+    return super.visibilityModalBluetooth;
   }
 
   @override
-  set visibilityModalblueth(bool value) {
-    _$visibilityModalbluethAtom.context.conditionallyRunInAction(() {
-      super.visibilityModalblueth = value;
-      _$visibilityModalbluethAtom.reportChanged();
-    }, _$visibilityModalbluethAtom,
-        name: '${_$visibilityModalbluethAtom.name}_set');
+  set visibilityModalBluetooth(bool value) {
+    _$visibilityModalBluetoothAtom.context.conditionallyRunInAction(() {
+      super.visibilityModalBluetooth = value;
+      _$visibilityModalBluetoothAtom.reportChanged();
+    }, _$visibilityModalBluetoothAtom,
+        name: '${_$visibilityModalBluetoothAtom.name}_set');
   }
 
   final _$_TransactionMposControllerActionController =

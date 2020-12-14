@@ -9,5 +9,5 @@ const String CadPaisViewRoute = 'cadpais';
 const String ListEstadoViewRoute = 'listestado';
 const String CadEstadoViewRoute = 'cadestado';
 //Mpos
-const String TransactionCartaoMpos = 'transactionMpos';
+const String TransactionCardMpos = 'transactionMpos';
 

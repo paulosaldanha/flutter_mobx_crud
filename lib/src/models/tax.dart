@@ -1,9 +1,9 @@
 import 'package:mobx/mobx.dart';
-part 'taxa.g.dart';
+part 'tax.g.dart';
 
-class Taxa = _TaxaBase with _$Taxa;
+class Tax = _TaxBase with _$Tax;
 
-abstract class _TaxaBase with Store {
+abstract class _TaxBase with Store {
 
   @observable
   double amount;
@@ -22,7 +22,7 @@ abstract class _TaxaBase with Store {
   @action
   setDescriptionValue(String value) => descriptionValue = value;
 
-  _TaxaBase (this.amount, this.descriptionValue, this.installments);
+  _TaxBase (this.amount, this.descriptionValue, this.installments);
 
   Map<String,dynamic> toMap() {
     var map = <String,dynamic>{
@@ -32,7 +32,7 @@ abstract class _TaxaBase with Store {
     return map;
   }
 
-  _TaxaBase.fromMap(Map<String,dynamic> map){
+  _TaxBase.fromMap(Map<String,dynamic> map){
     amount = map['amount'];
     descriptionValue = map['descriptionValue'];
   }

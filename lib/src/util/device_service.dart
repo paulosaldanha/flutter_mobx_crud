@@ -59,7 +59,7 @@ class DeviceService {
         Timer(Duration(seconds: 2), () {
           status.setTitleStatus( 'Carregando...');
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(TransactionCartaoMpos);
+          Navigator.of(context).pushNamed(TransactionCardMpos);
         });
         setTransactionStatus('An error ocurred ${data['value']}');
         return;
@@ -102,7 +102,7 @@ class DeviceService {
         Timer(Duration(seconds: 2), () {
           status.setTitleStatus( 'Carregando...');
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(TransactionCartaoMpos);
+          Navigator.of(context).pushNamed(TransactionCardMpos);
         });
         mpos.close('ERROR - ' + data['value']);
       }

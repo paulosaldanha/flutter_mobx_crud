@@ -23,7 +23,7 @@ dynamic createTransaction(Map<String,String> payload) async {
   } 
   
 }
-dynamic getTaxa(String current, int method) async {
+dynamic getTax(String current, int method) async {
   var client = http.Client();
 
   Map<String, Object> payload = Map();

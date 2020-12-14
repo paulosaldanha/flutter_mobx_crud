@@ -1,6 +1,6 @@
 import 'package:combos/combos.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
-import 'package:estruturabasica/src/models/taxa.dart';
+import 'package:estruturabasica/src/models/tax.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +8,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
  Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionListComboController transaction, String method ) async {
 
-   Widget cancelaButton = FlatButton(
+   Widget cancelButton = FlatButton(
     child: Text("Cancelar"),
     onPressed:  () { 
       Navigator.pop(context,0);
     },
   );
-  Widget continuaButton = FlatButton(
+  Widget continueButton = FlatButton(
     child: Text("Confirmar"),
     onPressed:  () {
       //Navigator.pop(context,1);
@@ -26,7 +26,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
     title: Text(title),
     content: Observer(
       builder: (context) {
-        return ListCombo<Taxa>(
+        return ListCombo<Tax>(
             child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(transaction.selectedString != null
@@ -45,8 +45,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
       },
     ),
     actions: [
-      cancelaButton,
-      continuaButton,
+      cancelButton,
+      continueButton,
     ],
   );
   //exibe o diálogo. Await para pegar a ação

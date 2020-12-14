@@ -33,7 +33,7 @@ RouteFactory rotas(){
         case CadEstadoViewRoute:
           screen = EstadoForm(estado:obj);
           break;
-        case TransactionCartaoMpos:
+        case TransactionCardMpos:
           screen = TransactionMposForm();
           break;
         default:

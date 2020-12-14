@@ -1,7 +1,7 @@
-import 'package:estruturabasica/src/models/taxa.dart';
+import 'package:estruturabasica/src/models/tax.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/util/taxa_method_payment_service.dart';
+import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,9 +13,9 @@ abstract class _TransactionListComboController with Store {
   _TransactionListComboController();
 
   @observable
-  List<Taxa> amountValuesCreditCardList;
+  List<Tax> amountValuesCreditCardList;
   @observable
-  List<Taxa> amountValuesDebitCardList;
+  List<Tax> amountValuesDebitCardList;
   @observable
   String selectedString;
   @observable
@@ -25,21 +25,21 @@ abstract class _TransactionListComboController with Store {
 
 
   @action
-  selectedState(Taxa value) {
+  selectedState(Tax value) {
     selectedString = value.descriptionValue;
     amountComboList = (value.amount * 100).toInt();
     installmentsComboList = value.installments;
   }
 
   @action
-  getTaxasCredit(currentValues){
+  getTaxCredit(currentValues){
     amountValuesCreditCardList = List();
-    TaxaMethodPaymentService
+    TaxMethodPaymentService
         .convertCurrentValueAndAmountCredit(currentValues).then((v) {
-      var listTaxa = new List<double>.from(v);
-      for (var i = 0; i < listTaxa.length; i++) {
+      var listTax = new List<double>.from(v);
+      for (var i = 0; i < listTax.length; i++) {
 
-        amountValuesCreditCardList.add( Taxa(listTaxa[i],'${i+1} x de R\$ ${_changeValueParcel(listTaxa[i],i+1)}',i+1));
+        amountValuesCreditCardList.add( Tax(listTax[i],'${i+1} x de R\$ ${_changeValueParcel(listTax[i],i+1)}',i+1));
       }
     });
   }
@@ -55,12 +55,12 @@ abstract class _TransactionListComboController with Store {
   }
 
   @action
-  getTaxasDebit(currentValues){
+  getTaxDebit(currentValues){
     amountValuesDebitCardList = List();
-    TaxaMethodPaymentService
+    TaxMethodPaymentService
         .convertCurrentValueAndAmountDebit(currentValues).then((v) {
-      var listTaxa = new List<double>.from(v);
-      amountValuesDebitCardList.add( Taxa(listTaxa[0], '1 x de R\$ ${listTaxa[0]}',1));
+      var listTax = new List<double>.from(v);
+      amountValuesDebitCardList.add( Tax(listTax[0], '1 x de R\$ ${listTax[0]}',1));
     });
   }
 

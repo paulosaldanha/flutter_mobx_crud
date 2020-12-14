@@ -14,7 +14,7 @@ mixin _$TransactionListComboController
       Atom(name: '_TransactionListComboController.amountValuesCreditCardList');
 
   @override
-  List<Taxa> get amountValuesCreditCardList {
+  List<Tax> get amountValuesCreditCardList {
     _$amountValuesCreditCardListAtom.context
         .enforceReadPolicy(_$amountValuesCreditCardListAtom);
     _$amountValuesCreditCardListAtom.reportObserved();
@@ -22,7 +22,7 @@ mixin _$TransactionListComboController
   }
 
   @override
-  set amountValuesCreditCardList(List<Taxa> value) {
+  set amountValuesCreditCardList(List<Tax> value) {
     _$amountValuesCreditCardListAtom.context.conditionallyRunInAction(() {
       super.amountValuesCreditCardList = value;
       _$amountValuesCreditCardListAtom.reportChanged();
@@ -34,7 +34,7 @@ mixin _$TransactionListComboController
       Atom(name: '_TransactionListComboController.amountValuesDebitCardList');
 
   @override
-  List<Taxa> get amountValuesDebitCardList {
+  List<Tax> get amountValuesDebitCardList {
     _$amountValuesDebitCardListAtom.context
         .enforceReadPolicy(_$amountValuesDebitCardListAtom);
     _$amountValuesDebitCardListAtom.reportObserved();
@@ -42,7 +42,7 @@ mixin _$TransactionListComboController
   }
 
   @override
-  set amountValuesDebitCardList(List<Taxa> value) {
+  set amountValuesDebitCardList(List<Tax> value) {
     _$amountValuesDebitCardListAtom.context.conditionallyRunInAction(() {
       super.amountValuesDebitCardList = value;
       _$amountValuesDebitCardListAtom.reportChanged();
@@ -110,7 +110,7 @@ mixin _$TransactionListComboController
       ActionController(name: '_TransactionListComboController');
 
   @override
-  dynamic selectedState(Taxa value) {
+  dynamic selectedState(Tax value) {
     final _$actionInfo =
         _$_TransactionListComboControllerActionController.startAction();
     try {
@@ -121,22 +121,22 @@ mixin _$TransactionListComboController
   }
 
   @override
-  dynamic getTaxasCredit(dynamic currentValues) {
+  dynamic getTaxCredit(dynamic currentValues) {
     final _$actionInfo =
         _$_TransactionListComboControllerActionController.startAction();
     try {
-      return super.getTaxasCredit(currentValues);
+      return super.getTaxCredit(currentValues);
     } finally {
       _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic getTaxasDebit(dynamic currentValues) {
+  dynamic getTaxDebit(dynamic currentValues) {
     final _$actionInfo =
         _$_TransactionListComboControllerActionController.startAction();
     try {
-      return super.getTaxasDebit(currentValues);
+      return super.getTaxDebit(currentValues);
     } finally {
       _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
     }

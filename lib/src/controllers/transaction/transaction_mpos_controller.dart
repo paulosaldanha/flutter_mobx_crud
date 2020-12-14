@@ -1,9 +1,9 @@
 import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
-import 'package:estruturabasica/src/models/taxa.dart';
+import 'package:estruturabasica/src/models/tax.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/util/device_service.dart';
-import 'package:estruturabasica/src/util/taxa_method_payment_service.dart';
+import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
@@ -23,7 +23,7 @@ abstract class _TransactionMposController with Store {
   @observable
   List currentValuesList = List();
   @observable
-  bool visibilityModalblueth = false;
+  bool visibilityModalBluetooth = false;
 
 
   @action
@@ -34,13 +34,13 @@ abstract class _TransactionMposController with Store {
       }
       currentValuesList.removeLast();
       return currentValues =
-          TaxaMethodPaymentService.convertToString(currentValuesList);
+          TaxMethodPaymentService.convertToString(currentValuesList);
     }
     if (!(currentValuesList.length == 7)) {
       currentValuesList.add(value);
     }
     return currentValues =
-        TaxaMethodPaymentService.convertToString(currentValuesList);
+        TaxMethodPaymentService.convertToString(currentValuesList);
   }
 
   @action
@@ -56,7 +56,7 @@ abstract class _TransactionMposController with Store {
 
 
   @action
-  setvisibilityModalblueth(bool value) => visibilityModalblueth = value;
+  setvisibilityModalblueth(bool value) => visibilityModalBluetooth = value;
 
   @action
   bool deviceIsempty(){

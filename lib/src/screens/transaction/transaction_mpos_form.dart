@@ -58,7 +58,7 @@ class TransactionMposForm extends StatelessWidget {
                   children: [
                     Observer(
                       builder: (_) {
-                        return transactionMposController.visibilityModalblueth
+                        return transactionMposController.visibilityModalBluetooth
                             ? Text(
                                 'SEM CONEXÃO COM MAQUININHA',
                                 style: TextStyle(
@@ -140,7 +140,7 @@ class TransactionMposForm extends StatelessWidget {
             ),
           ),
           Observer(builder: (_) {
-            return transactionMposController.visibilityModalblueth
+            return transactionMposController.visibilityModalBluetooth
                 ? BluetoothModal()
                 : Text('');
           }),

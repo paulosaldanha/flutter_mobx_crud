@@ -73,7 +73,7 @@ class MyHomePage extends StatelessWidget {
               title: Text('Transação MPOS'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed(TransactionCartaoMpos);
+                Navigator.of(context).pushNamed(TransactionCardMpos);
               },
             ),
           ],
