@@ -46,8 +46,8 @@ class MyHomePage extends StatelessWidget {
             DrawerHeader(
               child: Image.asset('images/splash.png'),
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
+                gradient: LinearGradient(
+                  colors: [
                   Color.fromRGBO(0, 74, 173, 1),
                   Colors.white,
                 ],

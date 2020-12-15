@@ -1,6 +1,7 @@
 import 'package:estruturabasica/src/components/home_icon.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_boleto_form.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_online_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
