@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/components/home_icon.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_boleto_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -96,7 +97,7 @@ class Home extends StatelessWidget {
                       color: Color.fromRGBO(0, 74, 173, 1),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TransactionMposForm()));
+                            builder: (context) => TransactionBoletoForm()));
                       },
                       child: Column(
                         children: [
