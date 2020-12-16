@@ -12,3 +12,6 @@ const String CadEstadoViewRoute = 'cadestado';
 const String TransactionCardMpos = 'transactionMpos';
 //Boleto
 const String TransactionBoleto = 'transactionBoleto';
+//Link
+const String TransactionLink = 'transactionLink';
+
