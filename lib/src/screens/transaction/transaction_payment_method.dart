@@ -33,7 +33,7 @@ class TransactionPaymentMethod extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              color: Colors.grey[300],
+              color: Color.fromRGBO(0,74,173, 1),
               padding: EdgeInsets.symmetric(vertical: 100.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,13 +44,13 @@ class TransactionPaymentMethod extends StatelessWidget {
                         'Total a receber lojista:',
                         style: TextStyle(
                             fontSize: 25.0,
-                            color: Color.fromRGBO(0,74,173, 1)),
+                            color: Colors.white),
                       ),
                       Text(
                         'R\$ ${transactionMposController.currentValues}',
                         style: TextStyle(
                           fontSize: 50.0,
-                          color: Color.fromRGBO(0,74,173, 1),
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -79,12 +79,17 @@ class TransactionPaymentMethod extends StatelessWidget {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
-                      color: Colors.grey[300],
+                      color: Color.fromRGBO(0,74,173, 1),
                       child: Column(
                         children: [
                           Icon(Icons.credit_card_outlined,
-                              color: Colors.deepPurpleAccent),
-                          Text('Cartão de crédito'),
+                              color: Colors.lime,
+                          size: 40,),
+                          Text('Cartão de crédito',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -103,12 +108,17 @@ class TransactionPaymentMethod extends StatelessWidget {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(30.0),
-                      color: Colors.grey[300],
+                      color: Color.fromRGBO(0,74,173, 1),
                       child: Column(
                         children: [
                           Icon(Icons.credit_card_outlined,
+                              size: 40,
                               color: Colors.tealAccent[700]),
-                          Text('Cartão de Débito'),
+                          Text('Cartão de Débito',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),

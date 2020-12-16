@@ -13,14 +13,15 @@ class HomeIcon extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Colors.white,
-            size: 90.0,
+            color: Color.fromRGBO(0, 74, 173, 1),
+            size: 120.0,
           ),
           Text(
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 20.0, color: Colors.white),
+                fontSize: 20.0,
+              color: Color.fromRGBO(0, 74, 173, 1),),
           ),
         ],
       ),

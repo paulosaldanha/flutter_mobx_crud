@@ -6,12 +6,13 @@ import 'package:estruturabasica/src/controllers/transaction/transaction_mpos_con
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
 import 'package:estruturabasica/src/util/bluetooth_device_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TransactionMposForm extends StatelessWidget {
-
-  TransactionMposController transactionMposController = TransactionMposController();
+  TransactionMposController transactionMposController =
+      TransactionMposController();
 
   TransactionMposForm() {
     BluetoothDeviceService(transactionMposController);
@@ -21,117 +22,141 @@ class TransactionMposForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(0,74,173, 1),
+        backgroundColor: Color.fromRGBO(15, 74, 173, 1),
         title: Text('Transação MPOS - D150'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 25.0, bottom: 15.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              color: Color.fromRGBO(0, 74, 173, 1),
+              padding: EdgeInsets.only(top: 25, bottom: 0, left: 0, right: 0),
+              child: Card(
+                elevation: 0,
+                margin: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                ),
+                child: Column(
                   children: [
-                    Text(
-                      "R\$ ",
-                      style: TextStyle(
-                          fontSize: 55.0,
-                          color: Color.fromRGBO(0,74,173, 1)),
+                    SizedBox(
+                      height: 15,
                     ),
-                    Observer(
-                      builder: (_) {
-                        return Text(
-                          '${transactionMposController.currentValues}',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "R\$ ",
                           style: TextStyle(
-                            fontSize: 55.0,
-                            color: Color.fromRGBO(0,74,173, 1),
-                          ),
-                        );
-                      },
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(0, 74, 173, 1)),
+                        ),
+                        Observer(
+                          builder: (_) {
+                            return Text(
+                              '${transactionMposController.currentValues}',
+                              style: TextStyle(
+                                fontSize: 55.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(0, 74, 173, 1),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Observer(
+                          builder: (_) {
+                            return transactionMposController
+                                    .visibilityModalBluetooth
+                                ? Text(
+                                    'SEM CONEXÃO COM MAQUININHA',
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.red[800],
+                                    ),
+                                  )
+                                : Text('');
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Observer(
-                      builder: (_) {
-                        return transactionMposController.visibilityModalBluetooth
-                            ? Text(
-                                'SEM CONEXÃO COM MAQUININHA',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.red[800],
-                                ),
-                              )
-                            : Text('');
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+              )),
           Expanded(
-            child: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(40),
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
-              crossAxisCount: 3,
-              children: <Widget>[
-                BuildKeyItemWidget("1", transactionMposController),
-                BuildKeyItemWidget("2", transactionMposController),
-                BuildKeyItemWidget("3", transactionMposController),
-                BuildKeyItemWidget("4", transactionMposController),
-                BuildKeyItemWidget("5", transactionMposController),
-                BuildKeyItemWidget("6", transactionMposController),
-                BuildKeyItemWidget("7", transactionMposController),
-                BuildKeyItemWidget("8", transactionMposController),
-                BuildKeyItemWidget("9", transactionMposController),
-                BuildKeyItemWidget("0", transactionMposController),
-                BuildKeyItemWidget("00", transactionMposController),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  color: Color.fromRGBO(0,74,173, 1),
-                  onPressed: () {
-                    transactionMposController.setCurrentValues("clear");
-                  },
-                  child: Icon(
-                    Icons.backspace,
-                    size: 20.0,
+            child: Container(
+              color: Colors.white,
+              child: GridView.count(
+                primary: false,
+                padding:
+                const EdgeInsets.only(top: 10, right: 40, left: 40, bottom: 0),
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 1,
+                crossAxisCount: 3,
+                children: <Widget>[
+                  BuildKeyItemWidget("1", transactionMposController),
+                  BuildKeyItemWidget("2", transactionMposController),
+                  BuildKeyItemWidget("3", transactionMposController),
+                  BuildKeyItemWidget("4", transactionMposController),
+                  BuildKeyItemWidget("5", transactionMposController),
+                  BuildKeyItemWidget("6", transactionMposController),
+                  BuildKeyItemWidget("7", transactionMposController),
+                  BuildKeyItemWidget("8", transactionMposController),
+                  BuildKeyItemWidget("9", transactionMposController),
+                  BuildKeyItemWidget("0", transactionMposController),
+                  BuildKeyItemWidget("00", transactionMposController),
+                  FlatButton(
                     color: Colors.white,
+                    onPressed: () {
+                      transactionMposController.setCurrentValues("clear");
+                    },
+                    child: Icon(
+                      Icons.backspace,
+                      size:35.0,
+                      color: Color.fromRGBO(0, 74, 173, 1),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
+            width: 300,
+            height: 100,
+            color: Colors.white,
             padding: EdgeInsets.only(bottom: 35.0),
             child: Observer(
               builder: (_) {
                 return FlatButton(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(50.0),
+                    side: BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
                   ),
-                  color: Color.fromRGBO(0,74,173, 1),
-                  textColor: Colors.white,
+                  color: Colors.white,
+                  textColor: Color.fromRGBO(0, 74, 173, 1),
                   padding: EdgeInsets.all(10.0),
-                  onPressed: transactionMposController.currentValues != "0,00" &&
-                      transactionMposController.deviceIsempty()
+                  onPressed: transactionMposController.currentValues !=
+                              "0,00" &&
+                          transactionMposController.deviceIsempty()
                       ? () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  TransactionPaymentMethod(transactionMposController)));
+                              builder: (context) => TransactionPaymentMethod(
+                                  transactionMposController)));
                         }
                       : null,
                   child: Text(
                     "Continuar".toUpperCase(),
                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
                       fontSize: 30.0,
                     ),
                   ),

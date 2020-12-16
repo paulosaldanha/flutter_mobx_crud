@@ -10,19 +10,21 @@ class BuildKeyItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  RaisedButton(
+    return  FlatButton(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(0.0),
+          side: BorderSide(color: Colors.white),
       ),
-      color: Color.fromRGBO(0,74,173, 1),
+      color: Colors.white,
       onPressed: () {
         transactionMpos.setCurrentValues(val);
       },
       child: Text(
         val,
         style: TextStyle(
-            fontSize: 30.0,
-            color: Colors.white
+            fontSize: 35.0,
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(0,74,173, 1)
         ),
       ),
     );
