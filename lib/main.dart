@@ -34,6 +34,7 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       ),
+      backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       body: Home(),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -55,20 +56,20 @@ class MyHomePage extends StatelessWidget {
                 end: Alignment.bottomCenter,
               )),
             ),
-            ListTile(
-              title: Text('Pais'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(ListPaisViewRoute);
-              },
-            ),
-            ListTile(
-              title: Text('Estado'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(ListEstadoViewRoute);
-              },
-            ),
+            // ListTile(
+            //   title: Text('Pais'),
+            //   onTap: () {
+            //     Navigator.of(context).pop();
+            //     Navigator.of(context).pushNamed(ListPaisViewRoute);
+            //   },
+            // ),
+            // ListTile(
+            //   title: Text('Estado'),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.of(context).pushNamed(ListEstadoViewRoute);
+            //   },
+            // ),
             ListTile(
               title: Text('Transação MPOS'),
               onTap: () {
