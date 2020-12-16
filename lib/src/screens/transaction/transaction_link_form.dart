@@ -1,30 +1,41 @@
-import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/controllers/boleto_controller.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:estruturabasica/src/models/transaction_link.dart';
+import 'package:estruturabasica/src/controllers/transaction_link_controller.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter/src/material/dropdown.dart';
 import 'package:mobx/mobx.dart';
 
-class TransactionBoletoForm extends StatelessWidget {
-  final boleto = Boleto();
-  BoletoController boletoController = BoletoController();
+class TransactionLinkForm extends StatelessWidget {
+  final transactionLink = TransactionLink();
+  TransactionLinkController transactionLinkController =
+      TransactionLinkController();
 
-  TransactionBoletoForm();
-
-  double taxa;
+  TransactionLinkForm();
+  List _parcelas = [
+    {"parcela": "1", "label": "1 Parcela"},
+    {"parcela": "2", "label": "2 Parcelas"},
+    {"parcela": "3", "label": "3 Parcelas"},
+    {"parcela": "4", "label": "4 Parcelas"},
+    {"parcela": "5", "label": "5 Parcelas"},
+    {"parcela": "6", "label": "6 Parcelas"},
+    {"parcela": "7", "label": "7 Parcelas"},
+    {"parcela": "8", "label": "8 Parcelas"},
+    {"parcela": "9", "label": "9 Parcelas"},
+    {"parcela": "10", "label": "10 Parcelas"},
+    {"parcela": "11", "label": "11 Parcelas"},
+    {"parcela": "12", "label": "12 Parcelas"}
+  ];
   DateTime _dateTime;
-  @observable
-  double valueWithTax;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Transação Boleto'),
+        title: Text('Link de Pagamento'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -36,64 +47,9 @@ class TransactionBoletoForm extends StatelessWidget {
                 builder: (_) {
                   return _textField(
                       labelText: "Nome",
-                      onChanged: boletoController.boleto.setNome,
-                      errorText: boletoController.validateName);
+                      onChanged: transactionLinkController.link.setNome,
+                      errorText: transactionLinkController.validateName);
                 },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Observer(
-                builder: (_) {
-                  return _textField(
-                      labelText: "Email",
-                      onChanged: boletoController.boleto.setEmail,
-                      errorText: boletoController.validateEmail);
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Observer(
-                builder: (_) {
-                  return _textField(
-                      labelText: "Documento",
-                      onChanged: boletoController.boleto.setDocument,
-                      errorText: boletoController.validateDocument);
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Container(child: Observer(
-                      builder: (_) {
-                        return _numberField(
-                            labelText: "DDD",
-                            onChanged: boletoController.boleto.setDdd,
-                            errorText: boletoController.validateDdd);
-                      },
-                    )),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    flex: 7,
-                    child: Observer(
-                      builder: (_) {
-                        return _numberField(
-                            labelText: "Telefone",
-                            onChanged: boletoController.boleto.setTelephone,
-                            errorText: boletoController.validateTelephone);
-                      },
-                    ),
-                  ),
-                ],
               ),
               SizedBox(
                 height: 10,
@@ -107,8 +63,8 @@ class TransactionBoletoForm extends StatelessWidget {
                       builder: (_) {
                         return _numberField(
                             labelText: "Valor",
-                            onChanged: boletoController.boleto.setValue,
-                            errorText: boletoController.validateValue,
+                            onChanged: transactionLinkController.link.setValue,
+                            errorText: transactionLinkController.validateValue,
                             prefix: "R\$ ");
                       },
                     )),
@@ -127,15 +83,36 @@ class TransactionBoletoForm extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Observer(builder: (_) {
-                                if (boletoController.boleto.valueTax == null) {
+                                if (transactionLinkController.link.valueTax ==
+                                    null) {
                                   return Text("R\$ 0,00");
                                 }
                                 return Text(
-                                    "R\$ ${boletoController.boleto.valueTax.toStringAsFixed(2)}");
+                                    "R\$ ${transactionLinkController.link.valueTax.toStringAsFixed(2)}");
                               })),
                         ],
                       )))
                 ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text("Número de Parcelas"),
+              Observer(
+                builder: (_) {
+                  return DropdownButton(
+                      value: transactionLinkController.link.installments,
+                      items: _parcelas.map((parcela) {
+                        return new DropdownMenuItem(
+                            value: parcela["parcela"],
+                            child: new Text(parcela["label"]));
+                      }).toList(),
+                      onChanged: (_) {
+                        transactionLinkController.link.setInstallments(_);
+                      },
+                      icon: Icon(Icons.credit_card),
+                      isExpanded: true);
+                },
               ),
               SizedBox(
                 height: 15,
@@ -144,30 +121,19 @@ class TransactionBoletoForm extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                   flex: 1,
-                  child: _dateButton(
-                      context, "Vencimento", _dateTime, boletoController),
-                ),
+                  child: _dateButton(context, "Vencimento", _dateTime,
+                      transactionLinkController),
+                )
               ]),
               Observer(builder: (_) {
                 return Text(
-                  boletoController.validDate,
+                  transactionLinkController.validDate,
                   style: TextStyle(
                       fontSize: 13, color: Color.fromRGBO(209, 8, 6, 0.8)),
                 );
               }),
-
               SizedBox(
-                height: 10,
-              ),
-              Observer(
-                builder: (_) {
-                  return _textField(
-                      labelText: "Observação",
-                      onChanged: boletoController.boleto.setMessage);
-                },
-              ),
-              SizedBox(
-                height: 10,
+                height: 15,
               ),
               Observer(
                 builder: (_) {
@@ -178,13 +144,14 @@ class TransactionBoletoForm extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           color: Color.fromRGBO(0, 74, 173, 1),
-                          onPressed: boletoController.isValid
+                          onPressed: transactionLinkController.isValid
                               ? () {
-                                  boletoController.createTransctionBoleto();
+                                  transactionLinkController
+                                      .createTransctionLink();
                                   Navigator.pop(context);
                                   Flushbar(
                                     title: "Sucesso",
-                                    message: "Boleto criado com sucesso!",
+                                    message: "Link criado com sucesso!",
                                     duration: Duration(seconds: 2),
                                   )..show(context);
                                 }
@@ -192,7 +159,7 @@ class TransactionBoletoForm extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(15),
                             child: Text(
-                              "Criar Boleto",
+                              "Criar Link",
                               style: TextStyle(color: Colors.white),
                             ),
                           )));
@@ -236,7 +203,7 @@ _numberField(
 
 _dateButton(context, String label, date, controller) {
   final date = DateTime.now();
-  controller.boleto.setDateExpiration(date);
+  controller.link.setDateExpiration(date);
 
   return RaisedButton.icon(
       padding: const EdgeInsets.all(10.0),
@@ -251,14 +218,14 @@ _dateButton(context, String label, date, controller) {
             firstDate: DateTime(2020),
             lastDate: DateTime(2050));
         if (value != null) {
-          controller.boleto.setDateExpiration(value);
+          controller.link.setDateExpiration(value);
         }
         bool f = controller.validateDateExpiration();
       },
       icon: Icon(Icons.calendar_today, color: Colors.white),
       label: Observer(builder: (_) {
         return Text(
-            "${controller.boleto.dateExpiration.day.toString()}/${controller.boleto.dateExpiration.month.toString()}/${controller.boleto.dateExpiration.year.toString()}",
+            "${controller.link.dateExpiration.day.toString()}/${controller.link.dateExpiration.month.toString()}/${controller.link.dateExpiration.year.toString()}",
             style: TextStyle(color: Colors.white));
       }));
 }

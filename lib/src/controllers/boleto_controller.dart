@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/services/boleto_service.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
@@ -13,13 +13,13 @@ abstract class _BoletoController with Store {
 
   //referente ao formulario de inserção
   var boleto = Boleto();
-  var service = BoletoService();
+
 
   @observable
-  String pattern = '';
-  //set do filter, ação do campo observavel, toda vez que modificado, muda seu estado, chama a action
+  String validDate = "Data de vencimento inválida";
   @action
-  setPattern(String value) => pattern = value;
+  setValidDate(String value) => validDate = value;
+
 
   //validador de nome
   String validateName() {
@@ -81,14 +81,19 @@ abstract class _BoletoController with Store {
   }
 
   //validador de Vencimento
-  String validateDateExpiration() {
+
+  bool validateDateExpiration() {
     if (boleto.dateExpiration == null) {
-      return "Vencimento obrigatório";
+      setValidDate("Vencimento obrigatório");
+      return false;
+    } else if (!boleto.dateExpiration.isAfter(DateTime.now())) {
+      setValidDate("Data de vencimento inválida");
+      return false;
+    } else {
+      setValidDate("");
     }
-    if (boleto.dateExpiration.isBefore(DateTime.now())) {
-      return "Data de vencimento inválida";
-    }
-    return null;
+    return true;
+
   }
 
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
@@ -100,10 +105,10 @@ abstract class _BoletoController with Store {
         validateDdd() == null &&
         validateTelephone() == null &&
         validateValue() == null &&
-        validateDateExpiration() == null;
+        validateDateExpiration() == true;
   }
-
   dynamic createTransctionBoleto() async {
-    return service.createTransactionBoleto(boleto);
+    return createTransactionBoleto(boleto);
+
   }
 }

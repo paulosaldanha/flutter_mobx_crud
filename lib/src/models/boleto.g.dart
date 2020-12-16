@@ -128,6 +128,31 @@ mixin _$Boleto on _BoletoBase, Store {
     }, _$dateExpirationAtom, name: '${_$dateExpirationAtom.name}_set');
   }
 
+  final _$valueTaxAtom = Atom(name: '_BoletoBase.valueTax');
+
+  @override
+  double get valueTax {
+    _$valueTaxAtom.context.enforceReadPolicy(_$valueTaxAtom);
+    _$valueTaxAtom.reportObserved();
+    return super.valueTax;
+  }
+
+  @override
+  set valueTax(double value) {
+    _$valueTaxAtom.context.conditionallyRunInAction(() {
+      super.valueTax = value;
+      _$valueTaxAtom.reportChanged();
+    }, _$valueTaxAtom, name: '${_$valueTaxAtom.name}_set');
+  }
+
+  final _$setValueTaxAsyncAction = AsyncAction('setValueTax');
+
+  @override
+  Future setValueTax(String value) {
+    return _$setValueTaxAsyncAction.run(() => super.setValueTax(value));
+  }
+
+
   final _$_BoletoBaseActionController = ActionController(name: '_BoletoBase');
 
   @override
