@@ -56,9 +56,9 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family:  HomeIcons
+    - family:  Ecommerce_bank_pay
       fonts:
-        - asset: fonts/HomeIcons.ttf
+        - asset: fonts/Ecommerce_bank_pay.ttf
 
   assets:
     - images/card.png

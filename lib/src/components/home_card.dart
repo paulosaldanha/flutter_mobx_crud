@@ -1,3 +1,4 @@
+import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class HomeCard extends StatelessWidget {
       child: Align(
           alignment: Alignment.centerLeft,
           child: Icon(
-            Icons.apartment_rounded,
+            Ecommerce_bank_pay.companie,
             color: Color.fromRGBO(0, 74, 173, 1),
             size: 40,
           )),

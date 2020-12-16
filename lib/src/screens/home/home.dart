@@ -1,3 +1,4 @@
+import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/components/home_card.dart';
 import 'package:estruturabasica/src/components/home_card_grid.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
@@ -21,10 +22,10 @@ class Home extends StatelessWidget {
                     crossAxisCount: 2,
                     shrinkWrap: true,
                     children: [
-                      HomeCardGrid(TransactionMposForm(), Icons.credit_card_outlined, "Transação \n Cartão"),
-                      HomeCardGrid(TransactionBoletoForm(), Icons.description_outlined, "Transação \n Boleto"),
-                      HomeCardGrid(TransactionMposForm(), Icons.link, "Link  \n Pagamento"),
-                      HomeCardGrid(TransactionOnlineForm(), Icons.alternate_email_outlined, "Transação \n Online"),
+                      HomeCardGrid(TransactionMposForm(), Ecommerce_bank_pay.mpos, "Transação \n Maquininha"),
+                      HomeCardGrid(TransactionBoletoForm(), Ecommerce_bank_pay.boleto, "Gerar\n Boleto"),
+                      HomeCardGrid(TransactionMposForm(), Ecommerce_bank_pay.link_pagamento, "Link de \n Pagamento"),
+                      HomeCardGrid(TransactionOnlineForm(), Ecommerce_bank_pay.credito_online, "Transação \n Online"),
               ]),
           ),
         ],
