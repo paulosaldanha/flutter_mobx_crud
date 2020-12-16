@@ -22,9 +22,11 @@ abstract class _BoletoBase with Store {
   double value;
   @observable
   DateTime dateExpiration;
+
   String message;
   @observable
   double valueTax;
+
 
 //getter and setter
   @action
@@ -42,7 +44,6 @@ abstract class _BoletoBase with Store {
     value = double.parse(valueBillet);
     setValueTax(value.toString());
   }
-
   @action
   setDateExpiration(DateTime value) => dateExpiration = value;
   @action

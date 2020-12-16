@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/controllers/boleto_controller.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -154,6 +155,7 @@ class TransactionBoletoForm extends StatelessWidget {
                       fontSize: 13, color: Color.fromRGBO(209, 8, 6, 0.8)),
                 );
               }),
+
               SizedBox(
                 height: 10,
               ),

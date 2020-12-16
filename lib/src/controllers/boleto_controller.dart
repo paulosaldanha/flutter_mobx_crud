@@ -14,10 +14,12 @@ abstract class _BoletoController with Store {
   //referente ao formulario de inserção
   var boleto = Boleto();
 
+
   @observable
   String validDate = "Data de vencimento inválida";
   @action
   setValidDate(String value) => validDate = value;
+
 
   //validador de nome
   String validateName() {
@@ -79,6 +81,7 @@ abstract class _BoletoController with Store {
   }
 
   //validador de Vencimento
+
   bool validateDateExpiration() {
     if (boleto.dateExpiration == null) {
       setValidDate("Vencimento obrigatório");
@@ -90,6 +93,7 @@ abstract class _BoletoController with Store {
       setValidDate("");
     }
     return true;
+
   }
 
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
@@ -103,8 +107,8 @@ abstract class _BoletoController with Store {
         validateValue() == null &&
         validateDateExpiration() == true;
   }
-
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
+
   }
 }

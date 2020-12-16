@@ -152,6 +152,7 @@ mixin _$Boleto on _BoletoBase, Store {
     return _$setValueTaxAsyncAction.run(() => super.setValueTax(value));
   }
 
+
   final _$_BoletoBaseActionController = ActionController(name: '_BoletoBase');
 
   @override
