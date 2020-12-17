@@ -1,14 +1,21 @@
 import 'package:estruturabasica/main.dart';
+import 'package:estruturabasica/src/screens/home/login_page.dart';
+import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';
+import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:estruturabasica/src/screens/estado/estado_form.dart';
 import 'package:estruturabasica/src/screens/estado/estado_list.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_boleto_form.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_link_form.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);
 //criação das rotas nomeadas
-RouteFactory rotas(){
+RouteFactory rotas() {
   return (settings) {
       //final Map<Object, dynamic> arguments = settings.arguments;
       // No editar passo um objeto, então aqui na rota defino que como argumento espero um objeto
@@ -17,7 +24,7 @@ RouteFactory rotas(){
       //
       switch (settings.name) {
         case HomeViewRoute:
-          screen = MyHomePage(title: "Escolinha");
+          screen = MyHomePage(title: "EcommerceBankPay");
           break;
         case ListPaisViewRoute:
           screen = ListPage();
@@ -31,8 +38,23 @@ RouteFactory rotas(){
         case CadEstadoViewRoute:
           screen = EstadoForm(estado:obj);
           break;
+        case TransactionCardMpos:
+          screen = TransactionMposForm();
+          break;
+        case TransactionBoleto:
+          screen = TransactionBoletoForm();
+          break;
+        case LoginPageRoute:
+          screen = LoginPage();
+          break;
+        case RecoverPasswordPageRoute:
+          screen = RecoverPasswordPage();
+          break;
+        case RegisterPageViewRoute:
+          screen = RegisterPage();
+          break;
         default:
-          screen = MyHomePage(title: "Escolinha");
+          screen = MyHomePage(title: "EcommerceBankPay");
       }
       return MaterialPageRoute(builder: (BuildContext context) => screen);
     };
