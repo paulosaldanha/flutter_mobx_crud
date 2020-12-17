@@ -42,8 +42,6 @@ abstract class _TransactionOnlineBase with Store {
   @action
   setValue(int valueBillet) {
     value = valueBillet/100;
-    print(installments);
-    print(value);
   }
   @action
   setDateExpiration(String value) => cardDateExpiration = value;
