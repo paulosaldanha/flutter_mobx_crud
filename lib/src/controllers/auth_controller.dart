@@ -23,8 +23,8 @@ abstract class _AuthController with Store {
 
   }
 
-  String validateSenha(){
-    if(auth.senha == null || auth.senha.length < 3){
+  String validatePassword(){
+    if(auth.password == null || auth.password.length < 3){
       return "Campo deve conter 3 caracteres no minimo";
     }
     return null;
@@ -40,7 +40,7 @@ abstract class _AuthController with Store {
   // dados computados, dados derivados de estado(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
-    return validateEmail() == null && validateSenha() == null;
+    return validateEmail() == null && validatePassword() == null;
   }
 
   //ação do botao salvar/atualizar

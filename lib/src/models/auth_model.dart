@@ -9,7 +9,7 @@ abstract class _AuthBase with Store {
   @observable
   String email = '';
   @observable
-  String senha = '';
+  String password = '';
   @observable
   bool isLogged;
   @observable
@@ -20,7 +20,7 @@ abstract class _AuthBase with Store {
   setEmail(String value) => email = value;
 
   @action
-  setSenha(String value) => senha = value;
+  setPassword(String value) => password = value;
 
   @action
   setIsLogged(bool value) => isLogged = value;
@@ -30,7 +30,7 @@ abstract class _AuthBase with Store {
 
   //Constructors
 
-  _AuthBase.construtorParametro (this.email,this.senha,this.isLogged,this.errorMsg);
+  _AuthBase.construtorParametro (this.email,this.password,this.isLogged,this.errorMsg);
 
   _AuthBase ();
 
@@ -38,20 +38,20 @@ abstract class _AuthBase with Store {
   Map<String,dynamic> toMap() {
     var map = <String,dynamic>{
       'email': email,
-      'senha': senha
+      'senha': password
     };
     return map;
   }
 
   _AuthBase.fromMap(Map<String,dynamic> map){
     email = map['email'];
-    senha = map['senha'];
+    password = map['senha'];
   }
 
   Map<String, dynamic> toJson(){
     Map<String,dynamic > map = {
       'email': email.trim(),
-      'senha': senha.trim(),
+      'senha': password.trim(),
     };
     return map;
   }

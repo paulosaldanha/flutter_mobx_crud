@@ -26,21 +26,21 @@ mixin _$Auth on _AuthBase, Store {
     }, _$emailAtom, name: '${_$emailAtom.name}_set');
   }
 
-  final _$senhaAtom = Atom(name: '_AuthBase.senha');
+  final _$passwordAtom = Atom(name: '_AuthBase.password');
 
   @override
-  String get senha {
-    _$senhaAtom.context.enforceReadPolicy(_$senhaAtom);
-    _$senhaAtom.reportObserved();
-    return super.senha;
+  String get password {
+    _$passwordAtom.context.enforceReadPolicy(_$passwordAtom);
+    _$passwordAtom.reportObserved();
+    return super.password;
   }
 
   @override
-  set senha(String value) {
-    _$senhaAtom.context.conditionallyRunInAction(() {
-      super.senha = value;
-      _$senhaAtom.reportChanged();
-    }, _$senhaAtom, name: '${_$senhaAtom.name}_set');
+  set password(String value) {
+    _$passwordAtom.context.conditionallyRunInAction(() {
+      super.password = value;
+      _$passwordAtom.reportChanged();
+    }, _$passwordAtom, name: '${_$passwordAtom.name}_set');
   }
 
   final _$isLoggedAtom = Atom(name: '_AuthBase.isLogged');
@@ -90,10 +90,10 @@ mixin _$Auth on _AuthBase, Store {
   }
 
   @override
-  dynamic setSenha(String value) {
+  dynamic setPassword(String value) {
     final _$actionInfo = _$_AuthBaseActionController.startAction();
     try {
-      return super.setSenha(value);
+      return super.setPassword(value);
     } finally {
       _$_AuthBaseActionController.endAction(_$actionInfo);
     }

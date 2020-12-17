@@ -87,9 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                         prefix: Icon(Icons.lock),
                         textInputType: TextInputType.emailAddress,
                         enabled: true,
-                        onChanged: authController.auth.setSenha,
-                        errorText: authController.validateSenha,
-                        initalValue: authController.auth.senha
+                        onChanged: authController.auth.setPassword,
+                        errorText: authController.validatePassword,
+                        initalValue: authController.auth.password
                     );
                   }),
                   FlatButton(
