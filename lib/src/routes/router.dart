@@ -1,5 +1,8 @@
 import 'package:estruturabasica/main.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/screens/home/login_page.dart';
+import 'package:estruturabasica/src/screens/home/recover_password.dart';
+import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';
 import 'package:estruturabasica/src/screens/estado/estado_form.dart';
@@ -31,8 +34,28 @@ RouteFactory rotas(){
         case CadEstadoViewRoute:
           screen = EstadoForm(estado:obj);
           break;
+<<<<<<< Updated upstream
         default:
           screen = MyHomePage(title: "Escolinha");
+=======
+        case TransactionCardMpos:
+          screen = TransactionMposForm();
+          break;
+        case TransactionBoleto:
+          screen = TransactionBoletoForm();
+          break;
+        case LoginPageRoute:
+          screen = LoginPage();
+          break;
+        case RecoverPasswordPageRoute:
+          screen = RecoverPasswordPage();
+          break;
+        case RegisterPageViewRoute:
+          screen = RegisterPage();
+          break;
+        default:
+          screen = LoginPage();
+>>>>>>> Stashed changes
       }
       return MaterialPageRoute(builder: (BuildContext context) => screen);
     };

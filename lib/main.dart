@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/routes/router.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       //gera as rotas para navegação
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
-      initialRoute: HomeViewRoute,
+      initialRoute: LoginPageRoute,
       //home: MyHomePage(title: appTitle),
     );
   }
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final String title;
+  final authController = AuthController();
 
   MyHomePage({Key key, this.title}) : super(key: key);
   // cria pagina principal com menu drawer
@@ -41,6 +43,7 @@ class MyHomePage extends StatelessWidget {
             DrawerHeader(
               child: Text('Drawer Header'),
               decoration: BoxDecoration(
+<<<<<<< Updated upstream
                 color: Colors.blue,
               ),
             ),
@@ -58,12 +61,29 @@ class MyHomePage extends StatelessWidget {
                 // Then close the drawer
                 //Navigator.pop(context);
               },
+=======
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(0, 74, 173, 1),
+                      Colors.white,
+                    ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
+>>>>>>> Stashed changes
             ),
             ListTile(
               title: Text('Estado'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(ListEstadoViewRoute);
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () async {
+                await authController.logout();
+                Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
               },
             ),
           ],
