@@ -14,4 +14,9 @@ const String TransactionCardMpos = 'transactionMpos';
 const String TransactionBoleto = 'transactionBoleto';
 //Link
 const String TransactionLink = 'transactionLink';
+//LoginPage
+const String LoginPageRoute = 'login';
+//RegisterPage
+const String RegisterPageViewRoute = 'register';
 
+const String RecoverPasswordPageRoute = 'recoverpassword';
