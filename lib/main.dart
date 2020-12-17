@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       //gera as rotas para navegação
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
-      initialRoute: HomeViewRoute,
+      initialRoute: LoginPageRoute,
       //home: MyHomePage(title: appTitle),
     );
   }
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final String title;
+  final authController = AuthController();
 
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -61,6 +63,13 @@ class MyHomePage extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(TransactionCardMpos);
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () async {
+                await authController.logout();
+                Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
               },
             ),
           ],

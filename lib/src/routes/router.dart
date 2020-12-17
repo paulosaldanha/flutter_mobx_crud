@@ -1,5 +1,8 @@
 import 'package:estruturabasica/main.dart';
+import 'package:estruturabasica/src/screens/home/login_page.dart';
+import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
@@ -40,6 +43,15 @@ RouteFactory rotas() {
           break;
         case TransactionBoleto:
           screen = TransactionBoletoForm();
+          break;
+        case LoginPageRoute:
+          screen = LoginPage();
+          break;
+        case RecoverPasswordPageRoute:
+          screen = RecoverPasswordPage();
+          break;
+        case RegisterPageViewRoute:
+          screen = RegisterPage();
           break;
         default:
           screen = MyHomePage(title: "EcommerceBankPay");
