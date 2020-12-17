@@ -56,20 +56,6 @@ class MyHomePage extends StatelessWidget {
                 end: Alignment.bottomCenter,
               )),
             ),
-            // ListTile(
-            //   title: Text('Pais'),
-            //   onTap: () {
-            //     Navigator.of(context).pop();
-            //     Navigator.of(context).pushNamed(ListPaisViewRoute);
-            //   },
-            // ),
-            // ListTile(
-            //   title: Text('Estado'),
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     Navigator.of(context).pushNamed(ListEstadoViewRoute);
-            //   },
-            // ),
             ListTile(
               title: Text('Transação MPOS'),
               onTap: () {
