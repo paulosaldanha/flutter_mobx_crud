@@ -53,21 +53,21 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                                   "0,00"
                               ? () async {
                             listComboController.getTaxCredit(transactionOnlinePart2Controller.currentValues);
-                                  var retorno = await showAlertConfirmListCombo(
-                                      context,
-                                      "Selecione uma parcela",
-                                      listComboController,
-                                      'credito');
-                                  if (retorno == 1) {
-                                    transactiononlineController.transactiononline.setValue(listComboController.amountComboList);
-                                    transactiononlineController.transactiononline.setInstallments(listComboController.installmentsComboList);
+                                  // var retorno = await showAlertConfirmListCombo(
+                                  //     context,
+                                  //     "Selecione uma parcela",
+                                  //     listComboController,
+                                  //     'credito');
+                                  // if (retorno == 1) {
+                                  //   transactiononlineController.transactiononline.setValue(listComboController.amountComboList);
+                                  //   transactiononlineController.transactiononline.setInstallments(listComboController.installmentsComboList);
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>
                                             TransactionOnlineFormPart3(
                                                 transactiononline,
                                                 transactiononlineController)));
                                   }
-                                }
+                                // }
                               : null,
                           child: Container(
                             height: 70,

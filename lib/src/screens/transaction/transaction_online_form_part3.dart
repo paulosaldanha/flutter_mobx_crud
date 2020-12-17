@@ -12,7 +12,9 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
   final transactiononline;
   final transactiononlineController;
 
-  TransactionOnlineFormPart3(this.transactiononline, this.transactiononlineController);
+  TransactionOnlineFormPart3(
+      this.transactiononline, this.transactiononlineController);
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,62 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Observer(builder: (_) {
+                return Container(
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.height / 2,
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.8),
+                            spreadRadius: 5,
+                            blurRadius: 18,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(right: 30),
+                              child: Image.asset(
+                                'images/master.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            _rowCard(transactiononlineController
+                                .transactiononline.cardName??'NOME'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            _rowCard(transactiononlineController
+                                .transactiononline.cardNumber??'NUMERO DO CARTAO'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            _rowCard(transactiononlineController
+                                .transactiononline.cardDateExpiration?? 'DATA'),
+                            _rowCard(transactiononlineController
+                                .transactiononline.cardCVV??'CVV'),
+                          ],
+                        ),
+                      ],
+                    ));
+              }),
+              SizedBox(
+                height: 30,
+              ),
               Observer(
                 builder: (_) {
                   return _textField(
@@ -40,11 +98,12 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
               ),
               Observer(
                 builder: (_) {
-                  return _textField(
+                  return _numberField(
                       labelText: "Numero do Cartão",
                       onChanged: transactiononlineController
                           .transactiononline.setCardNumber,
-                      errorText: transactiononlineController.validateCardNumber);
+                      errorText:
+                          transactiononlineController.validateCardNumber);
                 },
               ),
               SizedBox(
@@ -61,7 +120,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                             labelText: "Validade Cartão",
                             onChanged: transactiononlineController
                                 .transactiononline.setDateExpiration,
-                            errorText: transactiononlineController.validateDateExpiration);
+                            errorText: transactiononlineController
+                                .validateDateExpiration);
                       },
                     )),
                   ),
@@ -77,7 +137,7 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                             onChanged: transactiononlineController
                                 .transactiononline.setCardCVV,
                             errorText:
-                            transactiononlineController.validateCardCVV);
+                                transactiononlineController.validateCardCVV);
                       },
                     ),
                   ),
@@ -93,7 +153,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                       child: RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
+                            side: BorderSide(
+                                color: Color.fromRGBO(0, 74, 173, 1)),
                           ),
                           color: Colors.white,
                           onPressed: transactiononlineController.isValidPart3
@@ -115,7 +176,7 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                             child: Text(
                               "Criar",
                               style: TextStyle(
-                                  color: Color.fromRGBO(0, 74, 173, 1),
+                                color: Color.fromRGBO(0, 74, 173, 1),
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -125,6 +186,20 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _rowCard(String text) {
+    return Container(
+      padding: EdgeInsets.only(left: 30),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -158,4 +233,3 @@ _numberField(
         prefixText: prefix),
   );
 }
-
