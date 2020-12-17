@@ -14,35 +14,10 @@ mixin _$TransactionOnlineController on _TransactionOnlineController, Store {
   @override
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
-
-  final _$patternAtom = Atom(name: '_TransactionOnlineController.pattern');
-
-  @override
-  String get pattern {
-    _$patternAtom.context.enforceReadPolicy(_$patternAtom);
-    _$patternAtom.reportObserved();
-    return super.pattern;
-  }
+  Computed<bool> _$isValidPart3Computed;
 
   @override
-  set pattern(String value) {
-    _$patternAtom.context.conditionallyRunInAction(() {
-      super.pattern = value;
-      _$patternAtom.reportChanged();
-    }, _$patternAtom, name: '${_$patternAtom.name}_set');
-  }
-
-  final _$_TransactionOnlineControllerActionController =
-      ActionController(name: '_TransactionOnlineController');
-
-  @override
-  dynamic setPattern(String value) {
-    final _$actionInfo =
-        _$_TransactionOnlineControllerActionController.startAction();
-    try {
-      return super.setPattern(value);
-    } finally {
-      _$_TransactionOnlineControllerActionController.endAction(_$actionInfo);
-    }
-  }
+  bool get isValidPart3 =>
+      (_$isValidPart3Computed ??= Computed<bool>(() => super.isValidPart3))
+          .value;
 }

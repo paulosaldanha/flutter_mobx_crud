@@ -40,11 +40,13 @@ abstract class _TransactionOnlineBase with Store {
   @action
   setTelephone(String value) => telephone = value;
   @action
-  setValue(String valueBillet) => value = double.parse(valueBillet);
+  setValue(int valueBillet) {
+    value = valueBillet/100;
+  }
   @action
   setDateExpiration(String value) => cardDateExpiration = value;
   @action
-  setInstallments(String value) => installments = int.parse(value);
+  setInstallments(int value) => installments = value;
   @action
   setCardNumber(String value) => cardNumber = value;
   @action

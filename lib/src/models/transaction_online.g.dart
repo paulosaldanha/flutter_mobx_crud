@@ -252,7 +252,7 @@ mixin _$TransactionOnline on _TransactionOnlineBase, Store {
   }
 
   @override
-  dynamic setValue(String valueBillet) {
+  dynamic setValue(int valueBillet) {
     final _$actionInfo = _$_TransactionOnlineBaseActionController.startAction();
     try {
       return super.setValue(valueBillet);
@@ -272,7 +272,7 @@ mixin _$TransactionOnline on _TransactionOnlineBase, Store {
   }
 
   @override
-  dynamic setInstallments(String value) {
+  dynamic setInstallments(int value) {
     final _$actionInfo = _$_TransactionOnlineBaseActionController.startAction();
     try {
       return super.setInstallments(value);

@@ -13,11 +13,6 @@ abstract class _TransactionOnlineController with Store {
   var transactiononline = TransactionOnline();
   var service = TransactionOnlineService();
 
-  @observable
-  String pattern = '';
-
-  @action
-  setPattern(String value) => pattern = value;
 
   String validateName() {
     if (transactiononline.name == null || transactiononline.name.isEmpty || transactiononline.name.length < 3) {
@@ -114,13 +109,15 @@ abstract class _TransactionOnlineController with Store {
         validateEmail() == null &&
         validateDocument() == null &&
         validateDdd() == null &&
-        validateTelephone() == null &&
-        validateValue() == null &&
-        validateInstallments() == null &&
-        validateCardName() == null &&
-        validateCardNumber() == null &&
-        validateCardCVV()  == null &&
-        validateDateExpiration() == null;
+        validateTelephone() == null;
+  }
+
+  @computed
+  bool get isValidPart3 {
+    return validateCardName() == null &&
+    validateCardNumber() == null &&
+    validateCardCVV()  == null &&
+    validateDateExpiration() == null;
   }
 
   dynamic createTransctionTransactionOnline() async {

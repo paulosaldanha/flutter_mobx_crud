@@ -12,6 +12,7 @@ class TransactionListComboController = _TransactionListComboController with _$Tr
 abstract class _TransactionListComboController with Store {
   _TransactionListComboController();
 
+
   @observable
   List<Tax> amountValuesCreditCardList;
   @observable
