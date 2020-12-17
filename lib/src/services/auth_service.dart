@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   String baseUrl = 'https://ecommercebank.tk/ecommerce/api/usuario/login';
   String getError = '';
+  String getAuthToken = '';
   AuthService();
 
   Future<Auth> authenticate(Auth auth) async {
@@ -17,6 +18,7 @@ class AuthService {
     if (authretorno.statusCode == 200){
       var retorno = json.decode(authretorno.body);
       await login(retorno["accessToken"]);
+      getAuthToken = retorno["accessToken"];
       return Auth.fromMap(json.decode(authretorno.body));
     } else {
       var retorno = json.decode(authretorno.body);
