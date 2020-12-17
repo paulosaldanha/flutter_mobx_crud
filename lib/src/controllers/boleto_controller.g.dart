@@ -30,7 +30,6 @@ mixin _$BoletoController on _BoletoController, Store {
       super.validDate = value;
       _$validDateAtom.reportChanged();
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
- 
   }
 
   final _$_BoletoControllerActionController =
@@ -41,7 +40,6 @@ mixin _$BoletoController on _BoletoController, Store {
     final _$actionInfo = _$_BoletoControllerActionController.startAction();
     try {
       return super.setValidDate(value);
-
     } finally {
       _$_BoletoControllerActionController.endAction(_$actionInfo);
     }
