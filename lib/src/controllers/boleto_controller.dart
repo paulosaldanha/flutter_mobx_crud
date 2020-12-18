@@ -29,6 +29,7 @@ abstract class _BoletoController with Store {
     return null;
   }
 
+
   //validador de document
   String validateDocument() {
     if (boleto.document == null) {
@@ -47,6 +48,7 @@ abstract class _BoletoController with Store {
     if (boleto.ddd == null) {
       return null;
     } else if (boleto.ddd.isEmpty) {
+
       return "DDD obrigatório";
     }
     return null;
@@ -57,6 +59,7 @@ abstract class _BoletoController with Store {
     if (boleto.telephone == null) {
       return null;
     } else if (boleto.telephone.isEmpty || boleto.telephone.length < 8) {
+
       return "Telefone obrigatório";
     }
     return null;
@@ -67,6 +70,7 @@ abstract class _BoletoController with Store {
     if (boleto.value == null) {
       return null;
     } else if (boleto.value < 10) {
+
       return "O valor minimo é R\$ 10,00";
     }
     return null;
@@ -87,6 +91,7 @@ abstract class _BoletoController with Store {
     } else {
       setValidDate("");
     }
+
   }
 
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
@@ -98,7 +103,6 @@ abstract class _BoletoController with Store {
         validateTelephone() == null &&
         validateDateExpiration() == true;
   }
-
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
   }

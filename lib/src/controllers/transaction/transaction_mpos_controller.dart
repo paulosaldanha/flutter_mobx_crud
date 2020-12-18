@@ -14,6 +14,7 @@ class TransactionMposController = _TransactionMposController
     with _$TransactionMposController;
 
 abstract class _TransactionMposController with Store {
+
   TransactionMpos transactionMpos = TransactionMpos();
 
   _TransactionMposController();
@@ -61,25 +62,25 @@ abstract class _TransactionMposController with Store {
     if (transactionMpos.deviceName != null) {
       return true;
     } else {
+
       return false;
     }
   }
 
   @action
-  void setPaymentMethod(String value) {
+  void setPaymentMethod(String value){
     if (value == 'credito') {
-      transactionMpos.setPaymentMethod(PaymentMethod.CreditCard);
+      transactionMpos.setPaymentMethod( PaymentMethod.CreditCard);
     }
     if (value == 'debito') {
-      transactionMpos.setPaymentMethod(PaymentMethod.DebitCard);
+      transactionMpos.setPaymentMethod( PaymentMethod.DebitCard);
     }
   }
 
-  Future<void> initPlatformState(
-      TransactionModalController transactionMposController, context) async {
+  Future<void> initPlatformState(TransactionModalController transactionMposController, context) async {
     transactionMposController.setImgStatus('images/pay.png');
     transactionMposController.setStatus(1);
-    DeviceService device = await DeviceService(
+    DeviceService device =  await DeviceService(
         deviceName: transactionMpos.deviceName,
         amount: transactionMpos.amount,
         installments: transactionMpos.installments,
@@ -88,3 +89,4 @@ abstract class _TransactionMposController with Store {
         context: context);
   }
 }
+

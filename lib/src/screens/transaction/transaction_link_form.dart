@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/src/material/dropdown.dart';
-
 // ignore: must_be_immutable
+
 class TransactionLinkForm extends StatelessWidget {
   final transactionLink = TransactionLink();
   TransactionLinkController transactionLinkController =

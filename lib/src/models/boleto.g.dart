@@ -26,6 +26,7 @@ mixin _$Boleto on _BoletoBase, Store {
     }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
+
   final _$documentAtom = Atom(name: '_BoletoBase.document');
 
   @override
@@ -122,6 +123,7 @@ mixin _$Boleto on _BoletoBase, Store {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }
   }
+
 
   @override
   dynamic setDocument(String value) {

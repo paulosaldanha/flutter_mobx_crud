@@ -8,6 +8,7 @@ class DisplayValueWidget extends StatelessWidget {
 
   DisplayValueWidget(this.controller, this.errorDescription, this.error);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,6 +69,7 @@ class DisplayValueWidget extends StatelessWidget {
                                     : Colors.lightGreen,
                               ),
                             )
+
                           : Text('');
                     },
                   ),

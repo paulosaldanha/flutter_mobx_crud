@@ -15,7 +15,8 @@ abstract class _TransactionLinkController with Store {
   var link = TransactionLink();
 
   @observable
-  String validDate = "";
+  String validDate = "Data de vencimento inválida";
+
   @action
   setValidDate(String value) => validDate = value;
 
@@ -55,6 +56,7 @@ abstract class _TransactionLinkController with Store {
       //setValidDate("");
       return true;
     }
+
   }
 
   // dados computados, dados derivados de link(reatividade) existente ou de outros dados computados

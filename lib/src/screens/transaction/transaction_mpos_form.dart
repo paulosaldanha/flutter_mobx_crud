@@ -28,20 +28,21 @@ class TransactionMposForm extends StatelessWidget {
         backgroundColor: Color.fromRGBO(15, 74, 173, 1),
         title: Text('Transação MPOS - D150'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          DisplayValueWidget(
-              transactionMposController, 'SEM CONEXÃO COM MAQUININHA', true),
-          KeyboardWidget(transactionMposController),
-          ContinueBtnWidget(transactionMposController,
-              TransactionPaymentMethod(transactionMposController)),
-          Observer(builder: (_) {
-            return transactionMposController.visibilityModalBluetooth
-                ? BluetoothModal()
-                : Text('');
-          }),
-        ],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DisplayValueWidget(transactionMposController, 'SEM CONEXÃO COM MAQUININHA'),
+            KeyboardWidget(transactionMposController),
+            ContinueBtnWidget(transactionMposController, TransactionPaymentMethod(transactionMposController)),
+            Observer(builder: (_) {
+              return transactionMposController.visibilityModalBluetooth
+                  ? BluetoothModal()
+                  : Text('');
+            }),
+          ],
+        ),
       ),
     );
   }
