@@ -26,7 +26,6 @@ dynamic createTransactionBoleto(Boleto boleto) async {
 
   Map<String, Object> payload = Map();
   payload["nome"] = boleto.name;
-  payload["email"] = boleto.email;
   payload["documento"] = boleto.document;
   payload["ddd"] = boleto.ddd;
   payload["telefone"] = boleto.telephone;
@@ -68,6 +67,7 @@ dynamic createTransactionLink(TransactionLink link) async {
               HttpHeaders.contentTypeHeader: 'application/json',
               HttpHeaders.authorizationHeader:
                   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RvcnQiOiJ7XCJVc3VhcmlvSWRcIjoxLFwiTm9tZVVzdWFyaW9cIjpcIkx1aXogSW5kZXplaWNoYWtcIixcIkVtYWlsVXN1YXJpb1wiOlwibHVpekBjbG91ZGNybS50ZWNoXCIsXCJFc3RhYmVsZWNpbWVudG9JZFwiOjEsXCJOb21lRXN0YWJlbGVjaW1lbnRvXCI6XCJDbG91ZENSTVwiLFwiUmF6YW9Tb2NpYWxFc3RhYmVsZWNpbWVudG9cIjpcIkNMT1VEQ1JNIFNJU1RFTUFcIixcIlJlcGFzc2VUYXhhQ2xpZW50ZVwiOnRydWUsXCJOaXZlbEFjZXNzb1wiOlwiU0FETUlOXCJ9IiwidW5pcXVlX25hbWUiOiJMdWl6IEluZGV6ZWljaGFrIiwiZW1haWwiOiJsdWl6QGNsb3VkY3JtLnRlY2giLCJyb2xlIjoiU0FETUlOIiwibmJmIjoxNjA4MjIyODg4LCJleHAiOjE2MDgyNTE2ODgsImlhdCI6MTYwODIyMjg4OCwiaXNzIjoiRWNvbW1lcmNlQmFuayJ9.3D3U1g2JrXh8VqnBU-DYJdQ4g7i5EeTz-0d4Ldp6lqQ'
+
             },
             body: jsonEncode(payload));
 
@@ -77,7 +77,6 @@ dynamic createTransactionLink(TransactionLink link) async {
   }
 }
 
-
 dynamic getTax(String current, int method) async {
   var client = http.Client();
 
@@ -85,7 +84,6 @@ dynamic getTax(String current, int method) async {
   payload["valor"] = double.parse(current);
   payload["metodo"] = method;
   payload["token"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RvcnQiOiJ7XCJVc3VhcmlvSWRcIjoxLFwiTm9tZVVzdWFyaW9cIjpcIkx1aXogSW5kZXplaWNoYWtcIixcIkVtYWlsVXN1YXJpb1wiOlwibHVpekBjbG91ZGNybS50ZWNoXCIsXCJFc3RhYmVsZWNpbWVudG9JZFwiOjEsXCJOb21lRXN0YWJlbGVjaW1lbnRvXCI6XCJDbG91ZENSTVwiLFwiUmF6YW9Tb2NpYWxFc3RhYmVsZWNpbWVudG9cIjpcIkNMT1VEQ1JNIFNJU1RFTUFcIixcIlJlcGFzc2VUYXhhQ2xpZW50ZVwiOnRydWUsXCJOaXZlbEFjZXNzb1wiOlwiU0FETUlOXCJ9IiwidW5pcXVlX25hbWUiOiJMdWl6IEluZGV6ZWljaGFrIiwiZW1haWwiOiJsdWl6QGNsb3VkY3JtLnRlY2giLCJyb2xlIjoiU0FETUlOIiwibmJmIjoxNjA4MjIyODg4LCJleHAiOjE2MDgyNTE2ODgsImlhdCI6MTYwODIyMjg4OCwiaXNzIjoiRWNvbW1lcmNlQmFuayJ9.3D3U1g2JrXh8VqnBU-DYJdQ4g7i5EeTz-0d4Ldp6lqQ";
-
   try {
     var response = await client.post(
         'http://ecommercebank.tk/ecommerce/api/Transacao/calculo',

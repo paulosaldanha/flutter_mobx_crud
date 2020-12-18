@@ -17,45 +17,36 @@ import 'package:flutter/material.dart';
 //criação das rotas nomeadas
 RouteFactory rotas() {
   return (settings) {
-      //final Map<Object, dynamic> arguments = settings.arguments;
-      // No editar passo um objeto, então aqui na rota defino que como argumento espero um objeto
-      Object obj = settings.arguments;
-      Widget screen;
-      //
-      switch (settings.name) {
-        case HomeViewRoute:
-          screen = MyHomePage(title: "EcommerceBankPay");
-          break;
-        case ListPaisViewRoute:
-          screen = ListPage();
-          break;
-        case CadPaisViewRoute:
-          screen = PaisForm(pais: obj);
-          break;
-        case ListEstadoViewRoute:
-          screen = EstadoListPage();
-          break;
-        case CadEstadoViewRoute:
-          screen = EstadoForm(estado:obj);
-          break;
-        case TransactionCardMpos:
-          screen = TransactionMposForm();
-          break;
-        case TransactionBoleto:
-          screen = TransactionBoletoForm();
-          break;
-        case LoginPageRoute:
-          screen = LoginPage();
-          break;
-        case RecoverPasswordPageRoute:
-          screen = RecoverPasswordPage();
-          break;
-        case RegisterPageViewRoute:
-          screen = RegisterPage();
-          break;
-        default:
-          screen = MyHomePage(title: "EcommerceBankPay");
-      }
-      return MaterialPageRoute(builder: (BuildContext context) => screen);
-    };
+    //final Map<Object, dynamic> arguments = settings.arguments;
+    // No editar passo um objeto, então aqui na rota defino que como argumento espero um objeto
+    Object obj = settings.arguments;
+    Widget screen;
+    //
+    switch (settings.name) {
+      case HomeViewRoute:
+        screen = MyHomePage(title: "EcommerceBankPay");
+        break;
+      case ListPaisViewRoute:
+        screen = ListPage();
+        break;
+      case CadPaisViewRoute:
+        screen = PaisForm(pais: obj);
+        break;
+      case ListEstadoViewRoute:
+        screen = EstadoListPage();
+        break;
+      case CadEstadoViewRoute:
+        screen = EstadoForm(estado: obj);
+        break;
+      case TransactionCardMpos:
+        screen = TransactionMposForm();
+        break;
+      case TransactionBoleto:
+        screen = TransactionBoletoForm();
+        break;
+      default:
+        screen = MyHomePage(title: "EcommerceBankPay");
+    }
+    return MaterialPageRoute(builder: (BuildContext context) => screen);
+  };
 }

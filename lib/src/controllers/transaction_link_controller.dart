@@ -16,6 +16,7 @@ abstract class _TransactionLinkController with Store {
 
   @observable
   String validDate = "Data de vencimento inválida";
+
   @action
   setValidDate(String value) => validDate = value;
 
@@ -48,16 +49,14 @@ abstract class _TransactionLinkController with Store {
 
   //validador de Vencimento
   bool validateDateExpiration() {
-    if (link.dateExpiration == null) {
-      setValidDate("Vencimento obrigatório");
-      return false;
-    } else if (!link.dateExpiration.isAfter(DateTime.now())) {
-      setValidDate("Data de vencimento inválida");
+    if (!link.dateExpiration.isAfter(DateTime.now())) {
+      //setValidDate("Data de vencimento inválida");
       return false;
     } else {
-      setValidDate("");
+      //setValidDate("");
+      return true;
     }
-    return true;
+
   }
 
   // dados computados, dados derivados de link(reatividade) existente ou de outros dados computados

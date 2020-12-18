@@ -1,4 +1,3 @@
-import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'boleto.g.dart';
@@ -11,8 +10,6 @@ abstract class _BoletoBase with Store {
   @observable
   String name;
   @observable
-  String email;
-  @observable
   String document;
   @observable
   String ddd;
@@ -24,15 +21,10 @@ abstract class _BoletoBase with Store {
   DateTime dateExpiration;
 
   String message;
-  @observable
-  double valueTax;
-
 
 //getter and setter
   @action
   setNome(String value) => name = value;
-  @action
-  setEmail(String value) => email = value;
   @action
   setDocument(String value) => document = value;
   @action
@@ -40,17 +32,9 @@ abstract class _BoletoBase with Store {
   @action
   setTelephone(String value) => telephone = value;
   @action
-  setValue(String valueBillet) {
-    value = double.parse(valueBillet);
-    setValueTax(value.toString());
-  }
+  setValue(String valueBillet) => value = double.parse(valueBillet);
   @action
   setDateExpiration(DateTime value) => dateExpiration = value;
   @action
   setMessage(String value) => message = value;
-  @action
-  setValueTax(String value) async {
-    dynamic taxa = await getTax(value, 1);
-    valueTax = taxa[0];
-  }
 }

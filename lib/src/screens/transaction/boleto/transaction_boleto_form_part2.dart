@@ -1,0 +1,80 @@
+import 'package:estruturabasica/src/controllers/transaction/transaction_boleto_controller.dart';
+import 'package:estruturabasica/src/components/display_value_widget.dart';
+import 'package:estruturabasica/src/components/keyboard_widget.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+// ignore: must_be_immutable
+class TransactionBoletoForm2 extends StatelessWidget {
+  final boleto;
+  final boletoController;
+
+  TransactionBoletoForm2(this.boletoController, this.boleto);
+  TransactionBoletoController transactionBoletoController =
+      TransactionBoletoController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+          title: Text('Gerar Boleto'),
+        ),
+        body: Container(
+            padding: EdgeInsets.only(top: 25),
+            color: Color.fromRGBO(0, 74, 173, 1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Observer(builder: (_) {
+                  return DisplayValueWidget(
+                      transactionBoletoController,
+                      "Taxa R\$ " +
+                          transactionBoletoController.currentValuesTax
+                              .toStringAsFixed(2)
+                              .replaceAll(".", ","),
+                      false);
+                }),
+                KeyboardWidget(transactionBoletoController),
+                Container(
+                  width: 1000,
+                  color: Colors.white,
+                  padding:
+                      EdgeInsets.only(top: 10, right: 35, left: 35, bottom: 35),
+                  child: Observer(
+                    builder: (_) {
+                      return FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                          side:
+                              BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
+                        ),
+                        color: Colors.white,
+                        textColor: Color.fromRGBO(0, 74, 173, 1),
+                        padding: EdgeInsets.all(10.0),
+                        onPressed: transactionBoletoController.currentValues !=
+                                '0,00'
+                            ? () {
+                                boletoController.boleto.setValue(
+                                    transactionBoletoController.currentValues);
+                                boletoController.createTransctionBoleto();
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => router));
+                              }
+                            : null,
+                        child: Text(
+                          "Continuar".toUpperCase(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30.0,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
+            )));
+  }
+}
