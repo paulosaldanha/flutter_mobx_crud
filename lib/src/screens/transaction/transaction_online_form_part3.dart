@@ -160,14 +160,17 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                           onPressed: transactiononlineController.isValidPart3
                               ? () {
                                   transactiononlineController
-                                      .createTransctionTransactionOnline();
+                                      .createTransctionTransactionOnline().then((res){
+                                        print(res);
+                                        Flushbar(
+                                          title: "Sucesso",
+                                          message:
+                                          "Transação Online criado com sucesso!",
+                                          duration: Duration(seconds: 2),
+                                        )..show(context);
+                                  });
                                   Navigator.pop(context);
-                                  Flushbar(
-                                    title: "Sucesso",
-                                    message:
-                                        "Transação Online criado com sucesso!",
-                                    duration: Duration(seconds: 2),
-                                  )..show(context);
+                                  Navigator.of(context).pushNamed('/');
                                 }
                               : null,
                           child: Container(

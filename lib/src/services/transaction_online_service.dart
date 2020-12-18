@@ -37,7 +37,17 @@ class TransactionOnlineService {
           },
           body: jsonEncode(payload));
 
-      return jsonDecode(response.body);
+      var tes = jsonDecode(response.body);
+     if(response.statusCode == 200){
+       return tes;
+     }
+     if(response.statusCode == 400){
+       return  tes;
+     }
+      if(response.statusCode == 422){
+        return tes;
+      }
+
     } catch(e){
       print(e);
     }finally {
