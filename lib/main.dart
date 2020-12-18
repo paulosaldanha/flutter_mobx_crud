@@ -11,6 +11,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+          hintColor: Colors.black45,
+          primaryColor: Color.fromRGBO(0, 74, 173, 1),
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
+            hintStyle: TextStyle(color: Colors.black45),
+          )),
       //gera as rotas para navegação
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
@@ -41,6 +54,7 @@ class MyHomePage extends StatelessWidget {
             DrawerHeader(
               child: Text('Drawer Header'),
               decoration: BoxDecoration(
+<<<<<<< Updated upstream
                 color: Colors.blue,
               ),
             ),
@@ -58,6 +72,16 @@ class MyHomePage extends StatelessWidget {
                 // Then close the drawer
                 //Navigator.pop(context);
               },
+=======
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 74, 173, 1),
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
+>>>>>>> Stashed changes
             ),
             ListTile(
               title: Text('Estado'),
