@@ -1,6 +1,6 @@
 # estruturabasica
 
-I have some difficulties to find a very simple flutter crud example with mobx and sqflite, most of the tutorials was about Bloc.
+I had some difficulties to find a very simple flutter crud example with mobx and sqflite, most of the tutorials was about Bloc.
 
 ## Getting Started
 

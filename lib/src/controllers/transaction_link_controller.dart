@@ -25,8 +25,8 @@ abstract class _LinkController with Store {
       return null;
     } else if (link.name.isEmpty ||
         link.name.length < 4 ||
-        link.name.length > 14) {
-      return "O nome deve conter entre 4 e 14 caracteres";
+        link.name.length > 60) {
+      return "O nome deve conter entre 4 e 60 caracteres";
     }
     return null;
   }

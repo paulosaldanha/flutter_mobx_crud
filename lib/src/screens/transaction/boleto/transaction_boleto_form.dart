@@ -11,7 +11,6 @@ class TransactionBoletoForm extends StatelessWidget {
   final boleto = Boleto();
 
   BoletoController boletoController = BoletoController();
-
   TransactionBoletoForm();
 
   @override

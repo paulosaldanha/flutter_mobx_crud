@@ -24,7 +24,6 @@ class TransactionBoletoForm2 extends StatelessWidget {
       return false;
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
