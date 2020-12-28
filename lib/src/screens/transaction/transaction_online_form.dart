@@ -54,7 +54,7 @@ class TransactionOnlineForm extends StatelessWidget {
               ),
               Observer(
                 builder: (_) {
-                  return _textField(
+                  return _numberField(
                       labelText: "Documento",
                       onChanged: transactiononlineController
                           .transactiononline.setDocument,

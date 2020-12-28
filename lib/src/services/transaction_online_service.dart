@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TransactionOnlineService {
   dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
     SharedPreferences _sharedPrefs;
- 
+
     _sharedPrefs = await SharedPreferences.getInstance();
     String barer_token = _sharedPrefs.getString('jwt') ?? "";
 
@@ -37,10 +37,24 @@ class TransactionOnlineService {
           },
           body: jsonEncode(payload));
 
-      return jsonDecode(response.body);
-    } catch(e){
+      var tes = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return tes;
+      }
+      if (response.statusCode == 400) {
+          tes['errors'].forEach((f) {
+            print (f['field']);
+            print (f['errorDescription']);
+          }
+          );
+        return tes['errors'];
+      }
+      if (response.statusCode == 422) {
+        return tes['errors'];
+      }
+    } catch (e) {
       print(e);
-    }finally {
+    } finally {
       client.close();
     }
   }

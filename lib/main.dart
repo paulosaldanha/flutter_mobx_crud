@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
       initialRoute: LoginPageRoute,
-      //home: MyHomePage(title: appTitle),
+      // home: MyHomePage(title: appTitle),
     );
   }
 }
