@@ -13,6 +13,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+          hintColor: Colors.black45,
+          primaryColor: Color.fromRGBO(0, 74, 173, 1),
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
+            hintStyle: TextStyle(color: Colors.black45),
+          )),
       //gera as rotas para navegação
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
@@ -47,23 +60,32 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Image.asset('images/splash.png'),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                  Color.fromRGBO(0, 74, 173, 1),
-                  Colors.white,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
-            ),
+                child: Image.asset('images/splash.png'),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(0, 74, 173, 1),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ))),
             ListTile(
               title: Text('Transação MPOS'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(TransactionCardMpos);
               },
+
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 74, 173, 1),
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
             ),
             ListTile(
               title: Text('Logout'),

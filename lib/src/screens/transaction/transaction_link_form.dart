@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/src/material/dropdown.dart';
-import 'package:mobx/mobx.dart';
+// ignore: must_be_immutable
 
 class TransactionLinkForm extends StatelessWidget {
   final transactionLink = TransactionLink();
@@ -169,6 +169,20 @@ class TransactionLinkForm extends StatelessWidget {
           ),
         ),
       ),
+      //     Column(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   children: [
+      //     DisplayValueWidget(transactionLinkController, null),
+      //     KeyboardWidget(transactionLinkController),
+      //     ContinueBtnWidget(transactionLinkController,
+      //         TransactionPaymentMethod(transactionLinkController)),
+      //     Observer(builder: (_) {
+      //       return transactionMposController.visibilityModalBluetooth
+      //           ? BluetoothModal()
+      //           : Text('');
+      //     }),
+      //   ],
+      // ),
     );
   }
 }
@@ -220,7 +234,7 @@ _dateButton(context, String label, date, controller) {
         if (value != null) {
           controller.link.setDateExpiration(value);
         }
-        bool f = controller.validateDateExpiration();
+        controller.validateDateExpiration();
       },
       icon: Icon(Icons.calendar_today, color: Colors.white),
       label: Observer(builder: (_) {

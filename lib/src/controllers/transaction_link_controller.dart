@@ -5,31 +5,37 @@ import 'package:estruturabasica/src/services/transaction_service.dart';
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
 part 'transaction_link_controller.g.dart';
 
-class TransactionLinkController = _TransactionLinkController
-    with _$TransactionLinkController;
+class LinkController = _LinkController with _$LinkController;
 
-abstract class _TransactionLinkController with Store {
-  _TransactionLinkController();
+abstract class _LinkController with Store {
+  _LinkController();
 
   //referente ao formulario de inserção
   var link = TransactionLink();
 
   @observable
-  String validDate = "Data de vencimento inválida";
+  String validDate = "";
+
   @action
   setValidDate(String value) => validDate = value;
 
   //validador de nome
   String validateName() {
-    if (link.name == null || link.name.isEmpty || link.name.length < 3) {
-      return "Nome obrigatório";
+    if (link.name == null) {
+      return null;
+    } else if (link.name.isEmpty ||
+        link.name.length < 4 ||
+        link.name.length > 60) {
+      return "O nome deve conter entre 4 e 60 caracteres";
     }
     return null;
   }
 
   //validador de valor
   String validateValue() {
-    if (link.value == null || link.value < 10) {
+    if (link.value == null) {
+      return null;
+    } else if (link.value < 10) {
       return "O valor minimo é R\$ 10,00";
     }
     return null;
@@ -37,7 +43,7 @@ abstract class _TransactionLinkController with Store {
 
   //validador de parcelas
   String validateInstallments() {
-    if (link.installments == null || int.parse(link.installments) < 1) {
+    if (int.parse(link.installments) < 1) {
       return "Número de parcelas obrigatório";
     }
     if (int.parse(link.installments) > 12) {
@@ -48,23 +54,25 @@ abstract class _TransactionLinkController with Store {
 
   //validador de Vencimento
   bool validateDateExpiration() {
-    if (link.dateExpiration == null) {
-      setValidDate("Vencimento obrigatório");
+    if (!link.dateExpiration.isAfter(DateTime.now())) {
       return false;
-    } else if (!link.dateExpiration.isAfter(DateTime.now())) {
-      setValidDate("Data de vencimento inválida");
-      return false;
+    } else {
+      return true;
+    }
+  }
+
+  void validateDateExpirationError() {
+    if (!link.dateExpiration.isAfter(DateTime.now())) {
+      setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");
     }
-    return true;
   }
 
   // dados computados, dados derivados de link(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
     return validateName() == null &&
-        validateValue() == null &&
         validateInstallments() == null &&
         validateDateExpiration() == true;
   }

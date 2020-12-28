@@ -14,40 +14,30 @@ abstract class _BoletoController with Store {
   //referente ao formulario de inserção
   var boleto = Boleto();
 
-
   @observable
-  String validDate = "Data de vencimento inválida";
+  String validDate = "";
   @action
-  setValidDate(String value) => validDate = value;
-
+  setValidDate(value) => validDate = value;
 
   //validador de nome
   String validateName() {
-    if (boleto.name == null || boleto.name.isEmpty || boleto.name.length < 3) {
-      return "Nome obrigatório";
-    }
-    return null;
-  }
-
-  //validador de email
-  String validateEmail() {
-    if (boleto.email == null || boleto.email.isEmpty) {
-      return "Email obrigatório";
-    }
-    if (boleto.email.length < 4 ||
-        !boleto.email.contains("@") ||
-        !boleto.email.contains(".")) {
-      return "Email inválido";
+    if (boleto.name == null) {
+      return null;
+    } else if (boleto.name.isEmpty ||
+        boleto.name.length < 4 ||
+        boleto.name.length > 60) {
+      return "O nome deve conter entre 4 e 60 caracteres";
     }
     return null;
   }
 
   //validador de document
   String validateDocument() {
-    if (boleto.document == null || boleto.document.isEmpty) {
+    if (boleto.document == null) {
+      return null;
+    } else if (boleto.document.isEmpty) {
       return "Documento obrigatório";
-    }
-    if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
+    } else if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
       return null;
     } else {
       return "Documento Inválido";
@@ -56,7 +46,9 @@ abstract class _BoletoController with Store {
 
   //validador de DDD
   String validateDdd() {
-    if (boleto.ddd == null || boleto.ddd.isEmpty) {
+    if (boleto.ddd == null) {
+      return null;
+    } else if (boleto.ddd.isEmpty) {
       return "DDD obrigatório";
     }
     return null;
@@ -64,51 +56,54 @@ abstract class _BoletoController with Store {
 
   //validador de Telephone
   String validateTelephone() {
-    if (boleto.telephone == null ||
-        boleto.telephone.isEmpty ||
-        boleto.telephone.length < 8) {
+    if (boleto.telephone == null) {
+      return null;
+    } else if (boleto.telephone.isEmpty) {
       return "Telefone obrigatório";
+    } else if (!(boleto.telephone.length == 9)) {
+      return "Telefone deve contar 9 digitos";
     }
     return null;
   }
 
   //validador de Value
   String validateValue() {
-    if (boleto.value == null || boleto.value < 10) {
+    if (boleto.value == null) {
+      return null;
+    } else if (boleto.value < 10) {
       return "O valor minimo é R\$ 10,00";
     }
     return null;
   }
 
   //validador de Vencimento
-
   bool validateDateExpiration() {
-    if (boleto.dateExpiration == null) {
-      setValidDate("Vencimento obrigatório");
+    if (!boleto.dateExpiration.isAfter(DateTime.now())) {
       return false;
-    } else if (!boleto.dateExpiration.isAfter(DateTime.now())) {
-      setValidDate("Data de vencimento inválida");
-      return false;
+    } else {
+      return true;
+    }
+  }
+
+  void validateDateExpirationError() {
+    if (!boleto.dateExpiration.isAfter(DateTime.now())) {
+      setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");
     }
-    return true;
-
   }
 
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
     return validateName() == null &&
-        validateEmail() == null &&
         validateDocument() == null &&
         validateDdd() == null &&
         validateTelephone() == null &&
-        validateValue() == null &&
         validateDateExpiration() == true;
   }
+
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
-
   }
 }

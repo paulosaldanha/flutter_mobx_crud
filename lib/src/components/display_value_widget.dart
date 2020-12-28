@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 class DisplayValueWidget extends StatelessWidget {
   final controller;
   final errorDescription;
+  final error;
 
-  DisplayValueWidget(this.controller, this.errorDescription);
+  DisplayValueWidget(this.controller, this.errorDescription, this.error);
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +58,18 @@ class DisplayValueWidget extends StatelessWidget {
                 children: [
                   Observer(
                     builder: (_) {
-                      return controller
-                          .visibilityModalBluetooth
+                      return controller.visibilityModalBluetooth
                           ? Text(
-                        errorDescription,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.red[800],
-                        ),
-                      )
+                              errorDescription,
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: (error)
+                                    ? Colors.red[600]
+                                    : Colors.lightGreen,
+                              ),
+                            )
+
                           : Text('');
                     },
                   ),

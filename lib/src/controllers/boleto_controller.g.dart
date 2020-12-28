@@ -36,7 +36,8 @@ mixin _$BoletoController on _BoletoController, Store {
       ActionController(name: '_BoletoController');
 
   @override
-  dynamic setValidDate(String value) {
+  dynamic setValidDate(dynamic value) {
+
     final _$actionInfo = _$_BoletoControllerActionController.startAction();
     try {
       return super.setValidDate(value);

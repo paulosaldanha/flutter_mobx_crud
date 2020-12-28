@@ -10,7 +10,8 @@ import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 
 part 'transaction_mpos_controller.g.dart';
 
-class TransactionMposController = _TransactionMposController with _$TransactionMposController;
+class TransactionMposController = _TransactionMposController
+    with _$TransactionMposController;
 
 abstract class _TransactionMposController with Store {
 
@@ -24,7 +25,6 @@ abstract class _TransactionMposController with Store {
   List currentValuesList = List();
   @observable
   bool visibilityModalBluetooth = false;
-
 
   @action
   setCurrentValues(String value) {
@@ -54,15 +54,15 @@ abstract class _TransactionMposController with Store {
   @action
   setAmount(int value) => transactionMpos.amount = value;
 
-
   @action
   setvisibilityModalblueth(bool value) => visibilityModalBluetooth = value;
 
   @action
-  bool deviceIsempty(){
-    if( transactionMpos.deviceName != null){
+  bool deviceIsempty() {
+    if (transactionMpos.deviceName != null) {
       return true;
-    }else{
+    } else {
+
       return false;
     }
   }
@@ -86,8 +86,7 @@ abstract class _TransactionMposController with Store {
         installments: transactionMpos.installments,
         paymentMethod: transactionMpos.paymentMethod,
         status: transactionMposController,
-        context: context
-    );
+        context: context);
   }
-
 }
+
