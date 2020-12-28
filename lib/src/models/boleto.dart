@@ -21,6 +21,7 @@ abstract class _BoletoBase with Store {
   DateTime dateExpiration;
 
   String message;
+  String valueTax;
 
 //getter and setter
   @action
@@ -37,4 +38,6 @@ abstract class _BoletoBase with Store {
   setDateExpiration(DateTime value) => dateExpiration = value;
   @action
   setMessage(String value) => message = value;
+  @action
+  setValueTax(String value) => valueTax = value;
 }

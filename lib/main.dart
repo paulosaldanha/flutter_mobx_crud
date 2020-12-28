@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
             hintStyle: TextStyle(color: Colors.black45),
           )),
@@ -60,20 +60,17 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Image.asset('images/splash.png'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-
-                gradient: LinearGradient(
-                  colors: [
-                  Color.fromRGBO(0, 74, 173, 1),
-                  Colors.white,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
-            ),
+                child: Image.asset('images/splash.png'),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(0, 74, 173, 1),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ))),
             ListTile(
               title: Text('Transação MPOS'),
               onTap: () {

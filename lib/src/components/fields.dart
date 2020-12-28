@@ -34,7 +34,7 @@ labelFieldRequired(String label) {
       label,
       style: TextStyle(
           color: Color.fromRGBO(0, 74, 173, 1),
-          fontWeight: FontWeight.bold,
+          //fontWeight: FontWeight.bold,
           fontSize: 18),
     ),
     Text(
@@ -42,6 +42,16 @@ labelFieldRequired(String label) {
       style: TextStyle(color: Colors.red, fontSize: 18),
     ),
   ]);
+}
+
+label(String label) {
+  return Text(
+    label,
+    style: TextStyle(
+        color: Color.fromRGBO(0, 74, 173, 1),
+        //fontWeight: FontWeight.bold,
+        fontSize: 18),
+  );
 }
 
 labelError(String label) {

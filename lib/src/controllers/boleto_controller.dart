@@ -23,12 +23,13 @@ abstract class _BoletoController with Store {
   String validateName() {
     if (boleto.name == null) {
       return null;
-    } else if (boleto.name.isEmpty || boleto.name.length < 3) {
-      return "Nome obrigatório";
+    } else if (boleto.name.isEmpty ||
+        boleto.name.length < 4 ||
+        boleto.name.length > 60) {
+      return "O nome deve conter entre 4 e 60 caracteres";
     }
     return null;
   }
-
 
   //validador de document
   String validateDocument() {
@@ -48,7 +49,6 @@ abstract class _BoletoController with Store {
     if (boleto.ddd == null) {
       return null;
     } else if (boleto.ddd.isEmpty) {
-
       return "DDD obrigatório";
     }
     return null;
@@ -58,9 +58,10 @@ abstract class _BoletoController with Store {
   String validateTelephone() {
     if (boleto.telephone == null) {
       return null;
-    } else if (boleto.telephone.isEmpty || boleto.telephone.length < 8) {
-
+    } else if (boleto.telephone.isEmpty) {
       return "Telefone obrigatório";
+    } else if (!(boleto.telephone.length == 9)) {
+      return "Telefone deve contar 9 digitos";
     }
     return null;
   }
@@ -70,7 +71,6 @@ abstract class _BoletoController with Store {
     if (boleto.value == null) {
       return null;
     } else if (boleto.value < 10) {
-
       return "O valor minimo é R\$ 10,00";
     }
     return null;
@@ -87,11 +87,10 @@ abstract class _BoletoController with Store {
 
   void validateDateExpirationError() {
     if (!boleto.dateExpiration.isAfter(DateTime.now())) {
-      setValidDate("Data de vencimento inválida");
+      setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");
     }
-
   }
 
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
@@ -103,6 +102,7 @@ abstract class _BoletoController with Store {
         validateTelephone() == null &&
         validateDateExpiration() == true;
   }
+
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
   }

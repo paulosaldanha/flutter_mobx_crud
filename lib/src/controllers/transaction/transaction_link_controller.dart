@@ -1,17 +1,16 @@
-import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 
-part 'transaction_boleto_controller.g.dart';
+part 'transaction_link_controller.g.dart';
 
-class TransactionBoletoController = _TransactionBoletoController
-    with _$TransactionBoletoController;
+class TransactionLinkController = _TransactionLinkController
+    with _$TransactionLinkController;
 
-abstract class _TransactionBoletoController with Store {
-  Boleto transactionBoleto = Boleto();
+abstract class _TransactionLinkController with Store {
+  TransactionLink transactionLink = TransactionLink();
 
-  _TransactionBoletoController();
+  _TransactionLinkController();
 
   @observable
   String currentValues = "0,00";
@@ -26,23 +25,14 @@ abstract class _TransactionBoletoController with Store {
   setCurrentValues(String value) async {
     if (value == "clear") {
       if (currentValuesList.length == 0) {
-        setCurrentValueTax(0.00);
         return currentValues = "0,00";
       }
       currentValuesList.removeLast();
       if (currentValuesList.length > 0) {
         currentValues =
             TaxMethodPaymentService.convertToString(currentValuesList);
-        String newValue = currentValues.replaceAll(",", ".");
-        if (double.parse(newValue) > 0) {
-          dynamic taxa = await getTax(newValue, 1);
-          setCurrentValueTax(taxa[0]);
-        } else {
-          setCurrentValueTax(0.00);
-        }
         return currentValues;
       } else {
-        setCurrentValueTax(0.00);
         return currentValues = "0,00";
       }
     }
@@ -60,21 +50,6 @@ abstract class _TransactionBoletoController with Store {
       }
     }
     currentValues = TaxMethodPaymentService.convertToString(currentValuesList);
-    String newValue = currentValues.replaceAll(",", ".");
-    if (double.parse(newValue) > 0) {
-      dynamic taxa = await getTax(newValue, 1);
-      setCurrentValueTax(taxa[0]);
-    } else {
-      setCurrentValueTax(0.00);
-    }
     return currentValues;
-  }
-
-  @action
-  setCurrentValueTax(value) {
-    currentValuesTax = value;
-    if (currentValues == null) {
-      currentValuesTax = 0.00;
-    }
   }
 }

@@ -1,22 +1,26 @@
-import 'package:estruturabasica/src/controllers/transaction/transaction_boleto_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/transaction_link_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction_link_controller.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_link/transaction_link_form_part2.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
+import 'package:estruturabasica/src/models/transaction_link.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 // ignore: must_be_immutable
-class TransactionBoletoForm2 extends StatelessWidget {
-  final boleto;
-  final boletoController;
+class TransactionLinkForm extends StatelessWidget {
+  TransactionLinkForm();
+  TransactionLink link = TransactionLink();
+  LinkController linkController = LinkController();
+  TransactionLinkController transactionLinkController =
+      TransactionLinkController();
 
-  TransactionBoletoForm2(this.boletoController, this.boleto);
-  TransactionBoletoController transactionBoletoController =
-      TransactionBoletoController();
+  List parcelas = [];
 
   bool _validValue() {
-    String value = transactionBoletoController.currentValues;
+    String value = transactionLinkController.currentValues;
     value = value.replaceAll(",", ".");
     if (double.parse(value) >= 10.00) {
       return true;
@@ -24,12 +28,33 @@ class TransactionBoletoForm2 extends StatelessWidget {
       return false;
     }
   }
+
+  dynamic getParcelas(value) async {
+    dynamic taxas = await getTax(value, 3);
+    parcelas = [];
+    for (int i = 0; i < taxas.length; i++) {
+      dynamic parcela;
+      String valor = taxas[i].toStringAsFixed(2).replaceAll(".", ",");
+      if (i == 0) {
+        parcela = new List();
+        parcela.add(i + 1);
+        parcela.add("1 Parcela - R\$ ${valor}");
+      } else {
+        parcela = new List();
+        parcela.add(i + 1);
+        parcela.add("${i + 1} Parcelas - R\$ ${valor}");
+      }
+      parcelas.add(parcela);
+    }
+    return parcelas.toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-          title: Text('Gerar Boleto'),
+          title: Text('Gerar Link de Pagamento'),
         ),
         body: Container(
             padding: EdgeInsets.only(top: 25),
@@ -39,14 +64,9 @@ class TransactionBoletoForm2 extends StatelessWidget {
               children: [
                 Observer(builder: (_) {
                   return DisplayValueWidget(
-                      transactionBoletoController,
-                      "Taxa R\$ " +
-                          transactionBoletoController.currentValuesTax
-                              .toStringAsFixed(2)
-                              .replaceAll(".", ","),
-                      false);
+                      transactionLinkController, "", false);
                 }),
-                KeyboardWidget(transactionBoletoController),
+                KeyboardWidget(transactionLinkController),
                 Container(
                   width: 1000,
                   color: Colors.white,
@@ -64,23 +84,18 @@ class TransactionBoletoForm2 extends StatelessWidget {
                         textColor: Color.fromRGBO(0, 74, 173, 1),
                         padding: EdgeInsets.all(10.0),
                         onPressed: _validValue()
-                            ? () {
-                                String value = transactionBoletoController
+                            ? () async {
+                                String value = transactionLinkController
                                     .currentValues
                                     .replaceAll(",", ".");
-                                String valueTax = transactionBoletoController
-                                    .currentValuesTax
-                                    .toString();
-                                boletoController.boleto.setValue(value);
-                                boletoController.boleto.setValueTax(valueTax);
+                                linkController.link.setValue(value);
 
-                                boletoController
-                                    .createTransctionBoleto()
-                                    .then((value) {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => TransactionResponse(
-                                          value, "boleto")));
-                                });
+                                List parcelas = await getParcelas(value);
+                                print(parcelas);
+
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => TransactionLinkForm2(
+                                        linkController, link, parcelas)));
                               }
                             : null,
                         child: Text(

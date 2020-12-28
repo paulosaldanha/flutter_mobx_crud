@@ -16,30 +16,18 @@ abstract class _TransactionLinkBase with Store {
   String installments = "1";
   @observable
   DateTime dateExpiration;
-  @observable
+
   double valueTax;
 
 //getter and setter
   @action
   setNome(String value) => name = value;
   @action
-  setValue(String valueBillet) {
-    value = double.parse(valueBillet);
-    setValueTax(value.toString());
-  }
-
+  setValue(String valueBillet) => value = double.parse(valueBillet);
   @action
-  setValueTax(String value) async {
-    dynamic taxa = await getTax(value, 3);
-    valueTax = taxa[int.parse(installments) - 1];
-  }
-
-  @action
-  setInstallments(String parcela) {
-    installments = parcela;
-    setValueTax(value.toString());
-  }
-
+  setInstallments(String parcela) => installments = parcela;
   @action
   setDateExpiration(DateTime value) => dateExpiration = value;
+  @action
+  setValueTax(String value) => valueTax = double.parse(value);
 }
