@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
@@ -24,9 +25,8 @@ dynamic createTransaction(Map<String, String> payload) async {
 }
 
 dynamic createTransactionBoleto(Boleto boleto) async {
-  SharedPreferences _sharedPrefs;
-  _sharedPrefs = await SharedPreferences.getInstance();
-  String barer_token = _sharedPrefs.getString('jwt') ?? "";
+  
+  String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
 
   var client = http.Client();
 
@@ -59,9 +59,7 @@ dynamic createTransactionBoleto(Boleto boleto) async {
 }
 
 dynamic createTransactionLink(TransactionLink link) async {
-  SharedPreferences _sharedPrefs;
-  _sharedPrefs = await SharedPreferences.getInstance();
-  String barer_token = _sharedPrefs.getString('jwt') ?? "";
+  String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -90,9 +88,7 @@ dynamic createTransactionLink(TransactionLink link) async {
 }
 
 dynamic getTax(String current, int method) async {
-  SharedPreferences _sharedPrefs;
-  _sharedPrefs = await SharedPreferences.getInstance();
-  String barer_token = _sharedPrefs.getString('jwt') ?? "";
+   String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -116,9 +112,7 @@ dynamic getTax(String current, int method) async {
 }
 
 dynamic getBoleto(String nossoNumero) async {
-  SharedPreferences _sharedPrefs;
-  _sharedPrefs = await SharedPreferences.getInstance();
-  String barer_token = _sharedPrefs.getString('jwt') ?? "";
+   String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
   var client = http.Client();
 
   try {

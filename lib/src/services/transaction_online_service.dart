@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionOnlineService {
   dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
-    SharedPreferences _sharedPrefs;
-
-    _sharedPrefs = await SharedPreferences.getInstance();
-    String barer_token = _sharedPrefs.getString('jwt') ?? "";
+     String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
 
     var client = http.Client();
 

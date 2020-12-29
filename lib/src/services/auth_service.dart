@@ -54,4 +54,14 @@ class AuthService {
     prefs.setString('jwt', null);
     return false;
   }
+
+  Future<String> checkIfUserIsLoggedIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String jwt = prefs.getString('jwt');
+    if(jwt == null){
+      return "";
+    }
+    return jwt;
+  }
+
 }
