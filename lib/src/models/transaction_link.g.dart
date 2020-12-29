@@ -78,30 +78,6 @@ mixin _$TransactionLink on _TransactionLinkBase, Store {
     }, _$dateExpirationAtom, name: '${_$dateExpirationAtom.name}_set');
   }
 
-  final _$valueTaxAtom = Atom(name: '_TransactionLinkBase.valueTax');
-
-  @override
-  double get valueTax {
-    _$valueTaxAtom.context.enforceReadPolicy(_$valueTaxAtom);
-    _$valueTaxAtom.reportObserved();
-    return super.valueTax;
-  }
-
-  @override
-  set valueTax(double value) {
-    _$valueTaxAtom.context.conditionallyRunInAction(() {
-      super.valueTax = value;
-      _$valueTaxAtom.reportChanged();
-    }, _$valueTaxAtom, name: '${_$valueTaxAtom.name}_set');
-  }
-
-  final _$setValueTaxAsyncAction = AsyncAction('setValueTax');
-
-  @override
-  Future setValueTax(String value) {
-    return _$setValueTaxAsyncAction.run(() => super.setValueTax(value));
-  }
-
   final _$_TransactionLinkBaseActionController =
       ActionController(name: '_TransactionLinkBase');
 
@@ -140,6 +116,16 @@ mixin _$TransactionLink on _TransactionLinkBase, Store {
     final _$actionInfo = _$_TransactionLinkBaseActionController.startAction();
     try {
       return super.setDateExpiration(value);
+    } finally {
+      _$_TransactionLinkBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setValueTax(String value) {
+    final _$actionInfo = _$_TransactionLinkBaseActionController.startAction();
+    try {
+      return super.setValueTax(value);
     } finally {
       _$_TransactionLinkBaseActionController.endAction(_$actionInfo);
     }

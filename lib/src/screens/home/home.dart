@@ -1,6 +1,7 @@
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/components/home_card.dart';
 import 'package:estruturabasica/src/components/home_card_grid.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_link/transaction_link_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form.dart';
@@ -23,7 +24,7 @@ class Home extends StatelessWidget {
                   "Transação \n Maquininha"),
               HomeCardGrid(TransactionBoletoForm(), Ecommerce_bank_pay.boleto,
                   "Gerar\n Boleto"),
-              HomeCardGrid(TransactionMposForm(),
+              HomeCardGrid( TransactionLinkForm(),
                   Ecommerce_bank_pay.link_pagamento, "Link de \n Pagamento"),
               HomeCardGrid(TransactionOnlineForm(),
                   Ecommerce_bank_pay.credito_online, "Transação \n Online"),

@@ -1,5 +1,7 @@
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
@@ -11,6 +13,9 @@ abstract class _AuthController with Store {
 
   _AuthController();
 
+  @observable
+  bool loading = false;
+
   //referente ao formulario de inserção
   var auth = Auth();
   var service = AuthService();
@@ -20,7 +25,6 @@ abstract class _AuthController with Store {
       return "Digite um email válido";
     }
     return null;
-
   }
 
   String validatePassword(){
@@ -42,6 +46,8 @@ abstract class _AuthController with Store {
   bool get isValid {
     return validateEmail() == null && validatePassword() == null;
   }
+  @action
+  bool setStateLoading (value) => loading = value;
 
   //ação do botao salvar/atualizar
   @action
@@ -51,7 +57,7 @@ abstract class _AuthController with Store {
   }
 
   Future<bool> checkIfIsLogged() async {
-    auth.setIsLogged(await service.autoLogIn());
+    auth.setIsLogged(await service.autoLogIn().then((value) =>  loading = value));
     return auth.isLogged;
   }
 

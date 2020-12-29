@@ -1,12 +1,12 @@
+import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ContinueBtnWidget extends StatelessWidget {
 
   final controller;
-  final router;
 
-  ContinueBtnWidget(this.controller, this.router);
+  ContinueBtnWidget(this.controller);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +29,7 @@ class ContinueBtnWidget extends StatelessWidget {
                 controller.deviceIsempty()
                 ? () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => router));
+                  builder: (context) => TransactionPaymentMethod(controller)));
             }
                 : null,
             child: Text(

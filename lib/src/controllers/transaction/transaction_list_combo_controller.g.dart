@@ -106,6 +106,23 @@ mixin _$TransactionListComboController
         name: '${_$installmentsComboListAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_TransactionListComboController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$_TransactionListComboControllerActionController =
       ActionController(name: '_TransactionListComboController');
 
@@ -115,6 +132,17 @@ mixin _$TransactionListComboController
         _$_TransactionListComboControllerActionController.startAction();
     try {
       return super.selectedState(value);
+    } finally {
+      _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  bool setStateLoading(dynamic value) {
+    final _$actionInfo =
+        _$_TransactionListComboControllerActionController.startAction();
+    try {
+      return super.setStateLoading(value);
     } finally {
       _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
     }

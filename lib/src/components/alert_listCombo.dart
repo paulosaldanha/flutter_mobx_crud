@@ -6,17 +6,17 @@ import 'package:estruturabasica/src/screens/transaction/transaction_payment_meth
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
- Future<int> showAlertConfirmListCombo(BuildContext context,String title, TransactionListComboController transaction, String method ) async {
-
-   Widget cancelButton = FlatButton(
+Future<int> showAlertConfirmListCombo(BuildContext context, String title,
+    TransactionListComboController transaction, String method) async {
+  Widget cancelButton = FlatButton(
     child: Text("Cancelar"),
-    onPressed:  () { 
-      Navigator.pop(context,0);
+    onPressed: () {
+      Navigator.pop(context, 0);
     },
   );
   Widget continueButton = FlatButton(
     child: Text("Confirmar"),
-    onPressed:  () {
+    onPressed: () {
       //Navigator.pop(context,1);
       Navigator.of(context).pop(1);
     },
@@ -26,22 +26,30 @@ import 'package:flutter_mobx/flutter_mobx.dart';
     title: Text(title),
     content: Observer(
       builder: (context) {
-        return ListCombo<Tax>(
-            child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(transaction.selectedString != null
-                    ? transaction.selectedString
-                    : "SELECIONE UM PARCELA")),
-            getList: () =>
-            method == 'credito'?transaction.amountValuesCreditCardList:transaction.amountValuesDebitCardList,
-            itemBuilder: (_, parameters, item) {
-              return ListTile(
-                title: Text(item.descriptionValue),
-              );
-            },
-            onItemTapped: (value) {
-              transaction.selectedState(value);
-            });
+        return transaction.loading
+            ? Container(
+          height: 70,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        )
+            : ListCombo<Tax>(
+                child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(transaction.selectedString != null
+                        ? transaction.selectedString
+                        : "SELECIONE UM PARCELA")),
+                getList: () => method == 'credito'
+                    ? transaction.amountValuesCreditCardList
+                    : transaction.amountValuesDebitCardList,
+                itemBuilder: (_, parameters, item) {
+                  return ListTile(
+                    title: Text(item.descriptionValue),
+                  );
+                },
+                onItemTapped: (value) {
+                  transaction.selectedState(value);
+                });
       },
     ),
     actions: [
@@ -59,6 +67,3 @@ import 'package:flutter_mobx/flutter_mobx.dart';
   //retorna 0 ou 1
   return r;
 }
-
- 
-
