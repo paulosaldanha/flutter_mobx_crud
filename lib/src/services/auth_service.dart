@@ -19,7 +19,8 @@ class AuthService {
       var retorno = json.decode(authretorno.body);
       await login(retorno["accessToken"]);
       getAuthToken = retorno["accessToken"];
-      return Auth.fromMap(json.decode(authretorno.body));
+      Auth auth = Auth.fromMap(json.decode(authretorno.body));
+      return auth;
     } else {
       var retorno = json.decode(authretorno.body);
       getError = retorno["message"];

@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'dart:convert';
 //define a parte do codigo que sera gerado
 part 'auth_model.g.dart';
 // cria a classe baseado no base e no que foi gerado. _$NomeDaClasse é a forma como é gerado por padrão
@@ -6,6 +7,7 @@ class Auth = _AuthBase with _$Auth;
 
 abstract class _AuthBase with Store {
 
+  String nome = '';
   @observable
   String email = '';
   @observable
@@ -44,8 +46,10 @@ abstract class _AuthBase with Store {
   }
 
   _AuthBase.fromMap(Map<String,dynamic> map){
-    email = map['email'];
-    password = map['senha'];
+    var payload = parseJwtPayLoad(map["accessToken"]);
+    var mapeamentoDoJson = jsonDecode(payload["actort"]);
+    email = mapeamentoDoJson['EmailUsuario'];
+    nome = mapeamentoDoJson['NomeUsuario'];
   }
 
   Map<String, dynamic> toJson(){
@@ -55,5 +59,40 @@ abstract class _AuthBase with Store {
     };
     return map;
   }
+
+  Map<String, dynamic> parseJwtPayLoad(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('invalid token');
+    }
+
+    final payload = _decodeBase64(parts[1]);
+    final payloadMap = json.decode(payload);
+    if (payloadMap is! Map<String, dynamic>) {
+      throw Exception('invalid payload');
+    }
+
+    return payloadMap;
+  }
+
+  String _decodeBase64(String str) {
+    String output = str.replaceAll('-', '+').replaceAll('_', '/');
+
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw Exception('Illegal base64url string!"');
+    }
+
+    return utf8.decode(base64Url.decode(output));
+  }
+
 
 }
