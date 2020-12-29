@@ -36,7 +36,6 @@ class TransactionOnlineService {
             HttpHeaders.authorizationHeader: 'Bearer ${barer_token}'
           },
           body: jsonEncode(payload));
-
       var tes = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return tes;
@@ -47,10 +46,10 @@ class TransactionOnlineService {
             print (f['errorDescription']);
           }
           );
-        return tes['errors'];
+        return tes;
       }
       if (response.statusCode == 422) {
-        return tes['errors'];
+        return tes;
       }
     } catch (e) {
       print(e);

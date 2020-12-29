@@ -23,6 +23,8 @@ abstract class _TransactionListComboController with Store {
   int amountComboList;
   @observable
   int installmentsComboList;
+  @observable
+  bool loading = false;
 
 
   @action
@@ -33,15 +35,19 @@ abstract class _TransactionListComboController with Store {
   }
 
   @action
+  bool setStateLoading (value) => loading = value;
+
+  @action
   getTaxCredit(currentValues){
+    loading = true;
     amountValuesCreditCardList = List();
     TaxMethodPaymentService
         .convertCurrentValueAndAmountCredit(currentValues).then((v) {
       var listTax = new List<double>.from(v);
       for (var i = 0; i < listTax.length; i++) {
-
         amountValuesCreditCardList.add( Tax(listTax[i],'${i+1} x de R\$ ${_changeValueParcel(listTax[i],i+1)}',i+1));
       }
+      loading = false;
     });
   }
 

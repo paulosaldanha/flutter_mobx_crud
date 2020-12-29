@@ -25,7 +25,6 @@ class AuthService {
       getError = retorno["message"];
       return Auth.fromMap(json.decode(authretorno.body));
     }
-
   }
 
   Future<bool> login_erro(dynamic error) async{

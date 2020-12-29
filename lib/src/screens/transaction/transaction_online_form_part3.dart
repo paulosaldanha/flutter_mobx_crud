@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_controller.dart';
+import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -161,16 +162,12 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                               ? () {
                                   transactiononlineController
                                       .createTransctionTransactionOnline().then((res){
-                                        print(res);
-                                        Flushbar(
-                                          title: "Sucesso",
-                                          message:
-                                          "Transação Online criado com sucesso!",
-                                          duration: Duration(seconds: 2),
-                                        )..show(context);
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TransactionResponse(
+                                                        res, "link")));
                                   });
-                                  Navigator.pop(context);
-                                  Navigator.of(context).pushNamed('/');
                                 }
                               : null,
                           child: Container(

@@ -8,9 +8,8 @@ import 'package:estruturabasica/src/screens/pais/pais_form.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:estruturabasica/src/screens/estado/estado_form.dart';
 import 'package:estruturabasica/src/screens/estado/estado_list.dart';
+import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_link_form.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);
@@ -43,6 +42,9 @@ RouteFactory rotas() {
         break;
       case TransactionBoleto:
         screen = TransactionBoletoForm();
+        break;
+      case LoginPageRoute:
+        screen = LoginPage();
         break;
       default:
         screen = MyHomePage(title: "EcommerceBankPay");

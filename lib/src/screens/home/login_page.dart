@@ -120,14 +120,25 @@ class _LoginPageState extends State<LoginPage> {
                           color: Color.fromRGBO(0, 74, 173, 1),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0)),
-                          child: Text(
-                            'Acessar'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                          child: Observer(
+                            key: globalFormKey,
+                            builder: (_){
+                              return
+                              authController.loading?  Center(
+                                child: CircularProgressIndicator(
+                                ),
+                              ) :
+                                Text(
+                                'Acessar'.toUpperCase(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              );
+                            },
                           ),
-                          onPressed: () async {
+                          onPressed: ()  async {
+                            authController.setStateLoading(true);
                             FocusScope.of(context).requestFocus(FocusNode());
                             authController.isValid
                                 ? {
@@ -138,7 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                                 content : Text(authController.getErrorLogin()),
                                 duration : Duration(seconds : 4),
                               ))
-                            }: null;
+                            }:
+                            null;
                           }),
                     ),
                   ),

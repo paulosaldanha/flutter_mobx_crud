@@ -33,9 +33,9 @@ class TransactionMposForm extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            DisplayValueWidget(transactionMposController, 'SEM CONEXÃO COM MAQUININHA'),
+            DisplayValueWidget(transactionMposController, 'SEM CONEXÃO COM MAQUININHA', true),
             KeyboardWidget(transactionMposController),
-            ContinueBtnWidget(transactionMposController, TransactionPaymentMethod(transactionMposController)),
+            ContinueBtnWidget(transactionMposController),
             Observer(builder: (_) {
               return transactionMposController.visibilityModalBluetooth
                   ? BluetoothModal()

@@ -77,15 +77,14 @@ class MyHomePage extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(TransactionCardMpos);
               },
-
-                  gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(0, 74, 173, 1),
-                  Colors.white,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
+              //   gradient: LinearGradient(
+              //   colors: [
+              //     Color.fromRGBO(0, 74, 173, 1),
+              //     Colors.white,
+              //   ],
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              // )
             ),
             ListTile(
               title: Text('Logout'),

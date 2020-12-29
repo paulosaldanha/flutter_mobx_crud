@@ -52,7 +52,7 @@ class HomeCard extends StatelessWidget {
                                     ),
                                     Row(
                                       children: <Widget>[
-                                        companyAmount('1.000,00')
+                                        companyAmount('0,00')
                                       ],
                                     ),
                                     Padding(
@@ -73,13 +73,7 @@ class HomeCard extends StatelessWidget {
                                       children: [
                                         Column(
                                           children: [
-                                            transactionChange('100,00', 'Boleto'),
-                                            transactionChange('200,00', 'Cartão'),
-                                            transactionChange('100,00', 'Boleto'),
-                                            transactionChange('200,00', 'Cartão'),
-                                            transactionChange('200,00', 'Cartão'),
-                                            transactionChange('200,00', 'Cartão'),
-                                            transactionChange('200,00', 'Cartão'),
+                                            // transactionChange('200,00', 'Cartão'),
                                             SizedBox(
                                               height: 20,
                                             )

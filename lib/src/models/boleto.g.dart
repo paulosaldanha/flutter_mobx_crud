@@ -26,7 +26,6 @@ mixin _$Boleto on _BoletoBase, Store {
     }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
-
   final _$documentAtom = Atom(name: '_BoletoBase.document');
 
   @override
@@ -124,7 +123,6 @@ mixin _$Boleto on _BoletoBase, Store {
     }
   }
 
-
   @override
   dynamic setDocument(String value) {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
@@ -180,6 +178,16 @@ mixin _$Boleto on _BoletoBase, Store {
     final _$actionInfo = _$_BoletoBaseActionController.startAction();
     try {
       return super.setMessage(value);
+    } finally {
+      _$_BoletoBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setValueTax(String value) {
+    final _$actionInfo = _$_BoletoBaseActionController.startAction();
+    try {
+      return super.setValueTax(value);
     } finally {
       _$_BoletoBaseActionController.endAction(_$actionInfo);
     }

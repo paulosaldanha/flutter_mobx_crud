@@ -4,6 +4,7 @@ import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_part2_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part3.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -28,64 +29,85 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
         title: Text('Criar transação - Online Parte 2'),
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            DisplayValueWidget(transactionOnlinePart2Controller, ''),
-            KeyboardWidget(transactionOnlinePart2Controller),
-            Observer(
-              builder: (_) {
-                return Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(30),
-                  child: ButtonTheme(
-                      minWidth: 1000,
-                      child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(
-                                color: Color.fromRGBO(0, 74, 173, 1)),
-                          ),
-                          color: Colors.white,
-                          onPressed: transactionOnlinePart2Controller
-                                      .currentValues !=
-                                  "0,00"
-                              ? () async {
-                            listComboController.getTaxCredit(transactionOnlinePart2Controller.currentValues);
-                                  var retorno = await showAlertConfirmListCombo(
-                                      context,
-                                      "Selecione uma parcela",
-                                      listComboController,
-                                      'credito');
-                                  if (retorno == 1) {
-                                    transactiononlineController.transactiononline.setValue(listComboController.amountComboList);
-                                    transactiononlineController.transactiononline.setInstallments(listComboController.installmentsComboList);
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            TransactionOnlineFormPart3(
-                                                transactiononline,
-                                                transactiononlineController)));
-                                  }
-                                }
-                              : null,
-                          child: Container(
-                            height: 70,
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Color.fromRGBO(0, 74, 173, 1),
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ))),
+      body: Observer(
+        builder: (_) {
+          return listComboController.loading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      DisplayValueWidget(
+                          transactionOnlinePart2Controller, '', false),
+                      KeyboardWidget(transactionOnlinePart2Controller),
+                      Observer(
+                        builder: (_) {
+                          return Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.all(30),
+                            child: ButtonTheme(
+                                minWidth: 1000,
+                                child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                      side: BorderSide(
+                                          color: Color.fromRGBO(0, 74, 173, 1)),
+                                    ),
+                                    color: Colors.white,
+                                    onPressed: transactionOnlinePart2Controller
+                                                .currentValues !=
+                                            "0,00"
+                                        ? () async {
+                                            listComboController.getTaxCredit(
+                                                transactionOnlinePart2Controller
+                                                    .currentValues);
+                                              var retorno =
+                                                  await showAlertConfirmListCombo(
+                                                      context,
+                                                      "Selecione uma parcela",
+                                                      listComboController,
+                                                      'credito');
+                                              if (retorno == 1) {
+                                                transactiononlineController
+                                                    .transactiononline
+                                                    .setValue(
+                                                        listComboController
+                                                            .amountComboList);
+                                                transactiononlineController
+                                                    .transactiononline
+                                                    .setInstallments(
+                                                        listComboController
+                                                            .installmentsComboList);
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            TransactionOnlineFormPart3(
+                                                                transactiononline,
+                                                                transactiononlineController)));
+                                              }
+                                            }
+                                        : null,
+                                    child: Container(
+                                      height: 70,
+                                      padding: EdgeInsets.all(15),
+                                      child: Text(
+                                        "Continue",
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(0, 74, 173, 1),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ))),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 );
-              },
-            ),
-          ],
-        ),
+        },
       ),
     );
   }
