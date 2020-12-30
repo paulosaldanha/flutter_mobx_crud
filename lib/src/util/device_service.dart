@@ -24,9 +24,10 @@ class DeviceService {
   PaymentMethod paymentMethod;
   String deviceName;
   TransactionModalController status;
+  double currentValues;
   var context;
 
-  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.status, this.context}) {
+  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.status,this.currentValues, this.context}) {
     enableListeners();
     this.mpos.createMpos(this.deviceName, this.encryptionKey);
     this.mpos.events.listen((data) => {print(data)});
@@ -142,8 +143,8 @@ class DeviceService {
     Map<String, Object> metadata = Map();
     metadata["nome_cliente"] = auth.name;
     metadata["document"] = 0;
-    metadata["value_pago_cliente"] = "0";
-    metadata["value_pago_empresa"] = "0";
+    metadata["value_pago_cliente"] = amount/100;
+    metadata["value_pago_empresa"] = currentValues;
     metadata["usuario_id"] = auth.userId;
     metadata["estabelecimento_id"] = auth.companyId;
 

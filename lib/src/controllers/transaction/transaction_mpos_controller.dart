@@ -85,6 +85,7 @@ abstract class _TransactionMposController with Store {
         amount: transactionMpos.amount,
         installments: transactionMpos.installments,
         paymentMethod: transactionMpos.paymentMethod,
+        currentValues: double.parse(currentValues.replaceAll(',', '.')),
         status: transactionMposController,
         context: context);
   }
