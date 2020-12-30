@@ -7,7 +7,10 @@ class Auth = _AuthBase with _$Auth;
 
 abstract class _AuthBase with Store {
 
-  String nome = '';
+  int userId;
+  int companyId;
+  String nameCompany;
+  String name = '';
   @observable
   String email = '';
   @observable
@@ -49,7 +52,10 @@ abstract class _AuthBase with Store {
     var payload = parseJwtPayLoad(map["accessToken"]);
     var mapeamentoDoJson = jsonDecode(payload["actort"]);
     email = mapeamentoDoJson['EmailUsuario'];
-    nome = mapeamentoDoJson['NomeUsuario'];
+    name = mapeamentoDoJson['NomeUsuario'];
+    userId = mapeamentoDoJson['UsuarioId'];
+    companyId = mapeamentoDoJson['EstabelecimentoId'];
+    nameCompany = mapeamentoDoJson['NomeEstabelecimento'];
   }
 
   Map<String, dynamic> toJson(){
