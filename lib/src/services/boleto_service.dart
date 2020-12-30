@@ -8,7 +8,6 @@ import 'package:estruturabasica/src/models/boleto.dart';
 class BoletoService {
   dynamic createTransactionBoleto(Boleto boleto) async {
      String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
-
     var client = http.Client();
 
     Map<String, Object> payload = Map();

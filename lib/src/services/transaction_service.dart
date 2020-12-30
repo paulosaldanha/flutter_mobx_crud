@@ -7,7 +7,6 @@ import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 dynamic createTransaction(Map<String, String> payload) async {
-
   var client = http.Client();
 
   try {
@@ -25,9 +24,7 @@ dynamic createTransaction(Map<String, String> payload) async {
 }
 
 dynamic createTransactionBoleto(Boleto boleto) async {
-  
-  String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
-
+  String barer_token = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -88,7 +85,7 @@ dynamic createTransactionLink(TransactionLink link) async {
 }
 
 dynamic getTax(String current, int method) async {
-   String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
+  String barer_token = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -112,7 +109,7 @@ dynamic getTax(String current, int method) async {
 }
 
 dynamic getBoleto(String nossoNumero) async {
-   String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
+  String barer_token = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   try {

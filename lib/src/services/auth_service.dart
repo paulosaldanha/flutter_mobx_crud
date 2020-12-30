@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/models/auth_model.dart';
+import 'package:estruturabasica/src/util/authMap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,7 @@ class AuthService {
       await login(retorno["accessToken"]);
       getAuthToken = retorno["accessToken"];
       Auth auth = Auth.fromMap(json.decode(authretorno.body));
+      AuthMap.setAuthMap(auth);
       return auth;
     } else {
       var retorno = json.decode(authretorno.body);

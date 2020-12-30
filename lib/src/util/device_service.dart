@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
+import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/util/authMap.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import '../services/transaction_service.dart' as transaction;
 import 'package:flutter/material.dart';
@@ -136,13 +138,14 @@ class DeviceService {
 
   void createTransaction(String jsonResult) async {
     dynamic result = json.decode(jsonResult);
+    Auth auth = await AuthMap.getAuthMap();
     Map<String, Object> metadata = Map();
-    metadata["nome_cliente"] = "Luiz";
-    metadata["document"] = 37539;
-    metadata["value_pago_cliente"] = "09976688903";
-    metadata["value_pago_empresa"] = "09976688903";
-    metadata["usuario_id"] = "09976688903";
-    metadata["estabelecimento_id"] = "09976688903";
+    metadata["nome_cliente"] = auth.name;
+    metadata["document"] = 0;
+    metadata["value_pago_cliente"] = "0";
+    metadata["value_pago_empresa"] = "0";
+    metadata["usuario_id"] = auth.userId;
+    metadata["estabelecimento_id"] = auth.companyId;
 
     try {
       dynamic mposTransaction = await transaction.createTransaction({
