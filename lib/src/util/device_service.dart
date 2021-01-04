@@ -103,7 +103,7 @@ class DeviceService {
         Timer(Duration(seconds: 2), () {
           status.setTitleStatus( 'Carregando...');
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(TransactionCardMpos);
+          Navigator.of(context).pushNamedAndRemoveUntil(TransactionCardMpos, (route) => false);
         });
         mpos.close('ERROR - ' + data['value']);
       }
@@ -131,7 +131,7 @@ class DeviceService {
         mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
         Timer(Duration(seconds: 4), () {
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(HomeViewRoute);
+          Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
         });
       }
     }
@@ -185,7 +185,7 @@ class DeviceService {
       mpos.close("TRANSACAO APROVADA - RETIRE O CARTAO");
       Timer(Duration(seconds: 4), () {
         Navigator.pop(context);
-        Navigator.of(context).pushNamed(HomeViewRoute);
+        Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
       });
     }
   }
@@ -200,7 +200,7 @@ class DeviceService {
       mpos.close("TRANSACAO RECUSADA - RETIRE O CARTAO");
       Timer(Duration(seconds: 4), () {
         Navigator.pop(context);
-        Navigator.of(context).pushNamed(HomeViewRoute);
+        Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
       });
     }
 

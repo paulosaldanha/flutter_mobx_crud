@@ -51,7 +51,7 @@ class AuthService {
     return true;
   }
 
-  Future<bool> logout() async {
+  static Future<bool> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('jwt', null);
     return false;
@@ -65,5 +65,6 @@ class AuthService {
     }
     return jwt;
   }
+
 
 }

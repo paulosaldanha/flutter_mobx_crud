@@ -1,6 +1,7 @@
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/components/home_card.dart';
 import 'package:estruturabasica/src/components/home_card_grid.dart';
+import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_link/transaction_link_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
@@ -8,8 +9,10 @@ import 'package:estruturabasica/src/screens/transaction/transaction_online_form.
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
+  final authController = AuthController();
   @override
   Widget build(BuildContext context) {
+    authController.autoLogIn(context);
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 0),
       child: Column(

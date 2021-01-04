@@ -66,9 +66,17 @@ abstract class _AuthController with Store {
   }
 
   void logout() async {
-    var valor = await service.logout();
+    var valor = await AuthService.logout();
     print(valor);
-    auth.isLogged = await service.logout();
+    auth.isLogged = await AuthService.logout();
+  }
+
+  void autoLogIn(context) async {
+    await checkIfIsLogged().then((value) {
+      if (value == false) {
+        Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+      }
+    });
   }
 
 }

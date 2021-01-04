@@ -1,4 +1,5 @@
 import 'package:combos/combos.dart';
+import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/models/tax.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
@@ -26,6 +27,8 @@ Future<int> showAlertConfirmListCombo(BuildContext context, String title,
     title: Text(title),
     content: Observer(
       builder: (context) {
+        final authController = AuthController();
+        authController.autoLogIn(context);
         return transaction.loading
             ? Container(
           height: 70,
