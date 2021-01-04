@@ -140,13 +140,15 @@ class DeviceService {
   void createTransaction(String jsonResult) async {
     dynamic result = json.decode(jsonResult);
     Auth auth = await AuthMap.getAuthMap();
-    Map<String, Object> metadata = Map();
-    metadata["nome_cliente"] = auth.name;
-    metadata["document"] = 0;
-    metadata["value_pago_cliente"] = amount/100;
-    metadata["value_pago_empresa"] = currentValues;
-    metadata["usuario_id"] = auth.userId;
-    metadata["estabelecimento_id"] = auth.companyId;
+    Map<String, Object>  metadata1 = Map();
+    metadata1["nome_cliente"] = auth.name;
+    metadata1["document"] = 0;
+    metadata1["valor_pago_cliente"] = amount/100;
+    metadata1["valor_pago_empresa"] = currentValues;
+    metadata1["usuario_id"] = auth.userId;
+    metadata1["estabelecimento_id"] = auth.companyId;
+    Map<String, Object>  metadata = Map();
+    metadata["ecommerce_bank"] = metadata1;
 
     try {
       dynamic mposTransaction = await transaction.createTransaction({
@@ -155,6 +157,7 @@ class DeviceService {
         'api_key': this.apiKey,
         'card_hash': result['cardHash'],
         'metadata': json.encode(metadata),
+        'postback_url': 'http://ecommercebank.tk/ecommerce/api/webhook/pagarme',
       });
       onTransactionSuccess(
           mposTransaction, result['shouldFinishTransaction'] == 'true');
