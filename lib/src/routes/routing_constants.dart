@@ -18,5 +18,7 @@ const String TransactionLink = 'transactionLink';
 const String LoginPageRoute = 'login';
 //RegisterPage
 const String RegisterPageViewRoute = 'register';
+//Splash art
+const String SplashArt = 'splash';
 
 const String RecoverPasswordPageRoute = 'recoverpassword';

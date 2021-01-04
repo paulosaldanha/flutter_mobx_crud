@@ -7,6 +7,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 class HomeCard extends StatelessWidget {
   HomeController homeController = HomeController();
 
+  HomeCard(){
+    homeController.getWallet();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -52,7 +56,7 @@ class HomeCard extends StatelessWidget {
                                     ),
                                     Row(
                                       children: <Widget>[
-                                        companyAmount('0,00')
+                                        companyAmount(homeController.walletValue)
                                       ],
                                     ),
                                     Padding(
@@ -198,7 +202,7 @@ class HomeCard extends StatelessWidget {
                       TextSpan(
                         text: value,
                         style: TextStyle(
-                          color: Colors.black38,
+                          color: Colors.green[400],
                           fontSize: 30,
                         ),
                         children: <TextSpan>[],
