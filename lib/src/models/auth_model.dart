@@ -1,12 +1,13 @@
 import 'package:mobx/mobx.dart';
 import 'dart:convert';
+
 //define a parte do codigo que sera gerado
 part 'auth_model.g.dart';
+
 // cria a classe baseado no base e no que foi gerado. _$NomeDaClasse é a forma como é gerado por padrão
 class Auth = _AuthBase with _$Auth;
 
 abstract class _AuthBase with Store {
-
   int userId;
   int companyId;
   String nameCompany;
@@ -35,20 +36,18 @@ abstract class _AuthBase with Store {
 
   //Constructors
 
-  _AuthBase.construtorParametro (this.email,this.password,this.isLogged,this.errorMsg);
+  _AuthBase.construtorParametro(
+      this.email, this.password, this.isLogged, this.errorMsg);
 
-  _AuthBase ();
+  _AuthBase();
 
 //List Functions
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
-      'email': email,
-      'senha': password
-    };
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{'email': email, 'senha': password};
     return map;
   }
 
-  _AuthBase.fromMap(Map<String,dynamic> map){
+  _AuthBase.fromMap(Map<String, dynamic> map) {
     var payload = parseJwtPayLoad(map["accessToken"]);
     var mapeamentoDoJson = jsonDecode(payload["actort"]);
     email = mapeamentoDoJson['EmailUsuario'];
@@ -58,8 +57,8 @@ abstract class _AuthBase with Store {
     nameCompany = mapeamentoDoJson['NomeEstabelecimento'];
   }
 
-  Map<String, dynamic> toJson(){
-    Map<String,dynamic > map = {
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
       'email': email.trim(),
       'senha': password.trim(),
     };
@@ -99,6 +98,4 @@ abstract class _AuthBase with Store {
 
     return utf8.decode(base64Url.decode(output));
   }
-
-
 }

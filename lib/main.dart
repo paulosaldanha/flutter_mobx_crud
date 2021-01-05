@@ -74,17 +74,18 @@ class MyHomePage extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ))),
-            Observer(builder: (_){
+            Observer(builder: (_) {
               authController.getName();
               return Container(
                 padding: EdgeInsets.all(15),
                 child: Center(
-                  child: Text(authController.auth.name,
+                  child: Text(
+                    authController.auth.name,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color:  Color.fromRGBO(0, 74, 173, 1)
-                    ),),
+                        color: Color.fromRGBO(0, 74, 173, 1)),
+                  ),
                 ),
               );
             }),

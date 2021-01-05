@@ -11,7 +11,6 @@ part 'auth_controller.g.dart';
 class AuthController = _AuthController with _$AuthController;
 
 abstract class _AuthController with Store {
-
   _AuthController();
 
   @observable
@@ -20,16 +19,17 @@ abstract class _AuthController with Store {
   //referente ao formulario de inserção
   var auth = Auth();
   var service = AuthService();
+
   //validador de nome
-  String validateEmail(){
-    if (auth.email == null || !validateEmail_regex(auth.email)){
+  String validateEmail() {
+    if (auth.email == null || !validateEmail_regex(auth.email)) {
       return "Digite um email válido";
     }
     return null;
   }
 
-  String validatePassword(){
-    if(auth.password == null || auth.password.length < 3){
+  String validatePassword() {
+    if (auth.password == null || auth.password.length < 3) {
       return "Campo deve conter 3 caracteres no minimo";
     }
     return null;
@@ -47,8 +47,9 @@ abstract class _AuthController with Store {
   bool get isValid {
     return validateEmail() == null && validatePassword() == null;
   }
+
   @action
-  bool setStateLoading (value) => loading = value;
+  bool setStateLoading(value) => loading = value;
 
   //ação do botao salvar/atualizar
   @action
@@ -58,11 +59,12 @@ abstract class _AuthController with Store {
   }
 
   Future<bool> checkIfIsLogged() async {
-    auth.setIsLogged(await service.autoLogIn().then((value) =>  loading = value));
+    auth.setIsLogged(
+        await service.autoLogIn().then((value) => loading = value));
     return auth.isLogged;
   }
 
-  String getErrorLogin(){
+  String getErrorLogin() {
     return auth.seterrorMsg(service.getError);
   }
 
@@ -75,13 +77,13 @@ abstract class _AuthController with Store {
   void autoLogIn(context) async {
     await checkIfIsLogged().then((value) {
       if (value == false) {
-        Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('login', (route) => false);
       }
     });
   }
 
   void getName() async {
-   auth = await AuthMap.getAuthMap();
+    auth = await AuthMap.getAuthMap();
   }
-
 }
