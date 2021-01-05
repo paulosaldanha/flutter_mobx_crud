@@ -20,22 +20,32 @@ abstract class _AuthController with Store {
   var auth = Auth();
   var service = AuthService();
 
-  //validador de nome
+
+  //validador de email
   String validateEmail() {
-    if (auth.email == null || !validateEmail_regex(auth.email)) {
+    if (auth.email == null) {
+      return null;
+    } else if (auth.email.isEmpty) {
+      return "Email obrigatório";
+    } else if (!validateEmailRegex(auth.email)) {
       return "Digite um email válido";
+    } else {
+      return null;
     }
-    return null;
   }
 
   String validatePassword() {
-    if (auth.password == null || auth.password.length < 3) {
+    if (auth.password == null) {
+      return null;
+    }
+    if (auth.password.length < 3) {
+
       return "Campo deve conter 3 caracteres no minimo";
     }
     return null;
   }
 
-  bool validateEmail_regex(String value) {
+  bool validateEmailRegex(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);

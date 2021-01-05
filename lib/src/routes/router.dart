@@ -21,7 +21,6 @@ RouteFactory rotas() {
     // No editar passo um objeto, então aqui na rota defino que como argumento espero um objeto
     Object obj = settings.arguments;
     Widget screen;
-    //
     switch (settings.name) {
       case HomeViewRoute:
         screen = MyHomePage(title: "EcommerceBankPay");
@@ -47,6 +46,12 @@ RouteFactory rotas() {
       case LoginPageRoute:
         screen = LoginPage();
         break;
+      case RecoverPasswordPageRoute:
+        screen = RecoverPasswordPage();
+        break;
+      case RegisterPageViewRoute:
+        screen = RegisterPage();
+        break;
       case SplashArt:
         screen = Splash();
         break;
@@ -55,4 +60,5 @@ RouteFactory rotas() {
     }
     return MaterialPageRoute(builder: (BuildContext context) => screen);
   };
+
 }
