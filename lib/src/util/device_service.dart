@@ -27,7 +27,14 @@ class DeviceService {
   double currentValues;
   var context;
 
-  DeviceService({this.deviceName, this.amount,this.installments, this.paymentMethod, this.status,this.currentValues, this.context}) {
+  DeviceService(
+      {this.deviceName,
+      this.amount,
+      this.installments,
+      this.paymentMethod,
+      this.status,
+      this.currentValues,
+      this.context}) {
     enableListeners();
     this.mpos.createMpos(this.deviceName, this.encryptionKey);
     this.mpos.events.listen((data) => {print(data)});
@@ -56,9 +63,10 @@ class DeviceService {
 
       if (data['method'] == 'onBluetoothErrored') {
         status.setImgStatus('images/fail.png');
-        status.setTitleStatus( 'Ocorreu algum erro feche a janela é tente novamente!');
+        status.setTitleStatus(
+            'Ocorreu algum erro feche a janela é tente novamente!');
         Timer(Duration(seconds: 2), () {
-          status.setTitleStatus( 'Carregando...');
+          status.setTitleStatus('Carregando...');
           Navigator.pop(context);
           Navigator.of(context).pushNamed(TransactionCardMpos);
         });
@@ -99,11 +107,12 @@ class DeviceService {
       if (data['method'] == 'onReceiveError') {
         setTransactionStatus(null);
         status.setImgStatus('images/fail.png');
-        status.setTitleStatus('Ocorreu algum erro feche a janela é tente novamente!');
+        status.setTitleStatus(
+            'Ocorreu algum erro feche a janela é tente novamente!');
         Timer(Duration(seconds: 2), () {
-          status.setTitleStatus( 'Carregando...');
+          status.setTitleStatus('Carregando...');
           Navigator.pop(context);
-          Navigator.of(context).pushNamedAndRemoveUntil(TransactionCardMpos, (route) => false);
+          Navigator.of(context).pushNamed(TransactionCardMpos);
         });
         mpos.close('ERROR - ' + data['value']);
       }
@@ -125,14 +134,14 @@ class DeviceService {
 
       if (data['method'] == 'onReceiveFinishTransaction') {
         setTransactionStatus('onReceiveFinishTransaction');
-        status.setImgStatus('images/approve.png');
-        status.setTitleStatus('Pagamento Aprovado');
-        mpos.displayText("TRANSACAO CONCLUIDA");
-        mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
-        Timer(Duration(seconds: 4), () {
-          Navigator.pop(context);
-          Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
-        });
+        // status.setImgStatus('images/approve.png');
+        // status.setTitleStatus('Pagamento Aprovado');
+        // mpos.displayText("TRANSACAO CONCLUIDA");
+        // mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
+        // Timer(Duration(seconds: 4), () {
+        //   Navigator.pop(context);
+        //   Navigator.of(context).pushNamed(HomeViewRoute);
+        // });
       }
     }
   }
@@ -140,14 +149,14 @@ class DeviceService {
   void createTransaction(String jsonResult) async {
     dynamic result = json.decode(jsonResult);
     Auth auth = await AuthMap.getAuthMap();
-    Map<String, Object>  metadata1 = Map();
+    Map<String, Object> metadata1 = Map();
     metadata1["nome_cliente"] = auth.name;
     metadata1["document"] = 0;
-    metadata1["valor_pago_cliente"] = amount/100;
+    metadata1["valor_pago_cliente"] = amount / 100;
     metadata1["valor_pago_empresa"] = currentValues;
     metadata1["usuario_id"] = auth.userId;
     metadata1["estabelecimento_id"] = auth.companyId;
-    Map<String, Object>  metadata = Map();
+    Map<String, Object> metadata = Map();
     metadata["ecommerce_bank"] = metadata1;
 
     try {
@@ -159,10 +168,13 @@ class DeviceService {
         'metadata': json.encode(metadata),
         'postback_url': 'http://ecommercebank.tk/ecommerce/api/webhook/pagarme',
       });
-      onTransactionSuccess(
-          mposTransaction, result['shouldFinishTransaction'] == 'true');
+      if (mposTransaction['status'] == 'paid') {
+        onTransactionSuccess(mposTransaction);
+      } else {
+        onTransactionError(mposTransaction);
+      }
     } catch (error) {
-      onTransactionError(result['shouldFinishTransaction'] == 'true');
+      onTransactionError(error);
       setTransactionStatus(null);
     }
   }
@@ -172,38 +184,25 @@ class DeviceService {
     print(status);
   }
 
-  void onTransactionSuccess(transaction, bool shouldFinishTransaction) {
-    if (shouldFinishTransaction) {
-      mpos.finishTransaction(
-          true,
-          int.parse(transaction['acquirer_response_code']),
-          transaction['card_emv_response']);
-    } else {
-      status.setImgStatus('images/approve.png');
-      status.setTitleStatus('Pagamento Aprovado');
-      mpos.displayText("Pagamento Aprovado");
-      mpos.close("TRANSACAO APROVADA - RETIRE O CARTAO");
-      Timer(Duration(seconds: 4), () {
-        Navigator.pop(context);
-        Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
-      });
-    }
+  void onTransactionSuccess(transaction) {
+    status.setImgStatus('images/approve.png');
+    status.setTitleStatus('Pagamento Aprovado');
+    mpos.displayText("Pagamento Aprovado");
+    mpos.close("TRANSACAO APROVADA - RETIRE O CARTAO");
+    Timer(Duration(seconds: 4), () {
+      Navigator.pop(context);
+      Navigator.of(context).pushNamed(HomeViewRoute);
+    });
   }
 
-  void onTransactionError(bool shouldFinishTransaction) {
-    if (shouldFinishTransaction) {
-      mpos.finishTransaction(false, 0, null);
-    } else {
-      status.setImgStatus('images/fail.png');
-      status.setTitleStatus('Pagamento Recusado');
-      mpos.displayText('Pagamento Recusado');
-      mpos.close("TRANSACAO RECUSADA - RETIRE O CARTAO");
-      Timer(Duration(seconds: 4), () {
-        Navigator.pop(context);
-        Navigator.of(context).pushNamedAndRemoveUntil(HomeViewRoute, (route) => false);
-      });
-    }
-
-    setTransactionStatus(null);
+  void onTransactionError(transaction) {
+    status.setImgStatus('images/fail.png');
+    status.setTitleStatus('Pagamento Recusado');
+    mpos.displayText('Pagamento Recusado');
+    mpos.close("TRANSACAO RECUSADA - RETIRE O CARTAO");
+    Timer(Duration(seconds: 4), () {
+      Navigator.pop(context);
+      Navigator.of(context).pushNamed(HomeViewRoute);
+    });
   }
 }

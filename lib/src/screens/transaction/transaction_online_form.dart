@@ -105,6 +105,7 @@ class TransactionOnlineForm extends StatelessWidget {
                   return ButtonTheme(
                       minWidth: 1000,
                       child: RaisedButton(
+                          disabledColor: Colors.grey[200],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                             side: BorderSide(
@@ -113,6 +114,7 @@ class TransactionOnlineForm extends StatelessWidget {
                           color: Colors.white,
                           onPressed: transactiononlineController.isValid
                               ? () {
+
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           TransactionOnlineFormPart2(
