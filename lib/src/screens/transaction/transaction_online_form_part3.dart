@@ -22,7 +22,7 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação - Online'),
+        title: Text('Criar transação Online'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
