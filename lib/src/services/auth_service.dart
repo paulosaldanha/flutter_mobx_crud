@@ -16,7 +16,7 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(auth.toJson()));
-    if (authretorno.statusCode == 200){
+    if (authretorno.statusCode == 200) {
       var retorno = json.decode(authretorno.body);
       await login(retorno["accessToken"]);
       getAuthToken = retorno["accessToken"];
@@ -39,7 +39,7 @@ class AuthService {
     return true;
   }
 
-  Future<bool> login(dynamic jwt) async{
+  Future<bool> login(dynamic jwt) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('jwt', jwt);
     return true;
@@ -48,7 +48,7 @@ class AuthService {
   Future<bool> autoLogIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String jwt = prefs.getString('jwt');
-    if(jwt == null){
+    if (jwt == null) {
       return false;
     }
     return true;
@@ -63,11 +63,9 @@ class AuthService {
   Future<String> checkIfUserIsLoggedIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String jwt = prefs.getString('jwt');
-    if(jwt == null){
+    if (jwt == null) {
       return "";
     }
     return jwt;
   }
-
-
 }
