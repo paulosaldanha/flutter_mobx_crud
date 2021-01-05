@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 
 class DeviceService {
   //TESTE
-  String apiKey = 'ak_test_ED7pkGAn73iTqzsEUAQxNK5J5GfFg6';
-  String encryptionKey = 'ek_test_b7DwzjOUXMWGXZq2A3qqBGd0vQxjDt';
+  // String apiKey = 'ak_test_ED7pkGAn73iTqzsEUAQxNK5J5GfFg6';
+  // String encryptionKey = 'ek_test_b7DwzjOUXMWGXZq2A3qqBGd0vQxjDt';
   //PROD.
-  // String apiKey = 'ak_live_ziZ8rx6kvDtbeedxRAJtA9Yyc5sAZk';
-  // String encryptionKey = 'ek_live_MVoijflgvJcm7Nz2RHiyoCwuvogLqo';
+  String apiKey = 'ak_live_ziZ8rx6kvDtbeedxRAJtA9Yyc5sAZk';
+  String encryptionKey = 'ek_live_MVoijflgvJcm7Nz2RHiyoCwuvogLqo';
 
   PagarmeMpos mpos = new PagarmeMpos();
   String transactionStatus;

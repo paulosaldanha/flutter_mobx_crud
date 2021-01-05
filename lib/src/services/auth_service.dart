@@ -24,9 +24,12 @@ class AuthService {
       AuthMap.setAuthMap(auth);
       return auth;
     } else {
+      Auth auth = new Auth();
       var retorno = json.decode(authretorno.body);
       getError = retorno["message"];
-      return Auth.fromMap(json.decode(authretorno.body));
+      auth.seterrorMsg(getError);
+      return auth;
+      // return Auth.fromMap(json.decode(authretorno.body));
     }
   }
 
