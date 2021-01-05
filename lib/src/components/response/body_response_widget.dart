@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 
 class BodyResponseWidget extends StatelessWidget {
@@ -6,6 +8,12 @@ class BodyResponseWidget extends StatelessWidget {
   final error;
 
   BodyResponseWidget(this.response, this.error);
+
+
+  Future<dynamic> baixarBoleto() async {
+    dynamic boleto = await getBoleto(response['nossoNumero']);
+    return boleto;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +39,10 @@ class BodyResponseWidget extends StatelessWidget {
                 iconSize: 90,
                 color: Color.fromRGBO(0, 74, 173, 1),
                 tooltip: 'Enviar por e-mail',
-                onPressed: () {
-                  print("E-mail");
+                onPressed: () async {
+                  dynamic boleto = await baixarBoleto();
+                  launch(
+                      "mailto:?subject=Boleto gerado E-CommerceBank Pay&body=Aqui está o boleto gerado via E-CommerceBank Pay \n\n $boleto");
                 },
               ),
               Text("Enviar por \n e-mail",
@@ -49,8 +59,10 @@ class BodyResponseWidget extends StatelessWidget {
                 iconSize: 80,
                 color: Color.fromRGBO(0, 74, 173, 1),
                 tooltip: 'Enviar por WhatsApp',
-                onPressed: () {
-                  print("WhatsApp");
+                onPressed: () async {
+                  dynamic boleto = await baixarBoleto();
+                  await launch(
+                      "whatsapp://send?text=Aqui está o boleto gerado via E-CommerceBank Pay \n\n $boleto");
                 },
               ),
               Text("Enviar por \n WhatsApp",

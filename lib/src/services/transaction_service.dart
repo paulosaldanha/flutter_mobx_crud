@@ -53,7 +53,7 @@ dynamic getWalletValue() async {
 }
 
 dynamic createTransactionBoleto(Boleto boleto) async {
-  String barer_token = await AuthService().checkIfUserIsLoggedIn();
+  String bearerToken = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -71,14 +71,14 @@ dynamic createTransactionBoleto(Boleto boleto) async {
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader:
-              'Bearer ${barer_token}'
+          HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
         },
         body: jsonEncode(payload));
 
     if (response.statusCode == 401) {
       return await AuthService.logout();
     }
+
     return jsonDecode(response.body);
   } catch (e) {
     print(e);
@@ -88,7 +88,7 @@ dynamic createTransactionBoleto(Boleto boleto) async {
 }
 
 dynamic createTransactionLink(TransactionLink link) async {
-  String barer_token = await AuthService().checkIfUserIsLoggedIn(); 
+  String bearerToken = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   Map<String, Object> payload = Map();
@@ -103,14 +103,14 @@ dynamic createTransactionLink(TransactionLink link) async {
             headers: {
               HttpHeaders.acceptHeader: 'application/json',
               HttpHeaders.contentTypeHeader: 'application/json',
-              HttpHeaders.authorizationHeader:
-              'Bearer ${barer_token}'
+              HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
             },
             body: jsonEncode(payload));
 
     if (response.statusCode == 401) {
       return await AuthService.logout();
     }
+
     return jsonDecode(response.body);
   } catch (e) {
     print(e);
@@ -120,13 +120,13 @@ dynamic createTransactionLink(TransactionLink link) async {
 }
 
 dynamic getTax(String current, int method) async {
-  String barer_token = await AuthService().checkIfUserIsLoggedIn();
+  String bearerToken = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   Map<String, Object> payload = Map();
   payload["valor"] = double.parse(current);
   payload["metodo"] = method;
-  payload["token"] = barer_token;
+  payload["token"] = bearerToken;
 
   try {
     var response = await client.post(
@@ -140,6 +140,7 @@ dynamic getTax(String current, int method) async {
     if (response.statusCode == 401) {
       return await AuthService.logout();
     }
+    
     return jsonDecode(response.body);
   } finally {
     client.close();
@@ -147,22 +148,23 @@ dynamic getTax(String current, int method) async {
 }
 
 dynamic getBoleto(String nossoNumero) async {
-  String barer_token = await AuthService().checkIfUserIsLoggedIn();
+  String bearerToken = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
 
   try {
     var response = await client.get(
-        'http://ecommercebank.tk/ecommerce/api/transacao/boleto/${nossoNumero}',
+
+        'http://ecommercebank.tk/ecommerce/api/transacao/boleto/$nossoNumero',
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader:
-          'Bearer ${barer_token}'
+          HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
         });
 
     if (response.statusCode == 401) {
       return await AuthService.logout();
     }
+
     return jsonDecode(response.body);
   } finally {
     client.close();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:estruturabasica/src/screens/home/home.dart';
 
 class ButtonResponseWidget extends StatelessWidget {
   final error;
@@ -20,8 +19,8 @@ class ButtonResponseWidget extends StatelessWidget {
           textColor: Color.fromRGBO(0, 74, 173, 1),
           padding: EdgeInsets.all(10.0),
           onPressed: () {
-            // Navigator.of(context)
-            //     .push(MaterialPageRoute(builder: (context) => Home()));
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/', (route) => false);
           },
           child: Text(
             (error) ? "Voltar" : "Início",
