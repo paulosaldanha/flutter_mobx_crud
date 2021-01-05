@@ -11,15 +11,16 @@ abstract class _AuthBase with Store {
   int userId;
   int companyId;
   String nameCompany;
-  String name = '';
+  String name;
   @observable
-  String email = '';
+  String email;
   @observable
-  String password = '';
+  String password;
   @observable
   bool isLogged;
   @observable
-  String errorMsg = '';
+  String errorMsg;
+
 
 //getter and setter
   @action

@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
-textField({String labelText, onChanged, String Function() errorText}) {
+
+textField(
+    {String labelText,
+    String hint,
+    Widget prefix,
+    bool obscure = false,
+    onChanged,
+    String Function() errorText}) {
   return TextFormField(
     onChanged: onChanged,
     decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText()),
+      border: OutlineInputBorder(),
+      labelText: labelText,
+      hintText: hint,
+      prefixIcon: prefix,
+      errorText: errorText == null ? null : errorText(),
+    ),
+    obscureText: obscure,
   );
 }
 

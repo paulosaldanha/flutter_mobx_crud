@@ -4,8 +4,16 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+	<key>CFBundleDisplayName</key>
+	<string>EcommerceBank Pay</string>
+>>>>>>> Stashed changes
+=======
 	<key>CFBundleDisplayName</key>
 	<string>E-Commerce Pay</string>
+>>>>>>> master
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
