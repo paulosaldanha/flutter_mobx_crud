@@ -87,7 +87,7 @@ class EstadoForm extends StatelessWidget{
                     itemBuilder: (context, suggestion) {
                       return ListTile(
                         leading: Icon(Icons.flag),
-                        title: Text(suggestion.nome),
+                        title: Text(suggestion.name),
                         subtitle: Text(suggestion.sigla),
                       );
                     },

@@ -24,13 +24,16 @@ class AuthService {
       AuthMap.setAuthMap(auth);
       return auth;
     } else {
+      Auth auth = new Auth();
       var retorno = json.decode(authretorno.body);
       getError = retorno["message"];
-      return Auth.fromMap(json.decode(authretorno.body));
+      auth.seterrorMsg(getError);
+      return auth;
+      // return Auth.fromMap(json.decode(authretorno.body));
     }
   }
 
-  Future<bool> login_erro(dynamic error) async {
+  Future<bool> login_erro(dynamic error) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('error', error);
     return true;
@@ -51,7 +54,7 @@ class AuthService {
     return true;
   }
 
-  Future<bool> logout() async {
+  static Future<bool> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('jwt', null);
     return false;

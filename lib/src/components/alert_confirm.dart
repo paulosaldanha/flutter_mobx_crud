@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
  // retorna uma future do tipo inteiro, onde 0 = cancelar e 1 = confirmar
  Future<int> showAlertConfirm(BuildContext context,String msg,String title) async {
 
-   Widget cancelaButton = FlatButton(
+   Widget cancelButton = FlatButton(
     child: Text("Cancelar"),
     onPressed:  () { 
       Navigator.pop(context,0);
     },
   );
-  Widget continuaButton = FlatButton(
+  Widget continueButton = FlatButton(
     child: Text("Confirmar"),
     onPressed:  () {
       //Navigator.pop(context,1);
@@ -22,8 +22,8 @@ import 'package:flutter/material.dart';
     title: Text(title),
     content: Text(msg),
     actions: [
-      cancelaButton,
-      continuaButton,
+      cancelButton,
+      continueButton,
     ],
   );
   //exibe o diálogo. Await para pegar a ação

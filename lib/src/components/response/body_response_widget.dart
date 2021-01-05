@@ -9,6 +9,7 @@ class BodyResponseWidget extends StatelessWidget {
 
   BodyResponseWidget(this.response, this.error);
 
+
   Future<dynamic> baixarBoleto() async {
     dynamic boleto = await getBoleto(response['nossoNumero']);
     return boleto;
