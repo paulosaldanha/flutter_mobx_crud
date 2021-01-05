@@ -119,6 +119,11 @@ class TransactionPaymentMethod extends StatelessWidget {
                                     listComboController,
                                     'debito');
                                 if (retorno == 1) {
+                                  transactionMposController.setInstallments(
+                                      listComboController
+                                          .installmentsComboList);
+                                  transactionMposController.setAmount(
+                                      listComboController.amountComboList);
                                   transactionMposController.initPlatformState(
                                       transactionModal, context);
                                 }

@@ -14,20 +14,22 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
   final transactiononline;
   final transactiononlineController;
 
-  TransactionListComboController listComboController =
-      new TransactionListComboController();
-
   TransactionOnlineFormPart2(
       this.transactiononline, this.transactiononlineController);
 
   @override
   Widget build(BuildContext context) {
+
+    TransactionListComboController listComboController =
+    new TransactionListComboController();
+
     TransactionOnlinePart2Controller transactionOnlinePart2Controller =
         new TransactionOnlinePart2Controller(transactiononline);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação - Online Parte 2'),
+        title: Text('Criar transação - Online'),
       ),
       body: Observer(
         builder: (_) {
@@ -50,6 +52,7 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                             child: ButtonTheme(
                                 minWidth: 1000,
                                 child: RaisedButton(
+                                    disabledColor: Colors.grey[200],
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                       side: BorderSide(
@@ -60,6 +63,7 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                                                 .currentValues !=
                                             "0,00"
                                         ? () async {
+                                      listComboController.selectedString = "SELECIONE UM PARCELA";
                                             listComboController.getTaxCredit(
                                                 transactionOnlinePart2Controller
                                                     .currentValues);

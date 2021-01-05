@@ -15,13 +15,16 @@ Future<int> showAlertConfirmListCombo(BuildContext context, String title,
       Navigator.pop(context, 0);
     },
   );
-  Widget continueButton = FlatButton(
-    child: Text("Confirmar"),
-    onPressed: () {
-      //Navigator.pop(context,1);
-      Navigator.of(context).pop(1);
-    },
-  );
+  Widget continueButton = Observer(builder: (_) {
+    return FlatButton(
+      child: Text("Confirmar"),
+      onPressed: transaction.selectedString != "SELECIONE UM PARCELA"
+          ? () {
+              Navigator.of(context).pop(1);
+            }
+          : null,
+    );
+  });
   //configura o AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text(title),
@@ -31,11 +34,11 @@ Future<int> showAlertConfirmListCombo(BuildContext context, String title,
         authController.autoLogIn(context);
         return transaction.loading
             ? Container(
-          height: 70,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        )
+                height: 70,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
             : ListCombo<Tax>(
                 child: Padding(
                     padding: EdgeInsets.all(8.0),
