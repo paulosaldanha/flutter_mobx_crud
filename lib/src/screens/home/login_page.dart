@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> globalFormKey = new GlobalKey<FormState>();
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final authController = AuthController();
 
   @override
@@ -30,11 +29,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
         return Scaffold(
-      key: scaffoldKey,
       body: Builder(
         builder: (context){
           return Form(
-            key: globalFormKey,
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -111,8 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
+                    child: Container(
+                      height: 110,
+                      padding: const EdgeInsets.only(right: 30,left: 30,top: 20, bottom: 20),
                       child: RaisedButton(
                           padding: EdgeInsets.symmetric(vertical: 17.0),
                           elevation: 11,
@@ -121,12 +119,13 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0)),
                           child: Observer(
-                            key: globalFormKey,
                             builder: (_){
                               return
                               authController.loading?  Center(
-                                child: CircularProgressIndicator(
-                                ),
+                                child: SizedBox(
+                                  child: CircularProgressIndicator(
+                                  ),
+                                )
                               ) :
                                 Text(
                                 'Acessar'.toUpperCase(),

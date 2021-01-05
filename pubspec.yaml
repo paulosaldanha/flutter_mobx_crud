@@ -43,6 +43,7 @@ dev_dependencies:
     sdk: flutter
   mobx_codegen: ^0.4.0+1 #gerador de código para mobx, elimina boilerplate, faz o nome_classe.g.dart
   build_runner: ^1.7.3
+  flutter_launcher_icons: "^0.8.0"
 
 
 # For information on the generic Dart part of this file, see the
@@ -73,7 +74,12 @@ flutter:
     - images/modal4.png
     - images/master.png
 
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/splash.png"
+  adaptive_icon_background: "images/splash.png"
+  adaptive_icon_foreground: "images/splash.png"
 
 
 

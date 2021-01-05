@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
+import 'package:estruturabasica/src/util/authMap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -77,6 +78,10 @@ abstract class _AuthController with Store {
         Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
       }
     });
+  }
+
+  void getName() async {
+   auth = await AuthMap.getAuthMap();
   }
 
 }
