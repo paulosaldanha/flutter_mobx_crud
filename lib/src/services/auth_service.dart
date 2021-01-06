@@ -24,7 +24,6 @@ class AuthService {
       AuthMap.setAuthMap(auth);
       return auth;
     } else {
-      Auth auth = new Auth();
       var retorno = json.decode(authretorno.body);
       getError = retorno["message"];
       auth.seterrorMsg(getError);

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:estruturabasica/src/models/transaction.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -13,12 +16,15 @@ abstract class _HomeController with Store {
   double sizeCard = 200;
 
   @observable
-  String walletValue = '0,00';
+  String walletValue;
+
+  @observable
+  List<Transaction> transactions = List();
 
   @action
   setSizeCard() {
     if(sizeCard == 200){
-       sizeCard = 500;
+       sizeCard = 340;
     }else{
       sizeCard = 200;
     }
@@ -26,8 +32,14 @@ abstract class _HomeController with Store {
 
   Future<dynamic> getWallet() async {
     var res = await getWalletValue();
-    walletValue = res['totalVolumePeriodo'].toString().replaceAll('.', ',');
-    return  res;
+    if(res == 'false'){
+      return res;
+    }
+    walletValue = res['montanteCarteira'].toStringAsFixed(2).replaceAll('.', ',');
+    res['ultimasTransacoes'].forEach((element){
+      transactions.add(Transaction.fromMap(element));
+    });
+    return  transactions;
   }
 
 }

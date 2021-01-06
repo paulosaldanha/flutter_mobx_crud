@@ -43,6 +43,23 @@ mixin _$HomeController on _HomeController, Store {
     }, _$walletValueAtom, name: '${_$walletValueAtom.name}_set');
   }
 
+  final _$transactionsAtom = Atom(name: '_HomeController.transactions');
+
+  @override
+  List<Transaction> get transactions {
+    _$transactionsAtom.context.enforceReadPolicy(_$transactionsAtom);
+    _$transactionsAtom.reportObserved();
+    return super.transactions;
+  }
+
+  @override
+  set transactions(List<Transaction> value) {
+    _$transactionsAtom.context.conditionallyRunInAction(() {
+      super.transactions = value;
+      _$transactionsAtom.reportChanged();
+    }, _$transactionsAtom, name: '${_$transactionsAtom.name}_set');
+  }
+
   final _$_HomeControllerActionController =
       ActionController(name: '_HomeController');
 

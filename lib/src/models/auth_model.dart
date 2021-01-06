@@ -11,7 +11,7 @@ abstract class _AuthBase with Store {
   int userId;
   int companyId;
   String nameCompany;
-  String name;
+  String name = '';
   @observable
   String email;
   @observable
