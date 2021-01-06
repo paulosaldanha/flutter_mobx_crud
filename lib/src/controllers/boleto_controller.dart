@@ -14,6 +14,11 @@ abstract class _BoletoController with Store {
   //referente ao formulario de inserção
   var boleto = Boleto();
 
+  bool validName = false;
+  bool validDocument = false;
+  bool validDdd = false;
+  bool validTelephone = false;
+
   @observable
   String validDate = "";
   @action
@@ -22,24 +27,31 @@ abstract class _BoletoController with Store {
   //validador de nome
   String validateName() {
     if (boleto.name == null) {
+      validName = false;
       return null;
     } else if (boleto.name.isEmpty ||
         boleto.name.length < 4 ||
         boleto.name.length > 60) {
+      validName = false;
       return "O nome deve conter entre 4 e 60 caracteres";
     }
+    validName = true;
     return null;
   }
 
   //validador de document
   String validateDocument() {
     if (boleto.document == null) {
+      validDocument = false;
       return null;
     } else if (boleto.document.isEmpty) {
+      validDocument = false;
       return "Documento obrigatório";
     } else if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
+      validDocument = true;
       return null;
     } else {
+      validDocument = false;
       return "Documento Inválido";
     }
   }
@@ -47,22 +59,29 @@ abstract class _BoletoController with Store {
   //validador de DDD
   String validateDdd() {
     if (boleto.ddd == null) {
+      validDdd = false;
       return null;
     } else if (boleto.ddd.isEmpty) {
+      validDdd = false;
       return "DDD obrigatório";
     }
+    validDdd = true;
     return null;
   }
 
   //validador de Telephone
   String validateTelephone() {
     if (boleto.telephone == null) {
+      validTelephone = false;
       return null;
     } else if (boleto.telephone.isEmpty) {
+      validTelephone = false;
       return "Telefone obrigatório";
     } else if (!(boleto.telephone.length == 9)) {
+      validTelephone = false;
       return "Telefone deve contar 9 digitos";
     }
+    validTelephone = true;
     return null;
   }
 
@@ -93,6 +112,13 @@ abstract class _BoletoController with Store {
     }
   }
 
+  bool validate() {
+    if (validName && validDocument && validDdd && validTelephone) {
+      return true;
+    }
+    return false;
+  }
+
   // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
@@ -100,7 +126,8 @@ abstract class _BoletoController with Store {
         validateDocument() == null &&
         validateDdd() == null &&
         validateTelephone() == null &&
-        validateDateExpiration() == true;
+        validateDateExpiration() == true &&
+        validate() == true;
   }
 
   dynamic createTransctionBoleto() async {

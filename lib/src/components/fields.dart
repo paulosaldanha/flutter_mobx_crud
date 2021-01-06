@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 textField(
     {String labelText,
     String hint,
@@ -69,5 +68,19 @@ labelError(String label) {
   return Text(
     label,
     style: TextStyle(color: Colors.red),
+  );
+}
+
+rowCard(String text) {
+  return Container(
+    padding: EdgeInsets.only(left: 30),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 20,
+        color: Colors.grey,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 }
