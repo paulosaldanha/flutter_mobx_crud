@@ -71,7 +71,7 @@ class TransactionLinkForm extends StatelessWidget {
                   width: 1000,
                   color: Colors.white,
                   padding:
-                      EdgeInsets.only(top: 10, right: 35, left: 35, bottom: 35),
+                      EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 35),
                   child: Observer(
                     builder: (_) {
                       return FlatButton(

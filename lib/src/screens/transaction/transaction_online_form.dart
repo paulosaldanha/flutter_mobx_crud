@@ -1,6 +1,7 @@
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part2.dart';
+import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,17 +22,18 @@ class TransactionOnlineForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação - Online'),
+        title: Text('Criar transação Online'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              labelFieldRequired("Nome"),
+              SizedBox(height: 5),
               Observer(
                 builder: (_) {
-                  return _textField(
-                      labelText: "Nome",
+                  return textField(
                       onChanged:
                           transactiononlineController.transactiononline.setNome,
                       errorText: transactiononlineController.validateName);
@@ -40,10 +42,11 @@ class TransactionOnlineForm extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
+              labelFieldRequired("Email"),
+              SizedBox(height: 5),
               Observer(
                 builder: (_) {
-                  return _textField(
-                      labelText: "Email",
+                  return textField(
                       onChanged: transactiononlineController
                           .transactiononline.setEmail,
                       errorText: transactiononlineController.validateEmail);
@@ -52,10 +55,11 @@ class TransactionOnlineForm extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
+              labelFieldRequired("Documento"),
+              SizedBox(height: 5),
               Observer(
                 builder: (_) {
-                  return _numberField(
-                      labelText: "Documento",
+                  return numberField(
                       onChanged: transactiononlineController
                           .transactiononline.setDocument,
                       errorText: transactiononlineController.validateDocument);
@@ -69,105 +73,81 @@ class TransactionOnlineForm extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 3,
-                    child: Container(child: Observer(
-                      builder: (_) {
-                        return _numberField(
-                            labelText: "DDD",
-                            onChanged: transactiononlineController
-                                .transactiononline.setDdd,
-                            errorText: transactiononlineController.validateDdd);
-                      },
-                    )),
+                    child: Column(children: [
+                      labelFieldRequired("DDD"),
+                      SizedBox(height: 5),
+                      Observer(
+                        builder: (_) {
+                          return numberField(
+                              onChanged: transactiononlineController
+                                  .transactiononline.setDdd,
+                              errorText:
+                                  transactiononlineController.validateDdd);
+                        },
+                      ),
+                    ]),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     flex: 7,
-                    child: Observer(
-                      builder: (_) {
-                        return _numberField(
-                            labelText: "Telefone",
-                            onChanged: transactiononlineController
-                                .transactiononline.setTelephone,
-                            errorText:
-                                transactiononlineController.validateTelephone);
-                      },
-                    ),
+                    child: Column(children: [
+                      labelFieldRequired("Telefone"),
+                      SizedBox(height: 5),
+                      Observer(
+                        builder: (_) {
+                          return numberField(
+                              onChanged: transactiononlineController
+                                  .transactiononline.setTelephone,
+                              errorText: transactiononlineController
+                                  .validateTelephone);
+                        },
+                      ),
+                    ]),
                   ),
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 50,
               ),
-              Observer(
-                builder: (_) {
-                  return ButtonTheme(
-                      minWidth: 1000,
-                      child: RaisedButton(
-                          disabledColor: Colors.grey[200],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(
-                                color: Color.fromRGBO(0, 74, 173, 1)),
-                          ),
-                          color: Colors.white,
-                          onPressed: transactiononlineController.isValid
-                              ? () {
-
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          TransactionOnlineFormPart2(
-                                              transactiononline,
-                                              transactiononlineController)));
-                                }
-                              : null,
-                          child: Container(
-                            height: 70,
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Color.fromRGBO(0, 74, 173, 1),
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )));
-                },
-              ),
+              Container(
+                width: 1000,
+                color: Colors.white,
+                child: Observer(
+                  builder: (_) {
+                    return FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                        side: BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
+                      ),
+                      color: Colors.white,
+                      textColor: Color.fromRGBO(0, 74, 173, 1),
+                      padding: EdgeInsets.all(10.0),
+                      onPressed: transactiononlineController.isValid
+                          ? () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      TransactionOnlineFormPart2(
+                                          transactiononline,
+                                          transactiononlineController)));
+                            }
+                          : null,
+                      child: Text(
+                        "Continuar".toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
-}
-
-_textField({String labelText, onChanged, String Function() errorText}) {
-  return TextFormField(
-    onChanged: onChanged,
-    decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText()),
-  );
-}
-
-_numberField(
-    {String labelText,
-    onChanged,
-    String Function() errorText,
-    String prefix,
-    bool enable}) {
-  return TextFormField(
-    keyboardType: TextInputType.number,
-    onChanged: onChanged,
-    enabled: enable,
-    decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText(),
-        prefixText: prefix),
-  );
 }
