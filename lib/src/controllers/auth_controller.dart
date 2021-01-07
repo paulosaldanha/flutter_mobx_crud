@@ -16,32 +16,45 @@ abstract class _AuthController with Store {
   @observable
   bool loading = false;
 
+  @observable
+  var onPressed;
+
+  @observable
+  bool visibilityBtn = true;
+
+  bool validEmail = false;
+  bool validPw = false;
+
   //referente ao formulario de inserção
   var auth = Auth();
   var service = AuthService();
 
-
   //validador de email
   String validateEmail() {
     if (auth.email == null) {
+      validEmail = false;
       return null;
     } else if (auth.email.isEmpty) {
+      validEmail = false;
       return "Email obrigatório";
     } else if (!validateEmailRegex(auth.email)) {
+      validEmail = false;
       return "Digite um email válido";
-    } else {
-      return null;
     }
+    validEmail = true;
+    return null;
   }
 
   String validatePassword() {
     if (auth.password == null) {
+      validPw = false;
       return null;
     }
     if (auth.password.length < 3) {
-
+      validPw = false;
       return "Campo deve conter 3 caracteres no minimo";
     }
+    validPw = true;
     return null;
   }
 
@@ -52,11 +65,20 @@ abstract class _AuthController with Store {
     return (!regex.hasMatch(value)) ? false : true;
   }
 
+  bool validate() {
+    if (validEmail && validPw) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // dados computados, dados derivados de estado(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
-    return validateEmail() == null && validatePassword() == null;
+    return validateEmail() == null && validatePassword() == null && validate();
   }
+
 
   @action
   bool setStateLoading(value) => loading = value;
@@ -92,6 +114,31 @@ abstract class _AuthController with Store {
       }
     });
   }
+
+  void login(context) async {
+    if (auth.password == null) {
+      auth.setEmail("");
+      auth.setPassword("");
+    }
+    // FocusScope.of(context).requestFocus(FocusNode());
+    isValid
+        ? {
+            setStateLoading(true),
+            await add(),
+            await checkIfIsLogged()
+                ?
+            Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false)
+                : Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(getErrorLogin()),
+                    duration: Duration(seconds: 4),
+                  )),
+          }
+        : Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Preencha as informações corretamente"),
+            duration: Duration(seconds: 4)));
+  }
+
 
   void getName() async {
     auth = await AuthMap.getAuthMap();

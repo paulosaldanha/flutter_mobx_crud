@@ -17,12 +17,10 @@ class TransactionMposForm extends StatelessWidget {
   TransactionMposController transactionMposController =
       TransactionMposController();
 
-  TransactionMposForm() {
-    BluetoothDeviceService(transactionMposController);
-  }
 
   @override
   Widget build(BuildContext context) {
+    BluetoothDeviceService(transactionMposController);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(15, 74, 173, 1),

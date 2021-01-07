@@ -32,6 +32,40 @@ mixin _$AuthController on _AuthController, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
+  final _$onPressedAtom = Atom(name: '_AuthController.onPressed');
+
+  @override
+  dynamic get onPressed {
+    _$onPressedAtom.context.enforceReadPolicy(_$onPressedAtom);
+    _$onPressedAtom.reportObserved();
+    return super.onPressed;
+  }
+
+  @override
+  set onPressed(dynamic value) {
+    _$onPressedAtom.context.conditionallyRunInAction(() {
+      super.onPressed = value;
+      _$onPressedAtom.reportChanged();
+    }, _$onPressedAtom, name: '${_$onPressedAtom.name}_set');
+  }
+
+  final _$visibilityBtnAtom = Atom(name: '_AuthController.visibilityBtn');
+
+  @override
+  bool get visibilityBtn {
+    _$visibilityBtnAtom.context.enforceReadPolicy(_$visibilityBtnAtom);
+    _$visibilityBtnAtom.reportObserved();
+    return super.visibilityBtn;
+  }
+
+  @override
+  set visibilityBtn(bool value) {
+    _$visibilityBtnAtom.context.conditionallyRunInAction(() {
+      super.visibilityBtn = value;
+      _$visibilityBtnAtom.reportChanged();
+    }, _$visibilityBtnAtom, name: '${_$visibilityBtnAtom.name}_set');
+  }
+
   final _$addAsyncAction = AsyncAction('add');
 
   @override
