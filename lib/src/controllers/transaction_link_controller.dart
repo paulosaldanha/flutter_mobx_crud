@@ -16,18 +16,23 @@ abstract class _LinkController with Store {
   @observable
   String validDate = "";
 
+  bool validName = false;
+
   @action
   setValidDate(String value) => validDate = value;
 
   //validador de nome
   String validateName() {
     if (link.name == null) {
+      validName = false;
       return null;
     } else if (link.name.isEmpty ||
         link.name.length < 4 ||
         link.name.length > 60) {
+      validName = false;
       return "O nome deve conter entre 4 e 60 caracteres";
     }
+    validName = true;
     return null;
   }
 
@@ -69,12 +74,20 @@ abstract class _LinkController with Store {
     }
   }
 
+  bool validate() {
+    if (validName) {
+      return true;
+    }
+    return false;
+  }
+
   // dados computados, dados derivados de link(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
     return validateName() == null &&
         validateInstallments() == null &&
-        validateDateExpiration() == true;
+        validateDateExpiration() == true &&
+        validate();
   }
 
   dynamic createTransctionLink() async {

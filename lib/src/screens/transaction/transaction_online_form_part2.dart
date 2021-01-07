@@ -6,16 +6,14 @@ import 'package:estruturabasica/src/controllers/transaction_online_part2_control
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 class TransactionOnlineFormPart2 extends StatelessWidget {
-  final transactiononline;
-  final transactiononlineController;
+  final transactionOnline;
+  final transactionOnlineController;
 
   TransactionOnlineFormPart2(
-      this.transactiononline, this.transactiononlineController);
+      this.transactionOnline, this.transactionOnlineController);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +21,12 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
         new TransactionListComboController();
 
     TransactionOnlinePart2Controller transactionOnlinePart2Controller =
-        new TransactionOnlinePart2Controller(transactiononline);
+        new TransactionOnlinePart2Controller(transactionOnline);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação Online'),
+        title: Text('Criar transação online'),
       ),
       body: Observer(
         builder: (_) {
@@ -75,11 +73,11 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                                               listComboController,
                                               'credito');
                                       if (retorno == 1) {
-                                        transactiononlineController
+                                        transactionOnlineController
                                             .transactiononline
                                             .setValue(listComboController
                                                 .amountComboList);
-                                        transactiononlineController
+                                        transactionOnlineController
                                             .transactiononline
                                             .setInstallments(listComboController
                                                 .installmentsComboList);
@@ -87,8 +85,8 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     TransactionOnlineFormPart3(
-                                                        transactiononline,
-                                                        transactiononlineController)));
+                                                        transactionOnline,
+                                                        transactionOnlineController)));
                                       }
                                     }
                                   : null,
@@ -110,32 +108,4 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
       ),
     );
   }
-}
-
-_textField({String labelText, onChanged, String Function() errorText}) {
-  return TextFormField(
-    onChanged: onChanged,
-    decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText()),
-  );
-}
-
-_numberField(
-    {String labelText,
-    onChanged,
-    String Function() errorText,
-    String prefix,
-    bool enable}) {
-  return TextFormField(
-    keyboardType: TextInputType.number,
-    onChanged: onChanged,
-    enabled: enable,
-    decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText(),
-        prefixText: prefix),
-  );
 }

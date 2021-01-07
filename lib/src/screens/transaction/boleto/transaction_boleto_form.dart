@@ -1,10 +1,12 @@
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/controllers/boleto_controller.dart';
 import 'package:estruturabasica/src/components/fields.dart';
+import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 // ignore: must_be_immutable
 class TransactionBoletoForm extends StatelessWidget {
@@ -12,6 +14,9 @@ class TransactionBoletoForm extends StatelessWidget {
 
   BoletoController boletoController = BoletoController();
   TransactionBoletoForm();
+
+  MaskTextInputFormatter maskDDD = maskDdd();
+  MaskTextInputFormatter maskTelephone = maskPhone();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,8 @@ class TransactionBoletoForm extends StatelessWidget {
                       SizedBox(height: 5),
                       Observer(
                         builder: (_) {
-                          return numberField(
+                          return numberMaskField(
+                              mask: boletoController.maskDocument,
                               onChanged: boletoController.boleto.setDocument,
                               errorText: boletoController.validateDocument);
                         },
@@ -74,7 +80,8 @@ class TransactionBoletoForm extends StatelessWidget {
                                   SizedBox(height: 5),
                                   Container(child: Observer(
                                     builder: (_) {
-                                      return numberField(
+                                      return numberMaskField(
+                                          mask: maskDDD,
                                           onChanged:
                                               boletoController.boleto.setDdd,
                                           errorText:
@@ -95,7 +102,8 @@ class TransactionBoletoForm extends StatelessWidget {
                                     SizedBox(height: 5),
                                     Container(child: Observer(
                                       builder: (_) {
-                                        return numberField(
+                                        return numberMaskField(
+                                            mask: maskTelephone,
                                             onChanged: boletoController
                                                 .boleto.setTelephone,
                                             errorText: boletoController

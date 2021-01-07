@@ -1,14 +1,9 @@
-import 'package:estruturabasica/src/models/transaction_online.dart';
-import 'package:estruturabasica/src/controllers/transaction_online_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
+import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 class TransactionOnlineFormPart3 extends StatelessWidget {
   final transactiononline;
@@ -22,7 +17,7 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação Online'),
+        title: Text('Criar transação online'),
       ),
       backgroundColor: Colors.white,
       body: Padding(
@@ -63,26 +58,55 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            rowCard(transactiononlineController
-                                    .transactiononline.cardName ??
-                                'NOME'),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                rowCard('Card Number', fontSize: 10),
+                                rowCard(
+                                    transactiononlineController
+                                            .transactiononline.cardNumber ??
+                                        '#### #### #### ####',
+                                    fontSize: 26),
+                              ],
+                            ),
                           ],
                         ),
                         Row(
                           children: [
-                            rowCard(transactiononlineController
-                                    .transactiononline.cardNumber ??
-                                'NÚMERO DO CARTÃO'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            rowCard(transactiononlineController
-                                    .transactiononline.cardDateExpiration ??
-                                'DATA EXP'),
-                            rowCard(transactiononlineController
-                                    .transactiononline.cardCVV ??
-                                'CVV'),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                rowCard('Card Name', fontSize: 10),
+                                rowCard(
+                                    transactiononlineController
+                                            .transactiononline.cardName ??
+                                        'Your Name',
+                                    fontSize: 18),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                rowCard('Valid Thru', fontSize: 10),
+                                rowCard(
+                                    transactiononlineController
+                                            .transactiononline
+                                            .cardDateExpiration ??
+                                        '##/##',
+                                    fontSize: 18),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                rowCard('CVV', fontSize: 10),
+                                rowCard(
+                                    transactiononlineController
+                                            .transactiononline.cardCVV ??
+                                        '###',
+                                    fontSize: 18),
+                              ],
+                            ),
                           ],
                         ),
                       ],
@@ -108,7 +132,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
               SizedBox(height: 5),
               Observer(
                 builder: (_) {
-                  return numberField(
+                  return numberMaskField(
+                      mask: maskCardNumber(),
                       onChanged: transactiononlineController
                           .transactiononline.setCardNumber,
                       errorText:
@@ -130,7 +155,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                         Container(
                           child: Observer(
                             builder: (_) {
-                              return numberField(
+                              return numberMaskField(
+                                  mask: maskDateExp(),
                                   onChanged: transactiononlineController
                                       .transactiononline.setDateExpiration,
                                   errorText: transactiononlineController
@@ -152,7 +178,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                         SizedBox(height: 5),
                         Observer(
                           builder: (_) {
-                            return numberField(
+                            return numberMaskField(
+                                mask: maskCvv(),
                                 onChanged: transactiononlineController
                                     .transactiononline.setCardCVV,
                                 errorText: transactiononlineController

@@ -28,7 +28,6 @@ abstract class _TransactionOnlineBase with Store {
   @observable
   String cardDateExpiration;
 
-
   @action
   setNome(String value) => name = value;
   @action
@@ -41,8 +40,9 @@ abstract class _TransactionOnlineBase with Store {
   setTelephone(String value) => telephone = value;
   @action
   setValue(int valueBillet) {
-    value = valueBillet/100;
+    value = valueBillet / 100;
   }
+
   @action
   setDateExpiration(String value) => cardDateExpiration = value;
   @action

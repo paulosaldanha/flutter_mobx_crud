@@ -1,13 +1,10 @@
 import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
-import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_link/transaction_link_form.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/routes/router.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 void main() {

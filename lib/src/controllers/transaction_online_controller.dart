@@ -1,7 +1,9 @@
 import 'package:mobx/mobx.dart';
+import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/services/transaction_online_service.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 part 'transaction_online_controller.g.dart';
 
@@ -11,7 +13,7 @@ class TransactionOnlineController = _TransactionOnlineController
 abstract class _TransactionOnlineController with Store {
   _TransactionOnlineController();
 
-  var transactiononline = TransactionOnline();
+  var transactionOnline = TransactionOnline();
   var service = TransactionOnlineService();
 
   bool validName = false;
@@ -20,12 +22,14 @@ abstract class _TransactionOnlineController with Store {
   bool validDdd = false;
   bool validTelephone = false;
 
+  MaskTextInputFormatter maskDocument = maskCpf();
+
   String validateName() {
-    if (transactiononline.name == null) {
+    if (transactionOnline.name == null) {
       validName = false;
       return null;
     }
-    if (transactiononline.name.isEmpty || transactiononline.name.length < 3) {
+    if (transactionOnline.name.isEmpty || transactionOnline.name.length < 3) {
       validName = false;
       return "Nome obrigatório";
     }
@@ -34,17 +38,17 @@ abstract class _TransactionOnlineController with Store {
   }
 
   String validateEmail() {
-    if (transactiononline.email == null) {
+    if (transactionOnline.email == null) {
       validEmail = false;
       return null;
     }
-    if (transactiononline.email.isEmpty) {
+    if (transactionOnline.email.isEmpty) {
       validEmail = false;
       return "Email obrigatório";
     }
-    if (transactiononline.email.length < 4 ||
-        !transactiononline.email.contains("@") ||
-        !transactiononline.email.contains(".")) {
+    if (transactionOnline.email.length < 4 ||
+        !transactionOnline.email.contains("@") ||
+        !transactionOnline.email.contains(".")) {
       validEmail = false;
       return "Email inválido";
     }
@@ -53,16 +57,23 @@ abstract class _TransactionOnlineController with Store {
   }
 
   String validateDocument() {
-    if (transactiononline.document == null) {
+    if (transactionOnline.document == null) {
       validDocument = false;
       return null;
     }
-    if (transactiononline.document.isEmpty) {
+
+    if (transactionOnline.document.length <= 14) {
+      maskDocument.updateMask(mask: "###.###.###-###");
+    } else {
+      maskDocument.updateMask(mask: "##.###.###/####-##");
+    }
+
+    if (transactionOnline.document.isEmpty) {
       validDocument = false;
       return "Documento obrigatório";
     }
-    if (CPF.isValid(transactiononline.document) ||
-        CNPJ.isValid(transactiononline.document)) {
+    if (CPF.isValid(transactionOnline.document) ||
+        CNPJ.isValid(transactionOnline.document)) {
       validDocument = true;
       return null;
     } else {
@@ -72,11 +83,11 @@ abstract class _TransactionOnlineController with Store {
   }
 
   String validateDdd() {
-    if (transactiononline.ddd == null) {
+    if (transactionOnline.ddd == null) {
       validDdd = false;
       return null;
     }
-    if (transactiononline.ddd.isEmpty) {
+    if (transactionOnline.ddd.isEmpty) {
       validDdd = false;
       return "DDD obrigatório";
     }
@@ -85,12 +96,12 @@ abstract class _TransactionOnlineController with Store {
   }
 
   String validateTelephone() {
-    if (transactiononline.telephone == null) {
+    if (transactionOnline.telephone == null) {
       validTelephone = false;
       return null;
     }
-    if (transactiononline.telephone.isEmpty ||
-        transactiononline.telephone.length < 8) {
+    if (transactionOnline.telephone.isEmpty ||
+        transactionOnline.telephone.length < 8) {
       validTelephone = false;
       return "Telefone obrigatório";
     }
@@ -99,59 +110,61 @@ abstract class _TransactionOnlineController with Store {
   }
 
   String validateValue() {
-    if (transactiononline.value == null) {
+    if (transactionOnline.value == null) {
       return null;
     }
-    if (transactiononline.value == null || transactiononline.value < 10) {
+    if (transactionOnline.value == null || transactionOnline.value < 10) {
       return "O valor minimo é R\$ 10,00";
     }
     return null;
   }
 
   String validateDateExpiration() {
-    if (transactiononline.cardDateExpiration == null) {
+    if (transactionOnline.cardDateExpiration == null) {
       return null;
     }
-    if (transactiononline.cardDateExpiration.length != 4) {
+    if (transactionOnline.cardDateExpiration.length != 5) {
       return "Vencimento obrigatório";
     }
     return null;
   }
 
   String validateInstallments() {
-    if (transactiononline.installments == null ||
-        transactiononline.installments <= 0 ||
-        transactiononline.installments > 12) {
+    if (transactionOnline.installments == null) {
+      return null;
+    }
+    if (transactionOnline.installments <= 0 ||
+        transactionOnline.installments > 12) {
       return "Parcela obrigatório";
     }
     return null;
   }
 
   String validateCardName() {
-    if (transactiononline.cardName == null) {
+    if (transactionOnline.cardName == null) {
       return null;
     }
-    if (transactiononline.cardName.isEmpty) {
+    if (transactionOnline.cardName.isEmpty) {
       return "Nome do cartão é obrigatório";
     }
     return null;
   }
 
   String validateCardNumber() {
-    if (transactiononline.cardNumber == null) {
+    if (transactionOnline.cardNumber == null) {
       return null;
     }
-    if (transactiononline.cardNumber.isEmpty) {
+    if (transactionOnline.cardNumber.isEmpty) {
       return "Numero do cartão é obrigatório";
     }
     return null;
   }
 
   String validateCardCVV() {
-    if (transactiononline.cardCVV == null) {
+    if (transactionOnline.cardCVV == null) {
       return null;
     }
-    if (transactiononline.cardCVV.isEmpty) {
+    if (transactionOnline.cardCVV.isEmpty) {
       return "Numero do cartão é obrigatório";
     }
     return null;
@@ -187,6 +200,6 @@ abstract class _TransactionOnlineController with Store {
   }
 
   dynamic createTransctionTransactionOnline() async {
-    return service.createTransactionOnline(transactiononline);
+    return service.createTransactionOnline(transactionOnline);
   }
 }

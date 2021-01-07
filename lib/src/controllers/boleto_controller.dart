@@ -1,7 +1,9 @@
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
+import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
 part 'boleto_controller.g.dart';
@@ -18,6 +20,7 @@ abstract class _BoletoController with Store {
   bool validDocument = false;
   bool validDdd = false;
   bool validTelephone = false;
+  MaskTextInputFormatter maskDocument = maskCpf();
 
   @observable
   String validDate = "";
@@ -44,7 +47,15 @@ abstract class _BoletoController with Store {
     if (boleto.document == null) {
       validDocument = false;
       return null;
-    } else if (boleto.document.isEmpty) {
+    }
+
+    if (boleto.document.length <= 14) {
+      maskDocument.updateMask(mask: "###.###.###-###");
+    } else {
+      maskDocument.updateMask(mask: "##.###.###/####-##");
+    }
+
+    if (boleto.document.isEmpty) {
       validDocument = false;
       return "Documento obrigatório";
     } else if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
@@ -77,7 +88,7 @@ abstract class _BoletoController with Store {
     } else if (boleto.telephone.isEmpty) {
       validTelephone = false;
       return "Telefone obrigatório";
-    } else if (!(boleto.telephone.length == 9)) {
+    } else if (!(boleto.telephone.length == 11)) {
       validTelephone = false;
       return "Telefone deve contar 9 digitos";
     }

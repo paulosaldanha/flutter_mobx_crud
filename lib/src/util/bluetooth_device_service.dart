@@ -1,12 +1,10 @@
-import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothDeviceService {
-
   final transactionMposController;
 
-  BluetoothDeviceService( this.transactionMposController) {
+  BluetoothDeviceService(this.transactionMposController) {
     bluetoothConnectionState();
   }
 
@@ -28,6 +26,5 @@ class BluetoothDeviceService {
         transactionMposController.setvisibilityModalblueth(false);
       }
     }
-
   }
 }

@@ -30,15 +30,14 @@ dynamic getWalletValue() async {
   String barer_token = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
   try {
-    var response = await client.post(
-        'http://ecommercebank.tk/ecommerce/api/home/painel',
-        headers: {
-          HttpHeaders.acceptHeader: 'application/json',
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader:
-          'Bearer ${barer_token}'
-        },
-        body:'');
+    var response =
+        await client.post('http://ecommercebank.tk/ecommerce/api/home/painel',
+            headers: {
+              HttpHeaders.acceptHeader: 'application/json',
+              HttpHeaders.contentTypeHeader: 'application/json',
+              HttpHeaders.authorizationHeader: 'Bearer ${barer_token}'
+            },
+            body: '');
 
     if (response.statusCode == 401) {
       return await AuthService.logout();
@@ -49,7 +48,6 @@ dynamic getWalletValue() async {
   } finally {
     client.close();
   }
-
 }
 
 dynamic createTransactionBoleto(Boleto boleto) async {
@@ -140,7 +138,7 @@ dynamic getTax(String current, int method) async {
     if (response.statusCode == 401) {
       return await AuthService.logout();
     }
-    
+
     return jsonDecode(response.body);
   } finally {
     client.close();
@@ -153,7 +151,6 @@ dynamic getBoleto(String nossoNumero) async {
 
   try {
     var response = await client.get(
-
         'http://ecommercebank.tk/ecommerce/api/transacao/boleto/$nossoNumero',
         headers: {
           HttpHeaders.acceptHeader: 'application/json',

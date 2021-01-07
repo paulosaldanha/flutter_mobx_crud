@@ -41,6 +41,7 @@ dependencies:
   build_runner: ^1.7.3
   share: ^0.6.5+4
   url_launcher: ^5.7.10
+  mask_text_input_formatter: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -81,9 +82,9 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "images/splash.png"
-  adaptive_icon_background: "images/splash.png"
-  adaptive_icon_foreground: "images/splash.png"
+  image_path: "images/foreground.png"
+  adaptive_icon_background: "images/background.png"
+  adaptive_icon_foreground: "images/foreground.png"
 
 
 
