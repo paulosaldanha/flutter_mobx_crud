@@ -29,6 +29,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (authController.visibilityBtn) {
+      authController.onPressed = () async {
+        authController.login(context);
+      };
+    }
     return Scaffold(body: Builder(builder: (context) {
       return Form(
         child: SingleChildScrollView(
@@ -105,16 +110,16 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: 1000,
                       padding: const EdgeInsets.all(10),
-                      child: RaisedButton(
-                          padding: EdgeInsets.symmetric(vertical: 17.0),
-                          elevation: 11,
-                          highlightElevation: 0,
-                          color: Color.fromRGBO(0, 74, 173, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0)),
-                          child: Observer(
-                            builder: (_) {
-                              return authController.loading
+                      child: Observer(
+                        builder: (_) {
+                          return RaisedButton(
+                              padding: EdgeInsets.symmetric(vertical: 17.0),
+                              elevation: 11,
+                              highlightElevation: 0,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              child: authController.loading
                                   ? Center(
                                       child: SizedBox(
                                       child: CircularProgressIndicator(),
@@ -127,27 +132,10 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
-                                    );
-                            },
-                          ),
-                          onPressed: () async {
-                            authController.setStateLoading(true);
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            authController.isValid
-                                ? {
-                                    await authController.add(),
-                                    await authController.checkIfIsLogged()
-                                        ? Navigator.pushNamedAndRemoveUntil(
-                                            context, '/', (route) => false)
-                                        : Scaffold.of(context)
-                                            .showSnackBar(SnackBar(
-                                            content: Text(
-                                                authController.getErrorLogin()),
-                                            duration: Duration(seconds: 4),
-                                          ))
-                                  }
-                                : null;
-                          }),
+                                    ),
+                              onPressed: authController.onPressed);
+                        },
+                      ),
                     ),
                     FlatButton(
                       onPressed: () {
