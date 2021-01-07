@@ -2,27 +2,28 @@ import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part2.dart';
 import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:estruturabasica/src/components/mask.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class TransactionOnlineForm extends StatelessWidget {
-  final transactiononline = TransactionOnline();
-  TransactionOnlineController transactiononlineController =
+  final transactionOnline = TransactionOnline();
+  TransactionOnlineController transactionOnlineController =
       TransactionOnlineController();
 
   TransactionOnlineForm();
+
+  MaskTextInputFormatter maskDDD = maskDdd();
+  MaskTextInputFormatter maskTelephone = maskPhone();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text('Criar transação Online'),
+        title: Text('Criar transação online'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -35,8 +36,8 @@ class TransactionOnlineForm extends StatelessWidget {
                 builder: (_) {
                   return textField(
                       onChanged:
-                          transactiononlineController.transactiononline.setNome,
-                      errorText: transactiononlineController.validateName);
+                          transactionOnlineController.transactionOnline.setNome,
+                      errorText: transactionOnlineController.validateName);
                 },
               ),
               SizedBox(
@@ -47,9 +48,9 @@ class TransactionOnlineForm extends StatelessWidget {
               Observer(
                 builder: (_) {
                   return textField(
-                      onChanged: transactiononlineController
-                          .transactiononline.setEmail,
-                      errorText: transactiononlineController.validateEmail);
+                      onChanged: transactionOnlineController
+                          .transactionOnline.setEmail,
+                      errorText: transactionOnlineController.validateEmail);
                 },
               ),
               SizedBox(
@@ -59,10 +60,11 @@ class TransactionOnlineForm extends StatelessWidget {
               SizedBox(height: 5),
               Observer(
                 builder: (_) {
-                  return numberField(
-                      onChanged: transactiononlineController
-                          .transactiononline.setDocument,
-                      errorText: transactiononlineController.validateDocument);
+                  return numberMaskField(
+                      mask: transactionOnlineController.maskDocument,
+                      onChanged: transactionOnlineController
+                          .transactionOnline.setDocument,
+                      errorText: transactionOnlineController.validateDocument);
                 },
               ),
               SizedBox(
@@ -78,11 +80,12 @@ class TransactionOnlineForm extends StatelessWidget {
                       SizedBox(height: 5),
                       Observer(
                         builder: (_) {
-                          return numberField(
-                              onChanged: transactiononlineController
-                                  .transactiononline.setDdd,
+                          return numberMaskField(
+                              mask: maskDDD,
+                              onChanged: transactionOnlineController
+                                  .transactionOnline.setDdd,
                               errorText:
-                                  transactiononlineController.validateDdd);
+                                  transactionOnlineController.validateDdd);
                         },
                       ),
                     ]),
@@ -97,10 +100,11 @@ class TransactionOnlineForm extends StatelessWidget {
                       SizedBox(height: 5),
                       Observer(
                         builder: (_) {
-                          return numberField(
-                              onChanged: transactiononlineController
-                                  .transactiononline.setTelephone,
-                              errorText: transactiononlineController
+                          return numberMaskField(
+                              mask: maskTelephone,
+                              onChanged: transactionOnlineController
+                                  .transactionOnline.setTelephone,
+                              errorText: transactionOnlineController
                                   .validateTelephone);
                         },
                       ),
@@ -124,13 +128,13 @@ class TransactionOnlineForm extends StatelessWidget {
                       color: Colors.white,
                       textColor: Color.fromRGBO(0, 74, 173, 1),
                       padding: EdgeInsets.all(10.0),
-                      onPressed: transactiononlineController.isValid
+                      onPressed: transactionOnlineController.isValid
                           ? () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       TransactionOnlineFormPart2(
-                                          transactiononline,
-                                          transactiononlineController)));
+                                          transactionOnline,
+                                          transactionOnlineController)));
                             }
                           : null,
                       child: Text(

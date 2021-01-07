@@ -27,7 +27,7 @@ class TransactionResponse extends StatelessWidget {
           children: [
             HeaderResponseWidget(response, error, method),
             SizedBox(height: 30),
-            BodyResponseWidget(response, error),
+            BodyResponseWidget(response, error, method),
             SizedBox(height: 60),
             ButtonResponseWidget(error)
           ],

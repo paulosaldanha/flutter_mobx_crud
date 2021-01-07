@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 textField(
     {String labelText,
@@ -38,6 +39,26 @@ numberField(
   );
 }
 
+numberMaskField(
+    {String labelText,
+    onChanged,
+    String Function() errorText,
+    String prefix,
+    TextInputFormatter mask,
+    bool enable}) {
+  return TextFormField(
+    keyboardType: TextInputType.number,
+    onChanged: onChanged,
+    enabled: enable,
+    decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: labelText,
+        errorText: errorText == null ? null : errorText(),
+        prefixText: prefix),
+    inputFormatters: [mask],
+  );
+}
+
 labelFieldRequired(String label) {
   return Row(children: [
     Text(
@@ -71,13 +92,13 @@ labelError(String label) {
   );
 }
 
-rowCard(String text) {
+rowCard(String text, {double fontSize}) {
   return Container(
     padding: EdgeInsets.only(left: 30),
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 20,
+        fontSize: fontSize ?? 20,
         color: Colors.grey,
         fontWeight: FontWeight.bold,
       ),

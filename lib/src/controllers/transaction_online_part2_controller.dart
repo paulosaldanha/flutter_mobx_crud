@@ -1,15 +1,13 @@
-import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 
 part 'transaction_online_part2_controller.g.dart';
 
-class TransactionOnlinePart2Controller = _TransactionOnlinePart2Controller with _$TransactionOnlinePart2Controller;
+class TransactionOnlinePart2Controller = _TransactionOnlinePart2Controller
+    with _$TransactionOnlinePart2Controller;
 
 abstract class _TransactionOnlinePart2Controller with Store {
-final transactiononline;
+  final transactiononline;
 
   _TransactionOnlinePart2Controller(this.transactiononline);
 
@@ -19,7 +17,6 @@ final transactiononline;
   List currentValuesList = List();
   @observable
   bool visibilityModalBluetooth = false;
-
 
   @action
   setCurrentValues(String value) {
@@ -38,17 +35,12 @@ final transactiononline;
         TaxMethodPaymentService.convertToString(currentValuesList);
   }
 
-
   @action
   setInstallments(int value) => transactiononline.installments = value;
 
   @action
   setAmount(int value) => transactiononline.value = value;
 
-
   @action
   setvisibilityModalblueth(bool value) => visibilityModalBluetooth = value;
-
-
-
 }

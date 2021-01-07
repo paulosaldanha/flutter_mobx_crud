@@ -4,18 +4,32 @@ class HeaderResponseWidget extends StatelessWidget {
   final response;
   final error;
   final method;
+  String message = "";
+  String valorTotal = "";
 
   HeaderResponseWidget(this.response, this.error, this.method);
 
   @override
   Widget build(BuildContext context) {
+    if (method == "boleto") {
+      message = "Boleto\ngerado com sucesso";
+      valorTotal =
+          response["valorBruto"].toStringAsFixed(2).replaceAll(".", ",");
+    } else if (method == "link") {
+      message = "Link de Pagamento\ngerado com sucesso";
+      valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+    } else {
+      message = "Transação efetuada\ncom sucesso";
+      valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+    }
+
     return Container(
       width: 1000,
       height: 250,
       color: (error) ? Colors.red[900] : Colors.lightGreen,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SizedBox(height: 30),
-        Text((error) ? "Ocorreu um erro" : "Você já pode enviar o comprovante",
+        Text((error) ? "Ocorreu um erro" : message,
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
             textAlign: TextAlign.center),
@@ -28,16 +42,7 @@ class HeaderResponseWidget extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 24)),
-                Text(
-                    (method == "boleto")
-                        ? "R\$ " +
-                            response["valorBruto"]
-                                .toStringAsFixed(2)
-                                .replaceAll(".", ",")
-                        : "R\$ " +
-                            response["valor"]
-                                .toStringAsFixed(2)
-                                .replaceAll(".", ","),
+                Text("R\$ " + valorTotal,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

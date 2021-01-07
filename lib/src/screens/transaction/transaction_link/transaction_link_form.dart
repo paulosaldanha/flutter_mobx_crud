@@ -91,7 +91,6 @@ class TransactionLinkForm extends StatelessWidget {
                                 linkController.link.setValue(value);
 
                                 List parcelas = await getParcelas(value);
-                                print(parcelas);
 
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => TransactionLinkForm2(
