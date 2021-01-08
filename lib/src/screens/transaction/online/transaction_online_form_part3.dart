@@ -4,13 +4,18 @@ import 'package:estruturabasica/src/components/fields.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class TransactionOnlineFormPart3 extends StatelessWidget {
-  final transactiononline;
-  final transactiononlineController;
+  final transactionOnline;
+  final transactionOnlineController;
 
   TransactionOnlineFormPart3(
-      this.transactiononline, this.transactiononlineController);
+      this.transactionOnline, this.transactionOnlineController);
+
+  MaskTextInputFormatter maskNumber = maskCardNumber();
+  MaskTextInputFormatter maskDate = maskDateExp();
+  MaskTextInputFormatter maskCVV = maskCvv();
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +68,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                               children: [
                                 rowCard('Card Number', fontSize: 10),
                                 rowCard(
-                                    transactiononlineController
-                                            .transactiononline.cardNumber ??
+                                    transactionOnlineController
+                                            .transactionOnline.cardNumber ??
                                         '#### #### #### ####',
                                     fontSize: 26),
                               ],
@@ -78,8 +83,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                               children: [
                                 rowCard('Card Name', fontSize: 10),
                                 rowCard(
-                                    transactiononlineController
-                                            .transactiononline.cardName ??
+                                    transactionOnlineController
+                                            .transactionOnline.cardName ??
                                         'Your Name',
                                     fontSize: 18),
                               ],
@@ -89,8 +94,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                               children: [
                                 rowCard('Valid Thru', fontSize: 10),
                                 rowCard(
-                                    transactiononlineController
-                                            .transactiononline
+                                    transactionOnlineController
+                                            .transactionOnline
                                             .cardDateExpiration ??
                                         '##/##',
                                     fontSize: 18),
@@ -101,8 +106,8 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                               children: [
                                 rowCard('CVV', fontSize: 10),
                                 rowCard(
-                                    transactiononlineController
-                                            .transactiononline.cardCVV ??
+                                    transactionOnlineController
+                                            .transactionOnline.cardCVV ??
                                         '###',
                                     fontSize: 18),
                               ],
@@ -120,9 +125,9 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
               Observer(
                 builder: (_) {
                   return textField(
-                      onChanged: transactiononlineController
-                          .transactiononline.setCardName,
-                      errorText: transactiononlineController.validateCardName);
+                      onChanged: transactionOnlineController
+                          .transactionOnline.setCardName,
+                      errorText: transactionOnlineController.validateCardName);
                 },
               ),
               SizedBox(
@@ -133,11 +138,11 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
               Observer(
                 builder: (_) {
                   return numberMaskField(
-                      mask: maskCardNumber(),
-                      onChanged: transactiononlineController
-                          .transactiononline.setCardNumber,
+                      mask: maskNumber,
+                      onChanged: transactionOnlineController
+                          .transactionOnline.setCardNumber,
                       errorText:
-                          transactiononlineController.validateCardNumber);
+                          transactionOnlineController.validateCardNumber);
                 },
               ),
               SizedBox(
@@ -156,10 +161,10 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                           child: Observer(
                             builder: (_) {
                               return numberMaskField(
-                                  mask: maskDateExp(),
-                                  onChanged: transactiononlineController
-                                      .transactiononline.setDateExpiration,
-                                  errorText: transactiononlineController
+                                  mask: maskDate,
+                                  onChanged: transactionOnlineController
+                                      .transactionOnline.setDateExpiration,
+                                  errorText: transactionOnlineController
                                       .validateDateExpiration);
                             },
                           ),
@@ -179,10 +184,10 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                         Observer(
                           builder: (_) {
                             return numberMaskField(
-                                mask: maskCvv(),
-                                onChanged: transactiononlineController
-                                    .transactiononline.setCardCVV,
-                                errorText: transactiononlineController
+                                mask: maskCVV,
+                                onChanged: transactionOnlineController
+                                    .transactionOnline.setCardCVV,
+                                errorText: transactionOnlineController
                                     .validateCardCVV);
                           },
                         ),
@@ -208,9 +213,9 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                       color: Colors.white,
                       textColor: Color.fromRGBO(0, 74, 173, 1),
                       padding: EdgeInsets.all(10.0),
-                      onPressed: transactiononlineController.isValidPart3
+                      onPressed: transactionOnlineController.isValidPart3
                           ? () {
-                              transactiononlineController
+                              transactionOnlineController
                                   .createTransctionTransactionOnline()
                                   .then((res) {
                                 Navigator.of(context).push(MaterialPageRoute(

@@ -1,6 +1,6 @@
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_controller.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part2.dart';
+import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part2.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:flutter/cupertino.dart';

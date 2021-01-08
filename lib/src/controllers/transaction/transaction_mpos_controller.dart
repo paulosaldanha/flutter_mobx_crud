@@ -1,10 +1,7 @@
 import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
-import 'package:estruturabasica/src/models/tax.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
-import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/util/device_service.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 
@@ -14,7 +11,6 @@ class TransactionMposController = _TransactionMposController
     with _$TransactionMposController;
 
 abstract class _TransactionMposController with Store {
-
   TransactionMpos transactionMpos = TransactionMpos();
 
   _TransactionMposController();
@@ -62,25 +58,25 @@ abstract class _TransactionMposController with Store {
     if (transactionMpos.deviceName != null) {
       return true;
     } else {
-
       return false;
     }
   }
 
   @action
-  void setPaymentMethod(String value){
+  void setPaymentMethod(String value) {
     if (value == 'credito') {
-      transactionMpos.setPaymentMethod( PaymentMethod.CreditCard);
+      transactionMpos.setPaymentMethod(PaymentMethod.CreditCard);
     }
     if (value == 'debito') {
-      transactionMpos.setPaymentMethod( PaymentMethod.DebitCard);
+      transactionMpos.setPaymentMethod(PaymentMethod.DebitCard);
     }
   }
 
-  Future<void> initPlatformState(TransactionModalController transactionMposController, context) async {
+  Future<void> initPlatformState(
+      TransactionModalController transactionMposController, context) async {
     transactionMposController.setImgStatus('images/pay.png');
     transactionMposController.setStatus(1);
-    DeviceService device =  await DeviceService(
+    DeviceService device = await DeviceService(
         deviceName: transactionMpos.deviceName,
         amount: transactionMpos.amount,
         installments: transactionMpos.installments,
@@ -90,4 +86,3 @@ abstract class _TransactionMposController with Store {
         context: context);
   }
 }
-

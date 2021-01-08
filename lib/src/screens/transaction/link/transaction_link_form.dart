@@ -1,6 +1,6 @@
 import 'package:estruturabasica/src/controllers/transaction/transaction_link_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction_link_controller.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_link/transaction_link_form_part2.dart';
+import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form_part2.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
@@ -38,11 +38,11 @@ class TransactionLinkForm extends StatelessWidget {
       if (i == 0) {
         parcela = new List();
         parcela.add(i + 1);
-        parcela.add("1 Parcela - R\$ ${valor}");
+        parcela.add("1 Parcela - R\$ $valor");
       } else {
         parcela = new List();
         parcela.add(i + 1);
-        parcela.add("${i + 1} Parcelas - R\$ ${valor}");
+        parcela.add("${i + 1} Parcelas - R\$ $valor");
       }
       parcelas.add(parcela);
     }

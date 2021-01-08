@@ -4,7 +4,6 @@ import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 dynamic createTransaction(Map<String, String> payload) async {
   var client = http.Client();

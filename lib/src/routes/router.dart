@@ -4,13 +4,10 @@ import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/home/splash.dart';
-import 'package:estruturabasica/src/screens/pais/list.dart';
-import 'package:estruturabasica/src/screens/pais/pais_form.dart';
-import 'package:estruturabasica/src/screens/home/home.dart';
-import 'package:estruturabasica/src/screens/estado/estado_form.dart';
-import 'package:estruturabasica/src/screens/estado/estado_list.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
+import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
+import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
+import 'package:estruturabasica/src/screens/transaction/mpos/transaction_mpos_form.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);
@@ -23,25 +20,19 @@ RouteFactory rotas() {
     Widget screen;
     switch (settings.name) {
       case HomeViewRoute:
-        screen = MyHomePage(title: "EcommerceBankPay");
-        break;
-      case ListPaisViewRoute:
-        screen = ListPage();
-        break;
-      case CadPaisViewRoute:
-        screen = PaisForm(pais: obj);
-        break;
-      case ListEstadoViewRoute:
-        screen = EstadoListPage();
-        break;
-      case CadEstadoViewRoute:
-        screen = EstadoForm(estado: obj);
+        screen = MyHomePage(title: "EcommerceBank Pay");
         break;
       case TransactionCardMpos:
         screen = TransactionMposForm();
         break;
       case TransactionBoleto:
         screen = TransactionBoletoForm();
+        break;
+      case TransactionLink:
+        screen = TransactionLinkForm();
+        break;
+      case TransactionOnline:
+        screen = TransactionOnlineForm();
         break;
       case LoginPageRoute:
         screen = LoginPage();
@@ -60,5 +51,4 @@ RouteFactory rotas() {
     }
     return MaterialPageRoute(builder: (BuildContext context) => screen);
   };
-
 }

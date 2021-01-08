@@ -1,14 +1,10 @@
-import 'package:combos/combos.dart';
-import 'package:estruturabasica/src/components/alert_confirm.dart';
 import 'package:estruturabasica/src/components/alert_listCombo.dart';
 import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
-import 'package:estruturabasica/src/models/tax.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 class TransactionPaymentMethod extends StatelessWidget {
   final transactionMposController;

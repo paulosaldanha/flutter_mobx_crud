@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/screens/transaction/transaction_payment_method.dart';
+import 'package:estruturabasica/src/screens/transaction/mpos/transaction_payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

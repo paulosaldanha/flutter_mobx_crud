@@ -94,21 +94,7 @@ class BodyResponseWidget extends StatelessWidget {
                   textAlign: TextAlign.center)
             ])),
           ]),
-          SizedBox(height: 50),
-          Column(children: [
-            Text(
-                "R\$ " +
-                    response["valor"].toStringAsFixed(2).replaceAll(".", ","),
-                style: TextStyle(
-                    color: Colors.black45,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20)),
-            Text("Já está na sua carteira",
-                style: TextStyle(
-                    color: Colors.black45,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20))
-          ])
+          SizedBox(height: 50)
         ]),
       );
     }

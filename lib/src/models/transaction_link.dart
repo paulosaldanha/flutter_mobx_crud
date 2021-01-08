@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
 
 part 'transaction_link.g.dart';
 
