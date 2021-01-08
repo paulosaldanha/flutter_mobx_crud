@@ -4,10 +4,6 @@ import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/home/splash.dart';
-import 'package:estruturabasica/src/screens/pais/list.dart';
-import 'package:estruturabasica/src/screens/pais/pais_form.dart';
-import 'package:estruturabasica/src/screens/estado/estado_form.dart';
-import 'package:estruturabasica/src/screens/estado/estado_list.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
 import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
@@ -25,18 +21,6 @@ RouteFactory rotas() {
     switch (settings.name) {
       case HomeViewRoute:
         screen = MyHomePage(title: "EcommerceBank Pay");
-        break;
-      case ListPaisViewRoute:
-        screen = ListPage();
-        break;
-      case CadPaisViewRoute:
-        screen = PaisForm(pais: obj);
-        break;
-      case ListEstadoViewRoute:
-        screen = EstadoListPage();
-        break;
-      case CadEstadoViewRoute:
-        screen = EstadoForm(estado: obj);
         break;
       case TransactionCardMpos:
         screen = TransactionMposForm();
