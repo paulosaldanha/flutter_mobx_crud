@@ -97,7 +97,7 @@ class TransactionLinkForm2 extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                    alignment: Alignment.center,
+                    width: 1000,
                     color: Colors.white,
                     padding: EdgeInsets.only(bottom: 35.0),
                     child: Observer(

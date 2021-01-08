@@ -6,11 +6,12 @@ import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/home/splash.dart';
 import 'package:estruturabasica/src/screens/pais/list.dart';
 import 'package:estruturabasica/src/screens/pais/pais_form.dart';
-import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:estruturabasica/src/screens/estado/estado_form.dart';
 import 'package:estruturabasica/src/screens/estado/estado_list.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_mpos_form.dart';
+import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
+import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
+import 'package:estruturabasica/src/screens/transaction/mpos/transaction_mpos_form.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);
@@ -23,7 +24,7 @@ RouteFactory rotas() {
     Widget screen;
     switch (settings.name) {
       case HomeViewRoute:
-        screen = MyHomePage(title: "EcommerceBankPay");
+        screen = MyHomePage(title: "EcommerceBank Pay");
         break;
       case ListPaisViewRoute:
         screen = ListPage();
@@ -43,6 +44,12 @@ RouteFactory rotas() {
       case TransactionBoleto:
         screen = TransactionBoletoForm();
         break;
+      case TransactionLink:
+        screen = TransactionLinkForm();
+        break;
+      case TransactionOnline:
+        screen = TransactionOnlineForm();
+        break;
       case LoginPageRoute:
         screen = LoginPage();
         break;
@@ -60,5 +67,4 @@ RouteFactory rotas() {
     }
     return MaterialPageRoute(builder: (BuildContext context) => screen);
   };
-
 }

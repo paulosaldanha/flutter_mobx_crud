@@ -1,4 +1,3 @@
-import 'package:estruturabasica/src/components/custom_text_field.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';

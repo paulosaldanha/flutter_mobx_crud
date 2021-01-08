@@ -1,6 +1,4 @@
-import 'package:estruturabasica/src/models/pais.dart';
 import 'package:estruturabasica/src/util/status_transaction.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction.g.dart';
@@ -69,4 +67,3 @@ abstract class _TransactionBase with Store {
     status = StatusTransaction.getStatusTransaction(map['statusTransacao']);
   }
 }
-

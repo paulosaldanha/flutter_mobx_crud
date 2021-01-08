@@ -1,5 +1,4 @@
 //Arquivo para definição de rotas, para manter em um unico lugar
-import 'package:estruturabasica/src/screens/home/home.dart';
 
 const String HomeViewRoute = '/';
 //pais
@@ -14,6 +13,8 @@ const String TransactionCardMpos = 'transactionMpos';
 const String TransactionBoleto = 'transactionBoleto';
 //Link
 const String TransactionLink = 'transactionLink';
+//Online
+const String TransactionOnline = 'transactionOnline';
 //LoginPage
 const String LoginPageRoute = 'login';
 //RegisterPage

@@ -3,7 +3,7 @@ import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction_online_part2_controller.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_online_form_part3.dart';
+import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -74,11 +74,11 @@ class TransactionOnlineFormPart2 extends StatelessWidget {
                                               'credito');
                                       if (retorno == 1) {
                                         transactionOnlineController
-                                            .transactiononline
+                                            .transactionOnline
                                             .setValue(listComboController
                                                 .amountComboList);
                                         transactionOnlineController
-                                            .transactiononline
+                                            .transactionOnline
                                             .setInstallments(listComboController
                                                 .installmentsComboList);
                                         Navigator.of(context).push(

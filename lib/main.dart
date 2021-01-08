@@ -1,7 +1,6 @@
 import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_online_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/routes/router.dart';
@@ -110,16 +109,15 @@ class MyHomePage extends StatelessWidget {
             ListTile(
               title: Text('Transação Online'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => TransactionOnlineForm()));
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(TransactionOnline);
               },
             ),
             ListTile(
               title: Text('Logout'),
               onTap: () async {
                 await authController.logout();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('login', (route) => false);
+                Navigator.of(context).pushNamed(LoginPageRoute);
               },
             ),
           ],
