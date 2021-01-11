@@ -42,8 +42,8 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                   children: <Widget>[
                     Align(
                       alignment: Alignment.center,
-                      child: Image.network(
-                        'https://i.imgur.com/ndinJu4.png',
+                      child: Image.asset(
+                        'images/transp_logo.png',
                         width: 200,
                         height: 200,
                       ),
@@ -51,24 +51,27 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 45,),
+              SizedBox(
+                height: 45,
+              ),
               Center(
                 child: Text(
-                  "Problemas com login ?",style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-                ),
+                  "Problemas com login ?",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 55,),
+              SizedBox(
+                height: 55,
+              ),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(22.0),
                   child: Text(
-                    "Insira o email que você esqueceu da senha, enviaremos a você um link para voltar a acessar novamente sua conta.",style: TextStyle(
-                    fontSize: 14,
-                  ),
+                    "Insira o email que você esqueceu da senha, enviaremos a você um link para voltar a acessar novamente sua conta.",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -117,8 +120,11 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       if (validateAndSave()) {
-                        RecoverPasswordService recoverPasswordService = new RecoverPasswordService();
-                        recoverPasswordService.recoverpassword(requestModel).then(
+                        RecoverPasswordService recoverPasswordService =
+                            new RecoverPasswordService();
+                        recoverPasswordService
+                            .recoverpassword(requestModel)
+                            .then(
                           (value) {
                             var result = value.message ?? "";
                             print(result);

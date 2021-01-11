@@ -36,8 +36,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: <Widget>[
                       Align(
                         alignment: Alignment.center,
-                        child: Image.network(
-                          'https://i.imgur.com/ndinJu4.png',
+                        child: Image.asset(
+                          'images/transp_logo.png',
                           width: 200,
                           height: 200,
                         ),

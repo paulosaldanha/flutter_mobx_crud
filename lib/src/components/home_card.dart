@@ -1,5 +1,4 @@
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
-import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 class HomeCard extends StatelessWidget {
   HomeController homeController = HomeController();
   var listTransaction;
+  final authController;
 
-  HomeCard() {
+  HomeCard(this.authController) {
     _getList();
   }
 
@@ -19,7 +19,6 @@ class HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = AuthController();
     authController.autoLogIn(context);
     return Observer(
       builder: (_) {
@@ -60,7 +59,8 @@ class HomeCard extends StatelessWidget {
                                             SizedBox(
                                               height: 15,
                                             ),
-                                            companyNameSymbol(),
+                                            companyNameSymbol(authController
+                                                .auth.nameCompany),
                                             // cryptoChange(),
                                           ],
                                         ),
@@ -146,22 +146,14 @@ class HomeCard extends StatelessWidget {
     );
   }
 
-  Widget companyNameSymbol() {
+  Widget companyNameSymbol(name) {
     return Align(
       alignment: Alignment.centerLeft,
       child: RichText(
         text: TextSpan(
-          text: 'Ecommerce',
+          text: name,
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
-          children: <TextSpan>[
-            TextSpan(
-                text: 'Pay',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold)),
-          ],
         ),
       ),
     );
