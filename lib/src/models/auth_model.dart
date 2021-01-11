@@ -11,6 +11,7 @@ abstract class _AuthBase with Store {
   int userId;
   int companyId;
   String nameCompany;
+  String companyLogo;
   String name = '';
   @observable
   String email;
@@ -20,7 +21,6 @@ abstract class _AuthBase with Store {
   bool isLogged;
   @observable
   String errorMsg;
-
 
 //getter and setter
   @action
@@ -56,6 +56,7 @@ abstract class _AuthBase with Store {
     userId = mapeamentoDoJson['UsuarioId'];
     companyId = mapeamentoDoJson['EstabelecimentoId'];
     nameCompany = mapeamentoDoJson['NomeEstabelecimento'];
+    companyLogo = mapeamentoDoJson['urlLogo'];
   }
 
   Map<String, dynamic> toJson() {
