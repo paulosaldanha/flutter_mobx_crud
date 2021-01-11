@@ -2,6 +2,7 @@ import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -152,6 +153,45 @@ class _LoginPageState extends State<LoginPage> {
                               style: new TextStyle(
                                   color: Colors.blue,
                                   fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        const url ='https://play.google.com/store/apps/details?id=br.srv.secure.app.ecommercebank';
+                        if (await canLaunch(url)) {
+                        await launch(url);
+                        } else {
+                        throw 'Could not launch $url';
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Center(
+                              child: Container(
+                                height: 130,
+                                width: 130,
+                                child: Image.asset('images/splash.png'),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                              child: Text(
+                                "Abra sua conta agora! \n Clique Aqui!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
                             ),
                           ],
                         ),
