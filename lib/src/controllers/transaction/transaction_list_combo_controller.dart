@@ -43,7 +43,7 @@ abstract class _TransactionListComboController with Store {
       for (var i = 0; i < listTax.length; i++) {
         amountValuesCreditCardList.add(Tax(
             listTax[i],
-            '${i + 1} x de R\$ ${_changeValueParcel(listTax[i], i + 1)}',
+            'R\$ ${_changeValueParcel(listTax[i], i + 1)}',
             i + 1));
       }
       loading = false;
