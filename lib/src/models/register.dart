@@ -11,9 +11,9 @@ abstract class _Register with Store {
   void setRazaoSocial(String value) => razaoSocial = value;
 
   @observable
-  String cnpj;
+  String documento;
   @action
-  void setcnpj(String value) => cnpj = value;
+  void setdocumento(String value) => documento = value;
 
   @observable
   String responsavelEmail;
@@ -28,6 +28,5 @@ abstract class _Register with Store {
   @observable
   String senha;
   @action
-  void setSenha (String value) => senha = value;
-
+  void setSenha(String value) => senha = value;
 }

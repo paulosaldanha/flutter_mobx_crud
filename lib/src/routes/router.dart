@@ -40,7 +40,7 @@ RouteFactory rotas() {
       case RecoverPasswordPageRoute:
         screen = RecoverPasswordPage();
         break;
-      case RegisterPageViewRoute:
+      case RegisterPageRoute:
         screen = RegisterPage();
         break;
       case SplashArt:

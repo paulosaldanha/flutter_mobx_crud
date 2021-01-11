@@ -12,7 +12,7 @@ const String TransactionOnline = 'transactionOnline';
 //LoginPage
 const String LoginPageRoute = 'login';
 //RegisterPage
-const String RegisterPageViewRoute = 'register';
+const String RegisterPageRoute = 'register';
 //Splash art
 const String SplashArt = 'splash';
 

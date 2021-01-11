@@ -26,21 +26,21 @@ mixin _$Register on _Register, Store {
     }, _$razaoSocialAtom, name: '${_$razaoSocialAtom.name}_set');
   }
 
-  final _$cnpjAtom = Atom(name: '_Register.cnpj');
+  final _$documentoAtom = Atom(name: '_Register.documento');
 
   @override
-  String get cnpj {
-    _$cnpjAtom.context.enforceReadPolicy(_$cnpjAtom);
-    _$cnpjAtom.reportObserved();
-    return super.cnpj;
+  String get documento {
+    _$documentoAtom.context.enforceReadPolicy(_$documentoAtom);
+    _$documentoAtom.reportObserved();
+    return super.documento;
   }
 
   @override
-  set cnpj(String value) {
-    _$cnpjAtom.context.conditionallyRunInAction(() {
-      super.cnpj = value;
-      _$cnpjAtom.reportChanged();
-    }, _$cnpjAtom, name: '${_$cnpjAtom.name}_set');
+  set documento(String value) {
+    _$documentoAtom.context.conditionallyRunInAction(() {
+      super.documento = value;
+      _$documentoAtom.reportChanged();
+    }, _$documentoAtom, name: '${_$documentoAtom.name}_set');
   }
 
   final _$responsavelEmailAtom = Atom(name: '_Register.responsavelEmail');
@@ -107,10 +107,10 @@ mixin _$Register on _Register, Store {
   }
 
   @override
-  void setcnpj(String value) {
+  void setdocumento(String value) {
     final _$actionInfo = _$_RegisterActionController.startAction();
     try {
-      return super.setcnpj(value);
+      return super.setdocumento(value);
     } finally {
       _$_RegisterActionController.endAction(_$actionInfo);
     }

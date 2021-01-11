@@ -26,7 +26,7 @@ dynamic createTransaction(Map<String, String> payload) async {
 }
 
 dynamic getWalletValue() async {
-  String barer_token = await AuthService().checkIfUserIsLoggedIn();
+  String bearerToken = await AuthService().checkIfUserIsLoggedIn();
   var client = http.Client();
   try {
     var response =
@@ -34,7 +34,7 @@ dynamic getWalletValue() async {
             headers: {
               HttpHeaders.acceptHeader: 'application/json',
               HttpHeaders.contentTypeHeader: 'application/json',
-              HttpHeaders.authorizationHeader: 'Bearer ${barer_token}'
+              HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
             },
             body: '');
 
