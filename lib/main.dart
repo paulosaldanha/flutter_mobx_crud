@@ -59,9 +59,7 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-                child: authController.auth.companyLogo.isEmpty
-                    ? Image.asset('images/splash.png')
-                    : null,
+                child: Image.asset('images/splash.png'),
                 decoration: BoxDecoration(
                     color: Colors.blue,
                     gradient: LinearGradient(
