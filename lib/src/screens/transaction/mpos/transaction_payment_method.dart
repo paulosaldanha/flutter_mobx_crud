@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/components/alert_listCombo.dart';
+import 'package:estruturabasica/src/components/slider_taxa.dart';
 import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
 import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
@@ -73,20 +74,23 @@ class TransactionPaymentMethod extends StatelessWidget {
                                 onTap: () async {
                                   transactionMposController
                                       .setPaymentMethod('credito');
-                                  var retorno = await showAlertConfirmListCombo(
-                                      context,
-                                      "Selecione uma parcela",
-                                      listComboController,
-                                      'credito');
-                                  if (retorno == 1) {
-                                    transactionMposController.setInstallments(
-                                        listComboController
-                                            .installmentsComboList);
-                                    transactionMposController.setAmount(
-                                        listComboController.amountComboList);
-                                    transactionMposController.initPlatformState(
-                                        transactionModal, context);
-                                  }
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          SliderTaxa(transactionMposController)));
+                                  // var retorno = await showAlertConfirmListCombo(
+                                  //     context,
+                                  //     "Selecione uma parcela",
+                                  //     listComboController,
+                                  //     'credito');
+                                  // if (retorno == 1) {
+                                  //   transactionMposController.setInstallments(
+                                  //       listComboController
+                                  //           .installmentsComboList);
+                                  //   transactionMposController.setAmount(
+                                  //       listComboController.amountComboList);
+                                  //   transactionMposController.initPlatformState(
+                                  //       transactionModal, context);
+                                  // }
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(30.0),
