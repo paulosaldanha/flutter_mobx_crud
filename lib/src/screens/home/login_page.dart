@@ -53,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Align(
                       alignment: Alignment.center,
-                      child: Image.network(
-                        'https://i.imgur.com/ndinJu4.png',
+                      child: Image.asset(
+                        'images/transp_logo.png',
                         width: 200,
                         height: 200,
                       ),
@@ -160,11 +160,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () async {
-                        const url ='https://play.google.com/store/apps/details?id=br.srv.secure.app.ecommercebank';
+                        const url =
+                            'https://play.google.com/store/apps/details?id=br.srv.secure.app.ecommercebank';
                         if (await canLaunch(url)) {
-                        await launch(url);
+                          await launch(url);
                         } else {
-                        throw 'Could not launch $url';
+                          throw 'Could not launch $url';
                         }
                       },
                       child: Container(
@@ -188,9 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                                 "Abra sua conta agora! \n Clique Aqui!",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],

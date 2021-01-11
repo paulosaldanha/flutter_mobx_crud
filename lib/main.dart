@@ -47,31 +47,36 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    authController.getName();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       ),
       backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-      body: Home(),
+      body: Home(authController),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-                child: Image.asset('images/splash.png'),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromRGBO(0, 74, 173, 1),
-                        Colors.white,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ))),
             Observer(builder: (_) {
-              authController.getName();
+              return DrawerHeader(
+                  child: authController.auth.companyLogo != null
+                      ? Image.network(authController.auth.companyLogo)
+                      : Image.asset('images/transp_logo.png'),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(0, 74, 173, 1),
+                          Colors.white,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      )));
+            }),
+            Observer(builder: (_) {
+              print(authController.auth);
               return Container(
                 padding: EdgeInsets.all(15),
                 child: Center(

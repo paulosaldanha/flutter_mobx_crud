@@ -47,8 +47,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mobx_codegen: ^0.4.0+1 #gerador de código para mobx, elimina boilerplate, faz o nome_classe.g.dart
-  build_runner: ^1.7.3
-  flutter_launcher_icons: "^0.8.0"
 
 
 # For information on the generic Dart part of this file, see the
@@ -72,7 +70,9 @@ flutter:
     - images/approve.png
     - images/fail.png
     - images/splash.png
+    - images/transp_logo.png
     - images/pay.png
+    - images/transp_pay.png
     - images/modal1.png
     - images/modal2.png
     - images/modal3.png

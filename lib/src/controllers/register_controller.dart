@@ -56,7 +56,7 @@ abstract class _RegisterController with Store {
 
     if (register.documento.length <= 9) {
       suffixDocument = "RUC";
-      validDocument = false;
+      validDocument = true;
       return null;
     } else if (register.documento.length > 9 &&
         register.documento.length < 12) {

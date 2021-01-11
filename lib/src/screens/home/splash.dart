@@ -11,7 +11,7 @@ class Splash extends StatelessWidget {
       await authController.checkIfIsLogged().then((value) {
         if (value == true) {
           Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        }else{
+        } else {
           Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
         }
       });
@@ -22,14 +22,14 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     autoLogIn(context);
     return Container(
-        color: Colors.blue,
+        color: Color.fromRGBO(0, 74, 173, 1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 150,
-              child: Image.asset('images/splash.png'),
+              child: Image.asset('images/transp_pay.png'),
             ),
             SizedBox(
               height: 15,
