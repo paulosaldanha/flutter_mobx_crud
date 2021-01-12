@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+
 part 'transaction_modal_controller.g.dart';
 
 class TransactionModalController = _TransactionModalController

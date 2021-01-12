@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
 import 'package:estruturabasica/src/models/transaction_Mpos.dart';
 import 'package:estruturabasica/src/util/device_service.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
@@ -73,16 +73,16 @@ abstract class _TransactionMposController with Store {
   }
 
   Future<void> initPlatformState(
-      TransactionModalController transactionMposController, context) async {
-    transactionMposController.setImgStatus('images/pay.png');
-    transactionMposController.setStatus(1);
+      TransactionModalController transactionModalController, context) async {
+    transactionModalController.setImgStatus('images/pay.png');
+    transactionModalController.setStatus(1);
     DeviceService device = await DeviceService(
         deviceName: transactionMpos.deviceName,
         amount: transactionMpos.amount,
         installments: transactionMpos.installments,
         paymentMethod: transactionMpos.paymentMethod,
         currentValues: double.parse(currentValues.replaceAll(',', '.')),
-        status: transactionMposController,
+        status: transactionModalController,
         context: context);
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:estruturabasica/src/controllers/auth_controller.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {

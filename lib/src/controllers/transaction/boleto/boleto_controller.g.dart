@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'transaction_link_controller.dart';
+part of 'boleto_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,14 +8,31 @@ part of 'transaction_link_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$LinkController on _LinkController, Store {
+mixin _$BoletoController on _BoletoController, Store {
   Computed<bool> _$isValidComputed;
 
   @override
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
 
-  final _$validDateAtom = Atom(name: '_LinkController.validDate');
+  final _$loadingAtom = Atom(name: '_BoletoController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
+  final _$validDateAtom = Atom(name: '_BoletoController.validDate');
 
   @override
   String get validDate {
@@ -32,16 +49,16 @@ mixin _$LinkController on _LinkController, Store {
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
   }
 
-  final _$_LinkControllerActionController =
-      ActionController(name: '_LinkController');
+  final _$_BoletoControllerActionController =
+      ActionController(name: '_BoletoController');
 
   @override
-  dynamic setValidDate(String value) {
-    final _$actionInfo = _$_LinkControllerActionController.startAction();
+  dynamic setValidDate(dynamic value) {
+    final _$actionInfo = _$_BoletoControllerActionController.startAction();
     try {
       return super.setValidDate(value);
     } finally {
-      _$_LinkControllerActionController.endAction(_$actionInfo);
+      _$_BoletoControllerActionController.endAction(_$actionInfo);
     }
   }
 }

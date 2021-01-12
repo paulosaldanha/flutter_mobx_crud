@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/controllers/auth_controller.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';

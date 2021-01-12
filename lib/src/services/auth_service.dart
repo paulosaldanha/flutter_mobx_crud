@@ -16,16 +16,17 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(auth.toJson()));
+    var retorno = json.decode(authretorno.body);
     if (authretorno.statusCode == 200) {
-      var retorno = json.decode(authretorno.body);
       await login(retorno["accessToken"]);
       getAuthToken = retorno["accessToken"];
       Auth auth = Auth.fromMap(json.decode(authretorno.body));
       AuthMap.setAuthMap(auth);
+      auth.setIsLogged(true);
       return auth;
     } else {
-      var retorno = json.decode(authretorno.body);
       getError = retorno["message"];
+      auth.setIsLogged(false);
       auth.seterrorMsg(getError);
       return auth;
       // return Auth.fromMap(json.decode(authretorno.body));

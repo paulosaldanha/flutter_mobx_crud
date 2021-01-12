@@ -1,8 +1,8 @@
 import 'package:estruturabasica/src/components/alert_listCombo.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
-import 'package:estruturabasica/src/controllers/transaction/transaction_list_combo_controller.dart';
-import 'package:estruturabasica/src/controllers/transaction_online_part2_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/online/transaction_online_part2_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

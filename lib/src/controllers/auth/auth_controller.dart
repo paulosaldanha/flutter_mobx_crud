@@ -132,7 +132,8 @@ abstract class _AuthController with Store {
                 : Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text(getErrorLogin()),
                     duration: Duration(seconds: 4),
-                  )),
+                  )
+            ),
           }
         : Scaffold.of(context).showSnackBar(SnackBar(
             content: Text("Preencha as informações corretamente"),

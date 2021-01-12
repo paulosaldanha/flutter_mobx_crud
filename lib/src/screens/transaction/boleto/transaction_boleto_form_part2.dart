@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/controllers/transaction/transaction_boleto_controller.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
+import 'package:estruturabasica/src/controllers/transaction/boleto/transaction_boleto_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,23 +73,28 @@ class TransactionBoletoForm2 extends StatelessWidget {
                                     .toString();
                                 boletoController.boleto.setValue(value);
                                 boletoController.boleto.setValueTax(valueTax);
-
+                                boletoController.loading = true;
                                 boletoController
                                     .createTransctionBoleto()
                                     .then((value) {
+                                  boletoController.loading = false;
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => TransactionResponse(
                                           value, "boleto")));
                                 });
                               }
                             : null,
-                        child: Text(
-                          "Continuar".toUpperCase(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30.0,
-                          ),
-                        ),
+                        child:Observer(builder: (_){
+                          return boletoController.loading ? Text(
+                            "Continuar".toUpperCase(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.0,
+                            ),
+                          ): Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },),
                       );
                     },
                   ),
