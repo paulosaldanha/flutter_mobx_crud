@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_controller.dart';
+part of 'people_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,15 +8,14 @@ part of 'register_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$RegisterController on _RegisterController, Store {
+mixin _$PeopleController on _PeopleController, Store {
   Computed<bool> _$isValidComputed;
 
   @override
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
 
-  final _$confirmPasswordAtom =
-      Atom(name: '_RegisterController.confirmPassword');
+  final _$confirmPasswordAtom = Atom(name: '_PeopleController.confirmPassword');
 
   @override
   String get confirmPassword {
@@ -33,8 +32,7 @@ mixin _$RegisterController on _RegisterController, Store {
     }, _$confirmPasswordAtom, name: '${_$confirmPasswordAtom.name}_set');
   }
 
-  final _$passwordVisibleAtom =
-      Atom(name: '_RegisterController.passwordVisible');
+  final _$passwordVisibleAtom = Atom(name: '_PeopleController.passwordVisible');
 
   @override
   bool get passwordVisible {
@@ -52,7 +50,7 @@ mixin _$RegisterController on _RegisterController, Store {
   }
 
   final _$confirmPasswordVisibleAtom =
-      Atom(name: '_RegisterController.confirmPasswordVisible');
+      Atom(name: '_PeopleController.confirmPasswordVisible');
 
   @override
   bool get confirmPasswordVisible {
@@ -71,36 +69,36 @@ mixin _$RegisterController on _RegisterController, Store {
         name: '${_$confirmPasswordVisibleAtom.name}_set');
   }
 
-  final _$_RegisterControllerActionController =
-      ActionController(name: '_RegisterController');
+  final _$_PeopleControllerActionController =
+      ActionController(name: '_PeopleController');
 
   @override
-  dynamic setConfirmPassword(dynamic value) {
-    final _$actionInfo = _$_RegisterControllerActionController.startAction();
+  dynamic setConfirmPassword(String value) {
+    final _$actionInfo = _$_PeopleControllerActionController.startAction();
     try {
       return super.setConfirmPassword(value);
     } finally {
-      _$_RegisterControllerActionController.endAction(_$actionInfo);
+      _$_PeopleControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic visibilityPassword() {
-    final _$actionInfo = _$_RegisterControllerActionController.startAction();
+    final _$actionInfo = _$_PeopleControllerActionController.startAction();
     try {
       return super.visibilityPassword();
     } finally {
-      _$_RegisterControllerActionController.endAction(_$actionInfo);
+      _$_PeopleControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic visibilityConfirmPassword() {
-    final _$actionInfo = _$_RegisterControllerActionController.startAction();
+    final _$actionInfo = _$_PeopleControllerActionController.startAction();
     try {
       return super.visibilityConfirmPassword();
     } finally {
-      _$_RegisterControllerActionController.endAction(_$actionInfo);
+      _$_PeopleControllerActionController.endAction(_$actionInfo);
     }
   }
 }

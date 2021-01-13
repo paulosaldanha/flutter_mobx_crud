@@ -43,7 +43,7 @@ numberField(
         errorText: errorText == null ? null : errorText(),
         prefixIcon: prefixIcon,
         prefixText: prefix,
-        suffix: Text(suffix)),
+        suffix: suffix == null ? null : Text(suffix)),
   );
 }
 
@@ -75,10 +75,7 @@ labelFieldRequired(String label) {
   return Row(children: [
     Text(
       label,
-      style: TextStyle(
-          color: Color.fromRGBO(0, 74, 173, 1),
-          //fontWeight: FontWeight.bold,
-          fontSize: 18),
+      style: TextStyle(color: Color.fromRGBO(0, 74, 173, 1), fontSize: 18),
     ),
     Text(
       "*",
@@ -87,13 +84,16 @@ labelFieldRequired(String label) {
   ]);
 }
 
-label(String label) {
-  return Text(
-    label,
-    style: TextStyle(
-        color: Color.fromRGBO(0, 74, 173, 1),
-        //fontWeight: FontWeight.bold,
-        fontSize: 18),
+label(String label, {double fontSize, MainAxisAlignment align}) {
+  return Row(
+    mainAxisAlignment: align ?? MainAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: TextStyle(
+            color: Color.fromRGBO(0, 74, 173, 1), fontSize: fontSize ?? 18),
+      ),
+    ],
   );
 }
 
