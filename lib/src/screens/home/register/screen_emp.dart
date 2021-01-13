@@ -1,8 +1,8 @@
 import 'package:estruturabasica/src/components/mask.dart';
+import 'package:estruturabasica/src/controllers/auth/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/controllers/register_controller.dart';
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
