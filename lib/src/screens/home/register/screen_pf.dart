@@ -95,9 +95,9 @@ pessoaFisica(context) {
             label("Complemento"),
             SizedBox(height: 5),
             Observer(builder: (_) {
-              return numberField(
+              return textField(
                   hint: 'Complemento',
-                  prefixIcon: Icon(Icons.info_outline),
+                  prefix: Icon(Icons.info_outline),
                   onChanged: peopleController.people.setNumero,
                   errorText: peopleController.validateNumero);
             }),
