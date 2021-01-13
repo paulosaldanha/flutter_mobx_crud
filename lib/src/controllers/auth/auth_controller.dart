@@ -5,90 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-//nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
 part 'auth_controller.g.dart';
 
 class AuthController = _AuthController with _$AuthController;
 
 abstract class _AuthController with Store {
-  _AuthController();
 
   @observable
   bool loading = false;
 
-  @observable
-  var onPressed;
-
-  @observable
-  bool visibilityBtn = true;
-
-  bool validEmail = false;
-  bool validPw = false;
-
-  //referente ao formulario de inserção
   var auth = Auth();
   var service = AuthService();
-
-  //validador de email
-  String validateEmail() {
-    if (auth.email == null) {
-      validEmail = false;
-      return null;
-    } else if (auth.email.isEmpty) {
-      validEmail = false;
-      return "Email obrigatório";
-    } else if (!validateEmailRegex(auth.email)) {
-      validEmail = false;
-      return "Digite um email válido";
-    }
-    validEmail = true;
-    return null;
-  }
-
-  String validatePassword() {
-    if (auth.password == null) {
-      validPw = false;
-      return null;
-    }
-    if (auth.password.length < 3) {
-      validPw = false;
-      return "Campo deve conter 3 caracteres no minimo";
-    }
-    validPw = true;
-    return null;
-  }
-
-  bool validateEmailRegex(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool validate() {
-    if (validEmail && validPw) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // dados computados, dados derivados de estado(reatividade) existente ou de outros dados computados
-  @computed
-  bool get isValid {
-    return validateEmail() == null && validatePassword() == null && validate();
-  }
-
-
-  @action
-  bool setStateLoading(value) => loading = value;
-
-  //ação do botao salvar/atualizar
-  @action
-  Future<Auth> add() async {
-    auth = await service.authenticate(auth);
-    return auth;
-  }
 
   Future<bool> checkIfIsLogged() async {
     auth.setIsLogged(
@@ -96,13 +23,7 @@ abstract class _AuthController with Store {
     return auth.isLogged;
   }
 
-  String getErrorLogin() {
-    return auth.seterrorMsg(service.getError);
-  }
-
   void logout() async {
-    var valor = await AuthService.logout();
-    print(valor);
     auth.isLogged = await AuthService.logout();
   }
 
@@ -115,33 +36,7 @@ abstract class _AuthController with Store {
     });
   }
 
-  void login(context) async {
-    if (auth.password == null) {
-      auth.setEmail("");
-      auth.setPassword("");
-    }
-    // FocusScope.of(context).requestFocus(FocusNode());
-    isValid
-        ? {
-            setStateLoading(true),
-            await add(),
-            await checkIfIsLogged()
-                ?
-            Navigator.pushNamedAndRemoveUntil(
-                    context, '/', (route) => false)
-                : Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text(getErrorLogin()),
-                    duration: Duration(seconds: 4),
-                  )
-            ),
-          }
-        : Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Preencha as informações corretamente"),
-            duration: Duration(seconds: 4)));
-  }
-
-
-  void getName() async {
+   void getAuth() async {
     auth = await AuthMap.getAuthMap();
   }
 }

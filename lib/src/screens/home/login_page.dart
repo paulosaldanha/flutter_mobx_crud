@@ -1,7 +1,6 @@
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/controllers/auth/auth_controller_new.dart';
+import 'package:estruturabasica/src/controllers/auth/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -13,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  AuthControllerNew authControllerNew = AuthControllerNew();
+  LoginController authControllerNew = LoginController();
 
   ReactionDisposer disposer;
 
@@ -36,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(0, 74, 173, 1),
                   borderRadius: BorderRadius.only(

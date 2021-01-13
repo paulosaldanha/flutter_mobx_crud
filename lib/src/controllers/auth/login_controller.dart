@@ -2,11 +2,11 @@ import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:mobx/mobx.dart';
 
-part 'auth_controller_new.g.dart';
+part 'login_controller.g.dart';
 
-class AuthControllerNew = _AuthControllerNew with _$AuthControllerNew;
+class LoginController = _LoginController with _$LoginController;
 
-abstract class _AuthControllerNew with Store {
+abstract class _LoginController with Store {
 
   var service = AuthService();
 

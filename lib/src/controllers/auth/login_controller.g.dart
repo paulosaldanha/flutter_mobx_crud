@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_controller_new.dart';
+part of 'login_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,7 +8,7 @@ part of 'auth_controller_new.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$AuthControllerNew on _AuthControllerNew, Store {
+mixin _$LoginController on _LoginController, Store {
   Computed<bool> _$isEmailValidComputed;
 
   @override
@@ -28,7 +28,7 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
       (_$loginPressedComputed ??= Computed<bool>(() => super.loginPressed))
           .value;
 
-  final _$emailAtom = Atom(name: '_AuthControllerNew.email');
+  final _$emailAtom = Atom(name: '_LoginController.email');
 
   @override
   String get email {
@@ -45,7 +45,7 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
     }, _$emailAtom, name: '${_$emailAtom.name}_set');
   }
 
-  final _$passwordAtom = Atom(name: '_AuthControllerNew.password');
+  final _$passwordAtom = Atom(name: '_LoginController.password');
 
   @override
   String get password {
@@ -62,7 +62,7 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
     }, _$passwordAtom, name: '${_$passwordAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_AuthControllerNew.loading');
+  final _$loadingAtom = Atom(name: '_LoginController.loading');
 
   @override
   bool get loading {
@@ -79,7 +79,7 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
-  final _$authAtom = Atom(name: '_AuthControllerNew.auth');
+  final _$authAtom = Atom(name: '_LoginController.auth');
 
   @override
   Auth get auth {
@@ -96,8 +96,7 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
     }, _$authAtom, name: '${_$authAtom.name}_set');
   }
 
-  final _$passwordVisibleAtom =
-      Atom(name: '_AuthControllerNew.passwordVisible');
+  final _$passwordVisibleAtom = Atom(name: '_LoginController.passwordVisible');
 
   @override
   bool get passwordVisible {
@@ -121,36 +120,36 @@ mixin _$AuthControllerNew on _AuthControllerNew, Store {
     return _$loginAsyncAction.run(() => super.login());
   }
 
-  final _$_AuthControllerNewActionController =
-      ActionController(name: '_AuthControllerNew');
+  final _$_LoginControllerActionController =
+      ActionController(name: '_LoginController');
 
   @override
   void setEmail(String value) {
-    final _$actionInfo = _$_AuthControllerNewActionController.startAction();
+    final _$actionInfo = _$_LoginControllerActionController.startAction();
     try {
       return super.setEmail(value);
     } finally {
-      _$_AuthControllerNewActionController.endAction(_$actionInfo);
+      _$_LoginControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setPassword(String value) {
-    final _$actionInfo = _$_AuthControllerNewActionController.startAction();
+    final _$actionInfo = _$_LoginControllerActionController.startAction();
     try {
       return super.setPassword(value);
     } finally {
-      _$_AuthControllerNewActionController.endAction(_$actionInfo);
+      _$_LoginControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void togglePasswordVisibility() {
-    final _$actionInfo = _$_AuthControllerNewActionController.startAction();
+    final _$actionInfo = _$_LoginControllerActionController.startAction();
     try {
       return super.togglePasswordVisibility();
     } finally {
-      _$_AuthControllerNewActionController.endAction(_$actionInfo);
+      _$_LoginControllerActionController.endAction(_$actionInfo);
     }
   }
 }
