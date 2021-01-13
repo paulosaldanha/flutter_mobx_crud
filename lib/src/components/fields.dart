@@ -84,14 +84,15 @@ labelFieldRequired(String label) {
   ]);
 }
 
-label(String label, {double fontSize, MainAxisAlignment align}) {
+label(String label, {double fontSize, MainAxisAlignment align, Color color}) {
   return Row(
     mainAxisAlignment: align ?? MainAxisAlignment.start,
     children: [
       Text(
         label,
         style: TextStyle(
-            color: Color.fromRGBO(0, 74, 173, 1), fontSize: fontSize ?? 18),
+            color: color ?? Color.fromRGBO(0, 74, 173, 1),
+            fontSize: fontSize ?? 18),
       ),
     ],
   );

@@ -187,7 +187,7 @@ abstract class _RegisterController with Store {
       return null;
     }
     if (register.senha.length < 8 || register.senha.length > 32) {
-      validPassword = false;
+      validConfirmPassword = false;
       return "Senha deve conter de 8 a 32 caracteres";
     }
     if (confirmPassword == register.senha) {
