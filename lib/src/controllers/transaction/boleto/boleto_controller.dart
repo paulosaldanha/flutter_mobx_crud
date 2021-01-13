@@ -102,6 +102,8 @@ abstract class _BoletoController with Store {
       return null;
     } else if (boleto.value < 10) {
       return "O valor minimo é R\$ 10,00";
+    }else if (!loading){
+      return "carregando";
     }
     return null;
   }
@@ -138,7 +140,8 @@ abstract class _BoletoController with Store {
         validateDdd() == null &&
         validateTelephone() == null &&
         validateDateExpiration() == true &&
-        validate() == true;
+        validate() == true &&
+        !loading;
   }
 
   dynamic createTransctionBoleto() async {

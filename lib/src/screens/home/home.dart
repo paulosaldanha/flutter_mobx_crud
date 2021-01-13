@@ -6,6 +6,7 @@ import 'package:estruturabasica/src/screens/transaction/mpos/transaction_mpos_fo
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 
 class Home extends StatelessWidget {
   final authController;
@@ -14,6 +15,12 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    autorun((_) {
+      if(!authController.isLogged){
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('login', (route) => false);
+      }
+    });
     authController.autoLogIn(context);
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 0),

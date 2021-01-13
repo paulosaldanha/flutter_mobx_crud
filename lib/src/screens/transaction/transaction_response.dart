@@ -12,7 +12,8 @@ class TransactionResponse extends StatelessWidget {
   TransactionResponse(this.response, this.method);
 
   bool _validResponse() {
-    if (response.containsKey("errors")) {
+    print(response.containsKey("errors"));
+    if (response.containsKey("errors") || response["status"] == 500) {
       return true;
     }
     return false;

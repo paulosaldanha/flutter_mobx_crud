@@ -48,7 +48,7 @@ Future<int> showAlertConfirmListCombo(BuildContext context, String title,
                     : transaction.amountValuesDebitCardList,
                 itemBuilder: (_, parameters, item) {
                   return ListTile(
-                    title: Text(item.descriptionValue),
+                    title: Text('${item.installments}x de ${item.descriptionValue}'),
                   );
                 },
                 onItemTapped: (value) {

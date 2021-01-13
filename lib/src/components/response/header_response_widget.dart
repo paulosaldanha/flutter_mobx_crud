@@ -11,16 +11,20 @@ class HeaderResponseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (method == "boleto") {
-      message = "Boleto\ngerado com sucesso";
-      valorTotal =
-          response["valorBruto"].toStringAsFixed(2).replaceAll(".", ",");
-    } else if (method == "link") {
-      message = "Link de Pagamento\ngerado com sucesso";
-      valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
-    } else {
-      message = "Transação efetuada\ncom sucesso";
-      valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+    if(!error) {
+      if (method == "boleto") {
+        message = "Boleto\ngerado com sucesso";
+        valorTotal =
+            response["valorBruto"].toStringAsFixed(2).replaceAll(".", ",");
+      } else if (method == "link") {
+        message = "Link de Pagamento\ngerado com sucesso";
+        valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+      } else {
+        message = "Transação efetuada\ncom sucesso";
+        valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+      }
+    }else{
+      message = "Ocorreu algum falha no servidor tente mais tarde!";
     }
 
     return Container(
