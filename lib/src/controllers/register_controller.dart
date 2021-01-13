@@ -17,15 +17,28 @@ abstract class _RegisterController with Store {
   bool validCompanyName = false;
   bool validDocument = false;
   bool validName = false;
+  bool validCep = false;
+  bool validRua = false;
+  bool validNumero = false;
   bool validEmail = false;
   bool validPassword = false;
   bool validConfirmPassword = false;
+  String suffixDocument = "";
 
   @observable
   String confirmPassword;
+  @observable
+  bool passwordVisible = true;
+  @observable
+  bool confirmPasswordVisible = true;
+
   @action
   setConfirmPassword(value) => confirmPassword = value;
-  String suffixDocument = "";
+  @action
+  visibilityPassword() => passwordVisible = !passwordVisible;
+  @action
+  visibilityConfirmPassword() =>
+      confirmPasswordVisible = !confirmPasswordVisible;
 
   //validador de nome
   String validateCompanyName() {
@@ -96,6 +109,36 @@ abstract class _RegisterController with Store {
       return "O nome do reponsável deve conter entre 4 e 60 caracteres";
     }
     validName = true;
+    return null;
+  }
+
+  //validação de CEP
+  String validateCep() {
+    if (register.cep == null) {
+      validCep = false;
+      return null;
+    }
+    validCep = true;
+    return null;
+  }
+
+  //validação de Rua
+  String validateRua() {
+    if (register.rua == null) {
+      validRua = false;
+      return null;
+    }
+    validRua = true;
+    return null;
+  }
+
+  //validação de CEP
+  String validateNumero() {
+    if (register.numero == null) {
+      validNumero = false;
+      return null;
+    }
+    validNumero = true;
     return null;
   }
 
