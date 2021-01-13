@@ -3,7 +3,7 @@ import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
-part 'transaction_link_controller.g.dart';
+part 'link_controller.g.dart';
 
 class LinkController = _LinkController with _$LinkController;
 

@@ -1,7 +1,9 @@
+import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/controllers/auth_controller.dart';
+import 'package:estruturabasica/src/controllers/auth/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,18 +12,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GlobalKey<FormState> globalFormKey = new GlobalKey<FormState>();
+  LoginController authControllerNew = LoginController();
 
-  final authController = AuthController();
+  ReactionDisposer disposer;
 
   @override
-  void initState() {
-    autoLogIn();
-  }
-
-  void autoLogIn() async {
-    await authController.checkIfIsLogged().then((value) {
-      if (value == true) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => authControllerNew.auth.isLogged, (auth) {
+      if (auth) {
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       }
     });
@@ -29,11 +28,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (authController.visibilityBtn) {
-      authController.onPressed = () async {
-        authController.login(context);
-      };
-    }
     return Scaffold(body: Builder(builder: (context) {
       return Form(
         child: SingleChildScrollView(
@@ -41,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(0, 74, 173, 1),
                   borderRadius: BorderRadius.only(
@@ -73,8 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Email',
                           hint: 'usuario@email.com',
                           prefix: Icon(Icons.person),
-                          onChanged: authController.auth.setEmail,
-                          errorText: authController.validateEmail,
+                          onChanged: authControllerNew.setEmail,
+                          // errorText: authController.validateEmail,
                         );
                       },
                     ),
@@ -85,9 +78,16 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Senha',
                           hint: '********',
                           prefix: Icon(Icons.lock),
-                          obscure: true,
-                          onChanged: authController.auth.setPassword,
-                          errorText: authController.validatePassword,
+                          obscure: !authControllerNew.passwordVisible,
+                          suffix: CustomIconButton(
+                            radius: 32,
+                            iconData: authControllerNew.passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            onTap: authControllerNew.togglePasswordVisibility,
+                          ),
+                          onChanged: authControllerNew.setPassword,
+                          // errorText: authController.validatePassword,
                         );
                       },
                     ),
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Color.fromRGBO(0, 74, 173, 1),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)),
-                              child: authController.loading
+                              child: authControllerNew.loading
                                   ? Center(
                                       child: SizedBox(
                                       child: CircularProgressIndicator(),
@@ -133,7 +133,20 @@ class _LoginPageState extends State<LoginPage> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
                                     ),
-                              onPressed: authController.onPressed);
+                              onPressed: authControllerNew.loginPressed
+                                  ? () async {
+                                      await authControllerNew.login();
+                                      if (authControllerNew.auth.isLogged ==
+                                          false) {
+                                        Scaffold.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                              authControllerNew.auth.errorMsg),
+                                          duration: Duration(seconds: 4),
+                                        ));
+                                      }
+                                    }
+                                  : null);
                         },
                       ),
                     ),
@@ -206,12 +219,9 @@ class _LoginPageState extends State<LoginPage> {
     }));
   }
 
-  bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 }

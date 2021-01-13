@@ -1,5 +1,5 @@
+import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/controllers/boleto_controller.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
@@ -43,18 +43,6 @@ class TransactionBoletoForm extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      labelFieldRequired("Nome"),
-                      SizedBox(height: 5),
-                      Observer(
-                        builder: (_) {
-                          return textField(
-                              onChanged: boletoController.boleto.setNome,
-                              errorText: boletoController.validateName);
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       labelFieldRequired("Documento"),
                       SizedBox(height: 5),
                       Observer(
@@ -68,6 +56,19 @@ class TransactionBoletoForm extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      labelFieldRequired("Nome"),
+                      SizedBox(height: 5),
+                      Observer(
+                        builder: (_) {
+                          return textField(
+                              onChanged: boletoController.boleto.setNome,
+                              errorText: boletoController.validateName);
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[

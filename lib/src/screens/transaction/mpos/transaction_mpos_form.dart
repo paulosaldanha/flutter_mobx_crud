@@ -2,7 +2,7 @@ import 'package:estruturabasica/src/components/bluetooth_modal_widget.dart';
 import 'package:estruturabasica/src/components/continue_btn_widget.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
-import 'package:estruturabasica/src/controllers/transaction/transaction_mpos_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_mpos_controller.dart';
 import 'package:estruturabasica/src/util/bluetooth_device_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

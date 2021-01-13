@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:estruturabasica/src/controllers/transaction/transaction_modal_controller.dart';
+import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/util/authMap.dart';

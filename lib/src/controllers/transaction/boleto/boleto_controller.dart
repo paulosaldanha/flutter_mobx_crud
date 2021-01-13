@@ -15,13 +15,13 @@ abstract class _BoletoController with Store {
 
   //referente ao formulario de inserção
   var boleto = Boleto();
-
   bool validName = false;
   bool validDocument = false;
   bool validDdd = false;
   bool validTelephone = false;
   MaskTextInputFormatter maskDocument = maskCpf();
-
+  @observable
+  bool loading = false;
   @observable
   String validDate = "";
   @action

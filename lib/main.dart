@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/controllers/auth_controller.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,11 +30,8 @@ class MyApp extends StatelessWidget {
                 borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
             hintStyle: TextStyle(color: Colors.black45),
           )),
-      //gera as rotas para navegação
       onGenerateRoute: rotas(),
-      //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
       initialRoute: SplashArt,
-      // home: MyHomePage(title: appTitle),
     );
   }
 }
@@ -47,7 +44,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    authController.getName();
+    authController.getAuth();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
