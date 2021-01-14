@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/components/fields.dart';
@@ -10,9 +11,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 // ignore: must_be_immutable
 class TransactionBoletoForm extends StatelessWidget {
-  final boleto = Boleto();
-
   BoletoController boletoController = BoletoController();
+
   TransactionBoletoForm();
 
   MaskTextInputFormatter maskDDD = maskDdd();
@@ -49,6 +49,11 @@ class TransactionBoletoForm extends StatelessWidget {
                         builder: (_) {
                           return numberMaskField(
                               mask: boletoController.maskDocument,
+                              suffix: CustomIconButton(
+                                radius: 32,
+                                iconData: Icons.youtube_searched_for,
+                                onTap: boletoController.getUserThink,
+                              ),
                               onChanged: boletoController.boleto.setDocument,
                               errorText: boletoController.validateDocument);
                         },
@@ -58,17 +63,20 @@ class TransactionBoletoForm extends StatelessWidget {
                       ),
                       labelFieldRequired("Nome"),
                       SizedBox(height: 5),
-                      Observer(
-                        builder: (_) {
-                          return textField(
-                              onChanged: boletoController.boleto.setNome,
-                              errorText: boletoController.validateName);
-                        },
-                      ),
+                      Observer(builder: (_) {
+                        return boletoController.userThink != null &&
+                                boletoController.userThink.name != ""
+                            ? Text(
+                                boletoController.userThink.name,
+                                style: TextStyle(fontSize: 20),
+                              )
+                            : textField(
+                                onChanged: boletoController.boleto.setNome,
+                                errorText: boletoController.validateName);
+                      }),
                       SizedBox(
                         height: 10,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -81,12 +89,22 @@ class TransactionBoletoForm extends StatelessWidget {
                                   SizedBox(height: 5),
                                   Container(child: Observer(
                                     builder: (_) {
-                                      return numberMaskField(
-                                          mask: maskDDD,
-                                          onChanged:
-                                              boletoController.boleto.setDdd,
-                                          errorText:
-                                              boletoController.validateDdd);
+                                      return boletoController.userThink !=
+                                                  null &&
+                                              boletoController.userThink.ddd !=
+                                                  ""
+                                          ? Text(
+                                              boletoController.userThink.ddd,
+                                              style: TextStyle(fontSize: 20),
+                                            )
+                                          : numberMaskField(
+                                              mask: maskDDD,
+                                              initialValue:
+                                                  boletoController.boleto.ddd,
+                                              onChanged: boletoController
+                                                  .boleto.setDdd,
+                                              errorText:
+                                                  boletoController.validateDdd);
                                     },
                                   ))
                                 ]),
@@ -103,12 +121,26 @@ class TransactionBoletoForm extends StatelessWidget {
                                     SizedBox(height: 5),
                                     Container(child: Observer(
                                       builder: (_) {
-                                        return numberMaskField(
-                                            mask: maskTelephone,
-                                            onChanged: boletoController
-                                                .boleto.setTelephone,
-                                            errorText: boletoController
-                                                .validateTelephone);
+                                        return boletoController.userThink !=
+                                                    null &&
+                                                boletoController
+                                                        .userThink.phone !=
+                                                    ""
+                                            ? SizedBox(
+                                                height: 5,
+                                                child: Text(
+                                                  boletoController
+                                                      .userThink.phone,
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                              )
+                                            : numberMaskField(
+                                                mask: maskTelephone,
+                                                onChanged: boletoController
+                                                    .boleto.setTelephone,
+                                                errorText: boletoController
+                                                    .validateTelephone);
                                       },
                                     ))
                                   ])),
@@ -171,8 +203,7 @@ class TransactionBoletoForm extends StatelessWidget {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   TransactionBoletoForm2(
-                                                      boletoController,
-                                                      boleto)));
+                                                      boletoController)));
                                     }
                                   : null,
                               child: Text(

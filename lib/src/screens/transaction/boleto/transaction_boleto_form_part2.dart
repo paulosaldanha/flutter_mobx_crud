@@ -8,10 +8,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 // ignore: must_be_immutable
 class TransactionBoletoForm2 extends StatelessWidget {
-  final boleto;
   final boletoController;
 
-  TransactionBoletoForm2(this.boletoController, this.boleto);
+  TransactionBoletoForm2(this.boletoController);
 
   TransactionBoletoController transactionBoletoController =
       TransactionBoletoController();

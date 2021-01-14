@@ -49,6 +49,23 @@ mixin _$BoletoController on _BoletoController, Store {
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
   }
 
+  final _$userThinkAtom = Atom(name: '_BoletoController.userThink');
+
+  @override
+  UserThinkdata get userThink {
+    _$userThinkAtom.context.enforceReadPolicy(_$userThinkAtom);
+    _$userThinkAtom.reportObserved();
+    return super.userThink;
+  }
+
+  @override
+  set userThink(UserThinkdata value) {
+    _$userThinkAtom.context.conditionallyRunInAction(() {
+      super.userThink = value;
+      _$userThinkAtom.reportChanged();
+    }, _$userThinkAtom, name: '${_$userThinkAtom.name}_set');
+  }
+
   final _$_BoletoControllerActionController =
       ActionController(name: '_BoletoController');
 
