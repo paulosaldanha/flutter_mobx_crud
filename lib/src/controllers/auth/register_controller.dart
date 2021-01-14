@@ -32,6 +32,9 @@ abstract class _RegisterController with Store {
   @observable
   bool confirmPasswordVisible = true;
 
+  @observable
+  bool loading = false;
+
   @action
   setConfirmPassword(value) => confirmPassword = value;
   @action
@@ -219,10 +222,23 @@ abstract class _RegisterController with Store {
         validateEmail() == null &&
         validatePassword() == null &&
         validateConfirmPassword() == null &&
-        validate() == true;
+        validate() == true &&
+        !loading;
   }
 
   dynamic createFastAccount() async {
     return createAccount(register);
+  }
+
+  void cleanData() {
+    register.razaoSocial = null;
+    register.documento = null;
+    register.responsavel = null;
+    register.responsavelEmail = null;
+    register.senha = null;
+    register.cep = null;
+    register.rua = null;
+    register.numero = null;
+    register.complemento = null;
   }
 }

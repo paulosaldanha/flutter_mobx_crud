@@ -18,9 +18,9 @@ dynamic createAccount(Register register) async {
         'https://ecommercebank.tk/ecommerce/api/Estabelecimento/onboarding',
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
-          HttpHeaders.contentTypeHeader: 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
         },
-        body: payload);
+        body: json.encode(payload));
 
     return jsonDecode(response.body);
   } catch (e) {

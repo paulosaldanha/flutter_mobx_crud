@@ -71,6 +71,23 @@ mixin _$RegisterController on _RegisterController, Store {
         name: '${_$confirmPasswordVisibleAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_RegisterController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$_RegisterControllerActionController =
       ActionController(name: '_RegisterController');
 

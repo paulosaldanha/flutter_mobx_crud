@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/controllers/auth/register_controller.dart';
+import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:estruturabasica/src/components/fields.dart';
@@ -162,28 +163,50 @@ empresarial(context) {
                     color: Color.fromRGBO(0, 74, 173, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
-                    child: Text(
-                      'CADASTRAR'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
+                    child: Observer(
+                      builder: (_) {
+                        return !registerController.loading
+                            ? Text(
+                                'CADASTRAR'.toUpperCase(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              )
+                            : Center(
+                                child: SizedBox(
+                                  child: CircularProgressIndicator(),
+                                  height: 20.0,
+                                  width: 20.0,
+                                ),
+                              );
+                      },
                     ),
                     onPressed: registerController.isValid
                         ? () {
+                            registerController.loading = true;
                             registerController
                                 .createFastAccount()
                                 .then((value) {
-                              print(value);
-                              if (value != null) {
+                              registerController.loading = false;
+                              int status = value["status"] ?? 0;
+                              if (status > 0) {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(status.toString() +
+                                        " - " +
+                                        value['message']),
+                                    duration: Duration(seconds: 4)));
+                              } else {
+                                registerController.cleanData();
                                 Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text("Conta Criada"),
                                     duration: Duration(seconds: 4)));
-                              } else {
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        "Não foi possivel criar sua conta"),
-                                    duration: Duration(seconds: 4)));
+
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  Navigator.pop(context);
+                                  Navigator.of(context)
+                                      .pushNamed(LoginPageRoute);
+                                });
                               }
                             });
                           }
