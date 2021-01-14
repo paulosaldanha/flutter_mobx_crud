@@ -32,6 +32,9 @@ abstract class _RegisterController with Store {
   @observable
   bool confirmPasswordVisible = true;
 
+  @observable
+  bool loading = false;
+
   @action
   setConfirmPassword(value) => confirmPassword = value;
   @action
@@ -222,6 +225,9 @@ abstract class _RegisterController with Store {
   }
 
   dynamic createFastAccount() async {
-    return createAccount(register);
+    loading = true;
+    var retorno = createAccount(register);
+    loading = false;
+    return retorno;
   }
 }

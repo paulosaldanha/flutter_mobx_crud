@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/controllers/auth/register_controller.dart';
+import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:estruturabasica/src/components/fields.dart';
@@ -174,16 +175,24 @@ empresarial(context) {
                             registerController
                                 .createFastAccount()
                                 .then((value) {
-                              print(value);
-                              if (value != null) {
+                              int status = value["status"] ?? 0;
+                              print(status);
+                              if (status > 0) {
                                 Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text("Conta Criada"),
+                                    content: Text(status.toString() +
+                                        " - " +
+                                        value['message']),
                                     duration: Duration(seconds: 4)));
                               } else {
                                 Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        "Não foi possivel criar sua conta"),
+                                    content: Text("Conta Criada"),
                                     duration: Duration(seconds: 4)));
+
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  Navigator.pop(context);
+                                  Navigator.of(context)
+                                      .pushNamed(LoginPageRoute);
+                                });
                               }
                             });
                           }
