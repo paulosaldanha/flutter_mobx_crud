@@ -1,3 +1,5 @@
+import 'package:estruturabasica/src/models/user_thinkdata.dart';
+import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/components/mask.dart';
@@ -13,8 +15,8 @@ class BoletoController = _BoletoController with _$BoletoController;
 abstract class _BoletoController with Store {
   _BoletoController();
 
-  //referente ao formulario de inserção
-  var boleto = Boleto();
+  Boleto boleto = Boleto();
+
   bool validName = false;
   bool validDocument = false;
   bool validDdd = false;
@@ -24,8 +26,11 @@ abstract class _BoletoController with Store {
   bool loading = false;
   @observable
   String validDate = "";
+  @observable
+  UserThinkdata userThink;
   @action
   setValidDate(value) => validDate = value;
+
 
   //validador de nome
   String validateName() {
@@ -54,7 +59,6 @@ abstract class _BoletoController with Store {
     } else {
       maskDocument.updateMask(mask: "##.###.###/####-##");
     }
-
     if (boleto.document.isEmpty) {
       validDocument = false;
       return "Documento obrigatório";
@@ -102,6 +106,8 @@ abstract class _BoletoController with Store {
       return null;
     } else if (boleto.value < 10) {
       return "O valor minimo é R\$ 10,00";
+    }else if (!loading){
+      return "carregando";
     }
     return null;
   }
@@ -138,10 +144,21 @@ abstract class _BoletoController with Store {
         validateDdd() == null &&
         validateTelephone() == null &&
         validateDateExpiration() == true &&
-        validate() == true;
+        validate() == true &&
+        !loading;
   }
 
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
   }
+
+
+  Future<void> getUserThink() async{
+     userThink = await getUserThinkData(boleto.document);
+     boleto.setDdd(userThink.ddd);
+     boleto.setNome(userThink.name) ;
+     boleto.setTelephone(userThink.phone);
+  }
+
+
 }

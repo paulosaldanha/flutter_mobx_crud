@@ -8,22 +8,23 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 // ignore: must_be_immutable
 class TransactionBoletoForm2 extends StatelessWidget {
-  final boleto;
   final boletoController;
 
-  TransactionBoletoForm2(this.boletoController, this.boleto);
+  TransactionBoletoForm2(this.boletoController);
+
   TransactionBoletoController transactionBoletoController =
       TransactionBoletoController();
 
   bool _validValue() {
     String value = transactionBoletoController.currentValues;
     value = value.replaceAll(",", ".");
-    if (double.parse(value) >= 10.00) {
+    if (double.parse(value) >= 10.00 && !boletoController.loading) {
       return true;
     } else {
       return false;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,17 +85,21 @@ class TransactionBoletoForm2 extends StatelessWidget {
                                 });
                               }
                             : null,
-                        child:Observer(builder: (_){
-                          return boletoController.loading ? Text(
-                            "Continuar".toUpperCase(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
-                            ),
-                          ): Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },),
+                        child: Observer(
+                          builder: (_) {
+                            return !boletoController.loading
+                                ? Text(
+                                    "Continuar".toUpperCase(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30.0,
+                                    ),
+                                  )
+                                : Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                          },
+                        ),
                       );
                     },
                   ),

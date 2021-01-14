@@ -25,4 +25,45 @@ mixin _$AuthController on _AuthController, Store {
       _$loadingAtom.reportChanged();
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
+
+  final _$isLoggedAtom = Atom(name: '_AuthController.isLogged');
+
+  @override
+  bool get isLogged {
+    _$isLoggedAtom.context.enforceReadPolicy(_$isLoggedAtom);
+    _$isLoggedAtom.reportObserved();
+    return super.isLogged;
+  }
+
+  @override
+  set isLogged(bool value) {
+    _$isLoggedAtom.context.conditionallyRunInAction(() {
+      super.isLogged = value;
+      _$isLoggedAtom.reportChanged();
+    }, _$isLoggedAtom, name: '${_$isLoggedAtom.name}_set');
+  }
+
+  final _$authAtom = Atom(name: '_AuthController.auth');
+
+  @override
+  Auth get auth {
+    _$authAtom.context.enforceReadPolicy(_$authAtom);
+    _$authAtom.reportObserved();
+    return super.auth;
+  }
+
+  @override
+  set auth(Auth value) {
+    _$authAtom.context.conditionallyRunInAction(() {
+      super.auth = value;
+      _$authAtom.reportChanged();
+    }, _$authAtom, name: '${_$authAtom.name}_set');
+  }
+
+  final _$checkIfIsLoggedAsyncAction = AsyncAction('checkIfIsLogged');
+
+  @override
+  Future<bool> checkIfIsLogged() {
+    return _$checkIfIsLoggedAsyncAction.run(() => super.checkIfIsLogged());
+  }
 }

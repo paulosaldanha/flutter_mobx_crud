@@ -16,6 +16,9 @@ abstract class _LinkController with Store {
   @observable
   String validDate = "";
 
+  @observable
+  bool loading = false;
+
   bool validName = false;
 
   @action

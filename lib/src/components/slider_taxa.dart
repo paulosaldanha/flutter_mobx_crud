@@ -16,13 +16,15 @@ class SliderTaxa extends StatefulWidget {
 class _SliderTaxaState extends State<SliderTaxa> {
   final controller;
   var _value = 1.0;
-  _SliderTaxaState(this.controller){
+
+  _SliderTaxaState(this.controller) {
     listComboController.getTaxCredit(controller.currentValues);
   }
+
   TransactionListComboController listComboController =
-  new TransactionListComboController();
+      new TransactionListComboController();
   TransactionModalController transactionModal =
-  new TransactionModalController();
+      new TransactionModalController();
 
   @override
   Widget build(BuildContext context) {
@@ -138,17 +140,19 @@ class _SliderTaxaState extends State<SliderTaxa> {
                     ),
                     Row(
                       children: [
-                        Observer(builder: (_){
-                          return !listComboController.loading ? Text(
-                            '${listComboController.amountValuesCreditCardList[_value.toInt()-1].descriptionValue}',
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 74, 173, 1),
-                            ),
-                          ): Center(
-                            child: CircularProgressIndicator(),
-                          );
+                        Observer(builder: (_) {
+                          return !listComboController.loading
+                              ? Text(
+                                  '${listComboController.amountValuesCreditCardList[_value.toInt() - 1].descriptionValue}',
+                                  style: TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(0, 74, 173, 1),
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                );
                         })
                       ],
                     )
@@ -158,25 +162,27 @@ class _SliderTaxaState extends State<SliderTaxa> {
               Container(
                 width: 1000,
                 color: Colors.white,
-                padding: EdgeInsets.only(top: 30,right: 10,left: 10,bottom: 10),
+                padding:
+                    EdgeInsets.only(top: 30, right: 10, left: 10, bottom: 10),
                 child: Observer(
                   builder: (_) {
                     return FlatButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
-                        side:
-                        BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
+                        side: BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
                       ),
                       color: Colors.white,
                       textColor: Color.fromRGBO(0, 74, 173, 1),
                       padding: EdgeInsets.all(10.0),
-                      onPressed: (){
-                        controller.setInstallments(
-                            _value.toInt());
-                        controller.setAmount(
-                        ( listComboController.amountValuesCreditCardList[_value.toInt()-1].amount* 100).toInt());
-                        controller.initPlatformState(
-                                  transactionModal, context);
+                      onPressed: () {
+                        controller.setInstallments(_value.toInt());
+                        controller.setAmount((listComboController
+                                    .amountValuesCreditCardList[
+                                        _value.toInt() - 1]
+                                    .amount *
+                                100)
+                            .toInt());
+                        controller.initPlatformState(transactionModal, context);
                       },
                       child: Text(
                         "Continuar".toUpperCase(),

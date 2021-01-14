@@ -113,9 +113,11 @@ class TransactionLinkForm2 extends StatelessWidget {
                           padding: EdgeInsets.all(10.0),
                           onPressed: linkController.isValid
                               ? () {
+                            linkController.loading = true;
                                   linkController
                                       .createTransctionLink()
                                       .then((value) {
+                                    linkController.loading = false;
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -124,12 +126,17 @@ class TransactionLinkForm2 extends StatelessWidget {
                                   });
                                 }
                               : null,
-                          child: Text(
-                            "Continuar".toUpperCase(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
-                            ),
+                          child:Observer(builder: (_){
+                            return !linkController.loading ? Text(
+                              "Continuar".toUpperCase(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                              ),
+                            ): Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
                           ),
                         );
                       },

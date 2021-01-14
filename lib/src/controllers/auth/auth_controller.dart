@@ -14,12 +14,19 @@ abstract class _AuthController with Store {
   @observable
   bool loading = false;
 
-  var auth = Auth();
-  var service = AuthService();
+  @observable
+  bool isLogged;
 
+  @observable
+  Auth auth = Auth();
+
+  AuthService service = AuthService();
+
+  @action
   Future<bool> checkIfIsLogged() async {
     auth.setIsLogged(
         await service.autoLogIn().then((value) => loading = value));
+    isLogged = auth.isLogged;
     return auth.isLogged;
   }
 

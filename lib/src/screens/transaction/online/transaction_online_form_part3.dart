@@ -215,22 +215,28 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                       padding: EdgeInsets.all(10.0),
                       onPressed: transactionOnlineController.isValidPart3
                           ? () {
+                              transactionOnlineController.loading = true;
                               transactionOnlineController
                                   .createTransctionTransactionOnline()
                                   .then((res) {
+                                transactionOnlineController.loading = false;
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
                                         TransactionResponse(res, "link")));
                               });
                             }
                           : null,
-                      child: Text(
-                        "Criar",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.0,
-                        ),
-                      ),
+                      child: !transactionOnlineController.loading
+                          ? Text(
+                              "Criar",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                              ),
+                            )
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            ),
                     );
                   },
                 ),

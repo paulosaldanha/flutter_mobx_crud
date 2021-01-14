@@ -22,6 +22,9 @@ abstract class _TransactionOnlineController with Store {
   bool validDdd = false;
   bool validTelephone = false;
 
+  @observable
+  bool loading = false;
+
   MaskTextInputFormatter maskDocument = maskCpf();
 
   String validateName() {
@@ -196,7 +199,8 @@ abstract class _TransactionOnlineController with Store {
     return validateCardName() == null &&
         validateCardNumber() == null &&
         validateCardCVV() == null &&
-        validateDateExpiration() == null;
+        validateDateExpiration() == null &&
+        !loading;
   }
 
   dynamic createTransctionTransactionOnline() async {

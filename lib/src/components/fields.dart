@@ -7,10 +7,12 @@ textField(
     Widget prefix,
     bool obscure = false,
     onChanged,
+    initialValue,
     String Function() errorText,
     Widget suffix}) {
   return TextFormField(
     onChanged: onChanged,
+    initialValue: initialValue,
     decoration: InputDecoration(
       border: OutlineInputBorder(),
       labelText: labelText,
@@ -31,10 +33,12 @@ numberField(
     Widget prefixIcon,
     String prefix,
     String suffix,
+    initialValue,
     bool enable}) {
   return TextFormField(
     keyboardType: TextInputType.number,
     onChanged: onChanged,
+    initialValue: initialValue,
     enabled: enable,
     decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -54,11 +58,16 @@ numberMaskField(
     String Function() errorText,
     Widget prefixIcon,
     String prefix,
+    suffix,
+    controller,
+    initialValue,
     TextInputFormatter mask,
     bool enable}) {
   return TextFormField(
+    controller: controller,
     keyboardType: TextInputType.number,
     onChanged: onChanged,
+    initialValue: initialValue,
     enabled: enable,
     decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -66,6 +75,7 @@ numberMaskField(
         hintText: hint,
         errorText: errorText == null ? null : errorText(),
         prefixIcon: prefixIcon,
+        suffix: suffix,
         prefixText: prefix),
     inputFormatters: [mask],
   );

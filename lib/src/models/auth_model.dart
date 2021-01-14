@@ -18,7 +18,7 @@ abstract class _AuthBase with Store {
   @observable
   String password;
   @observable
-  bool isLogged = null;
+  bool isLogged;
   @observable
   String errorMsg;
 
