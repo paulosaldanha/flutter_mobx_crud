@@ -163,20 +163,33 @@ empresarial(context) {
                     color: Color.fromRGBO(0, 74, 173, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
-                    child: Text(
-                      'CADASTRAR'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
+                    child: Observer(
+                      builder: (_) {
+                        return !registerController.loading
+                            ? Text(
+                                'CADASTRAR'.toUpperCase(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              )
+                            : Center(
+                                child: SizedBox(
+                                  child: CircularProgressIndicator(),
+                                  height: 20.0,
+                                  width: 20.0,
+                                ),
+                              );
+                      },
                     ),
                     onPressed: registerController.isValid
                         ? () {
+                            registerController.loading = true;
                             registerController
                                 .createFastAccount()
                                 .then((value) {
+                              registerController.loading = false;
                               int status = value["status"] ?? 0;
-                              print(status);
                               if (status > 0) {
                                 Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text(status.toString() +
@@ -184,6 +197,7 @@ empresarial(context) {
                                         value['message']),
                                     duration: Duration(seconds: 4)));
                               } else {
+                                registerController.cleanData();
                                 Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text("Conta Criada"),
                                     duration: Duration(seconds: 4)));
