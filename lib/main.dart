@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/screens/home/account.dart';
 import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,14 @@ class MyHomePage extends StatelessWidget {
                 ),
               );
             }),
+            ListTile(
+              title: Text('Minha Conta'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Account(authController)));
+              },
+            ),
             ListTile(
               title: Text('Transação Maquininha'),
               onTap: () {

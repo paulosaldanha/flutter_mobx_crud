@@ -15,5 +15,7 @@ const String LoginPageRoute = 'login';
 const String RegisterPageRoute = 'register';
 //Splash art
 const String SplashArt = 'splash';
-
+//RecoverPage
 const String RecoverPasswordPageRoute = 'recoverpassword';
+//Account
+const String AccountPage = 'conta';

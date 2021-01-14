@@ -8,6 +8,7 @@ class AuthMap {
     prefs.setInt('authCompanyId', auth.companyId);
     prefs.setString('authNameCompany', auth.nameCompany);
     prefs.setString('authUserName', auth.name);
+    prefs.setString('authUserEmail', auth.email);
     prefs.setString('urlLogo', auth.companyLogo);
   }
 
@@ -15,6 +16,7 @@ class AuthMap {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     Auth auth = Auth();
     auth.name = prefs.getString('authUserName');
+    auth.email = prefs.getString('authUserEmail');
     auth.nameCompany = prefs.getString('authNameCompany');
     auth.companyId = prefs.getInt('authCompanyId');
     auth.userId = prefs.getInt('authUserId');
