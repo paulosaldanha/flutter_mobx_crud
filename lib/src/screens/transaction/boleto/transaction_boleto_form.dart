@@ -126,14 +126,10 @@ class TransactionBoletoForm extends StatelessWidget {
                                                 boletoController
                                                         .userThink.phone !=
                                                     ""
-                                            ? SizedBox(
-                                                height: 5,
-                                                child: Text(
-                                                  boletoController
-                                                      .userThink.phone,
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                ),
+                                            ? Text(
+                                                boletoController
+                                                    .userThink.phone,
+                                                style: TextStyle(fontSize: 20),
                                               )
                                             : numberMaskField(
                                                 mask: maskTelephone,
