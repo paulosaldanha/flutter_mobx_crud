@@ -151,7 +151,7 @@ class HomeCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: RichText(
         text: TextSpan(
-          text: name,
+          text: name ?? "EcommerceBank Pay",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
         ),

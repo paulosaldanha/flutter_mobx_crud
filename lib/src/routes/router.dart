@@ -2,7 +2,6 @@ import 'package:estruturabasica/main.dart';
 import 'package:estruturabasica/src/screens/home/login_page.dart';
 import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/screens/home/register_page.dart';
 import 'package:estruturabasica/src/screens/home/splash.dart';
 import 'package:estruturabasica/src/screens/home/register/fast_register.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
@@ -42,13 +41,13 @@ RouteFactory rotas() {
         screen = RecoverPasswordPage();
         break;
       case RegisterPageRoute:
-        screen = FastRegister(); //RegisterPage();
+        screen = FastRegister();
         break;
       case SplashArt:
         screen = Splash();
         break;
       default:
-        screen = MyHomePage(title: "EcommerceBankPay");
+        screen = MyHomePage(title: "EcommerceBank Pay");
     }
     return MaterialPageRoute(builder: (BuildContext context) => screen);
   };

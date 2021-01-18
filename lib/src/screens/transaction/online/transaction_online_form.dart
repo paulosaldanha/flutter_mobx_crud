@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/online/transaction_online_controller.dart';
 import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part2.dart';
@@ -29,42 +30,44 @@ class TransactionOnlineForm extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              labelFieldRequired("Nome"),
-              SizedBox(height: 5),
-              Observer(
-                builder: (_) {
-                  return textField(
-                      onChanged:
-                          transactionOnlineController.transactionOnline.setNome,
-                      errorText: transactionOnlineController.validateName);
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              labelFieldRequired("Email"),
-              SizedBox(height: 5),
-              Observer(
-                builder: (_) {
-                  return textField(
-                      onChanged: transactionOnlineController
-                          .transactionOnline.setEmail,
-                      errorText: transactionOnlineController.validateEmail);
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
               labelFieldRequired("Documento"),
               SizedBox(height: 5),
               Observer(
                 builder: (_) {
                   return numberMaskField(
-                      mask: transactionOnlineController.maskDocument,
-                      onChanged: transactionOnlineController
-                          .transactionOnline.setDocument,
-                      errorText: transactionOnlineController.validateDocument);
+                    mask: transactionOnlineController.maskDocument,
+                    suffix: CustomIconButton(
+                      radius: 32,
+                      iconData: Icons.search,
+                      onTap: transactionOnlineController.getUserThink,
+                    ),
+                    onChanged: transactionOnlineController
+                        .transactionOnline.setDocument,
+                    errorText: transactionOnlineController.documentError,
+                  );
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              labelFieldRequired("Nome"),
+              SizedBox(height: 5),
+              Observer(
+                builder: (_) {
+                  return transactionOnlineController.userThink != null &&
+                          transactionOnlineController.userThink.name != ""
+                      ? Text(
+                          transactionOnlineController.userThink.name,
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.left,
+                        )
+                      : textField(
+                          onChanged: transactionOnlineController
+                              .transactionOnline.setNome,
+                          errorText: transactionOnlineController.nameError,
+                        );
                 },
               ),
               SizedBox(
@@ -75,42 +78,82 @@ class TransactionOnlineForm extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 3,
-                    child: Column(children: [
-                      labelFieldRequired("DDD"),
-                      SizedBox(height: 5),
-                      Observer(
-                        builder: (_) {
-                          return numberMaskField(
-                              mask: maskDDD,
-                              onChanged: transactionOnlineController
-                                  .transactionOnline.setDdd,
-                              errorText:
-                                  transactionOnlineController.validateDdd);
-                        },
-                      ),
-                    ]),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          labelFieldRequired("DDD"),
+                          SizedBox(height: 5),
+                          Observer(
+                            builder: (_) {
+                              return transactionOnlineController.userThink !=
+                                          null &&
+                                      transactionOnlineController
+                                              .userThink.ddd !=
+                                          ""
+                                  ? Text(
+                                      transactionOnlineController.userThink.ddd,
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  : numberMaskField(
+                                      mask: maskDDD,
+                                      initialValue: transactionOnlineController
+                                          .transactionOnline.ddd,
+                                      onChanged: transactionOnlineController
+                                          .transactionOnline.setDdd,
+                                      errorText:
+                                          transactionOnlineController.dddError);
+                            },
+                          ),
+                        ]),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     flex: 7,
-                    child: Column(children: [
-                      labelFieldRequired("Telefone"),
-                      SizedBox(height: 5),
-                      Observer(
-                        builder: (_) {
-                          return numberMaskField(
-                              mask: maskTelephone,
-                              onChanged: transactionOnlineController
-                                  .transactionOnline.setTelephone,
-                              errorText: transactionOnlineController
-                                  .validateTelephone);
-                        },
-                      ),
-                    ]),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          labelFieldRequired("Telefone"),
+                          SizedBox(height: 5),
+                          Observer(
+                            builder: (_) {
+                              return transactionOnlineController.userThink !=
+                                          null &&
+                                      transactionOnlineController
+                                              .userThink.phone !=
+                                          ""
+                                  ? Text(
+                                      transactionOnlineController
+                                          .userThink.phone,
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  : numberMaskField(
+                                      mask: maskTelephone,
+                                      onChanged: transactionOnlineController
+                                          .transactionOnline.setTelephone,
+                                      errorText: transactionOnlineController
+                                          .telephoneError,
+                                    );
+                            },
+                          ),
+                        ]),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              labelFieldRequired("Email"),
+              SizedBox(height: 5),
+              Observer(
+                builder: (_) {
+                  return textField(
+                    onChanged:
+                        transactionOnlineController.transactionOnline.setEmail,
+                    errorText: transactionOnlineController.emailError,
+                  );
+                },
               ),
               SizedBox(
                 height: 50,

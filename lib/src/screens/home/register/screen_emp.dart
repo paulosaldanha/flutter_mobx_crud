@@ -27,31 +27,34 @@ empresarial(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberField(
-                  hint: 'RUC / CPF / CNPJ',
-                  suffix: registerController.suffixDocument,
-                  prefixIcon: Icon(Icons.portrait),
-                  onChanged: registerController.register.setdocumento,
-                  errorText: registerController.validateDocument);
+                hint: 'RUC / CPF / CNPJ',
+                suffix: registerController.suffixDocument,
+                prefixIcon: Icon(Icons.portrait),
+                onChanged: registerController.register.setdocumento,
+                errorText: registerController.documentError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Razão Social"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Razão Social',
-                  prefix: Icon(Icons.business),
-                  onChanged: registerController.register.setRazaoSocial,
-                  errorText: registerController.validateCompanyName);
+                hint: 'Razão Social',
+                prefix: Icon(Icons.business),
+                onChanged: registerController.register.setRazaoSocial,
+                errorText: registerController.companyNameError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Nome Responsável"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Nome',
-                  prefix: Icon(Icons.person_outline),
-                  onChanged: registerController.register.setResponsavel,
-                  errorText: registerController.validateName);
+                hint: 'Nome',
+                prefix: Icon(Icons.person_outline),
+                onChanged: registerController.register.setResponsavel,
+                errorText: registerController.nameError,
+              );
             }),
             SizedBox(height: 10),
             Container(
@@ -63,41 +66,44 @@ empresarial(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberMaskField(
-                  hint: '00000-000',
-                  mask: maskCEP,
-                  prefixIcon: Icon(Icons.location_on_outlined),
-                  onChanged: registerController.register.setCep,
-                  errorText: registerController.validateCep);
+                hint: '00000-000',
+                mask: maskCEP,
+                prefixIcon: Icon(Icons.location_on_outlined),
+                onChanged: registerController.register.setCep,
+                errorText: registerController.cepError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Nome da rua"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Nome da rua',
-                  prefix: Icon(Icons.streetview),
-                  onChanged: registerController.register.setRua,
-                  errorText: registerController.validateRua);
+                hint: 'Nome da rua',
+                prefix: Icon(Icons.streetview),
+                onChanged: registerController.register.setRua,
+                errorText: registerController.ruaError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Número"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberField(
-                  hint: '123',
-                  prefixIcon: Icon(Icons.money),
-                  onChanged: registerController.register.setNumero,
-                  errorText: registerController.validateNumero);
+                hint: '123',
+                prefixIcon: Icon(Icons.money),
+                onChanged: registerController.register.setNumero,
+                errorText: registerController.numeroError,
+              );
             }),
             SizedBox(height: 10),
             label("Complemento"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Complemento',
-                  prefix: Icon(Icons.info_outline),
-                  onChanged: registerController.register.setNumero,
-                  errorText: registerController.validateNumero);
+                hint: 'Complemento',
+                prefix: Icon(Icons.info_outline),
+                onChanged: registerController.register.setComplemento,
+              );
             }),
             SizedBox(height: 10),
             Container(
@@ -109,10 +115,11 @@ empresarial(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'example@mail.com',
-                  prefix: Icon(Icons.alternate_email),
-                  onChanged: registerController.register.setResponsavelEmail,
-                  errorText: registerController.validateEmail);
+                hint: 'example@mail.com',
+                prefix: Icon(Icons.alternate_email),
+                onChanged: registerController.register.setResponsavelEmail,
+                errorText: registerController.emailError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Senha"),
@@ -122,7 +129,7 @@ empresarial(context) {
                 hint: '********',
                 prefix: Icon(Icons.lock_outlined),
                 onChanged: registerController.register.setSenha,
-                errorText: registerController.validatePassword,
+                errorText: registerController.passwordError,
                 suffix: CustomIconButton(
                   radius: 32,
                   iconData: registerController.passwordVisible
@@ -141,7 +148,7 @@ empresarial(context) {
                 hint: '********',
                 prefix: Icon(Icons.lock_outlined),
                 onChanged: registerController.setConfirmPassword,
-                errorText: registerController.validateConfirmPassword,
+                errorText: registerController.confirmPasswordError,
                 suffix: CustomIconButton(
                   radius: 32,
                   iconData: registerController.confirmPasswordVisible

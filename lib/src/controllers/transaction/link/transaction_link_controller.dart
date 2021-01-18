@@ -1,5 +1,6 @@
 import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_link_controller.g.dart';
@@ -18,6 +19,8 @@ abstract class _TransactionLinkController with Store {
   double currentValuesTax = 0.00;
   @observable
   List currentValuesList = List();
+  @observable
+  List parcelas = [];
   @observable
   bool visibilityModalBluetooth = true;
 
@@ -51,5 +54,34 @@ abstract class _TransactionLinkController with Store {
     }
     currentValues = TaxMethodPaymentService.convertToString(currentValuesList);
     return currentValues;
+  }
+
+  @computed
+  bool get validValue =>
+      (double.parse(currentValues.replaceAll(",", ".")) >= 10.00);
+
+  @computed
+  bool get isValid {
+    return validValue;
+  }
+
+  dynamic getParcelas(value) async {
+    dynamic taxas = await getTax(value, 3);
+    parcelas = [];
+    for (int i = 0; i < taxas.length; i++) {
+      dynamic parcela;
+      String valor = taxas[i].toStringAsFixed(2).replaceAll(".", ",");
+      if (i == 0) {
+        parcela = new List();
+        parcela.add(i + 1);
+        parcela.add("1 Parcela - R\$ $valor");
+      } else {
+        parcela = new List();
+        parcela.add(i + 1);
+        parcela.add("${i + 1} Parcelas - R\$ $valor");
+      }
+      parcelas.add(parcela);
+    }
+    return parcelas.toList();
   }
 }

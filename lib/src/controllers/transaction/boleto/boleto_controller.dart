@@ -7,7 +7,6 @@ import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-//nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
 part 'boleto_controller.g.dart';
 
 class BoletoController = _BoletoController with _$BoletoController;
@@ -17,13 +16,8 @@ abstract class _BoletoController with Store {
 
   Boleto boleto = Boleto();
 
-  bool validName = false;
-  bool validDocument = false;
-  bool validDdd = false;
-  bool validTelephone = false;
   MaskTextInputFormatter maskDocument = maskCpf();
-  @observable
-  bool loading = false;
+
   @observable
   String validDate = "";
   @observable
@@ -31,134 +25,103 @@ abstract class _BoletoController with Store {
   @action
   setValidDate(value) => validDate = value;
 
-
-  //validador de nome
-  String validateName() {
-    if (boleto.name == null) {
-      validName = false;
-      return null;
-    } else if (boleto.name.isEmpty ||
-        boleto.name.length < 4 ||
-        boleto.name.length > 60) {
-      validName = false;
-      return "O nome deve conter entre 4 e 60 caracteres";
-    }
-    validName = true;
-    return null;
-  }
-
-  //validador de document
-  String validateDocument() {
-    if (boleto.document == null) {
-      validDocument = false;
-      return null;
-    }
-
-    if (boleto.document.length <= 14) {
-      maskDocument.updateMask(mask: "###.###.###-###");
-    } else {
+  // Validação de Documento
+  @computed
+  bool get validDocument =>
+      boleto.document != null &&
+      (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document));
+  String get documentError {
+    if (boleto.document != null && boleto.document.length > 14) {
       maskDocument.updateMask(mask: "##.###.###/####-##");
-    }
-    if (boleto.document.isEmpty) {
-      validDocument = false;
-      return "Documento obrigatório";
-    } else if (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document)) {
-      validDocument = true;
-      return null;
     } else {
-      validDocument = false;
+      maskDocument.updateMask(mask: "###.###.###-###");
+    }
+
+    if (boleto.document == null || validDocument) {
+      return null;
+    } else if (boleto.document != null && boleto.document.isEmpty) {
+      return "Documento obrigatório";
+    } else {
       return "Documento Inválido";
     }
   }
 
-  //validador de DDD
-  String validateDdd() {
-    if (boleto.ddd == null) {
-      validDdd = false;
+  // Validação de Nome
+  @computed
+  bool get validName =>
+      boleto.name != null &&
+      boleto.name.length >= 4 &&
+      boleto.name.length <= 60;
+  String get nameError {
+    if (boleto.name == null || validName) {
       return null;
-    } else if (boleto.ddd.isEmpty) {
-      validDdd = false;
+    } else if (boleto.name != null && boleto.name.isEmpty) {
+      return "Nome obrigatório";
+    } else {
+      return "Nome deve conter entre 4 e 60 caracteres";
+    }
+  }
+
+  // Validação de DDD
+  @computed
+  bool get validDdd =>
+      boleto.ddd != null && boleto.ddd.length > 0 && boleto.ddd.length < 3;
+  String get dddError {
+    if (boleto.ddd == null || validDdd) {
+      return null;
+    } else if (boleto.ddd != null && boleto.ddd.isEmpty) {
       return "DDD obrigatório";
     }
-    validDdd = true;
-    return null;
+    return "DDD Inválido";
   }
 
-  //validador de Telephone
-  String validateTelephone() {
-    if (boleto.telephone == null) {
-      validTelephone = false;
+  // Validação de Telephone
+  @computed
+  bool get validTelephone =>
+      boleto.telephone != null && boleto.telephone.length == 11;
+  String get telephoneError {
+    if (boleto.telephone == null || validTelephone) {
       return null;
-    } else if (boleto.telephone.isEmpty) {
-      validTelephone = false;
+    } else if (boleto.telephone != null && boleto.telephone.isEmpty) {
       return "Telefone obrigatório";
-    } else if (!(boleto.telephone.length == 11)) {
-      validTelephone = false;
+    } else {
       return "Telefone deve contar 9 digitos";
     }
-    validTelephone = true;
-    return null;
   }
 
-  //validador de Value
-  String validateValue() {
-    if (boleto.value == null) {
-      return null;
-    } else if (boleto.value < 10) {
-      return "O valor minimo é R\$ 10,00";
-    }else if (!loading){
-      return "carregando";
-    }
-    return null;
-  }
+  //validação de Vencimento
+  @computed
+  bool get validateDateExpiration =>
+      boleto.dateExpiration.isAfter(DateTime.now());
 
-  //validador de Vencimento
-  bool validateDateExpiration() {
-    if (!boleto.dateExpiration.isAfter(DateTime.now())) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  void validateDateExpirationError() {
-    if (!boleto.dateExpiration.isAfter(DateTime.now())) {
+  void dateExpirationError() {
+    if (validateDateExpiration) {
       setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");
     }
   }
 
-  bool validate() {
-    if (validName && validDocument && validDdd && validTelephone) {
-      return true;
-    }
-    return false;
-  }
-
-  // dados computados, dados derivados de boleto(reatividade) existente ou de outros dados computados
   @computed
   bool get isValid {
-    return validateName() == null &&
-        validateDocument() == null &&
-        validateDdd() == null &&
-        validateTelephone() == null &&
-        validateDateExpiration() == true &&
-        validate() == true &&
-        !loading;
+    return validName &&
+        validDocument &&
+        validDdd &&
+        validTelephone &&
+        validateDateExpiration;
   }
 
   dynamic createTransctionBoleto() async {
     return createTransactionBoleto(boleto);
   }
 
-
-  Future<void> getUserThink() async{
-     userThink = await getUserThinkData(boleto.document);
-     boleto.setDdd(userThink.ddd);
-     boleto.setNome(userThink.name) ;
-     boleto.setTelephone(userThink.phone);
+  Future<void> getUserThink() async {
+    if (boleto.document != null &&
+        (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
+      userThink = await getUserThinkData(boleto.document);
+      boleto.setDdd(userThink.ddd);
+      boleto.setNome(userThink.name);
+      boleto.setTelephone(userThink.phone);
+    }
   }
-
-
 }

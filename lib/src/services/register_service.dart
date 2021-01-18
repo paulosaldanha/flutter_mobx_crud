@@ -12,7 +12,7 @@ dynamic createAccount(Register register) async {
   payload["responsavel"] = register.responsavel;
   payload["responsavelEmail"] = register.responsavelEmail;
   payload["senha"] = register.senha;
-  print(payload);
+
   try {
     var response = await client.post(
         'https://ecommercebank.tk/ecommerce/api/Estabelecimento/onboarding',
@@ -30,7 +30,7 @@ dynamic createAccount(Register register) async {
   }
 }
 
-dynamic validationRUC(String document) async {
+dynamic valideRUC(String document) async {
   var client = http.Client();
 
   Map<String, Object> payload = Map();

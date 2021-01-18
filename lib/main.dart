@@ -5,6 +5,7 @@ import 'package:estruturabasica/src/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/routes/router.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 void main() {
@@ -12,12 +13,21 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final appTitle = 'Ecommerce Bank Pay';
+  final appTitle = 'EcommerceBank Pay';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
+      ],
       theme: ThemeData(
           hintColor: Colors.black45,
           primaryColor: Color.fromRGBO(0, 74, 173, 1),
@@ -48,7 +58,9 @@ class MyHomePage extends StatelessWidget {
     authController.getAuth();
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: authController.auth.nameCompany != null
+            ? Text(authController.auth.nameCompany)
+            : Text(title),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       ),
       backgroundColor: Color.fromRGBO(0, 74, 173, 1),

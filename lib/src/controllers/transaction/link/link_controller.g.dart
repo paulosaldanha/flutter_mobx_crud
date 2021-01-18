@@ -9,6 +9,17 @@ part of 'link_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LinkController on _LinkController, Store {
+  Computed<bool> _$validNameComputed;
+
+  @override
+  bool get validName =>
+      (_$validNameComputed ??= Computed<bool>(() => super.validName)).value;
+  Computed<bool> _$validDateExpirationComputed;
+
+  @override
+  bool get validDateExpiration => (_$validDateExpirationComputed ??=
+          Computed<bool>(() => super.validDateExpiration))
+      .value;
   Computed<bool> _$isValidComputed;
 
   @override

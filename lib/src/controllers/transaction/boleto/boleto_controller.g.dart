@@ -9,28 +9,39 @@ part of 'boleto_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$BoletoController on _BoletoController, Store {
+  Computed<bool> _$validDocumentComputed;
+
+  @override
+  bool get validDocument =>
+      (_$validDocumentComputed ??= Computed<bool>(() => super.validDocument))
+          .value;
+  Computed<bool> _$validNameComputed;
+
+  @override
+  bool get validName =>
+      (_$validNameComputed ??= Computed<bool>(() => super.validName)).value;
+  Computed<bool> _$validDddComputed;
+
+  @override
+  bool get validDdd =>
+      (_$validDddComputed ??= Computed<bool>(() => super.validDdd)).value;
+  Computed<bool> _$validTelephoneComputed;
+
+  @override
+  bool get validTelephone =>
+      (_$validTelephoneComputed ??= Computed<bool>(() => super.validTelephone))
+          .value;
+  Computed<bool> _$validateDateExpirationComputed;
+
+  @override
+  bool get validateDateExpiration => (_$validateDateExpirationComputed ??=
+          Computed<bool>(() => super.validateDateExpiration))
+      .value;
   Computed<bool> _$isValidComputed;
 
   @override
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
-
-  final _$loadingAtom = Atom(name: '_BoletoController.loading');
-
-  @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
-  }
-
-  @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
-  }
 
   final _$validDateAtom = Atom(name: '_BoletoController.validDate');
 

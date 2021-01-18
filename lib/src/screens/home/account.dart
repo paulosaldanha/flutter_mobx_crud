@@ -51,15 +51,15 @@ class Account extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           label("Empresa", fontSize: 14, color: Colors.black45),
-                          label(authController.auth.nameCompany,
+                          label(authController.auth.nameCompany ?? "",
                               fontSize: 18, color: Colors.black54),
                           SizedBox(height: 15),
                           label("Usuário", fontSize: 14, color: Colors.black45),
-                          label(authController.auth.name,
+                          label(authController.auth.name ?? "",
                               fontSize: 18, color: Colors.black54),
                           SizedBox(height: 15),
                           label("Email", fontSize: 14, color: Colors.black45),
-                          label(authController.auth.email,
+                          label(authController.auth.email ?? "",
                               fontSize: 18, color: Colors.black54)
                         ],
                       ),
@@ -71,74 +71,81 @@ class Account extends StatelessWidget {
             Divider(),
             Container(
               padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  label("Alterar Senha",
-                      fontSize: 20, align: MainAxisAlignment.center),
-                  SizedBox(height: 15),
-                  label("Senha"),
-                  SizedBox(height: 5),
-                  Observer(builder: (_) {
-                    return textField(
-                        hint: "********",
-                        prefix: Icon(Icons.lock_outlined),
-                        onChanged: accountController.setPassword,
-                        errorText: accountController.validatePassword,
-                        suffix: CustomIconButton(
-                          radius: 32,
-                          iconData: accountController.passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          onTap: accountController.visibilityPassword,
-                        ),
-                        obscure: accountController.passwordVisible);
-                  }),
-                  SizedBox(height: 10),
-                  label("Confirma Senha"),
-                  SizedBox(height: 5),
-                  Observer(builder: (_) {
-                    return textField(
-                        hint: "********",
-                        prefix: Icon(Icons.lock_outlined),
-                        onChanged: accountController.setConfirmPassword,
-                        errorText: accountController.validateConfirmPassword,
-                        suffix: CustomIconButton(
-                          radius: 32,
-                          iconData: accountController.confirmPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          onTap: accountController.visibilityConfirmPassword,
-                        ),
-                        obscure: accountController.confirmPasswordVisible);
-                  }),
-                ],
-              ),
+              child: true
+                  ? Text("")
+                  : Column(
+                      children: [
+                        label("Alterar Senha",
+                            fontSize: 20, align: MainAxisAlignment.center),
+                        SizedBox(height: 15),
+                        label("Senha"),
+                        SizedBox(height: 5),
+                        Observer(builder: (_) {
+                          return textField(
+                              hint: "********",
+                              prefix: Icon(Icons.lock_outlined),
+                              onChanged: accountController.setPassword,
+                              errorText: accountController.passwordError,
+                              suffix: CustomIconButton(
+                                radius: 32,
+                                iconData: accountController.passwordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                onTap: accountController.visibilityPassword,
+                              ),
+                              obscure: accountController.passwordVisible);
+                        }),
+                        SizedBox(height: 10),
+                        label("Confirma Senha"),
+                        SizedBox(height: 5),
+                        Observer(builder: (_) {
+                          return textField(
+                              hint: "********",
+                              prefix: Icon(Icons.lock_outlined),
+                              onChanged: accountController.setConfirmPassword,
+                              errorText: accountController.confirmPasswordError,
+                              suffix: CustomIconButton(
+                                radius: 32,
+                                iconData:
+                                    accountController.confirmPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                onTap:
+                                    accountController.visibilityConfirmPassword,
+                              ),
+                              obscure:
+                                  accountController.confirmPasswordVisible);
+                        }),
+                      ],
+                    ),
             ),
             Container(
               width: 1000,
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: Observer(builder: (_) {
-                return RaisedButton(
-                    padding: EdgeInsets.symmetric(vertical: 17.0),
-                    elevation: 11,
-                    highlightElevation: 0,
-                    color: Color.fromRGBO(0, 74, 173, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Text(
-                      'Alterar Senha'.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                    onPressed: () {
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text("Olá")));
-                    });
-              }),
+              child: true
+                  ? Text("")
+                  : Observer(builder: (_) {
+                      return RaisedButton(
+                          padding: EdgeInsets.symmetric(vertical: 17.0),
+                          elevation: 11,
+                          highlightElevation: 0,
+                          color: Color.fromRGBO(0, 74, 173, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Text(
+                            'Alterar Senha'.toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                          onPressed: () {
+                            Scaffold.of(context)
+                                .showSnackBar(SnackBar(content: Text("Olá")));
+                          });
+                    }),
             ),
           ],
         ),
