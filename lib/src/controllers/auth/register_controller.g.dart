@@ -9,6 +9,55 @@ part of 'register_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegisterController on _RegisterController, Store {
+  Computed<bool> _$validDocumentComputed;
+
+  @override
+  bool get validDocument =>
+      (_$validDocumentComputed ??= Computed<bool>(() => super.validDocument))
+          .value;
+  Computed<bool> _$validCompanyNameComputed;
+
+  @override
+  bool get validCompanyName => (_$validCompanyNameComputed ??=
+          Computed<bool>(() => super.validCompanyName))
+      .value;
+  Computed<bool> _$validNameComputed;
+
+  @override
+  bool get validName =>
+      (_$validNameComputed ??= Computed<bool>(() => super.validName)).value;
+  Computed<bool> _$validCepComputed;
+
+  @override
+  bool get validCep =>
+      (_$validCepComputed ??= Computed<bool>(() => super.validCep)).value;
+  Computed<bool> _$validRuaComputed;
+
+  @override
+  bool get validRua =>
+      (_$validRuaComputed ??= Computed<bool>(() => super.validRua)).value;
+  Computed<bool> _$validNumeroComputed;
+
+  @override
+  bool get validNumero =>
+      (_$validNumeroComputed ??= Computed<bool>(() => super.validNumero)).value;
+  Computed<bool> _$validEmailComputed;
+
+  @override
+  bool get validEmail =>
+      (_$validEmailComputed ??= Computed<bool>(() => super.validEmail)).value;
+  Computed<bool> _$validPasswordComputed;
+
+  @override
+  bool get validPassword =>
+      (_$validPasswordComputed ??= Computed<bool>(() => super.validPassword))
+          .value;
+  Computed<bool> _$validConfirmPasswordComputed;
+
+  @override
+  bool get validConfirmPassword => (_$validConfirmPasswordComputed ??=
+          Computed<bool>(() => super.validConfirmPassword))
+      .value;
   Computed<bool> _$isValidComputed;
 
   @override

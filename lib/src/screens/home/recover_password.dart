@@ -1,31 +1,16 @@
-import 'package:estruturabasica/src/components/custom_text_field.dart';
-import 'package:estruturabasica/src/models/recoverpassword.dart';
-import 'package:estruturabasica/src/services/recoverpassword_service.dart';
+import 'package:estruturabasica/src/components/fields.dart';
+import 'package:estruturabasica/src/controllers/auth/recoverpassword_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-class RecoverPasswordPage extends StatefulWidget {
-  @override
-  _RecoverPasswordPageState createState() => _RecoverPasswordPageState();
-}
-
-class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<FormState> globalFormKey = new GlobalKey<FormState>();
-  RecoverPasswordModel requestModel;
-  bool _secureText = true;
-
-  @override
-  void initState() {
-    requestModel = new RecoverPasswordModel();
-  }
+class RecoverPasswordPage extends StatelessWidget {
+  final recoverPasswordController = RecoverPasswordController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      body: Form(
-        key: globalFormKey,
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Form(
           child: Column(
             children: <Widget>[
               Container(
@@ -52,113 +37,109 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                 ),
               ),
               SizedBox(
-                height: 45,
+                height: 20,
               ),
-              Center(
-                child: Text(
-                  "Problemas com login ?",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text(
+                        "Problemas com login ?",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          "Insira o email que você esqueceu da senha, enviaremos a você um link para voltar a acessar novamente sua conta.",
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Observer(builder: (_) {
+                      return textField(
+                          labelText: 'Email',
+                          hint: 'example@mail.com',
+                          prefix: Icon(Icons.alternate_email),
+                          onChanged: recoverPasswordController.setEmail,
+                          errorText: recoverPasswordController.emailError);
+                    }),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 55,
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(22.0),
-                  child: Text(
-                    "Insira o email que você esqueceu da senha, enviaremos a você um link para voltar a acessar novamente sua conta.",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              CustomTextField(
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'O campo email deve ser preenchido.';
-                  } else if (value.length > 1) {
-                    bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value);
-                    if (emailValid) {
-                      return null;
-                    } else {
-                      return 'Digite um email válidos';
-                    }
-                  }
-                  return null;
-                },
-                onSaved: (input) => requestModel.email = input,
-                hint: 'usuario@email.com',
-                labelText: 'Email',
-                prefix: Icon(Icons.person),
-                textInputType: TextInputType.emailAddress,
-                enabled: true,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: RaisedButton(
-                    padding: EdgeInsets.symmetric(vertical: 17.0),
-                    elevation: 11,
-                    highlightElevation: 0,
-                    color: Color.fromRGBO(0, 74, 173, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Text(
-                      'Recuperar Senha'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    ),
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      if (validateAndSave()) {
-                        RecoverPasswordService recoverPasswordService =
-                            new RecoverPasswordService();
-                        recoverPasswordService
-                            .recoverpassword(requestModel)
-                            .then(
-                          (value) {
-                            var result = value.message ?? "";
-                            print(result);
-                            if (result.isNotEmpty == true) {
-                              final snackBar = SnackBar(
-                                content: Text(result),
-                              );
-                              scaffoldKey.currentState.showSnackBar(snackBar);
-                            } else {
-                              final snackBar = SnackBar(
-                                content: Text(value.message),
-                              );
-                              scaffoldKey.currentState.showSnackBar(snackBar);
+              Container(
+                width: 1000,
+                padding: EdgeInsets.all(20),
+                child: Observer(builder: (_) {
+                  return RaisedButton(
+                      padding: EdgeInsets.symmetric(vertical: 17.0),
+                      elevation: 11,
+                      highlightElevation: 0,
+                      color: Color.fromRGBO(0, 74, 173, 1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: !recoverPasswordController.loading
+                          ? Text(
+                              'Recuperar Senha'.toUpperCase(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )
+                          : Center(
+                              child: SizedBox(
+                                child: CircularProgressIndicator(),
+                                width: 20,
+                                height: 20,
+                              ),
+                            ),
+                      onPressed: recoverPasswordController.isValid
+                          ? () {
+                              recoverPasswordController.loading = true;
+                              recoverPasswordController
+                                  .solicitPassword()
+                                  .then((value) {
+                                recoverPasswordController.loading = false;
+                                var result = value.message ?? "";
+                                if (result.isNotEmpty == true) {
+                                  final snackBar = SnackBar(
+                                      content: Text(result),
+                                      duration: Duration(seconds: 4));
+                                  Scaffold.of(context).showSnackBar(snackBar);
+                                } else {
+                                  final snackBar = SnackBar(
+                                      content: Text(value.message),
+                                      duration: Duration(seconds: 4));
+                                  Scaffold.of(context).showSnackBar(snackBar);
+                                }
+                                if (value != null) {
+                                  Scaffold.of(context).showSnackBar(
+                                      SnackBar(content: Text("Conta Criada")));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Não foi possivel criar sua conta"),
+                                      duration: Duration(seconds: 4)));
+                                }
+                              });
                             }
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
+                          : null);
+                }),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
   }
 }

@@ -15,16 +15,6 @@ class TransactionBoletoForm2 extends StatelessWidget {
   TransactionBoletoController transactionBoletoController =
       TransactionBoletoController();
 
-  bool _validValue() {
-    String value = transactionBoletoController.currentValues;
-    value = value.replaceAll(",", ".");
-    if (double.parse(value) >= 10.00 && !boletoController.loading) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +54,9 @@ class TransactionBoletoForm2 extends StatelessWidget {
                         color: Colors.white,
                         textColor: Color.fromRGBO(0, 74, 173, 1),
                         padding: EdgeInsets.all(10.0),
-                        onPressed: _validValue()
+                        onPressed: transactionBoletoController.validValue
                             ? () {
+                                transactionBoletoController.loading = true;
                                 String value = transactionBoletoController
                                     .currentValues
                                     .replaceAll(",", ".");
@@ -74,11 +65,10 @@ class TransactionBoletoForm2 extends StatelessWidget {
                                     .toString();
                                 boletoController.boleto.setValue(value);
                                 boletoController.boleto.setValueTax(valueTax);
-                                boletoController.loading = true;
                                 boletoController
                                     .createTransctionBoleto()
                                     .then((value) {
-                                  boletoController.loading = false;
+                                  transactionBoletoController.loading = false;
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => TransactionResponse(
                                           value, "boleto")));
@@ -87,7 +77,7 @@ class TransactionBoletoForm2 extends StatelessWidget {
                             : null,
                         child: Observer(
                           builder: (_) {
-                            return !boletoController.loading
+                            return !transactionBoletoController.loading
                                 ? Text(
                                     "Continuar".toUpperCase(),
                                     style: TextStyle(
@@ -96,7 +86,9 @@ class TransactionBoletoForm2 extends StatelessWidget {
                                     ),
                                   )
                                 : Center(
-                                    child: CircularProgressIndicator(),
+                                    child: SizedBox(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   );
                           },
                         ),

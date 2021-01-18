@@ -1,6 +1,5 @@
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
-import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
@@ -55,7 +54,7 @@ class TransactionBoletoForm extends StatelessWidget {
                                 onTap: boletoController.getUserThink,
                               ),
                               onChanged: boletoController.boleto.setDocument,
-                              errorText: boletoController.validateDocument);
+                              errorText: boletoController.documentError);
                         },
                       ),
                       SizedBox(
@@ -72,7 +71,8 @@ class TransactionBoletoForm extends StatelessWidget {
                               )
                             : textField(
                                 onChanged: boletoController.boleto.setNome,
-                                errorText: boletoController.validateName);
+                                errorText: boletoController.nameError,
+                              );
                       }),
                       SizedBox(
                         height: 10,
@@ -104,7 +104,7 @@ class TransactionBoletoForm extends StatelessWidget {
                                               onChanged: boletoController
                                                   .boleto.setDdd,
                                               errorText:
-                                                  boletoController.validateDdd);
+                                                  boletoController.dddError);
                                     },
                                   ))
                                 ]),
@@ -140,7 +140,8 @@ class TransactionBoletoForm extends StatelessWidget {
                                                 onChanged: boletoController
                                                     .boleto.setTelephone,
                                                 errorText: boletoController
-                                                    .validateTelephone);
+                                                    .telephoneError,
+                                              );
                                       },
                                     ))
                                   ])),
@@ -245,7 +246,7 @@ dateButton({context, controller}) {
         if (value != null) {
           controller.boleto.setDateExpiration(value);
         }
-        controller.validateDateExpirationError();
+        controller.dateExpirationError();
       },
       icon: Padding(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),

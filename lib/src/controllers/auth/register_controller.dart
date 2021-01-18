@@ -3,7 +3,6 @@ import 'package:estruturabasica/src/models/register.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:estruturabasica/src/services/register_service.dart';
 
-//nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)
 part 'register_controller.g.dart';
 
 class RegisterController = _RegisterController with _$RegisterController;
@@ -11,19 +10,7 @@ class RegisterController = _RegisterController with _$RegisterController;
 abstract class _RegisterController with Store {
   _RegisterController();
 
-  //referente ao formulario de inserção
   var register = Register();
-
-  bool validCompanyName = false;
-  bool validDocument = false;
-  bool validName = false;
-  bool validCep = false;
-  bool validRua = false;
-  bool validNumero = false;
-  bool validEmail = false;
-  bool validPassword = false;
-  bool validConfirmPassword = false;
-  String suffixDocument = "";
 
   @observable
   String confirmPassword;
@@ -31,9 +18,10 @@ abstract class _RegisterController with Store {
   bool passwordVisible = true;
   @observable
   bool confirmPasswordVisible = true;
-
   @observable
   bool loading = false;
+
+  String suffixDocument = "";
 
   @action
   setConfirmPassword(value) => confirmPassword = value;
@@ -43,202 +31,175 @@ abstract class _RegisterController with Store {
   visibilityConfirmPassword() =>
       confirmPasswordVisible = !confirmPasswordVisible;
 
-  //validador de nome
-  String validateCompanyName() {
-    if (register.razaoSocial == null) {
-      validCompanyName = false;
-      return null;
-    } else if (register.razaoSocial.isEmpty ||
-        register.razaoSocial.length < 4 ||
-        register.razaoSocial.length > 60) {
-      validCompanyName = false;
-      return "A Razão Social deve conter entre 4 e 60 caracteres";
-    }
-    validCompanyName = true;
-    return null;
-  }
-
-  //validador de documento
-  String validateDocument() {
-    if (register.documento == null) {
-      validDocument = false;
-      return null;
-    }
-
-    if (register.documento.isEmpty) {
-      validDocument = false;
-      return "Documento obrigatório";
-    }
-
-    if (register.documento.length <= 9) {
+  // Validação de Documento
+  @computed
+  bool get validDocument =>
+      register.documento != null &&
+      ((register.documento.length > 7 && register.documento.length < 10) ||
+          CPF.isValid(register.documento) ||
+          CNPJ.isValid(register.documento));
+  String get documentError {
+    if (register.documento == null || register.documento.length <= 9) {
       suffixDocument = "RUC";
-      validDocument = true;
-      return null;
     } else if (register.documento.length > 9 &&
         register.documento.length < 12) {
       suffixDocument = "CPF";
-      validDocument = false;
-      if (CPF.isValid(register.documento)) {
-        validDocument = true;
-        return null;
-      } else {
-        validDocument = false;
-        return "CPF inválido";
-      }
-    } else if (register.documento.length > 11 &&
-        register.documento.length < 15) {
+    } else {
       suffixDocument = "CNPJ";
-      if (CNPJ.isValid(register.documento)) {
-        validDocument = true;
-        return null;
-      } else {
-        validDocument = false;
-        return null;
-      }
     }
-    validDocument = false;
-    return null;
+
+    if (register.documento == null || validDocument) {
+      return null;
+    } else if (register.documento != null && register.documento.isEmpty) {
+      return "Documento obrigátorio";
+    } else {
+      return "Documento inválido";
+    }
   }
 
-  //validador de Nome Responsavel
-  String validateName() {
-    if (register.responsavel == null) {
-      validName = false;
+  // Validação de Razão Social
+  @computed
+  bool get validCompanyName =>
+      register.razaoSocial != null &&
+      register.razaoSocial.length >= 4 &&
+      register.razaoSocial.length <= 60;
+  String get companyNameError {
+    print(register.razaoSocial);
+    if (register.razaoSocial == null || validCompanyName) {
       return null;
-    } else if (register.responsavel.isEmpty ||
-        register.responsavel.length < 4 ||
-        register.responsavel.length > 60) {
-      validName = false;
-      return "O nome do reponsável deve conter entre 4 e 60 caracteres";
+    } else if (register.razaoSocial != null && register.razaoSocial.isEmpty) {
+      return "Razão Social obrigátorio";
+    } else {
+      return "A Razão Social deve conter entre 4 e 60 caracteres";
     }
-    validName = true;
-    return null;
   }
 
-  //validação de CEP
-  String validateCep() {
-    if (register.cep == null) {
-      validCep = false;
+  // Validação de Nome
+  @computed
+  bool get validName =>
+      register.responsavel != null &&
+      register.responsavel.length >= 4 &&
+      register.responsavel.length <= 60;
+  String get nameError {
+    if (register.responsavel == null || validName) {
       return null;
+    } else if (register.responsavel != null && register.responsavel.isEmpty) {
+      return "Nome obrigatório";
+    } else {
+      return "Nome deve ter entre 4 e 60 caracteres";
     }
-    validCep = true;
-    return null;
   }
 
-  //validação de Rua
-  String validateRua() {
-    if (register.rua == null) {
-      validRua = false;
+  // Validação de CEP
+  @computed
+  bool get validCep => register.cep != null && register.cep.length == 9;
+  String get cepError {
+    if (register.cep == null || validCep) {
       return null;
+    } else {
+      return "CEP obrigatório";
     }
-    validRua = true;
-    return null;
   }
 
-  //validação de CEP
-  String validateNumero() {
-    if (register.numero == null) {
-      validNumero = false;
+  // Validação de Rua
+  @computed
+  bool get validRua => register.rua != null && register.rua.length > 0;
+  String get ruaError {
+    if (register.rua == null || validRua) {
       return null;
+    } else {
+      return "Rua obrigatório";
     }
-    validNumero = true;
-    return null;
   }
 
-  //validador de Email
-  String validateEmail() {
-    if (register.responsavelEmail == null) {
-      validEmail = false;
+  // Validação de Número
+  @computed
+  bool get validNumero => register.numero != null && register.numero.length > 0;
+  String get numeroError {
+    if (register.numero == null || validNumero) {
       return null;
+    } else {
+      return "Numero obrigatório";
     }
-    if (register.responsavelEmail.isEmpty) {
-      validEmail = false;
+  }
+
+  // Validação de Email
+  @computed
+  bool get validEmail =>
+      register.responsavelEmail != null &&
+      register.responsavelEmail.length >= 4 &&
+      register.responsavelEmail.contains("@") &&
+      register.responsavelEmail.contains(".");
+  String get emailError {
+    if (register.responsavelEmail == null || validEmail) {
+      return null;
+    } else if (register.responsavelEmail != null &&
+        register.responsavelEmail.isEmpty) {
       return "Email obrigatório";
+    } else {
+      return "Email invalido";
     }
-    if (register.responsavelEmail.length < 4 ||
-        !register.responsavelEmail.contains("@") ||
-        !register.responsavelEmail.contains(".")) {
-      validEmail = false;
-      return "Email inválido";
-    }
-    validEmail = true;
-    return null;
   }
 
-  //validador de Senha
-  String validatePassword() {
-    if (register.senha == null) {
-      validPassword = false;
+  // Validação de Senha
+  @computed
+  bool get validPassword =>
+      register.senha != null &&
+      register.senha.length >= 8 &&
+      register.senha.length <= 32;
+  String get passwordError {
+    if (register.senha == null || validPassword) {
       return null;
-    }
-    if (register.senha.isEmpty) {
-      validPassword = false;
+    } else if (register.senha != null && register.senha.isEmpty) {
+      return "Senha deve ter entre 8 e 32 caracteres";
+    } else {
       return "Senha obrigatória";
     }
-    if (register.senha.length < 8 || register.senha.length > 32) {
-      validPassword = false;
-      return "Senha deve conter de 8 a 32 caracteres";
-    }
-    validPassword = true;
-    return null;
   }
 
-  //Confirmação de Senha
-  String validateConfirmPassword() {
-    if (confirmPassword == null) {
-      validConfirmPassword = false;
+  // Validação de Confirmação de Senha
+  @computed
+  bool get validConfirmPassword =>
+      confirmPassword.length != null && confirmPassword == register.senha;
+  String get confirmPasswordError {
+    if (confirmPassword == null || validConfirmPassword) {
       return null;
+    } else {
+      return "As senhas precisam ser identicas";
     }
-    if (confirmPassword.length < 8 || confirmPassword.length > 32) {
-      validConfirmPassword = false;
-      return "Senha deve conter de 8 a 32 caracteres";
-    }
-    if (confirmPassword == register.senha) {
-      validConfirmPassword = true;
-      return null;
-    }
-    validConfirmPassword = false;
-    return "As senhas não conferem";
   }
 
-  bool validate() {
-    if (validCompanyName &&
-        validDocument &&
-        validName &&
-        validEmail &&
-        validPassword &&
-        validConfirmPassword) {
-      return true;
-    }
-    return false;
-  }
-
-  // dados computados, dados derivados de register(reatividade) existente ou de outros dados computados
+  // Verifica se todas validções estão corretas
   @computed
   bool get isValid {
-    return validateCompanyName() == null &&
-        validateDocument() == null &&
-        validateName() == null &&
-        validateEmail() == null &&
-        validatePassword() == null &&
-        validateConfirmPassword() == null &&
-        validate() == true &&
+    return validCompanyName &&
+        validDocument &&
+        validName &&
+        validCep &&
+        validRua &&
+        validNumero &&
+        validEmail &&
+        validPassword &&
+        validConfirmPassword &&
         !loading;
   }
 
+  // Envia o objeto para a service
   dynamic createFastAccount() async {
     return createAccount(register);
   }
 
+  // Limpa o objeto
   void cleanData() {
-    register.razaoSocial = null;
     register.documento = null;
+    register.razaoSocial = null;
     register.responsavel = null;
-    register.responsavelEmail = null;
-    register.senha = null;
     register.cep = null;
     register.rua = null;
     register.numero = null;
     register.complemento = null;
+    register.responsavelEmail = null;
+    register.senha = null;
+    confirmPassword = null;
   }
 }

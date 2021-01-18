@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             suffix: registerController.suffixDocument,
                             prefixIcon: Icon(Icons.business),
                             onChanged: registerController.register.setdocumento,
-                            errorText: registerController.validateDocument);
+                            errorText: registerController.documentError);
                       }),
                       SizedBox(height: 10),
                       labelFieldRequired("Razão Social"),
@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefix: Icon(Icons.info_outline),
                             onChanged:
                                 registerController.register.setRazaoSocial,
-                            errorText: registerController.validateCompanyName);
+                            errorText: registerController.companyNameError);
                       }),
                       SizedBox(height: 10),
                       labelFieldRequired("Nome Responsável"),
@@ -79,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefix: Icon(Icons.account_circle),
                             onChanged:
                                 registerController.register.setResponsavel,
-                            errorText: registerController.validateName);
+                            errorText: registerController.nameError);
                       }),
                       SizedBox(height: 10),
                       labelFieldRequired("Email"),
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefix: Icon(Icons.alternate_email),
                             onChanged:
                                 registerController.register.setResponsavelEmail,
-                            errorText: registerController.validateEmail);
+                            errorText: registerController.emailError);
                       }),
                       SizedBox(height: 10),
                       labelFieldRequired("Senha"),
@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           hint: '********',
                           prefix: Icon(Icons.lock),
                           onChanged: registerController.register.setSenha,
-                          errorText: registerController.validatePassword,
+                          errorText: registerController.passwordError,
                           suffix: CustomIconButton(
                             radius: 32,
                             iconData: Icons.visibility,
@@ -117,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           hint: '********',
                           prefix: Icon(Icons.lock),
                           onChanged: registerController.setConfirmPassword,
-                          errorText: registerController.validateConfirmPassword,
+                          errorText: registerController.confirmPasswordError,
                           suffix: CustomIconButton(
                             radius: 32,
                             iconData: Icons.visibility,
@@ -152,7 +152,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 registerController
                                     .createFastAccount()
                                     .then((value) {
-                                  print(value);
                                   if (value != null) {
                                     Scaffold.of(context).showSnackBar(SnackBar(
                                         content: Text("Conta Criada"),

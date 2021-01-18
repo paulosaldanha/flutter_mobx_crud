@@ -9,6 +9,17 @@ part of 'transaction_boleto_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TransactionBoletoController on _TransactionBoletoController, Store {
+  Computed<bool> _$validValueComputed;
+
+  @override
+  bool get validValue =>
+      (_$validValueComputed ??= Computed<bool>(() => super.validValue)).value;
+  Computed<bool> _$isValidComputed;
+
+  @override
+  bool get isValid =>
+      (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
+
   final _$currentValuesAtom =
       Atom(name: '_TransactionBoletoController.currentValues');
 
@@ -81,6 +92,23 @@ mixin _$TransactionBoletoController on _TransactionBoletoController, Store {
       _$visibilityModalBluetoothAtom.reportChanged();
     }, _$visibilityModalBluetoothAtom,
         name: '${_$visibilityModalBluetoothAtom.name}_set');
+  }
+
+  final _$loadingAtom = Atom(name: '_TransactionBoletoController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
   final _$setCurrentValuesAsyncAction = AsyncAction('setCurrentValues');

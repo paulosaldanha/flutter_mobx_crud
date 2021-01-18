@@ -9,6 +9,17 @@ part of 'transaction_link_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TransactionLinkController on _TransactionLinkController, Store {
+  Computed<bool> _$validValueComputed;
+
+  @override
+  bool get validValue =>
+      (_$validValueComputed ??= Computed<bool>(() => super.validValue)).value;
+  Computed<bool> _$isValidComputed;
+
+  @override
+  bool get isValid =>
+      (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
+
   final _$currentValuesAtom =
       Atom(name: '_TransactionLinkController.currentValues');
 
@@ -61,6 +72,23 @@ mixin _$TransactionLinkController on _TransactionLinkController, Store {
       super.currentValuesList = value;
       _$currentValuesListAtom.reportChanged();
     }, _$currentValuesListAtom, name: '${_$currentValuesListAtom.name}_set');
+  }
+
+  final _$parcelasAtom = Atom(name: '_TransactionLinkController.parcelas');
+
+  @override
+  List<dynamic> get parcelas {
+    _$parcelasAtom.context.enforceReadPolicy(_$parcelasAtom);
+    _$parcelasAtom.reportObserved();
+    return super.parcelas;
+  }
+
+  @override
+  set parcelas(List<dynamic> value) {
+    _$parcelasAtom.context.conditionallyRunInAction(() {
+      super.parcelas = value;
+      _$parcelasAtom.reportChanged();
+    }, _$parcelasAtom, name: '${_$parcelasAtom.name}_set');
   }
 
   final _$visibilityModalBluetoothAtom =

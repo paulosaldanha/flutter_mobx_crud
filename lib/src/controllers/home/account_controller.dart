@@ -1,6 +1,4 @@
-import 'package:estruturabasica/src/screens/home/account.dart';
 import 'package:mobx/mobx.dart';
-import '';
 
 part 'account_controller.g.dart';
 
@@ -17,9 +15,8 @@ abstract class _AccountController with Store {
   bool passwordVisible = true;
   @observable
   bool confirmPasswordVisible = true;
-
-  bool validPassword = false;
-  bool validConfirmPassword = false;
+  @observable
+  bool loading = false;
 
   @action
   setPassword(String value) => password = value;
@@ -31,39 +28,34 @@ abstract class _AccountController with Store {
   visibilityConfirmPassword() =>
       confirmPasswordVisible = !confirmPasswordVisible;
 
-  //validador de Senha
-  String validatePassword() {
-    if (password == null) {
-      validPassword = false;
+  // Validação de Senha
+  @computed
+  bool get validPassword => password.length >= 8 && password.length <= 32;
+  String get passwordError {
+    if (password == null || validPassword) {
       return null;
-    }
-    if (password.isEmpty) {
-      validPassword = false;
+    } else if (password != null && password.isEmpty) {
       return "Senha obrigatória";
+    } else {
+      return "As passwords precisam ser identicas";
     }
-    if (password.length < 8 || password.length > 32) {
-      validPassword = false;
-      return "Senha deve conter de 8 a 32 caracteres";
-    }
-    validPassword = true;
-    return null;
   }
 
-  //Confirmação de Senha
-  String validateConfirmPassword() {
-    if (confirmPassword == null) {
-      validConfirmPassword = false;
+  // Validação de Confirmação de Senha
+  @computed
+  bool get validConfirmPassword =>
+      confirmPassword.length != null && confirmPassword == password;
+  String get confirmPasswordError {
+    if (confirmPassword == null || validConfirmPassword) {
       return null;
+    } else {
+      return "As passwords precisam ser identicas";
     }
-    if (confirmPassword.length < 8 || confirmPassword.length > 32) {
-      validPassword = false;
-      return "Senha deve conter de 8 a 32 caracteres";
-    }
-    if (confirmPassword == password) {
-      validConfirmPassword = true;
-      return null;
-    }
-    validConfirmPassword = false;
-    return "As senhas não conferem";
+  }
+
+  // Verifica se todas validções estão corretas
+  @computed
+  bool get isValid {
+    return validPassword && validConfirmPassword && !loading;
   }
 }

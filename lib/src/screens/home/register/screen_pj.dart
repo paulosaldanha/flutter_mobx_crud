@@ -28,32 +28,35 @@ pessoaPJ(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberMaskField(
-                  hint: 'CNPJ',
-                  mask: maskCNPJ,
-                  prefixIcon: Icon(Icons.wysiwyg),
-                  onChanged: peopleController.people.setDocument,
-                  errorText: peopleController.validateDocument);
+                hint: 'CNPJ',
+                mask: maskCNPJ,
+                prefixIcon: Icon(Icons.wysiwyg),
+                onChanged: peopleController.people.setDocument,
+                errorText: peopleController.documentError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Nome Completo"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Nome Completo',
-                  prefix: Icon(Icons.person_outlined),
-                  onChanged: peopleController.people.setNome,
-                  errorText: peopleController.validateName);
+                hint: 'Nome Completo',
+                prefix: Icon(Icons.person_outlined),
+                onChanged: peopleController.people.setNome,
+                errorText: peopleController.nameError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Telefone"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberMaskField(
-                  hint: 'Telefone',
-                  mask: maskDddPhone,
-                  prefixIcon: Icon(Icons.phone_outlined),
-                  onChanged: peopleController.people.setTelephone,
-                  errorText: peopleController.validateTelephone);
+                hint: 'Telefone',
+                mask: maskDddPhone,
+                prefixIcon: Icon(Icons.phone_outlined),
+                onChanged: peopleController.people.setTelephone,
+                errorText: peopleController.telephoneError,
+              );
             }),
             SizedBox(height: 10),
             Container(
@@ -65,41 +68,44 @@ pessoaPJ(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberMaskField(
-                  hint: '00000-000',
-                  mask: maskCEP,
-                  prefixIcon: Icon(Icons.location_on_outlined),
-                  onChanged: peopleController.people.setCep,
-                  errorText: peopleController.validateCep);
+                hint: '00000-000',
+                mask: maskCEP,
+                prefixIcon: Icon(Icons.location_on_outlined),
+                onChanged: peopleController.people.setCep,
+                errorText: peopleController.cepError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Nome da rua"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Nome da rua',
-                  prefix: Icon(Icons.streetview),
-                  onChanged: peopleController.people.setRua,
-                  errorText: peopleController.validateRua);
+                hint: 'Nome da rua',
+                prefix: Icon(Icons.streetview),
+                onChanged: peopleController.people.setRua,
+                errorText: peopleController.ruaError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Número"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return numberField(
-                  hint: '123',
-                  prefixIcon: Icon(Icons.money),
-                  onChanged: peopleController.people.setNumero,
-                  errorText: peopleController.validateNumero);
+                hint: '123',
+                prefixIcon: Icon(Icons.money),
+                onChanged: peopleController.people.setNumero,
+                errorText: peopleController.numeroError,
+              );
             }),
             SizedBox(height: 10),
             label("Complemento"),
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'Complemento',
-                  prefix: Icon(Icons.info_outline),
-                  onChanged: peopleController.people.setNumero,
-                  errorText: peopleController.validateNumero);
+                hint: 'Complemento',
+                prefix: Icon(Icons.info_outline),
+                onChanged: peopleController.people.setComplemento,
+              );
             }),
             SizedBox(height: 10),
             Container(
@@ -111,10 +117,11 @@ pessoaPJ(context) {
             SizedBox(height: 5),
             Observer(builder: (_) {
               return textField(
-                  hint: 'example@mail.com',
-                  prefix: Icon(Icons.alternate_email),
-                  onChanged: peopleController.people.setEmail,
-                  errorText: peopleController.validateEmail);
+                hint: 'example@mail.com',
+                prefix: Icon(Icons.alternate_email),
+                onChanged: peopleController.people.setEmail,
+                errorText: peopleController.emailError,
+              );
             }),
             SizedBox(height: 10),
             labelFieldRequired("Senha"),
@@ -124,7 +131,7 @@ pessoaPJ(context) {
                 hint: '********',
                 prefix: Icon(Icons.lock_outlined),
                 onChanged: peopleController.people.setPassword,
-                errorText: peopleController.validatePassword,
+                errorText: peopleController.passwordError,
                 suffix: CustomIconButton(
                   radius: 32,
                   iconData: peopleController.passwordVisible
@@ -143,7 +150,7 @@ pessoaPJ(context) {
                 hint: '********',
                 prefix: Icon(Icons.lock_outlined),
                 onChanged: peopleController.setConfirmPassword,
-                errorText: peopleController.validateConfirmPassword,
+                errorText: peopleController.confirmPasswordError,
                 suffix: CustomIconButton(
                   radius: 32,
                   iconData: peopleController.confirmPasswordVisible

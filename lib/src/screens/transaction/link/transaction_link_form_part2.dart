@@ -45,7 +45,7 @@ class TransactionLinkForm2 extends StatelessWidget {
                     builder: (_) {
                       return textField(
                           onChanged: linkController.link.setNome,
-                          errorText: linkController.validateName);
+                          errorText: linkController.nameError);
                     },
                   ),
                   SizedBox(
@@ -113,7 +113,7 @@ class TransactionLinkForm2 extends StatelessWidget {
                           padding: EdgeInsets.all(10.0),
                           onPressed: linkController.isValid
                               ? () {
-                            linkController.loading = true;
+                                  linkController.loading = true;
                                   linkController
                                       .createTransctionLink()
                                       .then((value) {
@@ -126,17 +126,20 @@ class TransactionLinkForm2 extends StatelessWidget {
                                   });
                                 }
                               : null,
-                          child:Observer(builder: (_){
-                            return !linkController.loading ? Text(
-                              "Continuar".toUpperCase(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30.0,
-                              ),
-                            ): Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
+                          child: Observer(
+                            builder: (_) {
+                              return !linkController.loading
+                                  ? Text(
+                                      "Continuar".toUpperCase(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30.0,
+                                      ),
+                                    )
+                                  : Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                            },
                           ),
                         );
                       },

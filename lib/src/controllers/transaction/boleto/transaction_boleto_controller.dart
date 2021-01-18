@@ -21,6 +21,8 @@ abstract class _TransactionBoletoController with Store {
   List currentValuesList = List();
   @observable
   bool visibilityModalBluetooth = true;
+  @observable
+  bool loading = false;
 
   @action
   setCurrentValues(String value) async {
@@ -76,5 +78,14 @@ abstract class _TransactionBoletoController with Store {
     if (currentValues == null) {
       currentValuesTax = 0.00;
     }
+  }
+
+  @computed
+  bool get validValue =>
+      (double.parse(currentValues.replaceAll(",", ".")) >= 10.00);
+
+  @computed
+  bool get isValid {
+    return validValue && !loading;
   }
 }

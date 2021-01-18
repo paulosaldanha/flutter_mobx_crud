@@ -29,11 +29,12 @@ class _SliderTaxaState extends State<SliderTaxa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-          title: Text('Método de Pagamento'),
-        ),
-        body: Container(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        title: Text('Método de Pagamento'),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
           color: Colors.white,
           padding: EdgeInsets.all(10),
           child: Column(
@@ -204,7 +205,7 @@ class _SliderTaxaState extends State<SliderTaxa> {
                       height: 10,
                     ),
                     Container(
-                        height: 200.0,
+                        height: 150.0,
                         width: 250.0,
                         child: Observer(
                           builder: (_) {
@@ -220,6 +221,8 @@ class _SliderTaxaState extends State<SliderTaxa> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

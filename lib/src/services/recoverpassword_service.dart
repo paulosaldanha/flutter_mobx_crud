@@ -1,20 +1,26 @@
 import 'dart:convert';
-import 'package:estruturabasica/src/models/recoverpassword.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
-class RecoverPasswordService {
-  String baseUrl = 'https://ecommercebank.tk/ecommerce/api/Usuario/recoverpassword';
+dynamic recoverPassword(email) async {
+  var client = http.Client();
 
-  Future<RecoverPasswordResponseModel> recoverpassword(RecoverPasswordModel requestModel) async {
-    final res = await http.post(baseUrl,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+  Map<String, Object> payload = Map();
+  payload["email"] = email;
+
+  try {
+    var response = await client.post(
+        'https://ecommercebank.tk/ecommerce/api/Usuario/recoverpassword',
+        headers: {
+          HttpHeaders.acceptHeader: 'application/json',
+          HttpHeaders.contentTypeHeader: 'application/json',
         },
-        body: jsonEncode(requestModel.toJson()));
-    if (res.statusCode == 200 || res.statusCode == 400) {
-      return RecoverPasswordResponseModel.fromJson(json.decode(res.body));
-    } else {
-      return RecoverPasswordResponseModel.fromJson(json.decode(res.body));
-    }
+        body: json.encode(payload));
+
+    return jsonDecode(response.body);
+  } catch (e) {
+    print(e);
+  } finally {
+    client.close();
   }
 }

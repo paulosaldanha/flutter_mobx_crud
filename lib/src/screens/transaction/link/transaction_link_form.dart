@@ -4,7 +4,6 @@ import 'package:estruturabasica/src/screens/transaction/link/transaction_link_fo
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,38 +15,6 @@ class TransactionLinkForm extends StatelessWidget {
   LinkController linkController = LinkController();
   TransactionLinkController transactionLinkController =
       TransactionLinkController();
-
-  List parcelas = [];
-
-  bool _validValue() {
-    String value = transactionLinkController.currentValues;
-    value = value.replaceAll(",", ".");
-    if (double.parse(value) >= 10.00) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  dynamic getParcelas(value) async {
-    dynamic taxas = await getTax(value, 3);
-    parcelas = [];
-    for (int i = 0; i < taxas.length; i++) {
-      dynamic parcela;
-      String valor = taxas[i].toStringAsFixed(2).replaceAll(".", ",");
-      if (i == 0) {
-        parcela = new List();
-        parcela.add(i + 1);
-        parcela.add("1 Parcela - R\$ $valor");
-      } else {
-        parcela = new List();
-        parcela.add(i + 1);
-        parcela.add("${i + 1} Parcelas - R\$ $valor");
-      }
-      parcelas.add(parcela);
-    }
-    return parcelas.toList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,14 +50,14 @@ class TransactionLinkForm extends StatelessWidget {
                         color: Colors.white,
                         textColor: Color.fromRGBO(0, 74, 173, 1),
                         padding: EdgeInsets.all(10.0),
-                        onPressed: _validValue()
+                        onPressed: transactionLinkController.isValid
                             ? () async {
                                 String value = transactionLinkController
                                     .currentValues
                                     .replaceAll(",", ".");
                                 linkController.link.setValue(value);
-
-                                List parcelas = await getParcelas(value);
+                                List parcelas = await transactionLinkController
+                                    .getParcelas(value);
 
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => TransactionLinkForm2(
