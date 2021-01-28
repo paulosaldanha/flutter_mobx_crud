@@ -48,10 +48,37 @@ class TransactionBoletoForm extends StatelessWidget {
                         builder: (_) {
                           return numberMaskField(
                               mask: boletoController.maskDocument,
-                              suffix: CustomIconButton(
-                                radius: 32,
-                                iconData: Icons.youtube_searched_for,
-                                onTap: boletoController.getUserThink,
+                              suffix: ClipRRect(
+                                borderRadius: BorderRadius.circular(32),
+                                child : Material(
+                                  color: Colors.transparent,
+                                  child : InkWell(
+                                    child : Container(
+                                      padding: EdgeInsets.all(5),
+                                      color:  Color.fromRGBO(0, 74, 173, 1),
+                                      height: 30,
+                                      width: 85,
+                                      child: !boletoController.loading ?Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text("Buscar",
+                                            style: TextStyle(
+                                                color: Colors.white
+                                            ),),
+                                          Icon(Icons.youtube_searched_for,
+                                              color: Colors.white)
+                                        ],
+                                      ): Center(
+                                        child: Container(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: boletoController.getUserThink,
+                                  ),
+                                ),
                               ),
                               onChanged: boletoController.boleto.setDocument,
                               errorText: boletoController.documentError);

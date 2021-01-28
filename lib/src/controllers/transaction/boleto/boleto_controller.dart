@@ -22,6 +22,9 @@ abstract class _BoletoController with Store {
   String validDate = "";
   @observable
   UserThinkdata userThink;
+  @observable
+  bool loading = false;
+
   @action
   setValidDate(value) => validDate = value;
 
@@ -30,6 +33,7 @@ abstract class _BoletoController with Store {
   bool get validDocument =>
       boleto.document != null &&
       (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document));
+
   String get documentError {
     if (boleto.document != null && boleto.document.length > 14) {
       maskDocument.updateMask(mask: "##.###.###/####-##");
@@ -52,6 +56,7 @@ abstract class _BoletoController with Store {
       boleto.name != null &&
       boleto.name.length >= 4 &&
       boleto.name.length <= 60;
+
   String get nameError {
     if (boleto.name == null || validName) {
       return null;
@@ -66,6 +71,7 @@ abstract class _BoletoController with Store {
   @computed
   bool get validDdd =>
       boleto.ddd != null && boleto.ddd.length > 0 && boleto.ddd.length < 3;
+
   String get dddError {
     if (boleto.ddd == null || validDdd) {
       return null;
@@ -79,6 +85,7 @@ abstract class _BoletoController with Store {
   @computed
   bool get validTelephone =>
       boleto.telephone != null && boleto.telephone.length == 11;
+
   String get telephoneError {
     if (boleto.telephone == null || validTelephone) {
       return null;
@@ -116,12 +123,16 @@ abstract class _BoletoController with Store {
   }
 
   Future<void> getUserThink() async {
+    loading = true;
     if (boleto.document != null &&
         (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
-      userThink = await getUserThinkData(boleto.document);
-      boleto.setDdd(userThink.ddd);
-      boleto.setNome(userThink.name);
-      boleto.setTelephone(userThink.phone);
+      getUserThinkData(boleto.document).then((value) {
+        userThink = value;
+        boleto.setDdd(userThink.ddd);
+        boleto.setNome(userThink.name);
+        boleto.setTelephone(userThink.phone);
+        loading = false;
+      });
     }
   }
 }

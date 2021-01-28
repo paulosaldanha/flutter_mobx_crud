@@ -77,6 +77,23 @@ mixin _$BoletoController on _BoletoController, Store {
     }, _$userThinkAtom, name: '${_$userThinkAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_BoletoController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$_BoletoControllerActionController =
       ActionController(name: '_BoletoController');
 

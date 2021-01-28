@@ -28,7 +28,7 @@ abstract class _UserThinkdata with Store {
       name = userThinkcpf["dadosCadastrais"] == null
           ? ""
           : userThinkcpf["dadosCadastrais"]["dc_Nome"] ?? "";
-      if (userThinkcpf["moveis"] != null && userThinkcpf["moveis"].length > 0) {
+      if (userThinkcpf["moveis"] != null && userThinkcpf["moveis"].length > 2) {
         ddd = userThinkcpf["moveis"][0]["Cd_DDD"];
         phone = userThinkcpf["moveis"][0]["Cd_Fone"];
       } else {
