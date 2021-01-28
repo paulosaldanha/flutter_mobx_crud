@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 
@@ -10,10 +11,12 @@ class BodyResponseWidget extends StatelessWidget {
   String mailShare = "";
   String wppShare = "";
 
+  TransactionService transactionService = TransactionService(Api());
+
   BodyResponseWidget(this.response, this.error, this.method);
 
   Future<dynamic> baixarBoleto() async {
-    dynamic boleto = await getBoleto(response['nossoNumero']);
+    dynamic boleto = await transactionService.getBoleto(response['nossoNumero']);
     return boleto;
   }
 

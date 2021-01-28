@@ -1,25 +1,18 @@
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 
 class HomeCard extends StatelessWidget {
   HomeController homeController = HomeController();
   var listTransaction;
-  final authController;
-
-  HomeCard(this.authController) {
-    _getList();
-  }
-
-  _getList() async {
-    listTransaction = await homeController.getWallet();
-  }
+  final authController =  GetIt.I.get<AuthController>();
 
   @override
   Widget build(BuildContext context) {
-    authController.autoLogIn(context);
     return Observer(
       builder: (_) {
         return InkWell(
@@ -94,12 +87,12 @@ class HomeCard extends StatelessWidget {
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   itemCount:
-                                                      listTransaction.length,
+                                                  homeController.transactions.length,
                                                   itemBuilder:
                                                       (BuildContext ctxt,
                                                           int index) {
                                                     return transactionChange(
-                                                        listTransaction[index]);
+                                                        homeController.transactions[index]);
                                                   },
                                                 ),
                                               ),
@@ -168,20 +161,20 @@ class HomeCard extends StatelessWidget {
           text: TextSpan(
             text: 'R\$ ',
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.green, fontSize: 15),
+                fontWeight: FontWeight.bold, color: transaction.status == 'PAGO'? Colors.green :Colors.red, fontSize: 15),
             children: <TextSpan>[
               TextSpan(
                   text: '${transaction.amount}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      color: transaction.status == 'PAGO'? Colors.green :Colors.red,
                       fontSize: 20),
                   children: [
                     TextSpan(
                         text: ' - ${transaction.status}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black38,
+                            color: transaction.status == 'PAGO'? Colors.green :Colors.red,
                             fontSize: 20))
                   ]),
             ],

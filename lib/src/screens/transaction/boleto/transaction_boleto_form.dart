@@ -58,14 +58,14 @@ class TransactionBoletoForm extends StatelessWidget {
                                       color:  Color.fromRGBO(0, 74, 173, 1),
                                       height: 30,
                                       width: 85,
-                                      child: !boletoController.loading ?Row(
+                                      child: !boletoController.loading ? Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Text("Buscar",
                                             style: TextStyle(
                                                 color: Colors.white
                                             ),),
-                                          Icon(Icons.youtube_searched_for,
+                                          Icon(Icons.search,
                                               color: Colors.white)
                                         ],
                                       ): Center(

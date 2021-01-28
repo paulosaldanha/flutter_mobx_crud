@@ -9,6 +9,7 @@ class TransactionListComboController = _TransactionListComboController
 
 abstract class _TransactionListComboController with Store {
   _TransactionListComboController();
+  TaxMethodPaymentService taxMethodPaymentService = TaxMethodPaymentService();
 
   @observable
   List<Tax> amountValuesCreditCardList;
@@ -37,7 +38,7 @@ abstract class _TransactionListComboController with Store {
   getTaxCredit(currentValues) {
     loading = true;
     amountValuesCreditCardList = List();
-    TaxMethodPaymentService.convertCurrentValueAndAmountCredit(currentValues)
+    taxMethodPaymentService.convertCurrentValueAndAmountCredit(currentValues)
         .then((v) {
       var listTax = new List<double>.from(v);
       for (var i = 0; i < listTax.length; i++) {
@@ -62,7 +63,7 @@ abstract class _TransactionListComboController with Store {
   @action
   getTaxDebit(currentValues) {
     amountValuesDebitCardList = List();
-    TaxMethodPaymentService.convertCurrentValueAndAmountDebit(currentValues)
+    taxMethodPaymentService.convertCurrentValueAndAmountDebit(currentValues)
         .then((v) {
       var listTax = new List<double>.from(v);
       amountValuesDebitCardList

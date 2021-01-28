@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/models/boleto.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
@@ -10,6 +11,7 @@ class TransactionBoletoController = _TransactionBoletoController
 
 abstract class _TransactionBoletoController with Store {
   Boleto transactionBoleto = Boleto();
+  TransactionService transactionService = TransactionService(Api());
 
   _TransactionBoletoController();
 
@@ -37,7 +39,7 @@ abstract class _TransactionBoletoController with Store {
             TaxMethodPaymentService.convertToString(currentValuesList);
         String newValue = currentValues.replaceAll(",", ".");
         if (double.parse(newValue) > 0) {
-          dynamic taxa = await getTax(newValue, 1);
+          dynamic taxa = await transactionService.getTax(newValue, 1);
           setCurrentValueTax(taxa[0]);
         } else {
           setCurrentValueTax(0.00);
@@ -64,7 +66,7 @@ abstract class _TransactionBoletoController with Store {
     currentValues = TaxMethodPaymentService.convertToString(currentValuesList);
     String newValue = currentValues.replaceAll(",", ".");
     if (double.parse(newValue) > 0) {
-      dynamic taxa = await getTax(newValue, 1);
+      dynamic taxa = await transactionService.getTax(newValue, 1);
       setCurrentValueTax(taxa[0]);
     } else {
       setCurrentValueTax(0.00);

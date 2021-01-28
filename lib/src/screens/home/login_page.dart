@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth/login_controller.dart';
@@ -19,11 +20,28 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    disposer = reaction((_) => authControllerNew.auth.isLogged, (auth) {
-      if (auth) {
+    disposer = reaction((_) => authControllerNew.request.status, (_) async {
+      if (authControllerNew.request?.status == FutureStatus.fulfilled) {
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       }
+      if (authControllerNew.request?.status == FutureStatus.rejected) {
+        showLoginError(authControllerNew.request.error);
+      }
     });
+  }
+
+  showLoginError(dynamic error) {
+    String message = "Ocorreu um erro, por favor tente novamente mais tarde.";
+    if (error is DioError) {
+      if (error.response.statusCode == 401) {
+        if (error.response.data['error'] != null) {
+          message = error.response.data['error'];
+        }
+      }
+    }
+    showDialog(
+        context: context,
+        child: AlertDialog(title: Text("Atenção!"), content: Text(message)));
   }
 
   @override
@@ -119,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Color.fromRGBO(0, 74, 173, 1),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)),
-                              child: authControllerNew.loading
+                              child: authControllerNew.isLoading
                                   ? Center(
                                       child: SizedBox(
                                       child: CircularProgressIndicator(),
@@ -225,7 +243,3 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 }
-
-
-
-

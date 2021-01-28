@@ -1,8 +1,7 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:estruturabasica/src/util/authMap.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'auth_controller.g.dart';
@@ -20,7 +19,7 @@ abstract class _AuthController with Store {
   @observable
   Auth auth = Auth();
 
-  AuthService service = AuthService();
+  AuthService service = AuthService(Api());
 
   @action
   Future<bool> checkIfIsLogged() async {
@@ -34,14 +33,14 @@ abstract class _AuthController with Store {
     auth.isLogged = await AuthService.logout();
   }
 
-  void autoLogIn(context) async {
-    await checkIfIsLogged().then((value) {
-      if (value == false) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('login', (route) => false);
-      }
-    });
-  }
+  // void autoLogIn(context) async {
+  //   await checkIfIsLogged().then((value) {
+  //     if (value == false) {
+  //       Navigator.of(context)
+  //           .pushNamedAndRemoveUntil('login', (route) => false);
+  //     }
+  //   });
+  // }
 
    void getAuth() async {
     auth = await AuthMap.getAuthMap();

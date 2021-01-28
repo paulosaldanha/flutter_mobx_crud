@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/models/transaction.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
@@ -6,8 +7,12 @@ part 'home_controller.g.dart';
 
 class HomeController = _HomeController with _$HomeController;
 
+ final TransactionService transactionService = TransactionService(Api());
+
 abstract class _HomeController with Store {
-  _HomeController();
+  _HomeController(){
+    getWallet();
+  }
 
   @observable
   double sizeCard = 200;
@@ -16,7 +21,7 @@ abstract class _HomeController with Store {
   String walletValue;
 
   @observable
-  List<Transaction> transactions = List();
+  ObservableList<Transaction> transactions = ObservableList<Transaction>();
 
   @action
   setSizeCard() {
@@ -27,8 +32,8 @@ abstract class _HomeController with Store {
     }
   }
 
-  Future<dynamic> getWallet() async {
-    var res = await getWalletValue();
+  Future<void> getWallet() async {
+    var res = await transactionService.getWalletValue();
     if (res == 'false') {
       return res;
     }
@@ -37,6 +42,5 @@ abstract class _HomeController with Store {
     res['ultimasTransacoes'].forEach((element) {
       transactions.add(Transaction.fromMap(element));
     });
-    return transactions;
   }
 }

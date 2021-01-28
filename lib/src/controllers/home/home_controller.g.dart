@@ -46,14 +46,14 @@ mixin _$HomeController on _HomeController, Store {
   final _$transactionsAtom = Atom(name: '_HomeController.transactions');
 
   @override
-  List<Transaction> get transactions {
+  ObservableList<Transaction> get transactions {
     _$transactionsAtom.context.enforceReadPolicy(_$transactionsAtom);
     _$transactionsAtom.reportObserved();
     return super.transactions;
   }
 
   @override
-  set transactions(List<Transaction> value) {
+  set transactions(ObservableList<Transaction> value) {
     _$transactionsAtom.context.conditionallyRunInAction(() {
       super.transactions = value;
       _$transactionsAtom.reportChanged();

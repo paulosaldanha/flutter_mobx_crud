@@ -29,7 +29,7 @@ Future<int> showAlertConfirmListCombo(BuildContext context, String title,
     content: Observer(
       builder: (context) {
         final authController = AuthController();
-        authController.autoLogIn(context);
+        // authController.autoLogIn(context);
         return transaction.loading
             ? Container(
                 height: 70,

@@ -30,6 +30,7 @@ abstract class _TransactionOnlineController with Store {
   @computed
   bool get validName =>
       transactionOnline.name != null && transactionOnline.name.length >= 3;
+
   String get nameError {
     if (transactionOnline.name == null || validName) {
       return null;
@@ -47,6 +48,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.email.length > 3 &&
       transactionOnline.email.contains("@") &&
       transactionOnline.email.contains(".");
+
   String get emailError {
     if (transactionOnline.email == null || validEmail) {
       return null;
@@ -63,6 +65,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.document != null &&
       (CPF.isValid(transactionOnline.document) ||
           CNPJ.isValid(transactionOnline.document));
+
   String get documentError {
     if (transactionOnline.document == null ||
         transactionOnline.document.length <= 14) {
@@ -86,6 +89,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.ddd != null &&
       transactionOnline.ddd.length > 0 &&
       transactionOnline.ddd.length < 3;
+
   String get dddError {
     if (transactionOnline.ddd == null || validDdd) {
       return null;
@@ -99,7 +103,8 @@ abstract class _TransactionOnlineController with Store {
   // Validação de Telefone
   bool get validTelephone =>
       transactionOnline.telephone != null &&
-      transactionOnline.telephone.length == 11;
+      transactionOnline.telephone.length >= 8;
+
   String get telephoneError {
     if (transactionOnline.telephone == null || validTelephone) {
       return null;
@@ -117,6 +122,7 @@ abstract class _TransactionOnlineController with Store {
   bool get validCardName =>
       transactionOnline.cardName != null &&
       transactionOnline.cardName.isNotEmpty;
+
   String get cardNameError {
     if (transactionOnline.cardName == null || validCardName) {
       return null;
@@ -131,6 +137,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.cardNumber != null &&
       transactionOnline.cardNumber.length > 16 &&
       transactionOnline.cardNumber.length < 20;
+
   String get cardNumberError {
     if (transactionOnline.cardNumber == null || validCardNumber) {
       return null;
@@ -147,6 +154,7 @@ abstract class _TransactionOnlineController with Store {
   bool get validCardDateExpiration =>
       transactionOnline.cardDateExpiration != null &&
       transactionOnline.cardDateExpiration.length == 5;
+
   String get dateExpirationError {
     if (transactionOnline.cardDateExpiration == null ||
         validCardDateExpiration) {
@@ -165,6 +173,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.cardCVV != null &&
       transactionOnline.cardCVV.length > 2 &&
       transactionOnline.cardCVV.length < 5;
+
   String get cardCVVError {
     if (transactionOnline.cardCVV == null || validCardCVV) {
       return null;
@@ -199,13 +208,17 @@ abstract class _TransactionOnlineController with Store {
   }
 
   Future<void> getUserThink() async {
+    loading = true;
     if (transactionOnline.document != null &&
         (CPF.isValid(transactionOnline.document) ||
             CNPJ.isValid(transactionOnline.document))) {
-      userThink = await getUserThinkData(transactionOnline.document);
-      transactionOnline.setDdd(userThink.ddd);
-      transactionOnline.setNome(userThink.name);
-      transactionOnline.setTelephone(userThink.phone);
+      getUserThinkData(transactionOnline.document).then((value) {
+        userThink = value;
+        transactionOnline.setDdd(userThink.ddd);
+        transactionOnline.setNome(userThink.name);
+        transactionOnline.setTelephone(userThink.phone);
+        loading = false;
+      });
     }
   }
 }

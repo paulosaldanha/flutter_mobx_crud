@@ -1,14 +1,14 @@
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 
 class Account extends StatelessWidget {
   final accountController = AccountController();
-  final authController;
-
-  Account(this.authController);
+  final authController = GetIt.I.get<AuthController>();
 
   @override
   Widget build(BuildContext context) {

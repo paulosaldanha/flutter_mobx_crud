@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
@@ -9,6 +10,7 @@ class LinkController = _LinkController with _$LinkController;
 abstract class _LinkController with Store {
   _LinkController();
 
+  TransactionService transactionService = TransactionService(Api());
   var link = TransactionLink();
 
   @observable
@@ -63,6 +65,6 @@ abstract class _LinkController with Store {
   }
 
   dynamic createTransctionLink() async {
-    return createTransactionLink(link);
+    return transactionService.createTransactionLink(link);
   }
 }

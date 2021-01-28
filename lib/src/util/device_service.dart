@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:estruturabasica/src/util/authMap.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
-import '../services/transaction_service.dart' as transaction;
 import 'package:flutter/material.dart';
 
 class DeviceService {
@@ -16,6 +17,8 @@ class DeviceService {
   //PROD.
   String apiKey = 'ak_live_ziZ8rx6kvDtbeedxRAJtA9Yyc5sAZk';
   String encryptionKey = 'ek_live_MVoijflgvJcm7Nz2RHiyoCwuvogLqo';
+
+  TransactionService transactionService = TransactionService(Api());
 
   PagarmeMpos mpos = new PagarmeMpos();
   String transactionStatus;
@@ -160,7 +163,7 @@ class DeviceService {
     metadata["ecommerce_bank"] = metadata1;
 
     try {
-      dynamic mposTransaction = await transaction.createTransaction({
+      dynamic mposTransaction = await transactionService.createTransaction({
         'amount': amount.toString(),
         'installments': installments.toString(),
         'api_key': this.apiKey,

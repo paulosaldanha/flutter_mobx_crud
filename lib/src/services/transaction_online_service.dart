@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:estruturabasica/src/models/transaction_online.dart';
 
 class TransactionOnlineService {
   dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
-    String barer_token = await AuthService().checkIfUserIsLoggedIn();
+    String barer_token = await AuthService(Api()).checkIfUserIsLoggedIn();
 
     var client = http.Client();
 

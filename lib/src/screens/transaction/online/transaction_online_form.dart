@@ -38,10 +38,37 @@ class TransactionOnlineForm extends StatelessWidget {
                 builder: (_) {
                   return numberMaskField(
                     mask: transactionOnlineController.maskDocument,
-                    suffix: CustomIconButton(
-                      radius: 32,
-                      iconData: Icons.search,
-                      onTap: transactionOnlineController.getUserThink,
+                    suffix: ClipRRect(
+                      borderRadius: BorderRadius.circular(32),
+                      child : Material(
+                        color: Colors.transparent,
+                        child : InkWell(
+                          child : Container(
+                            padding: EdgeInsets.all(5),
+                            color:  Color.fromRGBO(0, 74, 173, 1),
+                            height: 30,
+                            width: 85,
+                            child: !transactionOnlineController.loading ?Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text("Buscar",
+                                  style: TextStyle(
+                                      color: Colors.white
+                                  ),),
+                                Icon(Icons.search,
+                                    color: Colors.white)
+                              ],
+                            ): Center(
+                              child: Container(
+                                height: 15,
+                                width: 15,
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ),
+                          onTap: transactionOnlineController.getUserThink,
+                        ),
+                      ),
                     ),
                     onChanged: transactionOnlineController
                         .transactionOnline.setDocument,

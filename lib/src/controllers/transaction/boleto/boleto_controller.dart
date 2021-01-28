@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -15,6 +16,8 @@ abstract class _BoletoController with Store {
   _BoletoController();
 
   Boleto boleto = Boleto();
+
+  TransactionService transactionService = TransactionService(Api());
 
   MaskTextInputFormatter maskDocument = maskCpf();
 
@@ -84,7 +87,7 @@ abstract class _BoletoController with Store {
   // Validação de Telephone
   @computed
   bool get validTelephone =>
-      boleto.telephone != null && boleto.telephone.length == 11;
+      boleto.telephone != null && boleto.telephone.length >= 8;
 
   String get telephoneError {
     if (boleto.telephone == null || validTelephone) {
@@ -119,7 +122,7 @@ abstract class _BoletoController with Store {
   }
 
   dynamic createTransctionBoleto() async {
-    return createTransactionBoleto(boleto);
+    return transactionService.createTransactionBoleto(boleto);
   }
 
   Future<void> getUserThink() async {
