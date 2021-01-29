@@ -17,6 +17,8 @@ abstract class _BoletoController with Store {
 
   Boleto boleto = Boleto();
 
+  ThinkDataService thinkDataService = ThinkDataService(Api());
+
   TransactionService transactionService = TransactionService(Api());
 
   MaskTextInputFormatter maskDocument = maskCpf();
@@ -25,8 +27,10 @@ abstract class _BoletoController with Store {
   String validDate = "";
   @observable
   UserThinkdata userThink;
+  @computed
+  bool get isLoadingRequestUserThink => requestUserThink.status == FutureStatus.pending;
   @observable
-  bool loading = false;
+  ObservableFuture<UserThinkdata> requestUserThink = ObservableFuture.value(null);
 
   @action
   setValidDate(value) => validDate = value;
@@ -126,16 +130,16 @@ abstract class _BoletoController with Store {
   }
 
   Future<void> getUserThink() async {
-    loading = true;
     if (boleto.document != null &&
         (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
-      getUserThinkData(boleto.document).then((value) {
-        userThink = value;
-        boleto.setDdd(userThink.ddd);
-        boleto.setNome(userThink.name);
-        boleto.setTelephone(userThink.phone);
-        loading = false;
-      });
+      requestUserThink = thinkDataService.getUserThinkData(boleto.document).asObservable();
+
+      // thinkDataService.getUserThinkData(boleto.document).then((value) {
+      //   userThink = value;
+      //   boleto.setDdd(userThink.ddd);
+      //   boleto.setNome(userThink.name);
+      //   boleto.setTelephone(userThink.phone);
+      // });
     }
   }
 }

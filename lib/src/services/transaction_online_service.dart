@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/services/auth_service.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/models/transaction_online.dart';
 
 class TransactionOnlineService {
-  dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
-    String barer_token = await AuthService(Api()).checkIfUserIsLoggedIn();
+  final Dio dio;
+  TransactionOnlineService(this.dio);
 
-    var client = http.Client();
+  dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
 
     Map<String, Object> payload = Map();
     payload["nome"] = trasactiononline.name;
@@ -26,35 +22,23 @@ class TransactionOnlineService {
     payload["valor"] = trasactiononline.value;
 
     try {
-      var response = await client.post(
-          'http://ecommercebank.tk/ecommerce/api/Transacao/cartao',
-          headers: {
-            HttpHeaders.acceptHeader: 'application/json',
-            HttpHeaders.contentTypeHeader: 'application/json',
-            HttpHeaders.authorizationHeader: 'Bearer ${barer_token}'
-          },
-          body: jsonEncode(payload));
-      var res = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        return res;
-      }
-      if (response.statusCode == 401) {
-        return await AuthService.logout();
-      }
-      if (response.statusCode == 400) {
-        res['errors'].forEach((f) {
-          print(f['field']);
-          print(f['errorDescription']);
-        });
-        return res;
-      }
-      if (response.statusCode == 422) {
-        return res;
-      }
+      var response = await dio.post(
+          '/Transacao/cartao',
+          data: jsonEncode(payload));
+     return response.data;
+
+      // if (response.statusCode == 400) {
+      //   res['errors'].forEach((f) {
+      //     print(f['field']);
+      //     print(f['errorDescription']);
+      //   });
+      //   return res;
+      // }
+      // if (response.statusCode == 422) {
+      //   return res;
+      // }
     } catch (e) {
-      print(e);
-    } finally {
-      client.close();
+      rethrow;
     }
   }
 }

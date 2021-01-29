@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
 import 'package:estruturabasica/src/components/fields.dart';
@@ -7,12 +8,48 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobx/mobx.dart';
 
 // ignore: must_be_immutable
-class TransactionBoletoForm extends StatelessWidget {
+class TransactionBoletoForm extends StatefulWidget {
+  @override
+  _TransactionBoletoFormState createState() => _TransactionBoletoFormState();
+}
+
+class _TransactionBoletoFormState extends State<TransactionBoletoForm> {
   BoletoController boletoController = BoletoController();
 
-  TransactionBoletoForm();
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => boletoController.requestUserThink.status, (_) async {
+      if (boletoController.requestUserThink?.status == FutureStatus.fulfilled) {
+        boletoController.userThink = boletoController.requestUserThink.value;
+        boletoController.boleto.setDdd(boletoController.requestUserThink.value.ddd);
+        boletoController.boleto.setNome(boletoController.requestUserThink.value.name);
+        boletoController.boleto.setTelephone(boletoController.requestUserThink.value.phone);
+      }
+      if (boletoController.requestUserThink?.status == FutureStatus.rejected) {
+        showLoginError(boletoController.requestUserThink.error);
+      }
+    });
+  }
+
+  showLoginError(dynamic error) {
+    String message = "Ocorreu um erro, por favor tente novamente mais tarde.";
+    if (error is DioError) {
+      if (error.response.statusCode == 401) {
+        if (error.response.data['error'] != null) {
+          message = error.response.data['error'];
+        }
+      }
+    }
+    showDialog(
+        context: context,
+        child: AlertDialog(title: Text("Atenção!"), content: Text(message)));
+  }
 
   MaskTextInputFormatter maskDDD = maskDdd();
   MaskTextInputFormatter maskTelephone = maskPhone();
@@ -58,7 +95,7 @@ class TransactionBoletoForm extends StatelessWidget {
                                       color:  Color.fromRGBO(0, 74, 173, 1),
                                       height: 30,
                                       width: 85,
-                                      child: !boletoController.loading ? Row(
+                                      child: !boletoController.isLoadingRequestUserThink ? Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Text("Buscar",

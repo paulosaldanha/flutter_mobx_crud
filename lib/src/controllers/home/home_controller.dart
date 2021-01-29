@@ -1,5 +1,5 @@
 import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/models/transaction.dart';
+import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,11 +17,12 @@ abstract class _HomeController with Store {
   @observable
   double sizeCard = 200;
 
-  @observable
-  String walletValue;
+
+  @computed
+  bool get isLoading => request.status == FutureStatus.pending;
 
   @observable
-  ObservableList<Transaction> transactions = ObservableList<Transaction>();
+  ObservableFuture<TransactionWalletDto> request = ObservableFuture.value(null);
 
   @action
   setSizeCard() {
@@ -33,14 +34,14 @@ abstract class _HomeController with Store {
   }
 
   Future<void> getWallet() async {
-    var res = await transactionService.getWalletValue();
-    if (res == 'false') {
-      return res;
+    try{
+      request = transactionService
+          .getWalletValue()
+          .asObservable();
+
+    }catch(e){
+      print(e);
     }
-    walletValue =
-        res['montanteCarteira'].toStringAsFixed(2).replaceAll('.', ',');
-    res['ultimasTransacoes'].forEach((element) {
-      transactions.add(Transaction.fromMap(element));
-    });
+
   }
 }

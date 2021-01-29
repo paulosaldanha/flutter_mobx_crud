@@ -14,7 +14,6 @@ class DefaultInterceptor implements Interceptor {
     if (!containsPath) {
       final token = await _tokenStore.read();
       return options..headers["Authorization"] = "Bearer $token";
-      // return options..headers["Authorization"] = token;
     }
     return options;
   }

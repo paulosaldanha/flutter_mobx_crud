@@ -19,3 +19,5 @@ const String SplashArt = 'splash';
 const String RecoverPasswordPageRoute = 'recoverpassword';
 //Account
 const String AccountPage = 'conta';
+//wifiOff
+const String WifiOffPage = 'wifioff';

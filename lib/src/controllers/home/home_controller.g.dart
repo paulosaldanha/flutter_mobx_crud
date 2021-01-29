@@ -9,6 +9,12 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeController, Store {
+  Computed<bool> _$isLoadingComputed;
+
+  @override
+  bool get isLoading =>
+      (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading)).value;
+
   final _$sizeCardAtom = Atom(name: '_HomeController.sizeCard');
 
   @override
@@ -26,38 +32,21 @@ mixin _$HomeController on _HomeController, Store {
     }, _$sizeCardAtom, name: '${_$sizeCardAtom.name}_set');
   }
 
-  final _$walletValueAtom = Atom(name: '_HomeController.walletValue');
+  final _$requestAtom = Atom(name: '_HomeController.request');
 
   @override
-  String get walletValue {
-    _$walletValueAtom.context.enforceReadPolicy(_$walletValueAtom);
-    _$walletValueAtom.reportObserved();
-    return super.walletValue;
+  ObservableFuture<TransactionWalletDto> get request {
+    _$requestAtom.context.enforceReadPolicy(_$requestAtom);
+    _$requestAtom.reportObserved();
+    return super.request;
   }
 
   @override
-  set walletValue(String value) {
-    _$walletValueAtom.context.conditionallyRunInAction(() {
-      super.walletValue = value;
-      _$walletValueAtom.reportChanged();
-    }, _$walletValueAtom, name: '${_$walletValueAtom.name}_set');
-  }
-
-  final _$transactionsAtom = Atom(name: '_HomeController.transactions');
-
-  @override
-  ObservableList<Transaction> get transactions {
-    _$transactionsAtom.context.enforceReadPolicy(_$transactionsAtom);
-    _$transactionsAtom.reportObserved();
-    return super.transactions;
-  }
-
-  @override
-  set transactions(ObservableList<Transaction> value) {
-    _$transactionsAtom.context.conditionallyRunInAction(() {
-      super.transactions = value;
-      _$transactionsAtom.reportChanged();
-    }, _$transactionsAtom, name: '${_$transactionsAtom.name}_set');
+  set request(ObservableFuture<TransactionWalletDto> value) {
+    _$requestAtom.context.conditionallyRunInAction(() {
+      super.request = value;
+      _$requestAtom.reportChanged();
+    }, _$requestAtom, name: '${_$requestAtom.name}_set');
   }
 
   final _$_HomeControllerActionController =

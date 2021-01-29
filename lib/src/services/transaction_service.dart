@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:estruturabasica/src/models/boleto.dart';
@@ -29,11 +30,11 @@ class TransactionService {
     }
   }
 
-  dynamic getWalletValue() async {
+  Future<TransactionWalletDto> getWalletValue() async {
     try {
       var response =
           await dio.post('/home/painel', data:'');
-      return response.data;
+      return TransactionWalletDto.fromMap(response.data);
     } catch (e) {
       rethrow;
     }

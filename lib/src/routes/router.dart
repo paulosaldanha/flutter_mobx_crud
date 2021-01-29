@@ -4,6 +4,7 @@ import 'package:estruturabasica/src/screens/home/recover_password.dart';
 import 'package:estruturabasica/src/routes/routing_constants.dart';
 import 'package:estruturabasica/src/screens/home/splash.dart';
 import 'package:estruturabasica/src/screens/home/register/fast_register.dart';
+import 'package:estruturabasica/src/screens/home/wifi_off.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
 import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
@@ -45,6 +46,9 @@ RouteFactory rotas() {
         break;
       case SplashArt:
         screen = Splash();
+        break;
+      case WifiOffPage:
+        screen = WifiOff();
         break;
       default:
         screen = MyHomePage(title: "EcommerceBank Pay");

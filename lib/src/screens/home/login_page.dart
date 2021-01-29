@@ -45,6 +45,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(body: Builder(builder: (context) {
       return Form(
@@ -235,11 +241,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     }));
-  }
-
-  @override
-  void dispose() {
-    disposer();
-    super.dispose();
   }
 }

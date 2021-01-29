@@ -9,6 +9,12 @@ part of 'boleto_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$BoletoController on _BoletoController, Store {
+  Computed<bool> _$isLoadingRequestUserThinkComputed;
+
+  @override
+  bool get isLoadingRequestUserThink => (_$isLoadingRequestUserThinkComputed ??=
+          Computed<bool>(() => super.isLoadingRequestUserThink))
+      .value;
   Computed<bool> _$validDocumentComputed;
 
   @override
@@ -77,21 +83,22 @@ mixin _$BoletoController on _BoletoController, Store {
     }, _$userThinkAtom, name: '${_$userThinkAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_BoletoController.loading');
+  final _$requestUserThinkAtom =
+      Atom(name: '_BoletoController.requestUserThink');
 
   @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
+  ObservableFuture<UserThinkdata> get requestUserThink {
+    _$requestUserThinkAtom.context.enforceReadPolicy(_$requestUserThinkAtom);
+    _$requestUserThinkAtom.reportObserved();
+    return super.requestUserThink;
   }
 
   @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  set requestUserThink(ObservableFuture<UserThinkdata> value) {
+    _$requestUserThinkAtom.context.conditionallyRunInAction(() {
+      super.requestUserThink = value;
+      _$requestUserThinkAtom.reportChanged();
+    }, _$requestUserThinkAtom, name: '${_$requestUserThinkAtom.name}_set');
   }
 
   final _$_BoletoControllerActionController =

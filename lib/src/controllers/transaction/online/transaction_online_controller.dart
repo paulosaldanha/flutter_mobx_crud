@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -15,8 +16,9 @@ class TransactionOnlineController = _TransactionOnlineController
 abstract class _TransactionOnlineController with Store {
   _TransactionOnlineController();
 
+  ThinkDataService thinkDataService = ThinkDataService(Api());
   var transactionOnline = TransactionOnline();
-  var service = TransactionOnlineService();
+  var service = TransactionOnlineService(Api());
 
   @observable
   UserThinkdata userThink;
@@ -212,7 +214,7 @@ abstract class _TransactionOnlineController with Store {
     if (transactionOnline.document != null &&
         (CPF.isValid(transactionOnline.document) ||
             CNPJ.isValid(transactionOnline.document))) {
-      getUserThinkData(transactionOnline.document).then((value) {
+      thinkDataService.getUserThinkData(transactionOnline.document).then((value) {
         userThink = value;
         transactionOnline.setDdd(userThink.ddd);
         transactionOnline.setNome(userThink.name);
