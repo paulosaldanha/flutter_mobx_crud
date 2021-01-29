@@ -15,6 +15,12 @@ mixin _$BoletoController on _BoletoController, Store {
   bool get isLoadingRequestUserThink => (_$isLoadingRequestUserThinkComputed ??=
           Computed<bool>(() => super.isLoadingRequestUserThink))
       .value;
+  Computed<bool> _$isLoadingRequestCreateComputed;
+
+  @override
+  bool get isLoadingRequestCreate => (_$isLoadingRequestCreateComputed ??=
+          Computed<bool>(() => super.isLoadingRequestCreate))
+      .value;
   Computed<bool> _$validDocumentComputed;
 
   @override
@@ -99,6 +105,23 @@ mixin _$BoletoController on _BoletoController, Store {
       super.requestUserThink = value;
       _$requestUserThinkAtom.reportChanged();
     }, _$requestUserThinkAtom, name: '${_$requestUserThinkAtom.name}_set');
+  }
+
+  final _$requestCreateAtom = Atom(name: '_BoletoController.requestCreate');
+
+  @override
+  ObservableFuture<TransactionBoletoDto> get requestCreate {
+    _$requestCreateAtom.context.enforceReadPolicy(_$requestCreateAtom);
+    _$requestCreateAtom.reportObserved();
+    return super.requestCreate;
+  }
+
+  @override
+  set requestCreate(ObservableFuture<TransactionBoletoDto> value) {
+    _$requestCreateAtom.context.conditionallyRunInAction(() {
+      super.requestCreate = value;
+      _$requestCreateAtom.reportChanged();
+    }, _$requestCreateAtom, name: '${_$requestCreateAtom.name}_set');
   }
 
   final _$_BoletoControllerActionController =

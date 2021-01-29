@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_boleto_dto.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -27,10 +28,19 @@ abstract class _BoletoController with Store {
   String validDate = "";
   @observable
   UserThinkdata userThink;
+
   @computed
-  bool get isLoadingRequestUserThink => requestUserThink.status == FutureStatus.pending;
+  bool get isLoadingRequestUserThink =>
+      requestUserThink.status == FutureStatus.pending;
   @observable
-  ObservableFuture<UserThinkdata> requestUserThink = ObservableFuture.value(null);
+  ObservableFuture<UserThinkdata> requestUserThink =
+      ObservableFuture.value(null);
+
+  @computed
+  bool get isLoadingRequestCreate =>
+      requestCreate.status == FutureStatus.pending;
+  @observable
+  ObservableFuture<TransactionBoletoDto> requestCreate = ObservableFuture.value(null);
 
   @action
   setValidDate(value) => validDate = value;
@@ -125,21 +135,24 @@ abstract class _BoletoController with Store {
         validateDateExpiration;
   }
 
-  dynamic createTransctionBoleto() async {
-    return transactionService.createTransactionBoleto(boleto);
+  void createTransctionBoleto() async {
+    try {
+      requestCreate =
+          transactionService.createTransactionBoleto(boleto).asObservable();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getUserThink() async {
-    if (boleto.document != null &&
-        (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
-      requestUserThink = thinkDataService.getUserThinkData(boleto.document).asObservable();
-
-      // thinkDataService.getUserThinkData(boleto.document).then((value) {
-      //   userThink = value;
-      //   boleto.setDdd(userThink.ddd);
-      //   boleto.setNome(userThink.name);
-      //   boleto.setTelephone(userThink.phone);
-      // });
+    try {
+      if (boleto.document != null &&
+          (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
+        requestUserThink =
+            thinkDataService.getUserThinkData(boleto.document).asObservable();
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

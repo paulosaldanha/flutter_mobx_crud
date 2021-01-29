@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -26,25 +27,9 @@ class _HomeCardState extends State<HomeCard> {
     super.didChangeDependencies();
     disposer = reaction((_) => homeController.request.status, (_) async {
       if (homeController.request?.status == FutureStatus.rejected) {
-        showLoginError(homeController.request.error);
+        showError(homeController.request.error, context);
       }
     });
-  }
-
-  showLoginError(dynamic error) {
-    String message = "Ocorreu um erro, por favor tente novamente mais tarde.";
-    if (error is DioError) {
-      if (error.response.statusCode == 401) {
-        authController.logout();
-        Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
-        if (error.response.data['error'] != null) {
-          message = error.response.data['error'];
-        }
-      }
-    }
-    showDialog(
-        context: context,
-        child: AlertDialog(title: Text("Atenção!"), content: Text(message)));
   }
 
   @override

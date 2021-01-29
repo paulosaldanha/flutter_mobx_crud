@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth/login_controller.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -25,23 +26,9 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       }
       if (authControllerNew.request?.status == FutureStatus.rejected) {
-        showLoginError(authControllerNew.request.error);
+        showError(authControllerNew.request.error, context);
       }
     });
-  }
-
-  showLoginError(dynamic error) {
-    String message = "Ocorreu um erro, por favor tente novamente mais tarde.";
-    if (error is DioError) {
-      if (error.response.statusCode == 401) {
-        if (error.response.data['error'] != null) {
-          message = error.response.data['error'];
-        }
-      }
-    }
-    showDialog(
-        context: context,
-        child: AlertDialog(title: Text("Atenção!"), content: Text(message)));
   }
 
   @override

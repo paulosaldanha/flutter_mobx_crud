@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_boleto_dto.dart';
 import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
@@ -32,38 +33,24 @@ class TransactionService {
 
   Future<TransactionWalletDto> getWalletValue() async {
     try {
-      var response =
-          await dio.post('/home/painel', data:'');
+      var response = await dio.post('/home/painel', data: '');
       return TransactionWalletDto.fromMap(response.data);
     } catch (e) {
       rethrow;
     }
   }
 
-  dynamic createTransactionBoleto(Boleto boleto) async {
-
-    Map<String, Object> payload = Map();
-    payload["nome"] = boleto.name;
-    payload["documento"] = boleto.document;
-    payload["ddd"] = boleto.ddd;
-    payload["telefone"] = boleto.telephone;
-    payload["valor"] = boleto.value;
-    payload["vencimento"] = boleto.dateExpiration.toString();
-    payload["mensagem"] = boleto.message;
-
+  Future<TransactionBoletoDto> createTransactionBoleto(Boleto boleto) async {
     try {
-      var response = await  dio.post(
-          '/Transacao/boleto',
-          data: jsonEncode(payload));
+      var response = await dio.post('/Transacao/boleto',
+          data: TransactionBoletoDto.fromMapBolete(boleto).toJson());
       return response.data;
     } catch (e) {
       rethrow;
     }
-
   }
 
   dynamic createTransactionLink(TransactionLink link) async {
-
     Map<String, Object> payload = Map();
     payload["nome"] = link.name;
     payload["valor"] = link.value;
@@ -71,9 +58,7 @@ class TransactionService {
     payload["dataExpiracao"] = link.dateExpiration.toString();
 
     try {
-      var response = await  dio.post(
-          'TransacaoLink',
-         data: jsonEncode(payload));
+      var response = await dio.post('TransacaoLink', data: jsonEncode(payload));
       return response.data;
     } catch (e) {
       rethrow;
@@ -89,9 +74,8 @@ class TransactionService {
     payload["token"] = bearerToken;
 
     try {
-      var response = await dio.post(
-          '/Transacao/calculo',
-          data: jsonEncode(payload));
+      var response =
+          await dio.post('/Transacao/calculo', data: jsonEncode(payload));
       return response.data;
     } catch (e) {
       rethrow;
@@ -102,7 +86,7 @@ class TransactionService {
     try {
       var response = await dio.get('/transacao/boleto/$nossoNumero');
       return response.data;
-    } catch(e){
+    } catch (e) {
       rethrow;
     }
   }
