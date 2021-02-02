@@ -1,59 +1,20 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:estruturabasica/src/services/auth_service.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:estruturabasica/src/dto/transaction_online_dto.dart';
 import 'package:estruturabasica/src/models/transaction_online.dart';
 
 class TransactionOnlineService {
-  dynamic createTransactionOnline(TransactionOnline trasactiononline) async {
-    String barer_token = await AuthService().checkIfUserIsLoggedIn();
+  final Dio dio;
+  TransactionOnlineService(this.dio);
 
-    var client = http.Client();
-
-    Map<String, Object> payload = Map();
-    payload["nome"] = trasactiononline.name;
-    payload["email"] = trasactiononline.email;
-    payload["documento"] = trasactiononline.document;
-    payload["ddd"] = trasactiononline.ddd;
-    payload["telefone"] = trasactiononline.telephone;
-    payload["dataExpiracaoCartao"] = trasactiononline.cardDateExpiration;
-    payload["parcelas"] = trasactiononline.installments;
-    payload["numeroCartao"] = trasactiononline.cardNumber;
-    payload["nomeCartao"] = trasactiononline.cardName;
-    payload["cvvCartao"] = trasactiononline.cardCVV;
-    payload["valor"] = trasactiononline.value;
-
+  Future<TransactionOnlineDto> createTransactionOnline(TransactionOnline trasactiononline) async {
     try {
-      var response = await client.post(
-          'http://ecommercebank.tk/ecommerce/api/Transacao/cartao',
-          headers: {
-            HttpHeaders.acceptHeader: 'application/json',
-            HttpHeaders.contentTypeHeader: 'application/json',
-            HttpHeaders.authorizationHeader: 'Bearer ${barer_token}'
-          },
-          body: jsonEncode(payload));
-      var res = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        return res;
-      }
-      if (response.statusCode == 401) {
-        return await AuthService.logout();
-      }
-      if (response.statusCode == 400) {
-        res['errors'].forEach((f) {
-          print(f['field']);
-          print(f['errorDescription']);
-        });
-        return res;
-      }
-      if (response.statusCode == 422) {
-        return res;
-      }
+      var response = await dio.post(
+          '/Transacao/cartao',
+          data:TransactionOnlineDto.fromMapOnline(trasactiononline).toJson());
+     return TransactionOnlineDto.fromMap(response.data);
     } catch (e) {
-      print(e);
-    } finally {
-      client.close();
+      rethrow;
     }
   }
 }

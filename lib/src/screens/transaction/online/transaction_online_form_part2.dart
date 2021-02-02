@@ -8,11 +8,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class TransactionOnlineFormPart2 extends StatelessWidget {
+class TransactionOnlineFormPart2 extends StatefulWidget {
   final transactionOnline;
   final transactionOnlineController;
 
-  TransactionOnlineFormPart2(
+  const TransactionOnlineFormPart2(
+      this.transactionOnline, this.transactionOnlineController);
+
+  @override
+  _TransactionOnlineFormPart2State createState() =>
+      _TransactionOnlineFormPart2State(
+          this.transactionOnline, this.transactionOnlineController);
+}
+
+class _TransactionOnlineFormPart2State
+    extends State<TransactionOnlineFormPart2> {
+  final transactionOnline;
+  final transactionOnlineController;
+
+  _TransactionOnlineFormPart2State(
       this.transactionOnline, this.transactionOnlineController);
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
+import 'package:estruturabasica/src/util/check_connection.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {
@@ -8,11 +9,17 @@ class Splash extends StatelessWidget {
 
   void autoLogIn(context) async {
     Timer(Duration(seconds: 2), () async {
-      await authController.checkIfIsLogged().then((value) {
-        if (value == true) {
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        } else {
-          Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+      CheckConnection.checkConnection().then((value) async {
+        if(value == true){
+          await authController.checkIfIsLogged().then((value) {
+            if (value == true) {
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            } else {
+              Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+            }
+          });
+        }else{
+          Navigator.pushNamedAndRemoveUntil(context, 'wifioff', (route) => false);
         }
       });
     });

@@ -2,15 +2,48 @@ import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/transaction_boleto_controller.dart';
 import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
-// ignore: must_be_immutable
-class TransactionBoletoForm2 extends StatelessWidget {
+class TransactionBoletoForm2 extends StatefulWidget {
   final boletoController;
-
   TransactionBoletoForm2(this.boletoController);
+
+  @override
+  _TransactionBoletoForm2State createState() => _TransactionBoletoForm2State(boletoController);
+}
+
+class _TransactionBoletoForm2State extends State<TransactionBoletoForm2> {
+  final boletoController;
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => boletoController.requestCreate.status, (_) async {
+      if (boletoController.requestCreate?.status == FutureStatus.fulfilled) {
+        boletoController.clear();
+        print(boletoController.requestCreate.value);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+            builder: (context) => TransactionResponse(
+                boletoController.requestCreate.value , "boleto")), (route) => false);
+      }
+      if (boletoController.requestCreate?.status == FutureStatus.rejected) {
+        showError(boletoController.requestCreate.error, context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
+
+  _TransactionBoletoForm2State(this.boletoController);
 
   TransactionBoletoController transactionBoletoController =
       TransactionBoletoController();
@@ -66,18 +99,12 @@ class TransactionBoletoForm2 extends StatelessWidget {
                                 boletoController.boleto.setValue(value);
                                 boletoController.boleto.setValueTax(valueTax);
                                 boletoController
-                                    .createTransctionBoleto()
-                                    .then((value) {
-                                  transactionBoletoController.loading = false;
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => TransactionResponse(
-                                          value, "boleto")));
-                                });
+                                    .createTransctionBoleto();
                               }
                             : null,
                         child: Observer(
                           builder: (_) {
-                            return !transactionBoletoController.loading
+                            return !boletoController.isLoadingRequestCreate
                                 ? Text(
                                     "Continuar".toUpperCase(),
                                     style: TextStyle(

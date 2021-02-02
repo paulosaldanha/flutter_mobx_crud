@@ -1,3 +1,5 @@
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_online_dto.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -15,14 +17,27 @@ class TransactionOnlineController = _TransactionOnlineController
 abstract class _TransactionOnlineController with Store {
   _TransactionOnlineController();
 
-  var transactionOnline = TransactionOnline();
-  var service = TransactionOnlineService();
+  ThinkDataService thinkDataService = ThinkDataService(Api());
+  TransactionOnline transactionOnline = TransactionOnline();
+  TransactionOnlineService service = TransactionOnlineService(Api());
 
   @observable
   UserThinkdata userThink;
 
+  @computed
+  bool get isLoadingRequestUserThink =>
+      requestUserThink.status == FutureStatus.pending;
+
   @observable
-  bool loading = false;
+  ObservableFuture<UserThinkdata> requestUserThink =
+      ObservableFuture.value(null);
+
+  @computed
+  bool get isLoadingRequestCreate =>
+      requestCreate.status == FutureStatus.pending;
+
+  @observable
+  ObservableFuture<TransactionOnlineDto> requestCreate = ObservableFuture.value(null);
 
   MaskTextInputFormatter maskDocument = maskCpf();
 
@@ -30,6 +45,7 @@ abstract class _TransactionOnlineController with Store {
   @computed
   bool get validName =>
       transactionOnline.name != null && transactionOnline.name.length >= 3;
+
   String get nameError {
     if (transactionOnline.name == null || validName) {
       return null;
@@ -47,6 +63,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.email.length > 3 &&
       transactionOnline.email.contains("@") &&
       transactionOnline.email.contains(".");
+
   String get emailError {
     if (transactionOnline.email == null || validEmail) {
       return null;
@@ -63,6 +80,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.document != null &&
       (CPF.isValid(transactionOnline.document) ||
           CNPJ.isValid(transactionOnline.document));
+
   String get documentError {
     if (transactionOnline.document == null ||
         transactionOnline.document.length <= 14) {
@@ -86,6 +104,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.ddd != null &&
       transactionOnline.ddd.length > 0 &&
       transactionOnline.ddd.length < 3;
+
   String get dddError {
     if (transactionOnline.ddd == null || validDdd) {
       return null;
@@ -99,7 +118,8 @@ abstract class _TransactionOnlineController with Store {
   // Validação de Telefone
   bool get validTelephone =>
       transactionOnline.telephone != null &&
-      transactionOnline.telephone.length == 11;
+      transactionOnline.telephone.length >= 8;
+
   String get telephoneError {
     if (transactionOnline.telephone == null || validTelephone) {
       return null;
@@ -117,6 +137,7 @@ abstract class _TransactionOnlineController with Store {
   bool get validCardName =>
       transactionOnline.cardName != null &&
       transactionOnline.cardName.isNotEmpty;
+
   String get cardNameError {
     if (transactionOnline.cardName == null || validCardName) {
       return null;
@@ -131,6 +152,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.cardNumber != null &&
       transactionOnline.cardNumber.length > 16 &&
       transactionOnline.cardNumber.length < 20;
+
   String get cardNumberError {
     if (transactionOnline.cardNumber == null || validCardNumber) {
       return null;
@@ -147,6 +169,7 @@ abstract class _TransactionOnlineController with Store {
   bool get validCardDateExpiration =>
       transactionOnline.cardDateExpiration != null &&
       transactionOnline.cardDateExpiration.length == 5;
+
   String get dateExpirationError {
     if (transactionOnline.cardDateExpiration == null ||
         validCardDateExpiration) {
@@ -165,6 +188,7 @@ abstract class _TransactionOnlineController with Store {
       transactionOnline.cardCVV != null &&
       transactionOnline.cardCVV.length > 2 &&
       transactionOnline.cardCVV.length < 5;
+
   String get cardCVVError {
     if (transactionOnline.cardCVV == null || validCardCVV) {
       return null;
@@ -191,21 +215,29 @@ abstract class _TransactionOnlineController with Store {
         validCardNumber &&
         validCardCVV &&
         validCardDateExpiration &&
-        !loading;
+        !isLoadingRequestCreate;
   }
 
-  dynamic createTransctionTransactionOnline() async {
-    return service.createTransactionOnline(transactionOnline);
+  void createTransctionTransactionOnline() async {
+    try {
+      requestCreate =
+          service.createTransactionOnline(transactionOnline).asObservable();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getUserThink() async {
-    if (transactionOnline.document != null &&
-        (CPF.isValid(transactionOnline.document) ||
-            CNPJ.isValid(transactionOnline.document))) {
-      userThink = await getUserThinkData(transactionOnline.document);
-      transactionOnline.setDdd(userThink.ddd);
-      transactionOnline.setNome(userThink.name);
-      transactionOnline.setTelephone(userThink.phone);
+    try {
+      if (transactionOnline.document != null &&
+          (CPF.isValid(transactionOnline.document) ||
+              CNPJ.isValid(transactionOnline.document))) {
+        requestUserThink = thinkDataService
+            .getUserThinkData(transactionOnline.document)
+            .asObservable();
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

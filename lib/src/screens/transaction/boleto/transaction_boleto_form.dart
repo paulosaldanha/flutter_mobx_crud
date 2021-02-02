@@ -1,18 +1,45 @@
-import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobx/mobx.dart';
 
-// ignore: must_be_immutable
-class TransactionBoletoForm extends StatelessWidget {
+class TransactionBoletoForm extends StatefulWidget {
+  @override
+  _TransactionBoletoFormState createState() => _TransactionBoletoFormState();
+}
+
+class _TransactionBoletoFormState extends State<TransactionBoletoForm> {
   BoletoController boletoController = BoletoController();
 
-  TransactionBoletoForm();
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => boletoController.requestUserThink.status, (_) async {
+      if (boletoController.requestUserThink?.status == FutureStatus.fulfilled) {
+        boletoController.userThink = boletoController.requestUserThink.value;
+        boletoController.boleto.setDdd(boletoController.requestUserThink.value.ddd);
+        boletoController.boleto.setNome(boletoController.requestUserThink.value.name);
+        boletoController.boleto.setTelephone(boletoController.requestUserThink.value.phone);
+      }
+      if (boletoController.requestUserThink?.status == FutureStatus.rejected) {
+        showError(boletoController.requestUserThink.error, context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
 
   MaskTextInputFormatter maskDDD = maskDdd();
   MaskTextInputFormatter maskTelephone = maskPhone();
@@ -48,10 +75,37 @@ class TransactionBoletoForm extends StatelessWidget {
                         builder: (_) {
                           return numberMaskField(
                               mask: boletoController.maskDocument,
-                              suffix: CustomIconButton(
-                                radius: 32,
-                                iconData: Icons.youtube_searched_for,
-                                onTap: boletoController.getUserThink,
+                              suffix: ClipRRect(
+                                borderRadius: BorderRadius.circular(32),
+                                child : Material(
+                                  color: Colors.transparent,
+                                  child : InkWell(
+                                    child : Container(
+                                      padding: EdgeInsets.all(5),
+                                      color:  Color.fromRGBO(0, 74, 173, 1),
+                                      height: 30,
+                                      width: 85,
+                                      child: !boletoController.isLoadingRequestUserThink ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text("Buscar",
+                                            style: TextStyle(
+                                                color: Colors.white
+                                            ),),
+                                          Icon(Icons.search,
+                                              color: Colors.white)
+                                        ],
+                                      ): Center(
+                                        child: Container(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: boletoController.getUserThink,
+                                  ),
+                                ),
                               ),
                               onChanged: boletoController.boleto.setDocument,
                               errorText: boletoController.documentError);

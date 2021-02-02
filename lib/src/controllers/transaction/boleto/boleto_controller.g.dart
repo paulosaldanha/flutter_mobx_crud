@@ -9,6 +9,18 @@ part of 'boleto_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$BoletoController on _BoletoController, Store {
+  Computed<bool> _$isLoadingRequestUserThinkComputed;
+
+  @override
+  bool get isLoadingRequestUserThink => (_$isLoadingRequestUserThinkComputed ??=
+          Computed<bool>(() => super.isLoadingRequestUserThink))
+      .value;
+  Computed<bool> _$isLoadingRequestCreateComputed;
+
+  @override
+  bool get isLoadingRequestCreate => (_$isLoadingRequestCreateComputed ??=
+          Computed<bool>(() => super.isLoadingRequestCreate))
+      .value;
   Computed<bool> _$validDocumentComputed;
 
   @override
@@ -77,6 +89,41 @@ mixin _$BoletoController on _BoletoController, Store {
     }, _$userThinkAtom, name: '${_$userThinkAtom.name}_set');
   }
 
+  final _$requestUserThinkAtom =
+      Atom(name: '_BoletoController.requestUserThink');
+
+  @override
+  ObservableFuture<UserThinkdata> get requestUserThink {
+    _$requestUserThinkAtom.context.enforceReadPolicy(_$requestUserThinkAtom);
+    _$requestUserThinkAtom.reportObserved();
+    return super.requestUserThink;
+  }
+
+  @override
+  set requestUserThink(ObservableFuture<UserThinkdata> value) {
+    _$requestUserThinkAtom.context.conditionallyRunInAction(() {
+      super.requestUserThink = value;
+      _$requestUserThinkAtom.reportChanged();
+    }, _$requestUserThinkAtom, name: '${_$requestUserThinkAtom.name}_set');
+  }
+
+  final _$requestCreateAtom = Atom(name: '_BoletoController.requestCreate');
+
+  @override
+  ObservableFuture<TransactionBoletoDto> get requestCreate {
+    _$requestCreateAtom.context.enforceReadPolicy(_$requestCreateAtom);
+    _$requestCreateAtom.reportObserved();
+    return super.requestCreate;
+  }
+
+  @override
+  set requestCreate(ObservableFuture<TransactionBoletoDto> value) {
+    _$requestCreateAtom.context.conditionallyRunInAction(() {
+      super.requestCreate = value;
+      _$requestCreateAtom.reportChanged();
+    }, _$requestCreateAtom, name: '${_$requestCreateAtom.name}_set');
+  }
+
   final _$_BoletoControllerActionController =
       ActionController(name: '_BoletoController');
 
@@ -85,6 +132,16 @@ mixin _$BoletoController on _BoletoController, Store {
     final _$actionInfo = _$_BoletoControllerActionController.startAction();
     try {
       return super.setValidDate(value);
+    } finally {
+      _$_BoletoControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clear() {
+    final _$actionInfo = _$_BoletoControllerActionController.startAction();
+    try {
+      return super.clear();
     } finally {
       _$_BoletoControllerActionController.endAction(_$actionInfo);
     }

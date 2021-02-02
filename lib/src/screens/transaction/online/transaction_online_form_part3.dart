@@ -1,17 +1,60 @@
 import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
 import 'package:estruturabasica/src/components/mask.dart';
 import 'package:estruturabasica/src/components/fields.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobx/mobx.dart';
 
-class TransactionOnlineFormPart3 extends StatelessWidget {
+class TransactionOnlineFormPart3 extends StatefulWidget {
   final transactionOnline;
   final transactionOnlineController;
 
-  TransactionOnlineFormPart3(
+  const TransactionOnlineFormPart3(
       this.transactionOnline, this.transactionOnlineController);
+
+  @override
+  _TransactionOnlineFormPart3State createState() =>
+      _TransactionOnlineFormPart3State(
+          this.transactionOnline, this.transactionOnlineController);
+}
+
+class _TransactionOnlineFormPart3State
+    extends State<TransactionOnlineFormPart3> {
+  final transactionOnline;
+  final transactionOnlineController;
+
+  _TransactionOnlineFormPart3State(
+      this.transactionOnline, this.transactionOnlineController);
+
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer =
+        reaction((_) => transactionOnlineController.requestCreate.status, (_) async {
+          print(transactionOnlineController.requestCreate.status);
+      if (transactionOnlineController.requestCreate?.status == FutureStatus.fulfilled) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => TransactionResponse(
+                    transactionOnlineController.requestCreate.value, "transactionOnline")),
+            (route) => false);
+      }
+      if (transactionOnlineController.requestCreate?.status == FutureStatus.rejected) {
+        showError(transactionOnlineController.requestCreate.error, context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
 
   MaskTextInputFormatter maskNumber = maskCardNumber();
   MaskTextInputFormatter maskDate = maskDateExp();
@@ -217,18 +260,11 @@ class TransactionOnlineFormPart3 extends StatelessWidget {
                       padding: EdgeInsets.all(10.0),
                       onPressed: transactionOnlineController.isValidPart3
                           ? () {
-                              transactionOnlineController.loading = true;
                               transactionOnlineController
-                                  .createTransctionTransactionOnline()
-                                  .then((res) {
-                                transactionOnlineController.loading = false;
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        TransactionResponse(res, "link")));
-                              });
+                                  .createTransctionTransactionOnline();
                             }
                           : null,
-                      child: !transactionOnlineController.loading
+                      child: !transactionOnlineController.isLoadingRequestCreate
                           ? Text(
                               "Criar",
                               style: TextStyle(

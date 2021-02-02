@@ -1,25 +1,44 @@
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
+import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 
-class HomeCard extends StatelessWidget {
+class HomeCard extends StatefulWidget {
+  HomeCard({Key key}) : super(key: key);
+
+  @override
+  _HomeCardState createState() => _HomeCardState();
+}
+
+class _HomeCardState extends State<HomeCard> {
   HomeController homeController = HomeController();
-  var listTransaction;
-  final authController;
+  final authController = GetIt.I.get<AuthController>();
 
-  HomeCard(this.authController) {
-    _getList();
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => homeController.request.status, (_) async {
+      if (homeController.request?.status == FutureStatus.rejected) {
+        showError(homeController.request.error, context);
+      }
+    });
   }
 
-  _getList() async {
-    listTransaction = await homeController.getWallet();
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    authController.autoLogIn(context);
     return Observer(
       builder: (_) {
         return InkWell(
@@ -40,7 +59,7 @@ class HomeCard extends StatelessWidget {
                       color: Color.fromRGBO(0, 74, 173, 1), width: 2),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: homeController.walletValue != null
+                child: !homeController.isLoading
                     ? Container(
                         padding: EdgeInsets.only(bottom: 0),
                         child: Stack(children: <Widget>[
@@ -66,8 +85,13 @@ class HomeCard extends StatelessWidget {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            companyAmount(
-                                                homeController.walletValue)
+                                            homeController.isLoading
+                                                ? Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  )
+                                                : companyAmount(homeController
+                                                    .request.value.valueWallet)
                                           ],
                                         ),
                                         Padding(
@@ -87,23 +111,37 @@ class HomeCard extends StatelessWidget {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Expanded(
-                                              child: SizedBox(
-                                                height: 200.0,
-                                                child: new ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount:
-                                                      listTransaction.length,
-                                                  itemBuilder:
-                                                      (BuildContext ctxt,
-                                                          int index) {
-                                                    return transactionChange(
-                                                        listTransaction[index]);
-                                                  },
-                                                ),
-                                              ),
-                                            ),
+                                            homeController.isLoading
+                                                ? Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  )
+                                                : Expanded(
+                                                    child: SizedBox(
+                                                      height: 200.0,
+                                                      child:
+                                                          new ListView.builder(
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            homeController
+                                                                .request
+                                                                .value
+                                                                .transactionList
+                                                                .length,
+                                                        itemBuilder:
+                                                            (BuildContext ctxt,
+                                                                int index) {
+                                                          return transactionChange(
+                                                              homeController
+                                                                      .request
+                                                                      .value
+                                                                      .transactionList[
+                                                                  index]);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  )
                                           ],
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -168,20 +206,26 @@ class HomeCard extends StatelessWidget {
           text: TextSpan(
             text: 'R\$ ',
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.green, fontSize: 15),
+                fontWeight: FontWeight.bold,
+                color: transaction.status == 'PAGO' ? Colors.green : Colors.red,
+                fontSize: 15),
             children: <TextSpan>[
               TextSpan(
                   text: '${transaction.amount}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      color: transaction.status == 'PAGO'
+                          ? Colors.green
+                          : Colors.red,
                       fontSize: 20),
                   children: [
                     TextSpan(
                         text: ' - ${transaction.status}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black38,
+                            color: transaction.status == 'PAGO'
+                                ? Colors.green
+                                : Colors.red,
                             fontSize: 20))
                   ]),
             ],

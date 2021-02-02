@@ -1,6 +1,7 @@
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth/login_controller.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -19,11 +20,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    disposer = reaction((_) => authControllerNew.auth.isLogged, (auth) {
-      if (auth) {
+    disposer = reaction((_) => authControllerNew.request.status, (_) async {
+      if (authControllerNew.request?.status == FutureStatus.fulfilled) {
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       }
+      if (authControllerNew.request?.status == FutureStatus.rejected) {
+        showError(authControllerNew.request.error, context);
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 
   @override
@@ -119,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Color.fromRGBO(0, 74, 173, 1),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)),
-                              child: authControllerNew.loading
+                              child: authControllerNew.isLoading
                                   ? Center(
                                       child: SizedBox(
                                       child: CircularProgressIndicator(),
@@ -218,14 +228,4 @@ class _LoginPageState extends State<LoginPage> {
       );
     }));
   }
-
-  @override
-  void dispose() {
-    disposer();
-    super.dispose();
-  }
 }
-
-
-
-

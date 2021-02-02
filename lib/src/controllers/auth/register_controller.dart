@@ -1,8 +1,8 @@
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/services/register_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/register.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
-import 'package:estruturabasica/src/services/register_service.dart';
-
 part 'register_controller.g.dart';
 
 class RegisterController = _RegisterController with _$RegisterController;
@@ -11,6 +11,7 @@ abstract class _RegisterController with Store {
   _RegisterController();
 
   var register = Register();
+  var service = RegisterService(Api());
 
   @observable
   String confirmPassword;
@@ -186,7 +187,7 @@ abstract class _RegisterController with Store {
 
   // Envia o objeto para a service
   dynamic createFastAccount() async {
-    return createAccount(register);
+    return service.createAccount(register);
   }
 
   // Limpa o objeto

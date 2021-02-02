@@ -1,11 +1,12 @@
 import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
-// ignore: must_be_immutable
-class TransactionLinkForm2 extends StatelessWidget {
+class TransactionLinkForm2 extends StatefulWidget {
   final transactionLink;
   final linkController;
   final parcelas;
@@ -14,9 +15,46 @@ class TransactionLinkForm2 extends StatelessWidget {
       this.linkController, this.transactionLink, this.parcelas);
 
   @override
-  Widget build(BuildContext context) {
-    List _parcelas = parcelas;
+  _TransactionLinkForm2State createState() =>
+      _TransactionLinkForm2State(linkController, transactionLink, parcelas);
+}
 
+class _TransactionLinkForm2State extends State<TransactionLinkForm2> {
+  final transactionLink;
+  final linkController;
+  final parcelas;
+
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => linkController.requestCreate.status, (_) async {
+      if (linkController.requestCreate?.status == FutureStatus.fulfilled) {
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+            builder: (context) => TransactionResponse(linkController.requestCreate.value, "link")), (route) => false);
+      }
+      if (linkController.requestCreate?.status == FutureStatus.rejected) {
+        showError(linkController.requestCreate.error, context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
+
+  _TransactionLinkForm2State(
+      this.linkController, this.transactionLink, this.parcelas);
+
+  @override
+  Widget build(BuildContext context) {
+    List _parcelas = List();
+    if (parcelas != null) {
+      _parcelas = parcelas;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
@@ -51,28 +89,35 @@ class TransactionLinkForm2 extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  labelFieldRequired("Número de Parcelas"),
+                  parcelas != null
+                      ? labelFieldRequired("Número de Parcelas")
+                      : Text(""),
                   SizedBox(height: 5),
                   Observer(
                     builder: (_) {
-                      return DropdownButtonFormField(
-                          value: int.parse(linkController.link.installments),
-                          items: _parcelas.map((parcela) {
-                            return new DropdownMenuItem(
-                                value: parcela[0], child: new Text(parcela[1]));
-                          }).toList(),
-                          onChanged: (_) {
-                            linkController.link.setInstallments(_);
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(30.0),
+                      if (parcelas != null) {
+                        return DropdownButtonFormField(
+                            value: int.parse(linkController.link.installments),
+                            items: _parcelas.map((parcela) {
+                              return new DropdownMenuItem(
+                                  value: parcela[0],
+                                  child: new Text(parcela[1]));
+                            }).toList(),
+                            onChanged: (_) {
+                              linkController.link.setInstallments(_);
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(30.0),
+                                ),
                               ),
                             ),
-                          ),
-                          icon: Icon(Icons.credit_card),
-                          isExpanded: true);
+                            icon: Icon(Icons.credit_card),
+                            isExpanded: true);
+                      } else {
+                        return Text("");
+                      }
                     },
                   ),
                   SizedBox(
@@ -113,22 +158,12 @@ class TransactionLinkForm2 extends StatelessWidget {
                           padding: EdgeInsets.all(10.0),
                           onPressed: linkController.isValid
                               ? () {
-                                  linkController.loading = true;
-                                  linkController
-                                      .createTransctionLink()
-                                      .then((value) {
-                                    linkController.loading = false;
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                TransactionResponse(
-                                                    value, "link")));
-                                  });
+                                  linkController.createTransctionLink();
                                 }
                               : null,
                           child: Observer(
                             builder: (_) {
-                              return !linkController.loading
+                              return !linkController.isLoadingRequestCreate
                                   ? Text(
                                       "Continuar".toUpperCase(),
                                       style: TextStyle(

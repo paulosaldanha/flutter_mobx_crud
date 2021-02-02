@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/util/status_transaction.dart';
 import 'package:flutter/material.dart';
 
 class HeaderResponseWidget extends StatelessWidget {
@@ -6,34 +7,39 @@ class HeaderResponseWidget extends StatelessWidget {
   final method;
   String message = "";
   String valorTotal = "";
+  String status = "";
 
   HeaderResponseWidget(this.response, this.error, this.method);
 
   @override
   Widget build(BuildContext context) {
-    if(!error) {
+    if (!error) {
       if (method == "boleto") {
         message = "Boleto\ngerado com sucesso";
-        valorTotal =
-            response["valorBruto"].toStringAsFixed(2).replaceAll(".", ",");
+        valorTotal = response.valor.toStringAsFixed(2).replaceAll(".", ",");
       } else if (method == "link") {
         message = "Link de Pagamento\ngerado com sucesso";
-        valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+        valorTotal = response.valor.toStringAsFixed(2).replaceAll(".", ",");
+      } else if (method == "transactionOnline") {
+        message = "Pagamento Online\ngerado com sucesso";
+        status =
+        "STATUS DA TANSAÇÃO :\n" + (StatusTransaction.getStatusTransaction(response.statusTransacao)) ;
+        valorTotal = response.valor.toStringAsFixed(2).replaceAll(".", ",");
       } else {
         message = "Transação efetuada\ncom sucesso";
-        valorTotal = response["valor"].toStringAsFixed(2).replaceAll(".", ",");
+        valorTotal = response.valor.toStringAsFixed(2).replaceAll(".", ",");
       }
-    }else{
+    } else {
       message = "Ocorreu algum falha no servidor tente mais tarde!";
     }
 
     return Container(
       width: 1000,
       height: 250,
-      color: (error) ? Colors.red[900] : Colors.lightGreen,
+      color: status != "" ? Colors.deepOrangeAccent : Colors.lightGreen,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SizedBox(height: 30),
-        Text((error) ? "Ocorreu um erro" : message,
+        Text( status != "" ? status : message,
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
             textAlign: TextAlign.center),
@@ -52,6 +58,24 @@ class HeaderResponseWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 24)),
               ]),
+        method == "boleto"
+            ? Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(25),
+                    child: Text(
+                        response.linhaDigitavel != ""
+                            ? response.linhaDigitavel
+                            : "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  )
+                ],
+              )
+            : Text("")
       ]),
     );
   }

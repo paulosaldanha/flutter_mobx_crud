@@ -1,3 +1,5 @@
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_boleto_dto.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -16,12 +18,32 @@ abstract class _BoletoController with Store {
 
   Boleto boleto = Boleto();
 
+  ThinkDataService thinkDataService = ThinkDataService(Api());
+
+  TransactionService transactionService = TransactionService(Api());
+
   MaskTextInputFormatter maskDocument = maskCpf();
 
   @observable
   String validDate = "";
   @observable
   UserThinkdata userThink;
+
+  @computed
+  bool get isLoadingRequestUserThink =>
+      requestUserThink.status == FutureStatus.pending;
+
+  @observable
+  ObservableFuture<UserThinkdata> requestUserThink =
+      ObservableFuture.value(null);
+
+  @computed
+  bool get isLoadingRequestCreate =>
+      requestCreate.status == FutureStatus.pending;
+
+  @observable
+  ObservableFuture<TransactionBoletoDto> requestCreate = ObservableFuture.value(null);
+
   @action
   setValidDate(value) => validDate = value;
 
@@ -30,6 +52,7 @@ abstract class _BoletoController with Store {
   bool get validDocument =>
       boleto.document != null &&
       (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document));
+
   String get documentError {
     if (boleto.document != null && boleto.document.length > 14) {
       maskDocument.updateMask(mask: "##.###.###/####-##");
@@ -46,12 +69,18 @@ abstract class _BoletoController with Store {
     }
   }
 
+  @action
+  void clear(){
+    boleto = null;
+  }
+
   // Validação de Nome
   @computed
   bool get validName =>
       boleto.name != null &&
       boleto.name.length >= 4 &&
       boleto.name.length <= 60;
+
   String get nameError {
     if (boleto.name == null || validName) {
       return null;
@@ -66,6 +95,7 @@ abstract class _BoletoController with Store {
   @computed
   bool get validDdd =>
       boleto.ddd != null && boleto.ddd.length > 0 && boleto.ddd.length < 3;
+
   String get dddError {
     if (boleto.ddd == null || validDdd) {
       return null;
@@ -78,7 +108,8 @@ abstract class _BoletoController with Store {
   // Validação de Telephone
   @computed
   bool get validTelephone =>
-      boleto.telephone != null && boleto.telephone.length == 11;
+      boleto.telephone != null && boleto.telephone.length >= 8;
+
   String get telephoneError {
     if (boleto.telephone == null || validTelephone) {
       return null;
@@ -111,17 +142,24 @@ abstract class _BoletoController with Store {
         validateDateExpiration;
   }
 
-  dynamic createTransctionBoleto() async {
-    return createTransactionBoleto(boleto);
+  void createTransctionBoleto() async {
+    try {
+      requestCreate =
+          transactionService.createTransactionBoleto(boleto).asObservable();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getUserThink() async {
-    if (boleto.document != null &&
-        (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
-      userThink = await getUserThinkData(boleto.document);
-      boleto.setDdd(userThink.ddd);
-      boleto.setNome(userThink.name);
-      boleto.setTelephone(userThink.phone);
+    try {
+      if (boleto.document != null &&
+          (CPF.isValid(boleto.document) || CNPJ.isValid(boleto.document))) {
+        requestUserThink =
+            thinkDataService.getUserThinkData(boleto.document).asObservable();
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

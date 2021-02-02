@@ -1,5 +1,6 @@
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/services/register_service.dart';
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/services/recoverpassword_service.dart';
 part 'recoverpassword_controller.g.dart';
 
 class RecoverPasswordController = _RecoverPasswordController
@@ -7,6 +8,8 @@ class RecoverPasswordController = _RecoverPasswordController
 
 abstract class _RecoverPasswordController with Store {
   _RecoverPasswordController();
+
+  var service = RegisterService(Api());
 
   @observable
   String email;
@@ -32,6 +35,6 @@ abstract class _RecoverPasswordController with Store {
   }
 
   dynamic solicitPassword() async {
-    return await recoverPassword(email);
+    return await service.recoverPassword(email);
   }
 }

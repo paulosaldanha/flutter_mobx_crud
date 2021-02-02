@@ -1,6 +1,9 @@
-import '../services/transaction_service.dart' as transaction;
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/services/transaction_service.dart';
+
 
 class TaxMethodPaymentService {
+  TransactionService transactionService = TransactionService(Api());
 
   static String convertToString(List values) {
     String val = '';
@@ -11,17 +14,17 @@ class TaxMethodPaymentService {
     return realCurrent.toStringAsFixed(2).replaceAll('.', ',');
   }
 
-  static Future<List> convertCurrentValueAndAmountCredit(String current) async {
+   Future<List> convertCurrentValueAndAmountCredit(String current) async {
     try {
-      return await transaction.getTax(current.replaceAll(',', '.'), 3);
+      return await transactionService.getTax(current.replaceAll(',', '.'), 3);
     } catch (error) {
       print(error);
     }
   }
 
-  static  Future<List> convertCurrentValueAndAmountDebit(String current) async {
+    Future<List> convertCurrentValueAndAmountDebit(String current) async {
     try {
-      return await transaction.getTax(current.replaceAll(',', '.'), 2);
+      return await transactionService.getTax(current.replaceAll(',', '.'), 2);
     } catch (error) {
       print(error);
     }

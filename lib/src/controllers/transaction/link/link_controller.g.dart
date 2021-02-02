@@ -9,6 +9,12 @@ part of 'link_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LinkController on _LinkController, Store {
+  Computed<bool> _$isLoadingRequestCreateComputed;
+
+  @override
+  bool get isLoadingRequestCreate => (_$isLoadingRequestCreateComputed ??=
+          Computed<bool>(() => super.isLoadingRequestCreate))
+      .value;
   Computed<bool> _$validNameComputed;
 
   @override
@@ -43,21 +49,21 @@ mixin _$LinkController on _LinkController, Store {
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_LinkController.loading');
+  final _$requestCreateAtom = Atom(name: '_LinkController.requestCreate');
 
   @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
+  ObservableFuture<TransactionLinkDto> get requestCreate {
+    _$requestCreateAtom.context.enforceReadPolicy(_$requestCreateAtom);
+    _$requestCreateAtom.reportObserved();
+    return super.requestCreate;
   }
 
   @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  set requestCreate(ObservableFuture<TransactionLinkDto> value) {
+    _$requestCreateAtom.context.conditionallyRunInAction(() {
+      super.requestCreate = value;
+      _$requestCreateAtom.reportChanged();
+    }, _$requestCreateAtom, name: '${_$requestCreateAtom.name}_set');
   }
 
   final _$_LinkControllerActionController =

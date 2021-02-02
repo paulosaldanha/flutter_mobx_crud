@@ -1,4 +1,5 @@
-import 'package:estruturabasica/src/models/transaction.dart';
+import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -6,17 +7,22 @@ part 'home_controller.g.dart';
 
 class HomeController = _HomeController with _$HomeController;
 
+ final TransactionService transactionService = TransactionService(Api());
+
 abstract class _HomeController with Store {
-  _HomeController();
+  _HomeController(){
+    getWallet();
+  }
 
   @observable
   double sizeCard = 200;
 
-  @observable
-  String walletValue;
+
+  @computed
+  bool get isLoading => request.status == FutureStatus.pending;
 
   @observable
-  List<Transaction> transactions = List();
+  ObservableFuture<TransactionWalletDto> request = ObservableFuture.value(null);
 
   @action
   setSizeCard() {
@@ -27,16 +33,15 @@ abstract class _HomeController with Store {
     }
   }
 
-  Future<dynamic> getWallet() async {
-    var res = await getWalletValue();
-    if (res == 'false') {
-      return res;
+  Future<void> getWallet() async {
+    try{
+      request = transactionService
+          .getWalletValue()
+          .asObservable();
+
+    }catch(e){
+      print(e);
     }
-    walletValue =
-        res['montanteCarteira'].toStringAsFixed(2).replaceAll('.', ',');
-    res['ultimasTransacoes'].forEach((element) {
-      transactions.add(Transaction.fromMap(element));
-    });
-    return transactions;
+
   }
 }

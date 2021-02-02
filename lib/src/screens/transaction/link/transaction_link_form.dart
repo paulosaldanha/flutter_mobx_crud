@@ -8,9 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-// ignore: must_be_immutable
-class TransactionLinkForm extends StatelessWidget {
-  TransactionLinkForm();
+class TransactionLinkForm extends StatefulWidget {
+
+  @override
+  _TransactionLinkFormState createState() =>
+      _TransactionLinkFormState();
+}
+class _TransactionLinkFormState extends State<TransactionLinkForm> {
   TransactionLink link = TransactionLink();
   LinkController linkController = LinkController();
   TransactionLinkController transactionLinkController =
@@ -29,10 +33,8 @@ class TransactionLinkForm extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Observer(builder: (_) {
-                  return DisplayValueWidget(
-                      transactionLinkController, "", false);
-                }),
+                   DisplayValueWidget(
+                      transactionLinkController, "", false),
                 KeyboardWidget(transactionLinkController),
                 Container(
                   width: 1000,
@@ -50,27 +52,32 @@ class TransactionLinkForm extends StatelessWidget {
                         color: Colors.white,
                         textColor: Color.fromRGBO(0, 74, 173, 1),
                         padding: EdgeInsets.all(10.0),
-                        onPressed: transactionLinkController.isValid
-                            ? () async {
+                        onPressed: !transactionLinkController.loading ? () async {
                                 String value = transactionLinkController
                                     .currentValues
                                     .replaceAll(",", ".");
                                 linkController.link.setValue(value);
-                                List parcelas = await transactionLinkController
-                                    .getParcelas(value);
-
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => TransactionLinkForm2(
-                                        linkController, link, parcelas)));
-                              }
-                            : null,
-                        child: Text(
+                                if(value == "0.00"){
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => TransactionLinkForm2(
+                                          linkController, link, null)));
+                                }else{
+                                  List parcelas = await transactionLinkController
+                                      .getParcelas(value);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => TransactionLinkForm2(
+                                          linkController, link, parcelas)));
+                                }
+                              }: null,
+                        child:!transactionLinkController.loading? Text(
                           "Continuar".toUpperCase(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30.0,
                           ),
-                        ),
+                        ):Center(
+                          child: CircularProgressIndicator(),
+                        )
                       );
                     },
                   ),

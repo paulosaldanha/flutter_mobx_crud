@@ -19,7 +19,7 @@ abstract class _BoletoBase with Store {
   double value;
   @observable
   DateTime dateExpiration;
-
+  @observable
   String message;
   String valueTax;
 

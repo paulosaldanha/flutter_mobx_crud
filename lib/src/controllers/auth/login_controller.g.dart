@@ -9,6 +9,11 @@ part of 'login_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginController on _LoginController, Store {
+  Computed<bool> _$isLoadingComputed;
+
+  @override
+  bool get isLoading =>
+      (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading)).value;
   Computed<bool> _$isEmailValidComputed;
 
   @override
@@ -62,23 +67,6 @@ mixin _$LoginController on _LoginController, Store {
     }, _$passwordAtom, name: '${_$passwordAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_LoginController.loading');
-
-  @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
-  }
-
-  @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
-  }
-
   final _$authAtom = Atom(name: '_LoginController.auth');
 
   @override
@@ -111,6 +99,23 @@ mixin _$LoginController on _LoginController, Store {
       super.passwordVisible = value;
       _$passwordVisibleAtom.reportChanged();
     }, _$passwordVisibleAtom, name: '${_$passwordVisibleAtom.name}_set');
+  }
+
+  final _$requestAtom = Atom(name: '_LoginController.request');
+
+  @override
+  ObservableFuture<Auth> get request {
+    _$requestAtom.context.enforceReadPolicy(_$requestAtom);
+    _$requestAtom.reportObserved();
+    return super.request;
+  }
+
+  @override
+  set request(ObservableFuture<Auth> value) {
+    _$requestAtom.context.conditionallyRunInAction(() {
+      super.request = value;
+      _$requestAtom.reportChanged();
+    }, _$requestAtom, name: '${_$requestAtom.name}_set');
   }
 
   final _$loginAsyncAction = AsyncAction('login');
