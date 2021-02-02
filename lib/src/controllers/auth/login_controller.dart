@@ -16,9 +16,6 @@ abstract class _LoginController with Store {
   @observable
   String password = "";
 
-  // @observable
-  // bool loading = false;
-
   @observable
   Auth auth = Auth();
 
