@@ -23,9 +23,9 @@ class BodyResponseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (method == "boleto") {
-      if(response.link != ""){
+      if(response.linhaDigitavel == ""){
         mailShare =
-        "mailto:?subject=Boleto | E-CommerceBank Pay&body=Aqui está o Link de pagamento gerado via E-CommerceBank Pay\n\n";
+        "mailto:?subject=Boleto | E-CommerceBank Pay&body=Aqui está o Boleto de pagamento gerado via E-CommerceBank Pay\n\n";
         wppShare =
         "whatsapp://send?text=Aqui está o boleto gerado via E-CommerceBank Pay\n\n";
       }else{
@@ -41,7 +41,14 @@ class BodyResponseWidget extends StatelessWidget {
           "mailto:?subject=Link de Pagamento | E-CommerceBank Pay&body=Aqui está o Link de Pagamento gerado via E-CommerceBank Pay\n\nhttps://ecommercebank.tk/ecommerce/$link";
       wppShare =
           "whatsapp://send?text=Aqui está o Link de Pagamento gerado via E-CommerceBank Pay\n\nhttps://ecommercebank.tk/ecommerce/$link";
+    } else if (method == "transactionOnline") {
+      String valorTotal = response.valor.toStringAsFixed(2).replaceAll(".", ",");
+      mailShare =
+      "mailto:?subject=Cartão | E-CommerceBank Pay&body=Aqui está o comprovante de Pagamento gerado via E-CommerceBank Pay\n\n compra no valor de R\$ $valorTotal";
+      wppShare =
+      "whatsapp://send?text=Aqui está o Link de Pagamento gerado via E-CommerceBank Pay\n\n compra no valor de R\$ $valorTotal";
     }
+
 
     if (error) {
       return Container(
@@ -67,7 +74,7 @@ class BodyResponseWidget extends StatelessWidget {
                 tooltip: 'Enviar por e-mail',
                 onPressed: () async {
                   if (method == "boleto") {
-                    if (response.link == "") {
+                    if (response.linhaDigitavel != "") {
                       launch(mailShare + response.linhaDigitavel);
                     } else {
                       dynamic boleto = await baixarBoleto();
@@ -94,7 +101,7 @@ class BodyResponseWidget extends StatelessWidget {
                 tooltip: 'Enviar por WhatsApp',
                 onPressed: () async {
                   if (method == "boleto") {
-                    if (response.link == "") {
+                    if (response.linhaDigitavel != "") {
                       launch(wppShare + response.linhaDigitavel);
                     } else {
                       dynamic boleto = await baixarBoleto();

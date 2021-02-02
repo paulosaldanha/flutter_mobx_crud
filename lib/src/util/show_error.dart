@@ -12,6 +12,9 @@ showError(dynamic error, context) {
         message = error.response.data['error'];
       }
     }
+    if (error.response.statusCode == 422) {
+      message = error.response.data['message'];
+    }
   }
   showDialog(
       context: context,

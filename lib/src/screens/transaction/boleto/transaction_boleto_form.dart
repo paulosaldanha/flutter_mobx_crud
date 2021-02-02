@@ -35,6 +35,12 @@ class _TransactionBoletoFormState extends State<TransactionBoletoForm> {
     });
   }
 
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
+
   MaskTextInputFormatter maskDDD = maskDdd();
   MaskTextInputFormatter maskTelephone = maskPhone();
 

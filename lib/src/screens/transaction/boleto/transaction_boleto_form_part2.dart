@@ -27,9 +27,9 @@ class _TransactionBoletoForm2State extends State<TransactionBoletoForm2> {
       if (boletoController.requestCreate?.status == FutureStatus.fulfilled) {
         boletoController.clear();
         print(boletoController.requestCreate.value);
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
             builder: (context) => TransactionResponse(
-                boletoController.requestCreate.value , "boleto")));
+                boletoController.requestCreate.value , "boleto")), (route) => false);
       }
       if (boletoController.requestCreate?.status == FutureStatus.rejected) {
         showError(boletoController.requestCreate.error, context);

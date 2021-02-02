@@ -4,17 +4,48 @@ import 'package:estruturabasica/src/models/transaction_online.dart';
 import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part2.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
+import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobx/mobx.dart';
 
-class TransactionOnlineForm extends StatelessWidget {
-  final transactionOnline = TransactionOnline();
+class TransactionOnlineForm extends StatefulWidget {
+  @override
+  _TransactionOnlineFormState createState() => _TransactionOnlineFormState();
+}
+
+class _TransactionOnlineFormState extends State<TransactionOnlineForm> {
+  TransactionOnline transactionOnline = TransactionOnline();
   TransactionOnlineController transactionOnlineController =
       TransactionOnlineController();
 
-  TransactionOnlineForm();
+  _TransactionOnlineFormState();
+
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    disposer = reaction((_) => transactionOnlineController.requestUserThink.status, (_) async {
+      if (transactionOnlineController.requestUserThink?.status == FutureStatus.fulfilled) {
+        transactionOnlineController.userThink = transactionOnlineController.requestUserThink.value;
+        transactionOnlineController.transactionOnline.setDdd(transactionOnlineController.requestUserThink.value.ddd);
+        transactionOnlineController.transactionOnline.setNome(transactionOnlineController.requestUserThink.value.name);
+        transactionOnlineController.transactionOnline.setTelephone(transactionOnlineController.requestUserThink.value.phone);
+      }
+      if (transactionOnlineController.requestUserThink?.status == FutureStatus.rejected) {
+        showError(transactionOnlineController.requestUserThink.error, context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
 
   MaskTextInputFormatter maskDDD = maskDdd();
   MaskTextInputFormatter maskTelephone = maskPhone();
@@ -40,31 +71,33 @@ class TransactionOnlineForm extends StatelessWidget {
                     mask: transactionOnlineController.maskDocument,
                     suffix: ClipRRect(
                       borderRadius: BorderRadius.circular(32),
-                      child : Material(
+                      child: Material(
                         color: Colors.transparent,
-                        child : InkWell(
-                          child : Container(
+                        child: InkWell(
+                          child: Container(
                             padding: EdgeInsets.all(5),
-                            color:  Color.fromRGBO(0, 74, 173, 1),
+                            color: Color.fromRGBO(0, 74, 173, 1),
                             height: 30,
                             width: 85,
-                            child: !transactionOnlineController.loading ?Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text("Buscar",
-                                  style: TextStyle(
-                                      color: Colors.white
-                                  ),),
-                                Icon(Icons.search,
-                                    color: Colors.white)
-                              ],
-                            ): Center(
-                              child: Container(
-                                height: 15,
-                                width: 15,
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
+                            child: !transactionOnlineController.isLoadingRequestUserThink
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        "Buscar",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Icon(Icons.search, color: Colors.white)
+                                    ],
+                                  )
+                                : Center(
+                                    child: Container(
+                                      height: 15,
+                                      width: 15,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
                           ),
                           onTap: transactionOnlineController.getUserThink,
                         ),

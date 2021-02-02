@@ -77,8 +77,8 @@ abstract class _LinkController with Store {
           .then((value) {
         isLoading = false;
         if (value != null) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => TransactionResponse(value, "link")));
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+              builder: (context) => TransactionResponse(value, "link")), (route) => false);
         }
       });
     } catch (e) {

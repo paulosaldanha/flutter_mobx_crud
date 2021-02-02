@@ -1,4 +1,5 @@
 import 'package:estruturabasica/src/api/api.dart';
+import 'package:estruturabasica/src/dto/transaction_online_dto.dart';
 import 'package:estruturabasica/src/models/user_thinkdata.dart';
 import 'package:estruturabasica/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
@@ -17,14 +18,26 @@ abstract class _TransactionOnlineController with Store {
   _TransactionOnlineController();
 
   ThinkDataService thinkDataService = ThinkDataService(Api());
-  var transactionOnline = TransactionOnline();
-  var service = TransactionOnlineService(Api());
+  TransactionOnline transactionOnline = TransactionOnline();
+  TransactionOnlineService service = TransactionOnlineService(Api());
 
   @observable
   UserThinkdata userThink;
 
+  @computed
+  bool get isLoadingRequestUserThink =>
+      requestUserThink.status == FutureStatus.pending;
+
   @observable
-  bool loading = false;
+  ObservableFuture<UserThinkdata> requestUserThink =
+      ObservableFuture.value(null);
+
+  @computed
+  bool get isLoadingRequestCreate =>
+      requestCreate.status == FutureStatus.pending;
+
+  @observable
+  ObservableFuture<TransactionOnlineDto> requestCreate = ObservableFuture.value(null);
 
   MaskTextInputFormatter maskDocument = maskCpf();
 
@@ -202,25 +215,29 @@ abstract class _TransactionOnlineController with Store {
         validCardNumber &&
         validCardCVV &&
         validCardDateExpiration &&
-        !loading;
+        !isLoadingRequestCreate;
   }
 
-  dynamic createTransctionTransactionOnline() async {
-    return service.createTransactionOnline(transactionOnline);
+  void createTransctionTransactionOnline() async {
+    try {
+      requestCreate =
+          service.createTransactionOnline(transactionOnline).asObservable();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getUserThink() async {
-    loading = true;
-    if (transactionOnline.document != null &&
-        (CPF.isValid(transactionOnline.document) ||
-            CNPJ.isValid(transactionOnline.document))) {
-      thinkDataService.getUserThinkData(transactionOnline.document).then((value) {
-        userThink = value;
-        transactionOnline.setDdd(userThink.ddd);
-        transactionOnline.setNome(userThink.name);
-        transactionOnline.setTelephone(userThink.phone);
-        loading = false;
-      });
+    try {
+      if (transactionOnline.document != null &&
+          (CPF.isValid(transactionOnline.document) ||
+              CNPJ.isValid(transactionOnline.document))) {
+        requestUserThink = thinkDataService
+            .getUserThinkData(transactionOnline.document)
+            .asObservable();
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }
