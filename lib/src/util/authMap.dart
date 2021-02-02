@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/models/auth_model.dart';
+import 'package:ecommerceBankPay/src/models/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthMap {

@@ -1,5 +1,5 @@
-import 'package:estruturabasica/src/models/tax.dart';
-import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
+import 'package:ecommerceBankPay/src/models/tax.dart';
+import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_list_combo_controller.g.dart';

@@ -1,7 +1,7 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/services/register_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/services/register_service.dart';
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/models/register.dart';
+import 'package:ecommerceBankPay/src/models/register.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 part 'register_controller.g.dart';
 

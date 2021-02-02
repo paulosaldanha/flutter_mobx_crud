@@ -1,7 +1,7 @@
-import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
-import 'package:estruturabasica/src/models/transaction_Mpos.dart';
-import 'package:estruturabasica/src/util/device_service.dart';
-import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_modal_controller.dart';
+import 'package:ecommerceBankPay/src/models/transaction_Mpos.dart';
+import 'package:ecommerceBankPay/src/util/device_service.dart';
+import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 

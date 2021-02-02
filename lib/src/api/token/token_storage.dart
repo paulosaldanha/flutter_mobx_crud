@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:estruturabasica/src/api/token/token_store.dart';
+import 'package:ecommerceBankPay/src/api/token/token_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenStorage implements TokenStore{

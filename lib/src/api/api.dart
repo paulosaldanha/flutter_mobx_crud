@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
-import 'package:estruturabasica/src/api/token/token_storage.dart';
+import 'package:ecommerceBankPay/src/api/token/token_storage.dart';
 
 import 'default_interceptor.dart';
 

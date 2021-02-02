@@ -1,10 +1,10 @@
-import 'package:estruturabasica/src/components/custom_icon_button.dart';
-import 'package:estruturabasica/src/controllers/transaction/online/transaction_online_controller.dart';
-import 'package:estruturabasica/src/models/transaction_online.dart';
-import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form_part2.dart';
-import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/components/mask.dart';
-import 'package:estruturabasica/src/util/show_error.dart';
+import 'package:ecommerceBankPay/src/components/custom_icon_button.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/online/transaction_online_controller.dart';
+import 'package:ecommerceBankPay/src/models/transaction_online.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/online/transaction_online_form_part2.dart';
+import 'package:ecommerceBankPay/src/components/fields.dart';
+import 'package:ecommerceBankPay/src/components/mask.dart';
+import 'package:ecommerceBankPay/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

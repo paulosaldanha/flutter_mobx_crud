@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_wallet_dto.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';

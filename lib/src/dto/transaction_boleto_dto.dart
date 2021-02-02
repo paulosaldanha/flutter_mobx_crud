@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:estruturabasica/src/models/boleto.dart';
+import 'package:ecommerceBankPay/src/models/boleto.dart';
 
 class TransactionBoletoDto {
   String nome;

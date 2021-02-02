@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/models/people.dart';
+import 'package:ecommerceBankPay/src/models/people.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 
 //nome_da_classe.g.dar usado pelo mobx para reatividade, criado dinamicamente (evita boilerplate)

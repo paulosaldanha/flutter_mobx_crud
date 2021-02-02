@@ -1,8 +1,8 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/dto/transaction_link_dto.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_link_dto.dart';
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/models/transaction_link.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/models/transaction_link.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
 
 part 'link_controller.g.dart';
 

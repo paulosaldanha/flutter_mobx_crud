@@ -1,5 +1,5 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
 
 
 class TaxMethodPaymentService {

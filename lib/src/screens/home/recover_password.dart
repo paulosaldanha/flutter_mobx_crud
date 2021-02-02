@@ -1,5 +1,5 @@
-import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/controllers/auth/recoverpassword_controller.dart';
+import 'package:ecommerceBankPay/src/components/fields.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/recoverpassword_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

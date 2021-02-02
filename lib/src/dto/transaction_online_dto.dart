@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:estruturabasica/src/models/transaction_online.dart';
+import 'package:ecommerceBankPay/src/models/transaction_online.dart';
 
 class TransactionOnlineDto{
 

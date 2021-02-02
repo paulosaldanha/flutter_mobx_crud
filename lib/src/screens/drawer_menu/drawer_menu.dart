@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/screens/home/account.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/auth_controller.dart';
+import 'package:ecommerceBankPay/src/routes/routing_constants.dart';
+import 'package:ecommerceBankPay/src/screens/home/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';

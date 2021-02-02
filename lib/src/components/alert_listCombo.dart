@@ -1,7 +1,7 @@
 import 'package:combos/combos.dart';
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
-import 'package:estruturabasica/src/models/tax.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/auth_controller.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
+import 'package:ecommerceBankPay/src/models/tax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

@@ -1,7 +1,7 @@
-import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/controllers/home/home_controller.dart';
-import 'package:estruturabasica/src/util/show_error.dart';
+import 'package:ecommerceBankPay/presentation/ecommerce_bank_pay_icons.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/auth_controller.dart';
+import 'package:ecommerceBankPay/src/controllers/home/home_controller.dart';
+import 'package:ecommerceBankPay/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

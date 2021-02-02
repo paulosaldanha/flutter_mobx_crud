@@ -1,8 +1,8 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
+import 'package:ecommerceBankPay/presentation/ecommerce_bank_pay_icons.dart';
 
 class BodyResponseWidget extends StatelessWidget {
   final response;

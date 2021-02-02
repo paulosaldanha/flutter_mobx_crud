@@ -1,7 +1,7 @@
-import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
-import 'package:estruturabasica/src/components/mask.dart';
-import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/util/show_error.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/transaction_response.dart';
+import 'package:ecommerceBankPay/src/components/mask.dart';
+import 'package:ecommerceBankPay/src/components/fields.dart';
+import 'package:ecommerceBankPay/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

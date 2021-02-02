@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/components/stateless_modal_widget.dart';
-import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
-import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
+import 'package:ecommerceBankPay/src/components/stateless_modal_widget.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_modal_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

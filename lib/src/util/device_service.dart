@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/controllers/transaction/mpos/transaction_modal_controller.dart';
-import 'package:estruturabasica/src/models/auth_model.dart';
-import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
-import 'package:estruturabasica/src/util/authMap.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_modal_controller.dart';
+import 'package:ecommerceBankPay/src/models/auth_model.dart';
+import 'package:ecommerceBankPay/src/routes/routing_constants.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/util/authMap.dart';
 import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import 'package:flutter/material.dart';
 

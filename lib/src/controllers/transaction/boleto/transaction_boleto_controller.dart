@@ -1,7 +1,7 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/services/transaction_service.dart';
-import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/models/boleto.dart';
+import 'package:ecommerceBankPay/src/services/transaction_service.dart';
+import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_boleto_controller.g.dart';

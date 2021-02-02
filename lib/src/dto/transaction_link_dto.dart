@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:estruturabasica/src/models/transaction_link.dart';
+import 'package:ecommerceBankPay/src/models/transaction_link.dart';
 
 class TransactionLinkDto {
   String nome;

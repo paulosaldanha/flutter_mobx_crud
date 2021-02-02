@@ -43,6 +43,23 @@ mixin _$AuthController on _AuthController, Store {
     }, _$isLoggedAtom, name: '${_$isLoggedAtom.name}_set');
   }
 
+  final _$versionAtom = Atom(name: '_AuthController.version');
+
+  @override
+  String get version {
+    _$versionAtom.context.enforceReadPolicy(_$versionAtom);
+    _$versionAtom.reportObserved();
+    return super.version;
+  }
+
+  @override
+  set version(String value) {
+    _$versionAtom.context.conditionallyRunInAction(() {
+      super.version = value;
+      _$versionAtom.reportChanged();
+    }, _$versionAtom, name: '${_$versionAtom.name}_set');
+  }
+
   final _$authAtom = Atom(name: '_AuthController.auth');
 
   @override

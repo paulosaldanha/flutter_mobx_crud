@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/models/transaction.dart';
+import 'package:ecommerceBankPay/src/models/transaction.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_wallet_dto.g.dart';

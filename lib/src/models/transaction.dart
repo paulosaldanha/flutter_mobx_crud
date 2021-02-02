@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/util/status_transaction.dart';
+import 'package:ecommerceBankPay/src/util/status_transaction.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction.g.dart';

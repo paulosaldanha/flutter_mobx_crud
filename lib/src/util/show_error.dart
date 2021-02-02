@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:estruturabasica/src/services/auth_service.dart';
+import 'package:ecommerceBankPay/src/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 showError(dynamic error, context) {

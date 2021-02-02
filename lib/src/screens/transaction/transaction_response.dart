@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/components/response/header_response_widget.dart';
-import 'package:estruturabasica/src/components/response/body_response_widget.dart';
-import 'package:estruturabasica/src/components/response/button_response_widget.dart';
+import 'package:ecommerceBankPay/src/components/response/header_response_widget.dart';
+import 'package:ecommerceBankPay/src/components/response/body_response_widget.dart';
+import 'package:ecommerceBankPay/src/components/response/button_response_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/screens/home/register/screen_emp.dart';
-import 'package:estruturabasica/src/screens/home/register/screen_pf.dart';
-import 'package:estruturabasica/src/screens/home/register/screen_pj.dart';
+import 'package:ecommerceBankPay/src/screens/home/register/screen_emp.dart';
+import 'package:ecommerceBankPay/src/screens/home/register/screen_pf.dart';
+import 'package:ecommerceBankPay/src/screens/home/register/screen_pj.dart';
 import 'package:flutter/material.dart';
 
 class FastRegister extends StatelessWidget {

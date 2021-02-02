@@ -1,8 +1,9 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/models/auth_model.dart';
-import 'package:estruturabasica/src/services/auth_service.dart';
-import 'package:estruturabasica/src/util/authMap.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/models/auth_model.dart';
+import 'package:ecommerceBankPay/src/services/auth_service.dart';
+import 'package:ecommerceBankPay/src/util/authMap.dart';
 import 'package:mobx/mobx.dart';
+import 'package:package_info/package_info.dart';
 
 part 'auth_controller.g.dart';
 
@@ -15,6 +16,9 @@ abstract class _AuthController with Store {
 
   @observable
   bool isLogged;
+
+  @observable
+  String version;
 
   @observable
   Auth auth = Auth();
@@ -35,5 +39,10 @@ abstract class _AuthController with Store {
 
    void getAuth() async {
     auth = await AuthMap.getAuthMap();
+  }
+
+  void getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version;
   }
 }

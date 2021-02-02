@@ -1,6 +1,6 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/models/auth_model.dart';
-import 'package:estruturabasica/src/services/auth_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/models/auth_model.dart';
+import 'package:ecommerceBankPay/src/services/auth_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_controller.g.dart';

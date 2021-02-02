@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/dto/transaction_boleto_dto.dart';
-import 'package:estruturabasica/src/dto/transaction_link_dto.dart';
-import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
-import 'package:estruturabasica/src/services/auth_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_boleto_dto.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_link_dto.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_wallet_dto.dart';
+import 'package:ecommerceBankPay/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:estruturabasica/src/models/boleto.dart';
-import 'package:estruturabasica/src/models/transaction_link.dart';
+import 'package:ecommerceBankPay/src/models/boleto.dart';
+import 'package:ecommerceBankPay/src/models/transaction_link.dart';
 
 class TransactionService {
   final Dio dio;

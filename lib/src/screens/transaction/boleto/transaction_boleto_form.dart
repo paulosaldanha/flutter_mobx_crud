@@ -1,8 +1,8 @@
-import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
-import 'package:estruturabasica/src/components/fields.dart';
-import 'package:estruturabasica/src/components/mask.dart';
-import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
-import 'package:estruturabasica/src/util/show_error.dart';
+import 'package:ecommerceBankPay/src/controllers/transaction/boleto/boleto_controller.dart';
+import 'package:ecommerceBankPay/src/components/fields.dart';
+import 'package:ecommerceBankPay/src/components/mask.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/boleto/transaction_boleto_form_part2.dart';
+import 'package:ecommerceBankPay/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

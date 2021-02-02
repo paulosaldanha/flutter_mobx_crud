@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:estruturabasica/src/models/user_thinkdata.dart';
+import 'package:ecommerceBankPay/src/models/user_thinkdata.dart';
 
 class ThinkDataService {
   final Dio dio;

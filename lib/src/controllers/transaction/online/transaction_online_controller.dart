@@ -1,11 +1,11 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/dto/transaction_online_dto.dart';
-import 'package:estruturabasica/src/models/user_thinkdata.dart';
-import 'package:estruturabasica/src/services/thinkdata_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_online_dto.dart';
+import 'package:ecommerceBankPay/src/models/user_thinkdata.dart';
+import 'package:ecommerceBankPay/src/services/thinkdata_service.dart';
 import 'package:mobx/mobx.dart';
-import 'package:estruturabasica/src/components/mask.dart';
-import 'package:estruturabasica/src/models/transaction_online.dart';
-import 'package:estruturabasica/src/services/transaction_online_service.dart';
+import 'package:ecommerceBankPay/src/components/mask.dart';
+import 'package:ecommerceBankPay/src/models/transaction_online.dart';
+import 'package:ecommerceBankPay/src/services/transaction_online_service.dart';
 import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 

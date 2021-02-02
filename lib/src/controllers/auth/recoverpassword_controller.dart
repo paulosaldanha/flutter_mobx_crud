@@ -1,5 +1,5 @@
-import 'package:estruturabasica/src/api/api.dart';
-import 'package:estruturabasica/src/services/register_service.dart';
+import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/services/register_service.dart';
 import 'package:mobx/mobx.dart';
 part 'recoverpassword_controller.g.dart';
 

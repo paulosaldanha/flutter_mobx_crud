@@ -1,11 +1,11 @@
-import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
-import 'package:estruturabasica/src/components/home_card.dart';
-import 'package:estruturabasica/src/components/home_card_grid.dart';
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
-import 'package:estruturabasica/src/screens/transaction/mpos/transaction_mpos_form.dart';
-import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
+import 'package:ecommerceBankPay/presentation/ecommerce_bank_pay_icons.dart';
+import 'package:ecommerceBankPay/src/components/home_card.dart';
+import 'package:ecommerceBankPay/src/components/home_card_grid.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/auth_controller.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/link/transaction_link_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/mpos/transaction_mpos_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/boleto/transaction_boleto_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/online/transaction_online_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

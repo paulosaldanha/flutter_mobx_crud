@@ -1,4 +1,4 @@
-import 'package:estruturabasica/src/util/tax_method_payment_service.dart';
+import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_online_part2_controller.g.dart';

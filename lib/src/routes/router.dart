@@ -1,14 +1,14 @@
-import 'package:estruturabasica/main.dart';
-import 'package:estruturabasica/src/screens/home/login_page.dart';
-import 'package:estruturabasica/src/screens/home/recover_password.dart';
-import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/screens/home/splash.dart';
-import 'package:estruturabasica/src/screens/home/register/fast_register.dart';
-import 'package:estruturabasica/src/screens/home/wifi_off.dart';
-import 'package:estruturabasica/src/screens/transaction/boleto/transaction_boleto_form.dart';
-import 'package:estruturabasica/src/screens/transaction/online/transaction_online_form.dart';
-import 'package:estruturabasica/src/screens/transaction/link/transaction_link_form.dart';
-import 'package:estruturabasica/src/screens/transaction/mpos/transaction_mpos_form.dart';
+import 'package:ecommerceBankPay/main.dart';
+import 'package:ecommerceBankPay/src/screens/home/login_page.dart';
+import 'package:ecommerceBankPay/src/screens/home/recover_password.dart';
+import 'package:ecommerceBankPay/src/routes/routing_constants.dart';
+import 'package:ecommerceBankPay/src/screens/home/splash.dart';
+import 'package:ecommerceBankPay/src/screens/home/register/fast_register.dart';
+import 'package:ecommerceBankPay/src/screens/home/wifi_off.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/boleto/transaction_boleto_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/online/transaction_online_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/link/transaction_link_form.dart';
+import 'package:ecommerceBankPay/src/screens/transaction/mpos/transaction_mpos_form.dart';
 import 'package:flutter/material.dart';
 
 //utilizando o arguments -> nomePage(arguments['id']);

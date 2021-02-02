@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:estruturabasica/src/dto/transaction_online_dto.dart';
-import 'package:estruturabasica/src/models/transaction_online.dart';
+import 'package:ecommerceBankPay/src/dto/transaction_online_dto.dart';
+import 'package:ecommerceBankPay/src/models/transaction_online.dart';
 
 class TransactionOnlineService {
   final Dio dio;

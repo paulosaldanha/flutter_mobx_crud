@@ -1,10 +1,10 @@
-import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
-import 'package:estruturabasica/src/routes/routing_constants.dart';
-import 'package:estruturabasica/src/screens/drawer_menu/drawer_menu.dart';
-import 'package:estruturabasica/src/screens/home/home_page.dart';
+import 'package:ecommerceBankPay/src/controllers/auth/auth_controller.dart';
+import 'package:ecommerceBankPay/src/routes/routing_constants.dart';
+import 'package:ecommerceBankPay/src/screens/drawer_menu/drawer_menu.dart';
+import 'package:ecommerceBankPay/src/screens/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:estruturabasica/src/routes/router.dart';
+import 'package:ecommerceBankPay/src/routes/router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 
