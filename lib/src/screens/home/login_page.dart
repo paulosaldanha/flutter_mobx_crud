@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/controllers/auth/login_controller.dart';

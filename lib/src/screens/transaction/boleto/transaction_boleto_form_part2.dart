@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/components/display_value_widget.dart';
 import 'package:estruturabasica/src/components/keyboard_widget.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/transaction_boleto_controller.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
-// ignore: must_be_immutable
 class TransactionBoletoForm2 extends StatefulWidget {
   final boletoController;
   TransactionBoletoForm2(this.boletoController);
@@ -27,6 +25,8 @@ class _TransactionBoletoForm2State extends State<TransactionBoletoForm2> {
     super.didChangeDependencies();
     disposer = reaction((_) => boletoController.requestCreate.status, (_) async {
       if (boletoController.requestCreate?.status == FutureStatus.fulfilled) {
+        boletoController.clear();
+        print(boletoController.requestCreate.value);
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TransactionResponse(
                 boletoController.requestCreate.value , "boleto")));
@@ -35,6 +35,12 @@ class _TransactionBoletoForm2State extends State<TransactionBoletoForm2> {
         showError(boletoController.requestCreate.error, context);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 
   _TransactionBoletoForm2State(this.boletoController);

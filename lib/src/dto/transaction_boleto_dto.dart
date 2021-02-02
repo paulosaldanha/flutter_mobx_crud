@@ -10,6 +10,12 @@ class TransactionBoletoDto {
   double valor;
   String vencimento;
   String mensagem;
+  String nossoNumero;
+  String linhaDigitavel;
+  String codigoDeBarra;
+  String parcela;
+  String link;
+
 
   TransactionBoletoDto.fromMapBolete(Boleto boleto) {
     nome = boleto.name;
@@ -19,6 +25,17 @@ class TransactionBoletoDto {
     valor = boleto.value;
     vencimento = boleto.dateExpiration.toString();
     mensagem = boleto.message;
+  }
+
+  TransactionBoletoDto.fromMap(Map<String, dynamic> map){
+     nome = map['nomeCliente']??"";
+     documento = map['documento']??"";
+     valor = map['valor']??"";
+     nossoNumero = map['nossoNumero']??"";
+     linhaDigitavel = map['linhaDigitavel']??"";
+     codigoDeBarra = map['codigoDeBarra']??"";
+     parcela = map['parcelas'].toString()??"";
+     link = map['transacaoLinkId']??"";
   }
 
   dynamic toJson() {

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:estruturabasica/presentation/ecommerce_bank_pay_icons.dart';
 import 'package:estruturabasica/src/controllers/auth/auth_controller.dart';
 import 'package:estruturabasica/src/controllers/home/home_controller.dart';
@@ -30,6 +29,12 @@ class _HomeCardState extends State<HomeCard> {
         showError(homeController.request.error, context);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 
   @override

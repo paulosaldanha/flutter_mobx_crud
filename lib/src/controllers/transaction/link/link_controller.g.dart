@@ -43,21 +43,38 @@ mixin _$LinkController on _LinkController, Store {
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_LinkController.loading');
+  final _$isLoadingAtom = Atom(name: '_LinkController.isLoading');
 
   @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
+  bool get isLoading {
+    _$isLoadingAtom.context.enforceReadPolicy(_$isLoadingAtom);
+    _$isLoadingAtom.reportObserved();
+    return super.isLoading;
   }
 
   @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  set isLoading(bool value) {
+    _$isLoadingAtom.context.conditionallyRunInAction(() {
+      super.isLoading = value;
+      _$isLoadingAtom.reportChanged();
+    }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
+  }
+
+  final _$requestLinkAtom = Atom(name: '_LinkController.requestLink');
+
+  @override
+  ObservableFuture<TransactionLinkDto> get requestLink {
+    _$requestLinkAtom.context.enforceReadPolicy(_$requestLinkAtom);
+    _$requestLinkAtom.reportObserved();
+    return super.requestLink;
+  }
+
+  @override
+  set requestLink(ObservableFuture<TransactionLinkDto> value) {
+    _$requestLinkAtom.context.conditionallyRunInAction(() {
+      super.requestLink = value;
+      _$requestLinkAtom.reportChanged();
+    }, _$requestLinkAtom, name: '${_$requestLinkAtom.name}_set');
   }
 
   final _$_LinkControllerActionController =

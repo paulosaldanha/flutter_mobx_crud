@@ -136,4 +136,14 @@ mixin _$BoletoController on _BoletoController, Store {
       _$_BoletoControllerActionController.endAction(_$actionInfo);
     }
   }
+
+  @override
+  void clear() {
+    final _$actionInfo = _$_BoletoControllerActionController.startAction();
+    try {
+      return super.clear();
+    } finally {
+      _$_BoletoControllerActionController.endAction(_$actionInfo);
+    }
+  }
 }

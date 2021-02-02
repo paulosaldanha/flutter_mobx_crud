@@ -137,14 +137,6 @@ class DeviceService {
 
       if (data['method'] == 'onReceiveFinishTransaction') {
         setTransactionStatus('onReceiveFinishTransaction');
-        // status.setImgStatus('images/approve.png');
-        // status.setTitleStatus('Pagamento Aprovado');
-        // mpos.displayText("TRANSACAO CONCLUIDA");
-        // mpos.close("TRANSACAO CONCLUIDA - RETIRE O CARTAO");
-        // Timer(Duration(seconds: 4), () {
-        //   Navigator.pop(context);
-        //   Navigator.of(context).pushNamed(HomeViewRoute);
-        // });
       }
     }
   }

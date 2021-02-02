@@ -58,14 +58,6 @@ abstract class _TransactionLinkController with Store {
     return currentValues;
   }
 
-  @computed
-  bool get validValue =>
-      (double.parse(currentValues.replaceAll(",", ".")) >= 10.00);
-
-  @computed
-  bool get isValid {
-    return validValue;
-  }
 
   dynamic getParcelas(value) async {
     dynamic taxas = await transactionService.getTax(value, 3);

@@ -32,6 +32,7 @@ abstract class _BoletoController with Store {
   @computed
   bool get isLoadingRequestUserThink =>
       requestUserThink.status == FutureStatus.pending;
+
   @observable
   ObservableFuture<UserThinkdata> requestUserThink =
       ObservableFuture.value(null);
@@ -39,6 +40,7 @@ abstract class _BoletoController with Store {
   @computed
   bool get isLoadingRequestCreate =>
       requestCreate.status == FutureStatus.pending;
+
   @observable
   ObservableFuture<TransactionBoletoDto> requestCreate = ObservableFuture.value(null);
 
@@ -65,6 +67,11 @@ abstract class _BoletoController with Store {
     } else {
       return "Documento Inválido";
     }
+  }
+
+  @action
+  void clear(){
+    boleto = null;
   }
 
   // Validação de Nome

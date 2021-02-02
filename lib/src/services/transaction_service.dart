@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/dto/transaction_boleto_dto.dart';
+import 'package:estruturabasica/src/dto/transaction_link_dto.dart';
 import 'package:estruturabasica/src/dto/transaction_wallet_dto.dart';
 import 'package:estruturabasica/src/services/auth_service.dart';
 import 'package:http/http.dart' as http;
@@ -44,23 +45,20 @@ class TransactionService {
     try {
       var response = await dio.post('/Transacao/boleto',
           data: TransactionBoletoDto.fromMapBolete(boleto).toJson());
-      return response.data;
+      return TransactionBoletoDto.fromMap(response.data);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
 
-  dynamic createTransactionLink(TransactionLink link) async {
-    Map<String, Object> payload = Map();
-    payload["nome"] = link.name;
-    payload["valor"] = link.value;
-    payload["quantidadeDeParcelaMaxima"] = link.installments;
-    payload["dataExpiracao"] = link.dateExpiration.toString();
-
+  Future<TransactionLinkDto> createTransactionLink(TransactionLink link) async {
     try {
-      var response = await dio.post('TransacaoLink', data: jsonEncode(payload));
-      return response.data;
+      var response = await dio.post('/TransacaoLink',
+          data: TransactionLinkDto.fromMapLink(link).toJson());
+      return TransactionLinkDto.fromMap(response.data);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }

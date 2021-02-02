@@ -11,26 +11,26 @@ class TransactionResponse extends StatelessWidget {
 
   TransactionResponse(this.response, this.method);
 
-  bool _validResponse() {
-    print(response.containsKey("errors"));
-    if (response.containsKey("errors") || response["status"] == 500) {
-      return true;
-    }
-    return false;
-  }
+  // bool _validResponse() {
+  //   print(response.containsKey("errors"));
+  //   if (response.containsKey("errors") || response["status"] == 500) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   @override
   Widget build(BuildContext context) {
-    bool error = _validResponse();
+    // bool error = _validResponse();
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            HeaderResponseWidget(response, error, method),
+            HeaderResponseWidget(response, false, method),
             SizedBox(height: 30),
-            BodyResponseWidget(response, error, method),
+            BodyResponseWidget(response, false, method),
             SizedBox(height: 60),
-            ButtonResponseWidget(error)
+            ButtonResponseWidget(false)
           ],
         ));
   }

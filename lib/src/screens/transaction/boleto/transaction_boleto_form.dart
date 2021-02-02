@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:estruturabasica/src/components/custom_icon_button.dart';
 import 'package:estruturabasica/src/controllers/transaction/boleto/boleto_controller.dart';
 import 'package:estruturabasica/src/components/fields.dart';
 import 'package:estruturabasica/src/components/mask.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobx/mobx.dart';
 
-// ignore: must_be_immutable
 class TransactionBoletoForm extends StatefulWidget {
   @override
   _TransactionBoletoFormState createState() => _TransactionBoletoFormState();

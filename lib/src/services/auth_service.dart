@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:estruturabasica/src/models/auth_model.dart';
 import 'package:estruturabasica/src/util/authMap.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 

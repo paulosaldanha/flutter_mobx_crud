@@ -84,5 +84,6 @@ abstract class _TransactionMposController with Store {
         currentValues: double.parse(currentValues.replaceAll(',', '.')),
         status: transactionModalController,
         context: context);
+
   }
 }
