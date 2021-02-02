@@ -1,7 +1,5 @@
 import 'package:estruturabasica/src/api/api.dart';
 import 'package:estruturabasica/src/dto/transaction_link_dto.dart';
-import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:estruturabasica/src/models/transaction_link.dart';
 import 'package:estruturabasica/src/services/transaction_service.dart';
@@ -20,12 +18,12 @@ abstract class _LinkController with Store {
   @action
   setValidDate(String value) => validDate = value;
 
-  @observable
-  bool isLoading = false;
+  @computed
+  bool get isLoadingRequestCreate =>
+      requestCreate.status == FutureStatus.pending;
 
   @observable
-  ObservableFuture<TransactionLinkDto> requestLink =
-      ObservableFuture.value(null);
+  ObservableFuture<TransactionLinkDto> requestCreate = ObservableFuture.value(null);
 
   @computed
   bool get validName =>
@@ -65,22 +63,14 @@ abstract class _LinkController with Store {
 
   @computed
   bool get isValid {
-    return validName && validInstallments && validDateExpiration && !isLoading;
+    return validName && validInstallments && validDateExpiration && !isLoadingRequestCreate;
   }
 
-  Future<TransactionLinkDto> createTransctionLink(context) async {
+void createTransctionLink() async {
     try {
-      isLoading = true;
-      transactionService
+      requestCreate = transactionService
           .createTransactionLink(link)
-          .asObservable()
-          .then((value) {
-        isLoading = false;
-        if (value != null) {
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-              builder: (context) => TransactionResponse(value, "link")), (route) => false);
-        }
-      });
+          .asObservable();
     } catch (e) {
       print(e);
     }

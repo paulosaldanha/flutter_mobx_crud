@@ -52,7 +52,7 @@ class _TransactionLinkFormState extends State<TransactionLinkForm> {
                         color: Colors.white,
                         textColor: Color.fromRGBO(0, 74, 173, 1),
                         padding: EdgeInsets.all(10.0),
-                        onPressed:  () async {
+                        onPressed: !transactionLinkController.loading ? () async {
                                 String value = transactionLinkController
                                     .currentValues
                                     .replaceAll(",", ".");
@@ -68,17 +68,16 @@ class _TransactionLinkFormState extends State<TransactionLinkForm> {
                                       builder: (context) => TransactionLinkForm2(
                                           linkController, link, parcelas)));
                                 }
-
-
-
-                              },
-                        child: Text(
+                              }: null,
+                        child:!transactionLinkController.loading? Text(
                           "Continuar".toUpperCase(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30.0,
                           ),
-                        ),
+                        ):Center(
+                          child: CircularProgressIndicator(),
+                        )
                       );
                     },
                   ),

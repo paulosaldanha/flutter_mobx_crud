@@ -100,6 +100,23 @@ mixin _$TransactionLinkController on _TransactionLinkController, Store {
         name: '${_$visibilityModalBluetoothAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_TransactionLinkController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$setCurrentValuesAsyncAction = AsyncAction('setCurrentValues');
 
   @override

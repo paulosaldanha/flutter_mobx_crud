@@ -1,3 +1,4 @@
+import 'package:estruturabasica/src/screens/transaction/transaction_response.dart';
 import 'package:estruturabasica/src/util/show_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,13 @@ class _TransactionLinkForm2State extends State<TransactionLinkForm2> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    disposer = reaction((_) => transactionLink.requestLink.status, (_) async {
-      if (transactionLink.requestLink?.status == FutureStatus.fulfilled) {
-        print(transactionLink.requestLink.value);
+    disposer = reaction((_) => linkController.requestCreate.status, (_) async {
+      if (linkController.requestCreate?.status == FutureStatus.fulfilled) {
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+            builder: (context) => TransactionResponse(linkController.requestCreate.value, "link")), (route) => false);
       }
-      if (transactionLink.requestLink?.status == FutureStatus.rejected) {
-        showError(transactionLink.requestLink.error, context);
+      if (linkController.requestCreate?.status == FutureStatus.rejected) {
+        showError(linkController.requestCreate.error, context);
       }
     });
   }
@@ -156,12 +158,12 @@ class _TransactionLinkForm2State extends State<TransactionLinkForm2> {
                           padding: EdgeInsets.all(10.0),
                           onPressed: linkController.isValid
                               ? () {
-                                  linkController.createTransctionLink(context);
+                                  linkController.createTransctionLink();
                                 }
                               : null,
                           child: Observer(
                             builder: (_) {
-                              return !linkController.isLoading
+                              return !linkController.isLoadingRequestCreate
                                   ? Text(
                                       "Continuar".toUpperCase(),
                                       style: TextStyle(

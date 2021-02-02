@@ -25,6 +25,8 @@ abstract class _TransactionLinkController with Store {
   List parcelas = [];
   @observable
   bool visibilityModalBluetooth = true;
+  @observable
+  bool loading = false;
 
   @action
   setCurrentValues(String value) async {
@@ -60,6 +62,7 @@ abstract class _TransactionLinkController with Store {
 
 
   dynamic getParcelas(value) async {
+    loading = true;
     dynamic taxas = await transactionService.getTax(value, 3);
     parcelas = [];
     for (int i = 0; i < taxas.length; i++) {
@@ -76,6 +79,7 @@ abstract class _TransactionLinkController with Store {
       }
       parcelas.add(parcela);
     }
+    loading = false;
     return parcelas.toList();
   }
 }

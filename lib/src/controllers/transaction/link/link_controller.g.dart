@@ -9,6 +9,12 @@ part of 'link_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LinkController on _LinkController, Store {
+  Computed<bool> _$isLoadingRequestCreateComputed;
+
+  @override
+  bool get isLoadingRequestCreate => (_$isLoadingRequestCreateComputed ??=
+          Computed<bool>(() => super.isLoadingRequestCreate))
+      .value;
   Computed<bool> _$validNameComputed;
 
   @override
@@ -43,38 +49,21 @@ mixin _$LinkController on _LinkController, Store {
     }, _$validDateAtom, name: '${_$validDateAtom.name}_set');
   }
 
-  final _$isLoadingAtom = Atom(name: '_LinkController.isLoading');
+  final _$requestCreateAtom = Atom(name: '_LinkController.requestCreate');
 
   @override
-  bool get isLoading {
-    _$isLoadingAtom.context.enforceReadPolicy(_$isLoadingAtom);
-    _$isLoadingAtom.reportObserved();
-    return super.isLoading;
+  ObservableFuture<TransactionLinkDto> get requestCreate {
+    _$requestCreateAtom.context.enforceReadPolicy(_$requestCreateAtom);
+    _$requestCreateAtom.reportObserved();
+    return super.requestCreate;
   }
 
   @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.context.conditionallyRunInAction(() {
-      super.isLoading = value;
-      _$isLoadingAtom.reportChanged();
-    }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
-  }
-
-  final _$requestLinkAtom = Atom(name: '_LinkController.requestLink');
-
-  @override
-  ObservableFuture<TransactionLinkDto> get requestLink {
-    _$requestLinkAtom.context.enforceReadPolicy(_$requestLinkAtom);
-    _$requestLinkAtom.reportObserved();
-    return super.requestLink;
-  }
-
-  @override
-  set requestLink(ObservableFuture<TransactionLinkDto> value) {
-    _$requestLinkAtom.context.conditionallyRunInAction(() {
-      super.requestLink = value;
-      _$requestLinkAtom.reportChanged();
-    }, _$requestLinkAtom, name: '${_$requestLinkAtom.name}_set');
+  set requestCreate(ObservableFuture<TransactionLinkDto> value) {
+    _$requestCreateAtom.context.conditionallyRunInAction(() {
+      super.requestCreate = value;
+      _$requestCreateAtom.reportChanged();
+    }, _$requestCreateAtom, name: '${_$requestCreateAtom.name}_set');
   }
 
   final _$_LinkControllerActionController =
