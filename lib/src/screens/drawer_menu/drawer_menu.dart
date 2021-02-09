@@ -83,7 +83,7 @@ class DrawerMenu extends StatelessWidget {
             title: Text('Logout'),
             onTap: () async {
               await authController.logout();
-              Navigator.of(context).pushNamed(LoginPageRoute);
+              Navigator.of(context).pushNamedAndRemoveUntil(LoginPageRoute, (route) => false);
             },
           ),
         ],

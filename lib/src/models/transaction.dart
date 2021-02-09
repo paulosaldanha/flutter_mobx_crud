@@ -1,4 +1,5 @@
 import 'package:ecommerceBankPay/src/util/status_transaction.dart';
+import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction.g.dart';
@@ -60,7 +61,7 @@ abstract class _TransactionBase with Store {
   _TransactionBase.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     name = map['nomeCliente'];
-    amount = map['valor'].toStringAsFixed(2).replaceAll('.', ',');
+    amount = TaxMethodPaymentService.moneyPtBr(map['valor']);
     document = map['documento'];
     installments = map['parcelas'];
     idTransaction = map['nossoNumero'];

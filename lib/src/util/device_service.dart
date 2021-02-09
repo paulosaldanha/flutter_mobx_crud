@@ -49,95 +49,99 @@ class DeviceService {
   }
 
   void addListeners(data) {
-    if (data != null) {
-      if (data['method'] == 'onBluetoothConnected') {
-        status.setTitleStatus('Bluetooth Connectado...');
+    try {
+      if (data != null) {
+        if (data['method'] == 'onBluetoothConnected') {
+          status.setTitleStatus('Bluetooth Connectado...');
 
-        mpos.initialize();
-        return;
+          mpos.initialize();
+          return;
+        }
+
+        if (data['method'] == 'onBluetoothDisconnected') {
+          status.setImgStatus('images/fail.png');
+          status.setTitleStatus('Conexão com bluetooth perdida!');
+          setTransactionStatus('Lost bluetooth connection...');
+          return;
+        }
+
+        if (data['method'] == 'onBluetoothErrored') {
+          status.setImgStatus('images/fail.png');
+          status.setTitleStatus(
+              'Ocorreu algum erro feche a janela é tente novamente!');
+          Timer(Duration(seconds: 2), () {
+            status.setTitleStatus('Carregando...');
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed(TransactionCardMpos);
+          });
+          setTransactionStatus('An error ocurred ${data['value']}');
+          return;
+        }
+
+        if (data['method'] == 'onReceiveInitialization') {
+          mpos.downloadEmvTablesToDevice(false);
+          setTransactionStatus('Checking for emv table updates...');
+          status.setTitleStatus('Aguarde processando...');
+          mpos.displayText('Aguarde processando...');
+          return;
+        }
+
+        if (data['method'] == 'onReceiveNotification') {
+          print('[${this.deviceName}] Sent notification: ${data['value']}');
+          return;
+        }
+
+        if (data['method'] == 'onReceiveTableUpdated') {
+          setTransactionStatus('Emv tables are up to date. Insert card...');
+          status.setImgStatus('images/card.png');
+          status.setTitleStatus('Inserir o cartão...');
+          mpos.payAmount(this.amount, this.paymentMethod);
+
+          return;
+        }
+
+        if (data['method'] == 'onReceiveCardHash') {
+          mpos.displayText('PROCESSANDO...');
+          status.setTitleStatus('Processando...');
+          setTransactionStatus('Received card hash. Creating transaction...');
+          createTransaction(data['value']);
+          return;
+        }
+
+        if (data['method'] == 'onReceiveError') {
+          setTransactionStatus(null);
+          status.setImgStatus('images/fail.png');
+          status.setTitleStatus(
+              'Ocorreu algum erro feche a janela é tente novamente!');
+          Timer(Duration(seconds: 2), () {
+            status.setTitleStatus('Carregando...');
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed(TransactionCardMpos);
+          });
+          mpos.close('ERROR - ' + data['value']);
+        }
+
+        if (data['method'] == 'onReceiveClose') {
+          // TBD
+          setTransactionStatus('onReceiveClose');
+        }
+
+        if (data['method'] == 'onReceiveOperationCancelled') {
+          // TBD
+          setTransactionStatus('onReceiveOperationCancelled');
+        }
+
+        if (data['method'] == 'onReceiveOperationCompleted') {
+          // TBD
+          setTransactionStatus('onReceiveOperationCompleted');
+        }
+
+        if (data['method'] == 'onReceiveFinishTransaction') {
+          setTransactionStatus('onReceiveFinishTransaction');
+        }
       }
-
-      if (data['method'] == 'onBluetoothDisconnected') {
-        status.setImgStatus('images/fail.png');
-        status.setTitleStatus('Conexão com bluetooth perdida!');
-        setTransactionStatus('Lost bluetooth connection...');
-        return;
-      }
-
-      if (data['method'] == 'onBluetoothErrored') {
-        status.setImgStatus('images/fail.png');
-        status.setTitleStatus(
-            'Ocorreu algum erro feche a janela é tente novamente!');
-        Timer(Duration(seconds: 2), () {
-          status.setTitleStatus('Carregando...');
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed(TransactionCardMpos);
-        });
-        setTransactionStatus('An error ocurred ${data['value']}');
-        return;
-      }
-
-      if (data['method'] == 'onReceiveInitialization') {
-        mpos.downloadEmvTablesToDevice(false);
-        setTransactionStatus('Checking for emv table updates...');
-        status.setTitleStatus('Aguarde processando...');
-        mpos.displayText('Aguarde processando...');
-        return;
-      }
-
-      if (data['method'] == 'onReceiveNotification') {
-        print('[${this.deviceName}] Sent notification: ${data['value']}');
-        return;
-      }
-
-      if (data['method'] == 'onReceiveTableUpdated') {
-        setTransactionStatus('Emv tables are up to date. Insert card...');
-        status.setImgStatus('images/card.png');
-        status.setTitleStatus('Inserir o cartão...');
-        mpos.payAmount(this.amount, this.paymentMethod);
-
-        return;
-      }
-
-      if (data['method'] == 'onReceiveCardHash') {
-        mpos.displayText('PROCESSANDO...');
-        status.setTitleStatus('Processando...');
-        setTransactionStatus('Received card hash. Creating transaction...');
-        createTransaction(data['value']);
-        return;
-      }
-
-      if (data['method'] == 'onReceiveError') {
-        setTransactionStatus(null);
-        status.setImgStatus('images/fail.png');
-        status.setTitleStatus(
-            'Ocorreu algum erro feche a janela é tente novamente!');
-        Timer(Duration(seconds: 2), () {
-          status.setTitleStatus('Carregando...');
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed(TransactionCardMpos);
-        });
-        mpos.close('ERROR - ' + data['value']);
-      }
-
-      if (data['method'] == 'onReceiveClose') {
-        // TBD
-        setTransactionStatus('onReceiveClose');
-      }
-
-      if (data['method'] == 'onReceiveOperationCancelled') {
-        // TBD
-        setTransactionStatus('onReceiveOperationCancelled');
-      }
-
-      if (data['method'] == 'onReceiveOperationCompleted') {
-        // TBD
-        setTransactionStatus('onReceiveOperationCompleted');
-      }
-
-      if (data['method'] == 'onReceiveFinishTransaction') {
-        setTransactionStatus('onReceiveFinishTransaction');
-      }
+    }catch(e){
+      print(e);
     }
   }
 

@@ -9,11 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TransactionLinkForm extends StatefulWidget {
-
   @override
-  _TransactionLinkFormState createState() =>
-      _TransactionLinkFormState();
+  _TransactionLinkFormState createState() => _TransactionLinkFormState();
 }
+
 class _TransactionLinkFormState extends State<TransactionLinkForm> {
   TransactionLink link = TransactionLink();
   LinkController linkController = LinkController();
@@ -33,8 +32,23 @@ class _TransactionLinkFormState extends State<TransactionLinkForm> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                   DisplayValueWidget(
-                      transactionLinkController, "", false),
+                DisplayValueWidget(transactionLinkController, "", false),
+                Container(
+                  color: Colors.white,
+                  height: 50,
+                  child: Wrap(
+                      children: [
+                        Text(
+                          "Se o valor for zero,  o cliente poderá pagar  o valor que desejar  (mínimo R\$ 10 )",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange[700],
+                          ),
+                        )
+                      ],),
+                ),
                 KeyboardWidget(transactionLinkController),
                 Container(
                   width: 1000,
@@ -44,41 +58,53 @@ class _TransactionLinkFormState extends State<TransactionLinkForm> {
                   child: Observer(
                     builder: (_) {
                       return FlatButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                          side:
-                              BorderSide(color: Color.fromRGBO(0, 74, 173, 1)),
-                        ),
-                        color: Colors.white,
-                        textColor: Color.fromRGBO(0, 74, 173, 1),
-                        padding: EdgeInsets.all(10.0),
-                        onPressed: !transactionLinkController.loading ? () async {
-                                String value = transactionLinkController
-                                    .currentValues
-                                    .replaceAll(",", ".");
-                                linkController.link.setValue(value);
-                                if(value == "0.00"){
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => TransactionLinkForm2(
-                                          linkController, link, null)));
-                                }else{
-                                  List parcelas = await transactionLinkController
-                                      .getParcelas(value);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => TransactionLinkForm2(
-                                          linkController, link, parcelas)));
-                                }
-                              }: null,
-                        child:!transactionLinkController.loading? Text(
-                          "Continuar".toUpperCase(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                            side: BorderSide(
+                                color: Color.fromRGBO(0, 74, 173, 1)),
                           ),
-                        ):Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      );
+                          color: Colors.white,
+                          textColor: Color.fromRGBO(0, 74, 173, 1),
+                          padding: EdgeInsets.all(10.0),
+                          onPressed: !transactionLinkController.loading
+                              ? () async {
+                                  String value = transactionLinkController
+                                      .currentValues
+                                      .replaceAll(",", ".");
+                                  linkController.link.setValue(value);
+                                  if (value == "0.00") {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TransactionLinkForm2(
+                                                    linkController,
+                                                    link,
+                                                    null)));
+                                  } else {
+                                    List parcelas =
+                                        await transactionLinkController
+                                            .getParcelas(value);
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TransactionLinkForm2(
+                                                    linkController,
+                                                    link,
+                                                    parcelas)));
+                                  }
+                                }
+                              : null,
+                          child: !transactionLinkController.loading
+                              ? Text(
+                                  "Continuar".toUpperCase(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0,
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                ));
                     },
                   ),
                 )

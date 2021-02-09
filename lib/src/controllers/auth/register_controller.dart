@@ -14,7 +14,7 @@ abstract class _RegisterController with Store {
   var service = RegisterService(Api());
 
   @observable
-  String confirmPassword;
+  String confirmPassword = "";
   @observable
   bool passwordVisible = true;
   @observable

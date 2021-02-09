@@ -95,8 +95,7 @@ labelFieldRequired(String label) {
 }
 
 label(String label, {double fontSize, MainAxisAlignment align, Color color}) {
-  return Row(
-    mainAxisAlignment: align ?? MainAxisAlignment.start,
+  return Wrap(
     children: [
       Text(
         label,

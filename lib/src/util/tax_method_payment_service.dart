@@ -1,5 +1,6 @@
 import 'package:ecommerceBankPay/src/api/api.dart';
 import 'package:ecommerceBankPay/src/services/transaction_service.dart';
+import 'package:intl/intl.dart';
 
 
 class TaxMethodPaymentService {
@@ -12,6 +13,11 @@ class TaxMethodPaymentService {
     }
     double realCurrent = int.parse(val) / 100;
     return realCurrent.toStringAsFixed(2).replaceAll('.', ',');
+  }
+
+  static String moneyPtBr( value){
+    final oCcy = new NumberFormat("#,##0.00", "pt_BR");
+    return oCcy.format(value).toString();
   }
 
    Future<List> convertCurrentValueAndAmountCredit(String current) async {

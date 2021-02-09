@@ -8,7 +8,6 @@ class DisplayValueWidget extends StatelessWidget {
 
   DisplayValueWidget(this.controller, this.errorDescription, this.error);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,6 +60,7 @@ class DisplayValueWidget extends StatelessWidget {
                       return controller.visibilityModalBluetooth
                           ? Text(
                               errorDescription,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.bold,
@@ -69,7 +69,6 @@ class DisplayValueWidget extends StatelessWidget {
                                     : Colors.lightGreen,
                               ),
                             )
-
                           : Text('');
                     },
                   ),
