@@ -32,6 +32,40 @@ mixin _$HomeController on _HomeController, Store {
     }, _$sizeCardAtom, name: '${_$sizeCardAtom.name}_set');
   }
 
+  final _$valueWalletAtom = Atom(name: '_HomeController.valueWallet');
+
+  @override
+  String get valueWallet {
+    _$valueWalletAtom.context.enforceReadPolicy(_$valueWalletAtom);
+    _$valueWalletAtom.reportObserved();
+    return super.valueWallet;
+  }
+
+  @override
+  set valueWallet(String value) {
+    _$valueWalletAtom.context.conditionallyRunInAction(() {
+      super.valueWallet = value;
+      _$valueWalletAtom.reportChanged();
+    }, _$valueWalletAtom, name: '${_$valueWalletAtom.name}_set');
+  }
+
+  final _$transactionListAtom = Atom(name: '_HomeController.transactionList');
+
+  @override
+  ObservableList<Transaction> get transactionList {
+    _$transactionListAtom.context.enforceReadPolicy(_$transactionListAtom);
+    _$transactionListAtom.reportObserved();
+    return super.transactionList;
+  }
+
+  @override
+  set transactionList(ObservableList<Transaction> value) {
+    _$transactionListAtom.context.conditionallyRunInAction(() {
+      super.transactionList = value;
+      _$transactionListAtom.reportChanged();
+    }, _$transactionListAtom, name: '${_$transactionListAtom.name}_set');
+  }
+
   final _$requestAtom = Atom(name: '_HomeController.request');
 
   @override

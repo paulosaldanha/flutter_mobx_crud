@@ -30,6 +30,7 @@ class _SliderTaxaState extends State<SliderTaxa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
         title: Text('Método de Pagamento'),
@@ -149,7 +150,7 @@ class _SliderTaxaState extends State<SliderTaxa> {
                     Row(
                       children: [
                         Observer(builder: (_) {
-                          return !listComboController.loading
+                          return !listComboController.isLoading
                               ? Text(
                                   controller.getPaymentMethod() == "Credito"
                                       ? '${listComboController.amountValuesCreditCardList[_value.toInt() - 1].descriptionValue}'

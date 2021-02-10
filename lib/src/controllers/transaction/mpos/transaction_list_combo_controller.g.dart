@@ -10,6 +10,12 @@ part of 'transaction_list_combo_controller.dart';
 
 mixin _$TransactionListComboController
     on _TransactionListComboController, Store {
+  Computed<bool> _$isLoadingComputed;
+
+  @override
+  bool get isLoading =>
+      (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading)).value;
+
   final _$amountValuesCreditCardListAtom =
       Atom(name: '_TransactionListComboController.amountValuesCreditCardList');
 
@@ -106,21 +112,40 @@ mixin _$TransactionListComboController
         name: '${_$installmentsComboListAtom.name}_set');
   }
 
-  final _$loadingAtom = Atom(name: '_TransactionListComboController.loading');
+  final _$loadingCreditAtom =
+      Atom(name: '_TransactionListComboController.loadingCredit');
 
   @override
-  bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
-    return super.loading;
+  bool get loadingCredit {
+    _$loadingCreditAtom.context.enforceReadPolicy(_$loadingCreditAtom);
+    _$loadingCreditAtom.reportObserved();
+    return super.loadingCredit;
   }
 
   @override
-  set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
-      super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  set loadingCredit(bool value) {
+    _$loadingCreditAtom.context.conditionallyRunInAction(() {
+      super.loadingCredit = value;
+      _$loadingCreditAtom.reportChanged();
+    }, _$loadingCreditAtom, name: '${_$loadingCreditAtom.name}_set');
+  }
+
+  final _$loadingDebitAtom =
+      Atom(name: '_TransactionListComboController.loadingDebit');
+
+  @override
+  bool get loadingDebit {
+    _$loadingDebitAtom.context.enforceReadPolicy(_$loadingDebitAtom);
+    _$loadingDebitAtom.reportObserved();
+    return super.loadingDebit;
+  }
+
+  @override
+  set loadingDebit(bool value) {
+    _$loadingDebitAtom.context.conditionallyRunInAction(() {
+      super.loadingDebit = value;
+      _$loadingDebitAtom.reportChanged();
+    }, _$loadingDebitAtom, name: '${_$loadingDebitAtom.name}_set');
   }
 
   final _$_TransactionListComboControllerActionController =
@@ -132,17 +157,6 @@ mixin _$TransactionListComboController
         _$_TransactionListComboControllerActionController.startAction();
     try {
       return super.selectedState(value);
-    } finally {
-      _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  bool setStateLoading(dynamic value) {
-    final _$actionInfo =
-        _$_TransactionListComboControllerActionController.startAction();
-    try {
-      return super.setStateLoading(value);
     } finally {
       _$_TransactionListComboControllerActionController.endAction(_$actionInfo);
     }

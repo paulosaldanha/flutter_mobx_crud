@@ -44,7 +44,7 @@ class _TransactionOnlineFormPart2State
       ),
       body: Observer(
         builder: (_) {
-          return listComboController.loading
+          return listComboController.loadingCredit
               ? Center(
                   child: CircularProgressIndicator(),
                 )

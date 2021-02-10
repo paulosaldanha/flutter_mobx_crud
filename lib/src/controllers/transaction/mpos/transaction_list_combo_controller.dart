@@ -1,5 +1,6 @@
 import 'package:ecommerceBankPay/src/models/tax.dart';
 import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
 part 'transaction_list_combo_controller.g.dart';
@@ -22,7 +23,19 @@ abstract class _TransactionListComboController with Store {
   @observable
   int installmentsComboList;
   @observable
-  bool loading = false;
+  bool loadingCredit = false;
+  @observable
+  bool loadingDebit = false;
+
+  @computed
+  bool get isLoading {
+    if(loadingCredit && loadingCredit){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
 
   @action
   selectedState(Tax value) {
@@ -32,11 +45,8 @@ abstract class _TransactionListComboController with Store {
   }
 
   @action
-  bool setStateLoading(value) => loading = value;
-
-  @action
   getTaxCredit(currentValues) {
-    loading = true;
+    loadingCredit = true;
     amountValuesCreditCardList = ObservableList();
     taxMethodPaymentService.convertCurrentValueAndAmountCredit(currentValues)
         .then((v) {
@@ -47,7 +57,7 @@ abstract class _TransactionListComboController with Store {
             'R\$ ${_changeValueParcel(listTax[i], i + 1)}',
             i + 1));
       }
-      loading = false;
+      loadingCredit = false;
     });
   }
 
@@ -62,6 +72,7 @@ abstract class _TransactionListComboController with Store {
 
   @action
   getTaxDebit(currentValues) {
+    loadingDebit = true;
     amountValuesDebitCardList = ObservableList();
     taxMethodPaymentService.convertCurrentValueAndAmountDebit(currentValues)
         .then((v) {
@@ -71,5 +82,6 @@ abstract class _TransactionListComboController with Store {
             'R\$ ${_changeValueParcel(listTax[0], 0 + 1)}',
             0 + 1));
     });
+    loadingDebit = false;
   }
 }

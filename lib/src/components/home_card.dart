@@ -25,6 +25,10 @@ class _HomeCardState extends State<HomeCard> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     disposer = reaction((_) => homeController.request.status, (_) async {
+      if (homeController.request?.status == FutureStatus.fulfilled) {
+        homeController.valueWallet = homeController.request.value.valueWallet;
+        homeController.transactionList = homeController.request.value.transactionList;
+      }
       if (homeController.request?.status == FutureStatus.rejected) {
         showError(homeController.request.error, context);
       }
@@ -90,8 +94,7 @@ class _HomeCardState extends State<HomeCard> {
                                                     child:
                                                         CircularProgressIndicator(),
                                                   )
-                                                : companyAmount(homeController
-                                                    .request.value.valueWallet)
+                                                : companyAmount(homeController.valueWallet)
                                           ],
                                         ),
                                         Padding(
@@ -111,7 +114,7 @@ class _HomeCardState extends State<HomeCard> {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            homeController.isLoading
+                                            homeController.isLoading && homeController.valueWallet != "0,00"
                                                 ? Center(
                                                     child:
                                                         CircularProgressIndicator(),
@@ -125,8 +128,6 @@ class _HomeCardState extends State<HomeCard> {
                                                             Axis.vertical,
                                                         itemCount:
                                                             homeController
-                                                                .request
-                                                                .value
                                                                 .transactionList
                                                                 .length,
                                                         itemBuilder:
@@ -134,8 +135,6 @@ class _HomeCardState extends State<HomeCard> {
                                                                 int index) {
                                                           return transactionChange(
                                                               homeController
-                                                                      .request
-                                                                      .value
                                                                       .transactionList[
                                                                   index]);
                                                         },
