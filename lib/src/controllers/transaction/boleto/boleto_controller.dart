@@ -126,7 +126,7 @@ abstract class _BoletoController with Store {
       boleto.dateExpiration.isAfter(DateTime.now());
 
   void dateExpirationError() {
-    if (validateDateExpiration) {
+    if (!validateDateExpiration) {
       setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");

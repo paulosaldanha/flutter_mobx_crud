@@ -19,11 +19,9 @@ class BluetoothDeviceService {
     } on PlatformException {
       print("Error");
     }
-    transactionMposController.setvisibilityModalblueth(true);
     for (BluetoothDevice paxDevice in devices) {
       if (paxDevice.name.contains('PAX')) {
         transactionMposController.setDeviceName(paxDevice.name);
-        transactionMposController.setvisibilityModalblueth(false);
       }
     }
   }

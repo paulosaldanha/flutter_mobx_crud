@@ -22,8 +22,7 @@ class HomeCardGrid extends StatelessWidget {
         ),
         color: Colors.white,
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => router));
+          Navigator.of(context).pushNamed(router);
         },
         child: Column(
           children: [

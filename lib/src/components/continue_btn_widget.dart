@@ -23,7 +23,7 @@ class ContinueBtnWidget extends StatelessWidget {
             textColor: Color.fromRGBO(0, 74, 173, 1),
             padding: EdgeInsets.all(10.0),
             onPressed:
-                controller.currentValues != "0,00" && controller.deviceIsempty()
+                controller.currentValues != "0,00" && !controller.validDevice
                     ? () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>

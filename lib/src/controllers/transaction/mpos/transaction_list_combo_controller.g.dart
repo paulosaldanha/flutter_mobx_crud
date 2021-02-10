@@ -14,7 +14,7 @@ mixin _$TransactionListComboController
       Atom(name: '_TransactionListComboController.amountValuesCreditCardList');
 
   @override
-  List<Tax> get amountValuesCreditCardList {
+  ObservableList<Tax> get amountValuesCreditCardList {
     _$amountValuesCreditCardListAtom.context
         .enforceReadPolicy(_$amountValuesCreditCardListAtom);
     _$amountValuesCreditCardListAtom.reportObserved();
@@ -22,7 +22,7 @@ mixin _$TransactionListComboController
   }
 
   @override
-  set amountValuesCreditCardList(List<Tax> value) {
+  set amountValuesCreditCardList(ObservableList<Tax> value) {
     _$amountValuesCreditCardListAtom.context.conditionallyRunInAction(() {
       super.amountValuesCreditCardList = value;
       _$amountValuesCreditCardListAtom.reportChanged();
@@ -34,7 +34,7 @@ mixin _$TransactionListComboController
       Atom(name: '_TransactionListComboController.amountValuesDebitCardList');
 
   @override
-  List<Tax> get amountValuesDebitCardList {
+  ObservableList<Tax> get amountValuesDebitCardList {
     _$amountValuesDebitCardListAtom.context
         .enforceReadPolicy(_$amountValuesDebitCardListAtom);
     _$amountValuesDebitCardListAtom.reportObserved();
@@ -42,7 +42,7 @@ mixin _$TransactionListComboController
   }
 
   @override
-  set amountValuesDebitCardList(List<Tax> value) {
+  set amountValuesDebitCardList(ObservableList<Tax> value) {
     _$amountValuesDebitCardListAtom.context.conditionallyRunInAction(() {
       super.amountValuesDebitCardList = value;
       _$amountValuesDebitCardListAtom.reportChanged();

@@ -1,5 +1,6 @@
 import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_modal_controller.dart';
 import 'package:ecommerceBankPay/src/models/transaction_Mpos.dart';
+import 'package:ecommerceBankPay/src/util/bluetooth_device_service.dart';
 import 'package:ecommerceBankPay/src/util/device_service.dart';
 import 'package:ecommerceBankPay/src/util/tax_method_payment_service.dart';
 import 'package:mobx/mobx.dart';
@@ -12,8 +13,11 @@ class TransactionMposController = _TransactionMposController
 
 abstract class _TransactionMposController with Store {
   TransactionMpos transactionMpos = TransactionMpos();
+  BluetoothDeviceService bluetoothDeviceService;
 
-  _TransactionMposController();
+  _TransactionMposController(){
+     bluetoothDeviceService = BluetoothDeviceService(transactionMpos);
+  }
 
   @observable
   String currentValues = "0,00";
@@ -21,6 +25,7 @@ abstract class _TransactionMposController with Store {
   List currentValuesList = List();
   @observable
   bool visibilityModalBluetooth = false;
+
 
   @action
   setCurrentValues(String value) {
@@ -50,15 +55,12 @@ abstract class _TransactionMposController with Store {
   @action
   setAmount(int value) => transactionMpos.amount = value;
 
-  @action
-  setvisibilityModalblueth(bool value) => visibilityModalBluetooth = value;
-
-  @action
-  bool deviceIsempty() {
+  @computed
+  bool get validDevice {
     if (transactionMpos.deviceName != null) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
@@ -69,6 +71,15 @@ abstract class _TransactionMposController with Store {
     }
     if (value == 'debito') {
       transactionMpos.setPaymentMethod(PaymentMethod.DebitCard);
+    }
+  }
+
+  @action
+  String getPaymentMethod(){
+    if(PaymentMethod.CreditCard == transactionMpos.paymentMethod){
+      return 'Credito';
+    }else{
+      return 'Debito';
     }
   }
 
@@ -84,6 +95,5 @@ abstract class _TransactionMposController with Store {
         currentValues: double.parse(currentValues.replaceAll(',', '.')),
         status: transactionModalController,
         context: context);
-
   }
 }

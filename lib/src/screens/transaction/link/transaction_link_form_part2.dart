@@ -210,7 +210,7 @@ _dateButton(context, String label, controller) {
         if (value != null) {
           controller.link.setDateExpiration(value);
         }
-        controller.validateDateExpirationError();
+        controller.dateExpirationError();
       },
       icon: Icon(Icons.calendar_today, color: Colors.white),
       label: Observer(builder: (_) {

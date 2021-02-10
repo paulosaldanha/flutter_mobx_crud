@@ -210,9 +210,7 @@ empresarial(context) {
                                     duration: Duration(seconds: 4)));
 
                                 Future.delayed(const Duration(seconds: 2), () {
-                                  Navigator.pop(context);
-                                  Navigator.of(context)
-                                      .pushNamed(LoginPageRoute);
+                                  Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                                 });
                               }
                             });

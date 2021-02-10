@@ -9,6 +9,12 @@ part of 'transaction_mpos_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TransactionMposController on _TransactionMposController, Store {
+  Computed<bool> _$validDeviceComputed;
+
+  @override
+  bool get validDevice =>
+      (_$validDeviceComputed ??= Computed<bool>(() => super.validDevice)).value;
+
   final _$currentValuesAtom =
       Atom(name: '_TransactionMposController.currentValues');
 
@@ -113,33 +119,22 @@ mixin _$TransactionMposController on _TransactionMposController, Store {
   }
 
   @override
-  dynamic setvisibilityModalblueth(bool value) {
-    final _$actionInfo =
-        _$_TransactionMposControllerActionController.startAction();
-    try {
-      return super.setvisibilityModalblueth(value);
-    } finally {
-      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  bool deviceIsempty() {
-    final _$actionInfo =
-        _$_TransactionMposControllerActionController.startAction();
-    try {
-      return super.deviceIsempty();
-    } finally {
-      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setPaymentMethod(String value) {
     final _$actionInfo =
         _$_TransactionMposControllerActionController.startAction();
     try {
       return super.setPaymentMethod(value);
+    } finally {
+      _$_TransactionMposControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String getPaymentMethod() {
+    final _$actionInfo =
+        _$_TransactionMposControllerActionController.startAction();
+    try {
+      return super.getPaymentMethod();
     } finally {
       _$_TransactionMposControllerActionController.endAction(_$actionInfo);
     }

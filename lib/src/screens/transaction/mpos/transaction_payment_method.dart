@@ -1,4 +1,3 @@
-import 'package:ecommerceBankPay/src/components/alert_listCombo.dart';
 import 'package:ecommerceBankPay/src/components/slider_taxa.dart';
 import 'package:ecommerceBankPay/src/components/stateless_modal_widget.dart';
 import 'package:ecommerceBankPay/src/controllers/transaction/mpos/transaction_list_combo_controller.dart';
@@ -11,13 +10,8 @@ class TransactionPaymentMethod extends StatelessWidget {
   final transactionMposController;
   TransactionModalController transactionModal =
       new TransactionModalController();
-  TransactionListComboController listComboController =
-      new TransactionListComboController();
 
-  TransactionPaymentMethod(this.transactionMposController) {
-    listComboController.getTaxCredit(transactionMposController.currentValues);
-    listComboController.getTaxDebit(transactionMposController.currentValues);
-  }
+  TransactionPaymentMethod(this.transactionMposController);
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +23,7 @@ class TransactionPaymentMethod extends StatelessWidget {
       body: SingleChildScrollView(
         child: Observer(
           builder: (_) {
-            return listComboController.amountValuesCreditCardList == null
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Container(
+            return  Container(
                     padding: EdgeInsets.all(10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -75,22 +65,8 @@ class TransactionPaymentMethod extends StatelessWidget {
                                   transactionMposController
                                       .setPaymentMethod('credito');
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          SliderTaxa(transactionMposController)));
-                                  // var retorno = await showAlertConfirmListCombo(
-                                  //     context,
-                                  //     "Selecione uma parcela",
-                                  //     listComboController,
-                                  //     'credito');
-                                  // if (retorno == 1) {
-                                  //   transactionMposController.setInstallments(
-                                  //       listComboController
-                                  //           .installmentsComboList);
-                                  //   transactionMposController.setAmount(
-                                  //       listComboController.amountComboList);
-                                  //   transactionMposController.initPlatformState(
-                                  //       transactionModal, context);
-                                  // }
+                                      builder: (context) => SliderTaxa(
+                                          transactionMposController)));
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(30.0),
@@ -116,20 +92,9 @@ class TransactionPaymentMethod extends StatelessWidget {
                                 onTap: () async {
                                   transactionMposController
                                       .setPaymentMethod('debito');
-                                  var retorno = await showAlertConfirmListCombo(
-                                      context,
-                                      "Selecione uma parcela",
-                                      listComboController,
-                                      'debito');
-                                  if (retorno == 1) {
-                                    transactionMposController.setInstallments(
-                                        listComboController
-                                            .installmentsComboList);
-                                    transactionMposController.setAmount(
-                                        listComboController.amountComboList);
-                                    transactionMposController.initPlatformState(
-                                        transactionModal, context);
-                                  }
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => SliderTaxa(
+                                          transactionMposController)));
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(30.0),

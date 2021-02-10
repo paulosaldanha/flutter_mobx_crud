@@ -54,7 +54,7 @@ abstract class _LinkController with Store {
   bool get validDateExpiration => link.dateExpiration.isAfter(DateTime.now());
 
   void dateExpirationError() {
-    if (!link.dateExpiration.isAfter(DateTime.now())) {
+    if (!validDateExpiration) {
       setValidDate("Vencimento precisa de pelo menos 1 dia");
     } else {
       setValidDate("");

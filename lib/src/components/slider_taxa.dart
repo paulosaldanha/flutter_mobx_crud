@@ -19,6 +19,7 @@ class _SliderTaxaState extends State<SliderTaxa> {
 
   _SliderTaxaState(this.controller) {
     listComboController.getTaxCredit(controller.currentValues);
+    listComboController.getTaxDebit(controller.currentValues);
   }
 
   TransactionListComboController listComboController =
@@ -48,14 +49,15 @@ class _SliderTaxaState extends State<SliderTaxa> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "CRÉDITO",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(0, 74, 173, 1),
-                      ),
-                    ),
+                    Observer(
+                        builder: (_) => Text(
+                              controller.getPaymentMethod(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(0, 74, 173, 1),
+                              ),
+                            )),
                   ],
                 ),
               ),
@@ -78,48 +80,53 @@ class _SliderTaxaState extends State<SliderTaxa> {
                   ],
                 ),
               ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Quantidade de parcelas",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromRGBO(0, 74, 173, 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackHeight: 10.0,
-                        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                        valueIndicatorTextStyle: TextStyle(
+              Observer(
+                  builder: (_) => controller.getPaymentMethod() == "Credito"
+                      ? Container(
                           color: Colors.white,
-                        ),
-                      ),
-                      child: Slider(
-                        value: _value,
-                        min: 1,
-                        max: 12,
-                        divisions: 12,
-                        label: '$_value',
-                        onChanged: (value) {
-                          setState(
-                            () {
-                              _value = double.parse(value.round().toString());
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Quantidade de parcelas",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromRGBO(0, 74, 173, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  trackHeight: 10.0,
+                                  valueIndicatorShape:
+                                      PaddleSliderValueIndicatorShape(),
+                                  valueIndicatorTextStyle: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                child: Slider(
+                                  value: _value,
+                                  min: 1,
+                                  max: 12,
+                                  divisions: 12,
+                                  label: '$_value',
+                                  onChanged: (value) {
+                                    setState(
+                                      () {
+                                        _value = double.parse(
+                                            value.round().toString());
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Text("")),
               Container(
                 color: Colors.white,
                 padding: EdgeInsets.all(10),
@@ -144,7 +151,9 @@ class _SliderTaxaState extends State<SliderTaxa> {
                         Observer(builder: (_) {
                           return !listComboController.loading
                               ? Text(
-                                  '${listComboController.amountValuesCreditCardList[_value.toInt() - 1].descriptionValue}',
+                                  controller.getPaymentMethod() == "Credito"
+                                      ? '${listComboController.amountValuesCreditCardList[_value.toInt() - 1].descriptionValue}'
+                                      : '${listComboController.amountValuesDebitCardList[0].descriptionValue}',
                                   style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
@@ -176,13 +185,20 @@ class _SliderTaxaState extends State<SliderTaxa> {
                       textColor: Color.fromRGBO(0, 74, 173, 1),
                       padding: EdgeInsets.all(10.0),
                       onPressed: () {
-                        controller.setInstallments(_value.toInt());
-                        controller.setAmount((listComboController
-                                    .amountValuesCreditCardList[
-                                        _value.toInt() - 1]
-                                    .amount *
-                                100)
-                            .toInt());
+                        if (controller.getPaymentMethod() == "Credito") {
+                          controller.setInstallments(_value.toInt());
+                          controller.setAmount((listComboController
+                                      .amountValuesCreditCardList[_value.toInt() - 1]
+                                      .amount *
+                                  100)
+                              .toInt());
+                        } else {
+                          controller.setInstallments(1);
+                          controller
+                              .setAmount((listComboController
+                              .amountValuesDebitCardList[0].amount * 100)
+                              .toInt());
+                        }
                         controller.initPlatformState(transactionModal, context);
                       },
                       child: Text(

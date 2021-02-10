@@ -31,13 +31,13 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(top: 5, bottom: 20, left: 20, right: 20),
             child:
             GridView.count(crossAxisCount: 2, shrinkWrap: true, children: [
-              HomeCardGrid(TransactionMposForm(), Ecommerce_bank_pay.mpos,
+              HomeCardGrid('transactionMpos', Ecommerce_bank_pay.mpos,
                   "Transação \n Maquininha"),
-              HomeCardGrid(TransactionBoletoForm(), Ecommerce_bank_pay.boleto,
+              HomeCardGrid('transactionBoleto', Ecommerce_bank_pay.boleto,
                   "Gerar\n Boleto"),
-              HomeCardGrid(TransactionLinkForm(),
+              HomeCardGrid('transactionLink',
                   Ecommerce_bank_pay.link_pagamento, "Link de \n Pagamento"),
-              HomeCardGrid(TransactionOnlineForm(),
+              HomeCardGrid('transactionOnline',
                   Ecommerce_bank_pay.credito_online, "Transação \n Online"),
             ]),
           ),
