@@ -9,12 +9,24 @@ part of 'account_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AccountController on _AccountController, Store {
+  Computed<bool> _$isLoadingRequestComputed;
+
+  @override
+  bool get isLoadingRequest => (_$isLoadingRequestComputed ??=
+          Computed<bool>(() => super.isLoadingRequest))
+      .value;
   Computed<bool> _$validPasswordComputed;
 
   @override
   bool get validPassword =>
       (_$validPasswordComputed ??= Computed<bool>(() => super.validPassword))
           .value;
+  Computed<bool> _$validoldPasswordComputed;
+
+  @override
+  bool get validoldPassword => (_$validoldPasswordComputed ??=
+          Computed<bool>(() => super.validoldPassword))
+      .value;
   Computed<bool> _$validConfirmPasswordComputed;
 
   @override
@@ -26,6 +38,23 @@ mixin _$AccountController on _AccountController, Store {
   @override
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
+
+  final _$oldPasswordAtom = Atom(name: '_AccountController.oldPassword');
+
+  @override
+  String get oldPassword {
+    _$oldPasswordAtom.context.enforceReadPolicy(_$oldPasswordAtom);
+    _$oldPasswordAtom.reportObserved();
+    return super.oldPassword;
+  }
+
+  @override
+  set oldPassword(String value) {
+    _$oldPasswordAtom.context.conditionallyRunInAction(() {
+      super.oldPassword = value;
+      _$oldPasswordAtom.reportChanged();
+    }, _$oldPasswordAtom, name: '${_$oldPasswordAtom.name}_set');
+  }
 
   final _$passwordAtom = Atom(name: '_AccountController.password');
 
@@ -117,8 +146,63 @@ mixin _$AccountController on _AccountController, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
+  final _$isChangePasswordAtom =
+      Atom(name: '_AccountController.isChangePassword');
+
+  @override
+  bool get isChangePassword {
+    _$isChangePasswordAtom.context.enforceReadPolicy(_$isChangePasswordAtom);
+    _$isChangePasswordAtom.reportObserved();
+    return super.isChangePassword;
+  }
+
+  @override
+  set isChangePassword(bool value) {
+    _$isChangePasswordAtom.context.conditionallyRunInAction(() {
+      super.isChangePassword = value;
+      _$isChangePasswordAtom.reportChanged();
+    }, _$isChangePasswordAtom, name: '${_$isChangePasswordAtom.name}_set');
+  }
+
+  final _$requestAtom = Atom(name: '_AccountController.request');
+
+  @override
+  ObservableFuture<PasswordDto> get request {
+    _$requestAtom.context.enforceReadPolicy(_$requestAtom);
+    _$requestAtom.reportObserved();
+    return super.request;
+  }
+
+  @override
+  set request(ObservableFuture<PasswordDto> value) {
+    _$requestAtom.context.conditionallyRunInAction(() {
+      super.request = value;
+      _$requestAtom.reportChanged();
+    }, _$requestAtom, name: '${_$requestAtom.name}_set');
+  }
+
   final _$_AccountControllerActionController =
       ActionController(name: '_AccountController');
+
+  @override
+  dynamic setIsChangePassword() {
+    final _$actionInfo = _$_AccountControllerActionController.startAction();
+    try {
+      return super.setIsChangePassword();
+    } finally {
+      _$_AccountControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setOldPassword(String value) {
+    final _$actionInfo = _$_AccountControllerActionController.startAction();
+    try {
+      return super.setOldPassword(value);
+    } finally {
+      _$_AccountControllerActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setPassword(String value) {

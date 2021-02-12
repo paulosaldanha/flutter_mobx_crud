@@ -27,7 +27,8 @@ class _HomeCardState extends State<HomeCard> {
     disposer = reaction((_) => homeController.request.status, (_) async {
       if (homeController.request?.status == FutureStatus.fulfilled) {
         homeController.valueWallet = homeController.request.value.valueWallet;
-        homeController.transactionList = homeController.request.value.transactionList;
+        homeController.transactionList =
+            homeController.request.value.transactionList;
       }
       if (homeController.request?.status == FutureStatus.rejected) {
         showError(homeController.request.error, context);
@@ -45,127 +46,139 @@ class _HomeCardState extends State<HomeCard> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        return InkWell(
-          onTap: () {
-            homeController.setSizeCard();
-          },
-          child: Container(
-            color: Color.fromRGBO(0, 74, 173, 1),
-            padding: EdgeInsets.only(left: 20, top: 10, bottom: 0, right: 20),
-            height: homeController.sizeCard,
-            width: double.maxFinite,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.zero,
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 74, 173, 1), width: 2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: !homeController.isLoading
-                    ? Container(
-                        padding: EdgeInsets.only(bottom: 0),
-                        child: Stack(children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                    padding:
-                                        const EdgeInsets.only(left: 10, top: 5),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Row(
+        return RefreshIndicator(
+            child: InkWell(
+              onTap: () {
+                homeController.setSizeCard();
+              },
+              child: Container(
+                color: Color.fromRGBO(0, 74, 173, 1),
+                padding:
+                    EdgeInsets.only(left: 20, top: 10, bottom: 0, right: 20),
+                height: homeController.sizeCard,
+                width: double.maxFinite,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.zero,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: Color.fromRGBO(0, 74, 173, 1), width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: !homeController.isLoading
+                        ? Container(
+                            padding: EdgeInsets.only(bottom: 0),
+                            child: Stack(children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, top: 5),
+                                        child: Column(
                                           children: <Widget>[
-                                            companyIcon(),
-                                            SizedBox(
-                                              height: 15,
+                                            Row(
+                                              children: <Widget>[
+                                                companyIcon(),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                companyNameSymbol(authController
+                                                    .auth.nameCompany),
+                                                // cryptoChange(),
+                                              ],
                                             ),
-                                            companyNameSymbol(authController
-                                                .auth.nameCompany),
-                                            // cryptoChange(),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: <Widget>[
-                                            homeController.isLoading
-                                                ? Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
+                                            Row(
+                                              children: <Widget>[
+                                                homeController.isLoading
+                                                    ? Center(
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      )
+                                                    : companyAmount(
+                                                        homeController
+                                                            .valueWallet)
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 20, top: 5, bottom: 5),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Transações :",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black38),
                                                   )
-                                                : companyAmount(homeController.valueWallet)
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
+                                              children: <Widget>[
+                                                homeController.isLoading &&
+                                                        homeController
+                                                                .valueWallet !=
+                                                            "0,00"
+                                                    ? Center(
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      )
+                                                    : Expanded(
+                                                        child: SizedBox(
+                                                          height: 200.0,
+                                                          child: new ListView
+                                                              .builder(
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                homeController
+                                                                    .transactionList
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        ctxt,
+                                                                    int index) {
+                                                              return transactionChange(
+                                                                  homeController
+                                                                          .transactionList[
+                                                                      index]);
+                                                            },
+                                                          ),
+                                                        ),
+                                                      )
+                                              ],
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                            ),
                                           ],
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20, top: 5, bottom: 5),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text(
-                                                "Transações :",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black38),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          children: <Widget>[
-                                            homeController.isLoading && homeController.valueWallet != "0,00"
-                                                ? Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
-                                                  )
-                                                : Expanded(
-                                                    child: SizedBox(
-                                                      height: 200.0,
-                                                      child:
-                                                          new ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            homeController
-                                                                .transactionList
-                                                                .length,
-                                                        itemBuilder:
-                                                            (BuildContext ctxt,
-                                                                int index) {
-                                                          return transactionChange(
-                                                              homeController
-                                                                      .transactionList[
-                                                                  index]);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  )
-                                          ],
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                        ),
-                                      ],
-                                    ))
-                              ],
-                            ),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ]),
                           )
-                        ]),
-                      )
-                    : Container(
-                        height: 163,
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                        : Container(
+                            height: 163,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                  ),
+                ),
               ),
             ),
-          ),
-        );
+            onRefresh: homeController.getWallet);
       },
     );
   }

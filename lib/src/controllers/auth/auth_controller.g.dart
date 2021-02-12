@@ -77,10 +77,40 @@ mixin _$AuthController on _AuthController, Store {
     }, _$authAtom, name: '${_$authAtom.name}_set');
   }
 
+  final _$fileAtom = Atom(name: '_AuthController.file');
+
+  @override
+  File get file {
+    _$fileAtom.context.enforceReadPolicy(_$fileAtom);
+    _$fileAtom.reportObserved();
+    return super.file;
+  }
+
+  @override
+  set file(File value) {
+    _$fileAtom.context.conditionallyRunInAction(() {
+      super.file = value;
+      _$fileAtom.reportChanged();
+    }, _$fileAtom, name: '${_$fileAtom.name}_set');
+  }
+
   final _$checkIfIsLoggedAsyncAction = AsyncAction('checkIfIsLogged');
 
   @override
   Future<bool> checkIfIsLogged() {
     return _$checkIfIsLoggedAsyncAction.run(() => super.checkIfIsLogged());
+  }
+
+  final _$_AuthControllerActionController =
+      ActionController(name: '_AuthController');
+
+  @override
+  void setfile(File value) {
+    final _$actionInfo = _$_AuthControllerActionController.startAction();
+    try {
+      return super.setfile(value);
+    } finally {
+      _$_AuthControllerActionController.endAction(_$actionInfo);
+    }
   }
 }

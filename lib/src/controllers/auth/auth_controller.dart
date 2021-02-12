@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecommerceBankPay/src/api/api.dart';
 import 'package:ecommerceBankPay/src/models/auth_model.dart';
 import 'package:ecommerceBankPay/src/services/auth_service.dart';
@@ -10,7 +12,6 @@ part 'auth_controller.g.dart';
 class AuthController = _AuthController with _$AuthController;
 
 abstract class _AuthController with Store {
-
   @observable
   bool loading = false;
 
@@ -22,6 +23,12 @@ abstract class _AuthController with Store {
 
   @observable
   Auth auth = Auth();
+
+  @observable
+  File file;
+
+  @action
+  void setfile(File value) => file = value;
 
   AuthService service = AuthService(Api());
 
@@ -37,7 +44,7 @@ abstract class _AuthController with Store {
     auth.isLogged = await AuthService.logout();
   }
 
-   void getAuth() async {
+  void getAuth() async {
     auth = await AuthMap.getAuthMap();
   }
 

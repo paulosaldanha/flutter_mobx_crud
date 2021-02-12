@@ -1,5 +1,6 @@
-import 'package:mobx/mobx.dart';
 import 'dart:convert';
+
+import 'package:mobx/mobx.dart';
 
 //define a parte do codigo que sera gerado
 part 'auth_model.g.dart';
@@ -56,7 +57,7 @@ abstract class _AuthBase with Store {
     userId = mapeamentoDoJson['UsuarioId'];
     companyId = mapeamentoDoJson['EstabelecimentoId'];
     nameCompany = mapeamentoDoJson['NomeEstabelecimento'];
-    companyLogo = mapeamentoDoJson['UrlLogo'];
+    companyLogo = mapeamentoDoJson['UrlLogo'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

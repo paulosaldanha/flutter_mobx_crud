@@ -12,6 +12,7 @@ class HomeCardGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -26,8 +27,7 @@ class HomeCardGrid extends StatelessWidget {
         },
         child: Column(
           children: [
-            HomeIcon(
-               icon, title),
+            HomeIcon(icon, title),
           ],
         ),
       ),

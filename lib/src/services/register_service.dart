@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+import 'package:ecommerceBankPay/src/dto/password_dto.dart';
 import 'package:ecommerceBankPay/src/models/register.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterService {
-
   final Dio dio;
   RegisterService(this.dio);
 
   dynamic createAccount(Register register) async {
-
     Map<String, Object> payload = Map();
     payload["razaoSocial"] = register.razaoSocial;
     payload["cnpj"] = register.documento;
@@ -19,8 +19,7 @@ class RegisterService {
     payload["senha"] = register.senha;
 
     try {
-      var response = await dio.post(
-          '/Estabelecimento/onboarding',
+      var response = await dio.post('/Estabelecimento/onboarding',
           data: json.encode(payload));
       return response.data;
     } catch (e) {
@@ -52,15 +51,23 @@ class RegisterService {
   }
 
   dynamic recoverPassword(email) async {
-
     Map<String, Object> payload = Map();
     payload["email"] = email;
 
     try {
-      var response = await dio.post(
-          '/Usuario/recoverpassword',
+      var response = await dio.post('/Usuario/recoverpassword',
           data: json.encode(payload));
       return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<PasswordDto> changePassword(PasswordDto passwordDto) async {
+    try {
+      var response =
+          await dio.put('/usuario/trocarsenha', data: passwordDto.toJson());
+      return PasswordDto.fromMap(response.data);
     } catch (e) {
       rethrow;
     }
