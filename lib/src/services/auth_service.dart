@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:ecommerceBankPay/src/dto/image_company_dto.dart';
 import 'package:ecommerceBankPay/src/models/auth_model.dart';
 import 'package:ecommerceBankPay/src/util/authMap.dart';
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
@@ -22,6 +24,26 @@ class AuthService {
         auth.seterrorMsg(res.data["message"]);
         return auth;
       }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ImageCompanyDto> changeImageCompany(ImageCompanyDto imageDto) async {
+    try {
+      dio.options.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+      FormData formData = new FormData.fromMap({
+        "file": await MultipartFile.fromFile(imageDto.file.path,
+            filename: "upload.jpg"),
+      });
+      final response = await dio.post('/file/upload', data: formData);
+      ImageCompanyDto imageCompanyDto = new ImageCompanyDto();
+      ImageCompanyDto.fromMapImage(response.data);
+      imageDto.auth.companyLogo = imageCompanyDto.urlImage;
+
+      return imageCompanyDto;
     } catch (e) {
       rethrow;
     }

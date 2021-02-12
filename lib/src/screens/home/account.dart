@@ -32,6 +32,14 @@ class _AccountState extends State<Account> {
         showError(accountController.request.error, context);
       }
     });
+    disposer = reaction((_) => authController.request.status, (_) async {
+      if (authController.request?.status == FutureStatus.fulfilled) {
+        authController.auth.companyLogo = authController.request.value.urlImage;
+      }
+      if (authController.request?.status == FutureStatus.rejected) {
+        showError(authController.request.error, context);
+      }
+    });
   }
 
   @override
@@ -137,15 +145,23 @@ class _AccountState extends State<Account> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          child: Text(
-                            'Salvar'.toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          onPressed: () {}),
+                          child: !authController.isLoadingRequestImage
+                              ? Text(
+                                  'Salvar'.toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                          onPressed: !authController.isLoadingRequestImage
+                              ? () {
+                                  authController.changeImageCompany();
+                                }
+                              : null),
                     )
                   : Text("");
             }),

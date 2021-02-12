@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ecommerceBankPay/src/api/api.dart';
+import 'package:ecommerceBankPay/src/dto/image_company_dto.dart';
 import 'package:ecommerceBankPay/src/models/auth_model.dart';
 import 'package:ecommerceBankPay/src/services/auth_service.dart';
 import 'package:ecommerceBankPay/src/util/authMap.dart';
@@ -12,6 +13,8 @@ part 'auth_controller.g.dart';
 class AuthController = _AuthController with _$AuthController;
 
 abstract class _AuthController with Store {
+  AuthService authService = AuthService(Api());
+
   @observable
   bool loading = false;
 
@@ -26,6 +29,12 @@ abstract class _AuthController with Store {
 
   @observable
   File file;
+
+  @computed
+  bool get isLoadingRequestImage => request.status == FutureStatus.pending;
+
+  @observable
+  ObservableFuture<ImageCompanyDto> request = ObservableFuture.value(null);
 
   @action
   void setfile(File value) => file = value;
@@ -51,5 +60,12 @@ abstract class _AuthController with Store {
   void getVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     version = packageInfo.version;
+  }
+
+  void changeImageCompany() {
+    ImageCompanyDto imageCompanyDto = ImageCompanyDto();
+    imageCompanyDto.file = file;
+    imageCompanyDto.auth = auth;
+    request = authService.changeImageCompany(imageCompanyDto).asObservable();
   }
 }

@@ -18,11 +18,42 @@ class ImageSourceDialog extends StatelessWidget {
         children: [
           FlatButton(
             onPressed: getFromcamera,
-            child: const Text("Câmera"),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.camera,
+                  size: 40,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                const Text(
+                  "Câmera",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ],
+            ),
           ),
+          Divider(),
           FlatButton(
             onPressed: getFromGallery,
-            child: const Text("Galeria"),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.image,
+                  size: 40,
+                ),
+                SizedBox(
+                  width: 7,
+                ),
+                const Text(
+                  "Galeria",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -31,13 +62,13 @@ class ImageSourceDialog extends StatelessWidget {
 
   Future<void> getFromcamera() async {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
-    imageSelected(File(pickedFile.path));
+    if (pickedFile != null) imageSelected(File(pickedFile.path));
   }
 
   Future<void> getFromGallery() async {
     final pickedFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
-    imageSelected(File(pickedFile.path));
+    if (pickedFile != null) imageSelected(File(pickedFile.path));
   }
 
   Future<void> imageSelected(File image) async {

@@ -9,6 +9,13 @@ part of 'auth_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthController on _AuthController, Store {
+  Computed<bool> _$isLoadingRequestImageComputed;
+
+  @override
+  bool get isLoadingRequestImage => (_$isLoadingRequestImageComputed ??=
+          Computed<bool>(() => super.isLoadingRequestImage))
+      .value;
+
   final _$loadingAtom = Atom(name: '_AuthController.loading');
 
   @override
@@ -92,6 +99,23 @@ mixin _$AuthController on _AuthController, Store {
       super.file = value;
       _$fileAtom.reportChanged();
     }, _$fileAtom, name: '${_$fileAtom.name}_set');
+  }
+
+  final _$requestAtom = Atom(name: '_AuthController.request');
+
+  @override
+  ObservableFuture<ImageCompanyDto> get request {
+    _$requestAtom.context.enforceReadPolicy(_$requestAtom);
+    _$requestAtom.reportObserved();
+    return super.request;
+  }
+
+  @override
+  set request(ObservableFuture<ImageCompanyDto> value) {
+    _$requestAtom.context.conditionallyRunInAction(() {
+      super.request = value;
+      _$requestAtom.reportChanged();
+    }, _$requestAtom, name: '${_$requestAtom.name}_set');
   }
 
   final _$checkIfIsLoggedAsyncAction = AsyncAction('checkIfIsLogged');
