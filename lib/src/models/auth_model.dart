@@ -57,7 +57,7 @@ abstract class _AuthBase with Store {
     userId = mapeamentoDoJson['UsuarioId'];
     companyId = mapeamentoDoJson['EstabelecimentoId'];
     nameCompany = mapeamentoDoJson['NomeEstabelecimento'];
-    companyLogo = mapeamentoDoJson['UrlLogo'] ?? "";
+    companyLogo = mapeamentoDoJson['UrlLogo'];
   }
 
   Map<String, dynamic> toJson() {

@@ -33,9 +33,7 @@ class _AccountState extends State<Account> {
       }
     });
     disposer = reaction((_) => authController.request.status, (_) async {
-      if (authController.request?.status == FutureStatus.fulfilled) {
-        authController.auth.companyLogo = authController.request.value.urlImage;
-      }
+      if (authController.request?.status == FutureStatus.fulfilled) {}
       if (authController.request?.status == FutureStatus.rejected) {
         showError(authController.request.error, context);
       }

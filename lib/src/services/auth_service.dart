@@ -29,6 +29,22 @@ class AuthService {
     }
   }
 
+  Future<String> updateUser(Auth auth) async {
+    Map<String, Object> payload = Map();
+    payload["Nome"] = auth.name;
+    payload["Email"] = auth.email;
+    payload["UrlLogo"] = auth.companyLogo;
+    try {
+      final response = await dio.put(
+        '/usuario',
+        data: jsonEncode(payload),
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<ImageCompanyDto> changeImageCompany(ImageCompanyDto imageDto) async {
     try {
       dio.options.headers = {
@@ -39,10 +55,10 @@ class AuthService {
             filename: "upload.jpg"),
       });
       final response = await dio.post('/file/upload', data: formData);
-      ImageCompanyDto imageCompanyDto = new ImageCompanyDto();
-      ImageCompanyDto.fromMapImage(response.data);
+      ImageCompanyDto imageCompanyDto =
+          ImageCompanyDto.fromMapImage(response.data);
       imageDto.auth.companyLogo = imageCompanyDto.urlImage;
-
+      await updateUser(imageDto.auth);
       return imageCompanyDto;
     } catch (e) {
       rethrow;
