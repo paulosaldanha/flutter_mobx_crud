@@ -8,8 +8,7 @@ class Api extends DioForNative {
   BaseOptions baseOptions;
   Api([this.baseOptions]) : super(baseOptions) {
     if (this.baseOptions?.baseUrl == null) {
-      this.options.baseUrl =
-          "https://ecommercebank.tk/ecommerce/api";
+      this.options.baseUrl = "https://ecommercebank.com.br/sistema/api";
     }
     interceptors.addAll([
       DefaultInterceptor(TokenStorage()),

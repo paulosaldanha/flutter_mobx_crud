@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class HomeIcon extends StatelessWidget {
   final IconData icon;
-  final String text ;
+  final String text;
 
   HomeIcon(this.icon, this.text);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(3),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,12 +25,14 @@ class HomeIcon extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20,
-              color: Colors.black45),
+          Wrap(
+            children: [
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.black45),
+              )
+            ],
           ),
         ],
       ),

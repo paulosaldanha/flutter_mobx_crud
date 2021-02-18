@@ -31,12 +31,10 @@ class AuthService {
 
   Future<String> updateUser(Auth auth) async {
     Map<String, Object> payload = Map();
-    payload["Nome"] = auth.name;
-    payload["Email"] = auth.email;
-    payload["UrlLogo"] = auth.companyLogo;
+    payload["url"] = auth.companyLogo;
     try {
       final response = await dio.put(
-        '/usuario',
+        '/estabelecimento/logo',
         data: jsonEncode(payload),
       );
       return response.data;

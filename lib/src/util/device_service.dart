@@ -7,8 +7,8 @@ import 'package:ecommerceBankPay/src/models/auth_model.dart';
 import 'package:ecommerceBankPay/src/routes/routing_constants.dart';
 import 'package:ecommerceBankPay/src/services/transaction_service.dart';
 import 'package:ecommerceBankPay/src/util/authMap.dart';
-import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:pagarme_mpos_flutter/pagarme_mpos_flutter.dart';
 
 class DeviceService {
   //TESTE
@@ -140,7 +140,7 @@ class DeviceService {
           setTransactionStatus('onReceiveFinishTransaction');
         }
       }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -165,7 +165,8 @@ class DeviceService {
         'api_key': this.apiKey,
         'card_hash': result['cardHash'],
         'metadata': json.encode(metadata),
-        'postback_url': 'http://ecommercebank.tk/ecommerce/api/webhook/pagarme',
+        'postback_url':
+            'https://ecommercebank.com.br/sistema/api/webhook/pagarme',
       });
       if (mposTransaction['status'] == 'paid') {
         onTransactionSuccess(mposTransaction);
