@@ -1,8 +1,17 @@
-import 'package:estruturabasica/src/routes/routing_constants.dart';
+import 'package:cloud_crm/src/controllers/home/home_page_controller.dart';
+import 'package:cloud_crm/src/controllers/login/auth_controller.dart';
+import 'package:cloud_crm/src/routes/routing_constants.dart';
+import 'package:cloud_crm/src/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:estruturabasica/src/routes/router.dart';
+import 'package:cloud_crm/src/routes/router.dart';
+import 'package:get_it/get_it.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  GetIt getIt = GetIt.I;
+  getIt.registerSingleton<AuthController>(AuthController());
+  getIt.registerSingleton<HomePageController>(HomePageController());
+}
 
 class MyApp extends StatelessWidget {
   final appTitle = 'Drawer Demo';
@@ -11,11 +20,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        ),
+      ),
       //gera as rotas para navegação
       onGenerateRoute: rotas(),
       //quando usa rotas ao invés de passar home, deve se passar initialRoute, aqui passa a rota nomeada para home
-      initialRoute: HomeViewRoute,
-      //home: MyHomePage(title: appTitle),
+      initialRoute: SplashRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -27,48 +42,6 @@ class MyHomePage extends StatelessWidget {
   // cria pagina principal com menu drawer
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('My Page!')),
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text('Pais'),
-              onTap: () {
-                Navigator.of(context).pop();
-                /*Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ListPage()),
-                );*/
-                Navigator.of(context).pushNamed(ListPaisViewRoute);
-
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Estado'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(ListEstadoViewRoute);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(appBar: AppBar(title: Text(title)), body: HomePage());
   }
 }
